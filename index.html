@@ -1,5 +1,46 @@
+<!doctype html>
 <html>
+<head>
+<meta charset="utf-8">
+<title>Documento sin título</title>
+<link rel="stylesheet" href="css/themes/tema_bastant_groc.min.css" />
+<link rel="stylesheet" href="css/themes/jquery.mobile.icons.min.css" />
+<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.3/jquery.mobile.structure-1.4.3.min.css" />
+<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+<script src="http://code.jquery.com/mobile/1.4.3/jquery.mobile-1.4.3.min.js"></script>
+</head>
+
 <body>
-<a href="caca.html">Hola mon</a>
+<div data-role="page" id="page1">
+  <div data-role="header">
+    <h1>Restaurant picks</h1>
+  </div>
+  <div data-role="content" data-theme="a">
+  	<img src="img/logo.png" width="240" height="110" alt=""/>  
+    <ul data-inset="true" data-role="listview" data-split-icon="loading">
+      <li><a href="#asian">Asiàtica</a></li>
+      <li><a href="#">BBQ</a></li>
+      <li><a href="#">Mexicana</a></li>
+      <li><a href="#">Menjar ràpid</a></li>
+      <li><a href="#">Super fancy</a></li>
+    </ul>
+  </div>
+</div>
+<div data-role="page" id="asian" data-add-back-btn="true">
+  <div data-role="header">
+    <h1>Restaurant picks</h1>
+  </div>
+  <div data-role="content" data-theme="a">
+  	<div class="addr"><img src="img/homeThumb_one_ton_ono.png" class="thumbnail" width="161">
+    	<h2>Sushi Heaven</h2>
+    	<p>adresa xuga q ti cagues<span class="details">Hours: hjois</span><span class="details">Preu 1200</span><span class="details">Web mddjd.com</span></p>
+    </div>
+    <div data-role="controlgroup" data-type="horizontal"><a href="#" data-role="button">Al mapa</a><a href="#" data-role="button">Truca</a></div>
+    <p class="clearboth">Forget sajbkasxjbvjhsbkas u little jackass.</p>
+  </div>
+  <div data-role="footer">
+    <h4>Meridien 24/7</h4>
+  </div>
+</div>
 </body>
 </html>
