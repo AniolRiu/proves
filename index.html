@@ -1,46 +1,100 @@
-<!doctype html>
-<html>
-<head>
-<meta charset="utf-8">
-<title>Documento sin título</title>
-<link rel="stylesheet" href="css/themes/tema_bastant_groc.min.css" />
-<link rel="stylesheet" href="css/themes/jquery.mobile.icons.min.css" />
-<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.3/jquery.mobile.structure-1.4.3.min.css" />
-<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
-<script src="http://code.jquery.com/mobile/1.4.3/jquery.mobile-1.4.3.min.js"></script>
-</head>
+<!DOCTYPE html>
+<!-- saved from url=(0038)http://calebevans.me/projects/painter/ -->
+<html lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
+<meta name="description" content="A simple HTML5 painting application.">
 
-<body>
-<div data-role="page" id="page1">
-  <div data-role="header">
-    <h1>Restaurant picks</h1>
-  </div>
-  <div data-role="content" data-theme="a">
-  	<img src="img/logo.png" width="240" height="110" alt=""/>  
-    <ul data-inset="true" data-role="listview" data-split-icon="loading">
-      <li><a href="#asian">Asiàtica</a></li>
-      <li><a href="#">BBQ</a></li>
-      <li><a href="#">Mexicana</a></li>
-      <li><a href="#">Menjar ràpid</a></li>
-      <li><a href="#">Super fancy</a></li>
-    </ul>
-  </div>
+<title>Painter | Caleb Evans</title>
+
+<link href="css/canvas.css" rel="stylesheet">
+<link href="css/canvas2.css" rel="stylesheet">
+</head>
+<body class="black">
+<div id="app">
+
+	<canvas width="480" height="480" id="canvas"></canvas>
+
+	<div id="sidebar">
+
+		<h1>Herramientas</h1>
+
+		<div id="controls">
+			<button id="clear" class="red">Borrar todo</button>
+			<button id="save">Guardar</button>
+			<button id="undo">Deshacer</button>
+		</div>
+		<div id="tools">
+			<button id="brush" class="tool chosen" title="Drag to paint">Lápiz</button>
+			<button id="path" class="tool" title="Click to make straight lines, click/hold to make curves">Camino</button>
+			<button id="rect" class="tool" title="Drag to make rectangles (Shift for squares)">Recta</button>
+			<button id="ellipse" class="tool" title="Drag to make ellipses (Shift for circles)">Elipse</button>
+			<button id="erase" class="tool" title="Drag to erase">Borrar</button>
+			<!--
+			<button id='bucket' title='Click to fill'>Bucket</button>
+			-->
+		</div>
+
+		<div id="stroke-container" style="">
+			<h2>Punta</h2>
+			<div id="slider" class="ui-slider light ui-slider-horizontal ui-widget ui-widget-content ui-corner-all" aria-disabled="false">
+				<div id="handle" class="ui-slider-handle ui-state-default ui-corner-all" style="left: 49.4949494949495%;"></div>
+			</div>
+			<div id="box">
+				<div id="stroke" style="margin-top: 17.5px; width: 25px; height: 25px; background-color: rgb(51, 102, 221);"></div>
+			</div>
+		</div>
+
+		<div id="colors">
+        	<div class="color red light" style="background-color: rgb(238, 85, 85);"></div>
+            <div class="color red medium" style="background-color: rgb(204, 51, 51);"></div>
+            <div class="color red dark" style="background-color: rgb(170, 17, 17);"></div>
+            <div class="color green light" style="background-color: rgb(136, 255, 68);"></div>
+            <div class="color green medium" style="background-color: rgb(102, 221, 34);"></div>
+            <div class="color green dark" style="background-color: rgb(68, 187, 17);"></div>
+            <div class="color blue light" style="background-color: rgb(85, 136, 255);"></div>
+            <div class="color blue medium chosen" style="background-color: rgb(51, 102, 221);"></div>
+            <div class="color blue dark" style="background-color: rgb(17, 68, 187);"></div>
+            <div class="color orange light" style="background-color: rgb(255, 153, 85);"></div>
+            <div class="color orange medium" style="background-color: rgb(255, 119, 51);"></div>
+            <div class="color orange dark" style="background-color: rgb(221, 85, 17);"></div>
+            <div class="color yellow light" style="background-color: rgb(255, 255, 85);"></div>
+            <div class="color yellow medium" style="background-color: rgb(255, 238, 51);"></div>
+            <div class="color yellow dark" style="background-color: rgb(238, 221, 34);"></div>
+            <div class="color purple light" style="background-color: rgb(187, 136, 255);"></div>
+            <div class="color purple medium" style="background-color: rgb(153, 102, 255);"></div>
+            <div class="color purple dark" style="background-color: rgb(119, 85, 221);"></div>
+            <div class="color black light" style="background-color: rgb(204, 204, 204);"></div>
+            <div class="color black medium" style="background-color: rgb(102, 102, 102);"></div>
+            <div class="color black dark" style="background-color: rgb(0, 0, 0);"></div>
+    	</div>
+	</div>
 </div>
-<div data-role="page" id="asian" data-add-back-btn="true">
-  <div data-role="header">
-    <h1>Restaurant picks</h1>
-  </div>
-  <div data-role="content" data-theme="a">
-  	<div class="addr"><img src="img/homeThumb_one_ton_ono.png" class="thumbnail" width="161">
-    	<h2>Sushi Heaven</h2>
-    	<p>adresa xuga q ti cagues<span class="details">Hours: hjois</span><span class="details">Preu 1200</span><span class="details">Web mddjd.com</span></p>
-    </div>
-    <div data-role="controlgroup" data-type="horizontal"><a href="#" data-role="button">Al mapa</a><a href="#" data-role="button">Truca</a></div>
-    <p class="clearboth">Forget sajbkasxjbvjhsbkas u little jackass.</p>
-  </div>
-  <div data-role="footer">
-    <h4>Meridien 24/7</h4>
-  </div>
-</div>
-</body>
-</html>
+
+<script src="js/jquery.min.js"></script>
+<!--
+<script>
+	if (!window.jQuery) {
+		document.write("<script src='/projects/resources/scripts/jquery/jquery.min.js'><\/script>");
+	}
+</script>
+-->
+
+<script src="js/jquery-ui.min.js"></script>
+<!--
+<script>
+	if (!window.jQuery.ui) {
+		document.write("<script src='/projects/resources/scripts/jquery/jquery-ui.min.js'><\/script>");
+	}
+</script>
+-->
+<script src="js/jquery-ui-touch-punch.min.js"></script>
+<script src="js/jcanvas.min.js"></script>
+<script src="js/brush.min.js"></script>
+<script src="js/path.min.js"></script>
+<script src="js/rect.min.js"></script>
+<script src="js/ellipse.min.js"></script>
+<script src="js/eraser.min.js"></script>
+<script src="js/bucket.min.js"></script>
+<script src="js/global.min.js"></script>
+
+</body></html>
