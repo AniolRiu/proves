@@ -24,11 +24,7 @@
 
 
 <div data-role="page" id="pagina_canvas">
-  <div data-role="controlgroup" data-type="horizontal">
-    <button id="clear">Borrar</button>
-    <button id="save">Guardar</button>
-    <button id="undo">Deshacer</button>
-  </div>  	
+  	
   <div data-role="controlgroup" data-type="horizontal">
     <button id="brush">Lápiz</button>
     <button id="path">Camino</button>
@@ -36,75 +32,71 @@
     <button id="ellipse">Elipse</button>
     <button id="erase">Borrador</button>
   </div>
-  
-  
-  
-  
 
-    <div id="stroke-container" style="">
-        <h2>Punta</h2>
-        
-        <div data-role="fieldcontain">
-    		<input type="range" name="slider" id="slider" value="50" min="0" max="100" />
-  		</div>
-        
-       
-        
-        <div id="box">
-            <div id="stroke" style="border-radius:50%"></div>
-        </div>
+  <div id="stroke-container">
+    <div data-role="fieldcontain">
+      <input type="range" name="slider" id="slider" value="50" min="0" max="100" style="display:none !important;" />
     </div>
+                
+    <div id="box">
+      <div id="stroke" style="border-radius:50%"></div>
+    </div>
+  </div>
     
-    
-    <div id="colors">
+  <div id="colors" style="display:inline-block">
   
-          <div data-role="controlgroup" data-type="horizontal">
-          <button class="color red light" style="background: rgb(238, 85, 85);"></button>
-          <button class="color red medium" style="background-color: rgb(204, 51, 51);"></button>
-          <button class="color red dark" style="background-color: rgb(170, 17, 17);"></button>
-          </div>
+    <div data-role="controlgroup" data-type="horizontal">
+      <button class="color red light" style="background: rgb(238, 85, 85);"></button>
+      <button class="color red medium" style="background-color: rgb(204, 51, 51);"></button>
+      <button class="color red dark" style="background-color: rgb(170, 17, 17);"></button>
+    </div>
           
-          <div data-role="controlgroup" data-type="horizontal">
-          <button class="color green light" style="background-color: rgb(136, 255, 68);"></button>
-          <button class="color green medium" style="background-color: rgb(102, 221, 34);"></button>
-          <button class="color green dark" style="background-color: rgb(68, 187, 17);"></button>
-          </div>
+    <div data-role="controlgroup" data-type="horizontal">
+      <button class="color green light" style="background-color: rgb(136, 255, 68);"></button>
+      <button class="color green medium" style="background-color: rgb(102, 221, 34);"></button>
+      <button class="color green dark" style="background-color: rgb(68, 187, 17);"></button>
+    </div>
           
-          <div data-role="controlgroup" data-type="horizontal">
-          <button class="color blue light" style="background-color: rgb(85, 136, 255);"></button>
-          <button class="color blue medium chosen" style="background-color: rgb(51, 102, 221);"></button>
-          <button class="color blue dark" style="background-color: rgb(17, 68, 187);"></button>
-          </div>
+    <div data-role="controlgroup" data-type="horizontal">
+      <button class="color blue light" style="background-color: rgb(85, 136, 255);"></button>
+      <button class="color blue medium chosen" style="background-color: rgb(51, 102, 221);"></button>
+      <button class="color blue dark" style="background-color: rgb(17, 68, 187);"></button>
+    </div>
           
-          <div data-role="controlgroup" data-type="horizontal">
-          <button class="color orange light" style="background-color: rgb(255, 153, 85);"></button>
-          <button class="color orange medium" style="background-color: rgb(255, 119, 51);"></button>
-          <button class="color orange dark" style="background-color: rgb(221, 85, 17);"></button>
-          </div>
+    <div data-role="controlgroup" data-type="horizontal">
+      <button class="color orange light" style="background-color: rgb(255, 153, 85);"></button>
+      <button class="color orange medium" style="background-color: rgb(255, 119, 51);"></button>
+      <button class="color orange dark" style="background-color: rgb(221, 85, 17);"></button>
+    </div>
           
-          <div data-role="controlgroup" data-type="horizontal">
-          <button class="color yellow light" style="background-color: rgb(255, 255, 85);"></button>
-          <button class="color yellow medium" style="background-color: rgb(255, 238, 51);"></button>
-          <button class="color yellow dark" style="background-color: rgb(238, 221, 34);"></button>
-          </div>
+    <div data-role="controlgroup" data-type="horizontal">
+      <button class="color yellow light" style="background-color: rgb(255, 255, 85);"></button>
+      <button class="color yellow medium" style="background-color: rgb(255, 238, 51);"></button>
+      <button class="color yellow dark" style="background-color: rgb(238, 221, 34);"></button>
+    </div>
           
-          <div data-role="controlgroup" data-type="horizontal">
-          <button class="color purple light" style="background-color: rgb(187, 136, 255);"></button>
-          <button class="color purple medium" style="background-color: rgb(153, 102, 255);"></button>
-          <button class="color purple dark" style="background-color: rgb(119, 85, 221);"></button>
-          </div>
+    <div data-role="controlgroup" data-type="horizontal">
+      <button class="color purple light" style="background-color: rgb(187, 136, 255);"></button>
+      <button class="color purple medium" style="background-color: rgb(153, 102, 255);"></button>
+      <button class="color purple dark" style="background-color: rgb(119, 85, 221);"></button>
+    </div>
           
-          <div data-role="controlgroup" data-type="horizontal">
-          <button class="color black light" style="background-color: rgb(204, 204, 204);"></button>
-          <button class="color black medium" style="background-color: rgb(102, 102, 102);"></button>
-          <button class="color black dark" style="background-color: rgb(0, 0, 0);"></button>
-          </div>
+    <div data-role="controlgroup" data-type="horizontal">
+      <button class="color black light" style="background-color: rgb(204, 204, 204);"></button>
+      <button class="color black medium" style="background-color: rgb(102, 102, 102);"></button>
+      <button class="color black dark" style="background-color: rgb(0, 0, 0);"></button>
+    </div>
           
 
-    </div>
-    
-    <canvas width="480" height="480" id="canvas"></canvas>
+  </div>
   
+  <canvas width="480" height="480" id="canvas" style="display:inline-block"></canvas>
+  
+  <div data-role="controlgroup" data-type="horizontal">
+    <button id="clear" data-icon="delete">Borrar</button>
+    <button id="save" data-icon="check">Guardar</button>
+    <button id="undo" data-icon="back">Deshacer</button>
+  </div>  
 </div>
 
 
