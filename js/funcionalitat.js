@@ -62,7 +62,8 @@ function autenticacio() {
 				alert("Punts " + resposta.punts);
 				id_usuari_global = resposta.id_usuari;
 				password_global = resposta.password;
-				window.location.href = "#selecciona_exercici";
+				$.mobile.changePage( "#selecciona_exercici", { transition: "flip"} );
+				//window.location.href = "#selecciona_exercici";
 				carregaEditorials();
 			} else {
 				$('#capsa_login').shake();
