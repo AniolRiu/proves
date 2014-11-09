@@ -13,12 +13,12 @@ var password_global;
 var llibre_id = -1;
 
 // Wait for device API libraries to load
-//window.onload = init;
+window.onload = onDeviceReady;
 
 // handling document ready and phonegap deviceready
-window.addEventListener('load', function () {
+/*window.addEventListener('load', function () {
     document.addEventListener('deviceready', onDeviceReady, false);
-}, false);
+}, false);*/
 
 function onDeviceReady() {
 	document.getElementById("boto_login").onclick = autenticacio;
