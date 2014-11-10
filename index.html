@@ -21,32 +21,25 @@
 	<script src="js/eraser.min.js"></script>
 	<script src="js/global.min.js"></script>
     <script>
-	window.onload = mida_canvas;
-	window.onresize = mida_canvas;
-	function mida_canvas(){
-			canvas = document.getElementById("canvas");
-            canvas.width  = window.innerWidth;
-            canvas.height = window.innerHeight - $('header').outerHeight();
-			alert("cacacaca" + $('header').outerHeight())
-	}
+	
 	</script>
 </head>
 <body>
 	<div data-role="page" id="fes_dibuix">
     
-        <div data-role="header">
+        <div data-role="header" id="header_canvas">
             <div class="ui-btn-left" data-role="controlgroup" data-type="horizontal">
-                <button id="cancel" data-icon="delete">Cancelar</button>
-                <button id="save" data-icon="check">Guardar</button>
-                <button id="clear" data-icon="refresh">Reiniciar</button>
-                <button id="undo" data-icon="back">Deshacer</button>
+                <button id="cancel" data-icon="delete"></button>
+                <button id="save" data-icon="check"></button>
+                <button id="clear" data-icon="refresh"></button>
+                <button id="undo" data-icon="back"></button>
             </div>  
             <h1>Haz un dibujo</h1>
-            <a href="#add-form" data-icon="plus" class="ui-btn-right">Herramientas</a>
+            <a href="#add-form" data-icon="plus" class="ui-btn-right"></a>
         </div>
         
-        <div data-role="content">
-             <canvas id="canvas" style="display:inline-block"></canvas>	
+        <div data-role="content" id="div_canvas">
+             <canvas id="canvas"></canvas>	
         </div>
  
 	
