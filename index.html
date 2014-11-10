@@ -26,7 +26,8 @@
 	function mida_canvas(){
 			canvas = document.getElementById("canvas");
             canvas.width  = window.innerWidth;
-            canvas.height = window.innerHeight;
+            canvas.height = window.innerHeight - $('header').outerHeight();
+			alert("cacacaca" + $('header').outerHeight())
 	}
 	</script>
 </head>
@@ -45,7 +46,7 @@
         </div>
         
         <div data-role="content">
-             <canvas width="480" height="480" id="canvas" style="display:inline-block"></canvas>	
+             <canvas id="canvas" style="display:inline-block"></canvas>	
         </div>
  
 	

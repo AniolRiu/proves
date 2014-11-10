@@ -1,5 +1,9 @@
 @charset "utf-8";
 /* CSS Document */
 #colors .color {
-	opacity: 1
+	opacity: 1;
+}
+
+#colors > * {
+	border-radius: 0;
 }
