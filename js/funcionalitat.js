@@ -43,13 +43,13 @@ function onDeviceReady() {
 	}
 	
 	//El que ve es pot borrar, es per fer proves
-	window.location.href = "#autenticacio";
-	//window.location.href = "#selecciona_exercici";
-	//carregaEditorials();
+	//window.location.href = "#autenticacio";
+	window.location.href = "#selecciona_exercici";
+	carregaEditorials();
 	//---------
 }
 
-function autenticacio() { 
+function autenticacio() {
 	$.getJSON( 
 		url_autenticacio.concat(jsoncb), 
 		{
@@ -59,7 +59,6 @@ function autenticacio() {
 		function(resposta) {
 			if (resposta.success == 1) {
 				// Validació correcta
-				alert("Punts " + resposta.punts);
 				id_usuari_global = resposta.id_usuari;
 				password_global = resposta.password;
 				//$.mobile.changePage( "#selecciona_exercici", { transition: "flip"} );
@@ -220,7 +219,7 @@ function actualitza_info_llibre() {
 	document.getElementById("contingut_solucio").appendChild(img);
 }*/
 
-function obre_foto() {
+/*function obre_foto() {
 	window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function(fileSystem){ // success get file system
         var sdcard = fileSystem.root;
         sdcard.getDirectory('dcim',{create:false}, function(dcim){
@@ -232,4 +231,4 @@ function obre_foto() {
     }, function(evt){ // error get file system
         console.log(evt.target.error.code);
     });
-}
+}*/
