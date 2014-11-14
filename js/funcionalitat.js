@@ -16,11 +16,13 @@ var llibre_id = -1;
 //window.onload = onDeviceReady;
 
 // handling document ready and phonegap deviceready
-window.addEventListener('load', function () {
+function onLoad() {
+	alert("caca");
     document.addEventListener('deviceready', onDeviceReady, false);
-}, false);
+}
 
 function onDeviceReady() {
+	alert("caca2");
 	document.getElementById("boto_login").onclick = autenticacio;
 	document.getElementById("selecciona_editorial").onchange = carregaCursos;
 	document.getElementById("selecciona_curs").onchange = carregaLlibres;
@@ -50,6 +52,7 @@ function onDeviceReady() {
 }
 
 function autenticacio() {
+	
 	$.getJSON( 
 		url_autenticacio.concat(jsoncb), 
 		{
