@@ -13,14 +13,15 @@ var password_global;
 var llibre_id = -1;
 
 // Wait for device API libraries to load
-window.onload = onDeviceReady;
+//window.onload = onDeviceReady;
 
 // handling document ready and phonegap deviceready
-/*function onLoad() {
+function onLoad() {
 	alert("caca");
     //document.addEventListener('deviceready', onDeviceReady, false);
 	document.addEventListener("deviceready", onDeviceReady, false);
-}*/
+	onDeviceReady()
+}
 
 function onDeviceReady() {
 	alert("caca2");
