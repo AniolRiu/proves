@@ -43,9 +43,9 @@ function onDeviceReady() {
 	}
 	
 	//El que ve es pot borrar, es per fer proves
-	//window.location.href = "#autenticacio";
-	window.location.href = "#selecciona_exercici";
-	carregaEditorials();
+	window.location.href = "#autenticacio";
+	//window.location.href = "#selecciona_exercici";
+	//carregaEditorials();
 	//---------
 }
 
