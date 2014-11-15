@@ -22,6 +22,7 @@ window.onload = onDeviceReady;
 
 function onDeviceReady() {
 	document.getElementById("boto_login").onclick = autenticacio;
+	alert("caca1");
 	document.getElementById("selecciona_editorial").onchange = carregaCursos;
 	document.getElementById("selecciona_curs").onchange = carregaLlibres;
 	document.getElementById("selecciona_llibre").onchange = actualitza_info_llibre;
@@ -50,6 +51,7 @@ function onDeviceReady() {
 }
 
 function autenticacio() {
+	alert("caca2");
 	$.getJSON( 
 		url_autenticacio.concat(jsoncb), 
 		{
@@ -57,6 +59,7 @@ function autenticacio() {
 			password:document.getElementById("password").value
 		}, 
 		function(resposta) {
+			alert("caca3");
 			if (resposta.success == 1) {
 				// Validació correcta
 				id_usuari_global = resposta.id_usuari;
