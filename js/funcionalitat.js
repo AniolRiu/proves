@@ -22,7 +22,6 @@ window.onload = onDeviceReady;
 
 function onDeviceReady() {
 	document.getElementById("boto_login").onclick = autenticacio;
-	alert("caca1");
 	document.getElementById("selecciona_editorial").onchange = carregaCursos;
 	document.getElementById("selecciona_curs").onchange = carregaLlibres;
 	document.getElementById("selecciona_llibre").onchange = actualitza_info_llibre;
@@ -44,14 +43,13 @@ function onDeviceReady() {
 	}
 	
 	//El que ve es pot borrar, es per fer proves
-	//window.location.href = "#autenticacio";
-	window.location.href = "#selecciona_exercici";
-	carregaEditorials();
+	window.location.href = "#autenticacio";
+	//window.location.href = "#selecciona_exercici";
+	//carregaEditorials();
 	//---------
 }
 
 function autenticacio() {
-	alert("caca2");
 	$.getJSON( 
 		url_autenticacio.concat(jsoncb), 
 		{
@@ -59,14 +57,16 @@ function autenticacio() {
 			password:document.getElementById("password").value
 		}, 
 		function(resposta) {
-			alert("caca3");
 			if (resposta.success == 1) {
 				// Validació correcta
 				id_usuari_global = resposta.id_usuari;
 				password_global = resposta.password;
-				//$.mobile.changePage( "#selecciona_exercici", { transition: "flip"} );
-				window.location.href = "#selecciona_exercici";
+				alert("garurumon");
+				$.mobile.changePage($('#selecciona_exercici')/*, { transition: "flip"}*/ );
+				//$("#autenticacio").trigger("pagecreate");
+				//window.location.replace = "#selecciona_exercici";
 				carregaEditorials();
+				alert("virdramon");
 			} else {
 				$('#capsa_login').shake();
 				$('#error_login').html("<span style='color:#cc0000'>Error:</span> Nombre de usuario o contraseña incorrectos.");
