@@ -11,9 +11,7 @@ function getUrlVars() {
 }
 
 function inita() {
-	alert("cuco");
 	var id_exercici = getUrlVars()["id_exercici"];
-	alert("caca2" + id_exercici)
 };
 
 $(document).on("pageshow","#aporta_solucio", inita);
