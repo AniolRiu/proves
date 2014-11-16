@@ -61,12 +61,10 @@ function autenticacio() {
 				// Validació correcta
 				id_usuari_global = resposta.id_usuari;
 				password_global = resposta.password;
-				alert("garurumon");
 				$.mobile.changePage($('#selecciona_exercici')/*, { transition: "flip"}*/ );
 				//$("#autenticacio").trigger("pagecreate");
 				//window.location.replace = "#selecciona_exercici";
 				carregaEditorials();
-				alert("virdramon");
 			} else {
 				$('#capsa_login').shake();
 				$('#error_login').html("<span style='color:#cc0000'>Error:</span> Nombre de usuario o contraseña incorrectos.");
@@ -161,9 +159,8 @@ function carregaExercicis() {
 			var opcions_llista = '';
         	var i;
         	for(i = 0; i < exercicis.length; i++) {
-				opcions_llista += '<li><a href="#" onclick="carregaSolucions(' + exercicis[i].Id_Exercici + ');">Ejercicio ' + exercicis[i].Numero + '<span class="ui-li-count">' + exercicis[i].NSolucions + '</span><p class="ui-li-aside">Respuestas</p></a><a href="#aporta_solucio">Aportar solución</a>';
+				opcions_llista += '<li><a href="#" onclick="carregaSolucions(' + exercicis[i].Id_Exercici + ');">Ejercicio ' + exercicis[i].Numero + '<span class="ui-li-count">' + exercicis[i].NSolucions + '</span><p class="ui-li-aside">Respuestas</p></a><a data-ajax="false" href="aportar.html?id_exercici=' + exercicis[i].Id_Exercici + '">Aportar solución</a>';
         	}
-
 			$("#llista_exercicis").append(opcions_llista);
 			$("#llista_exercicis").listview('refresh');
     	}
@@ -179,6 +176,7 @@ function carregaSolucions(id_exercici) {
 		function(resposta) {
 			if (resposta.success == 1) {
 				$.mobile.changePage( "#mostra_solucions", { transition: "slide"} );
+				$("#boto_aporta_solucions").attr('href','aportar.html?id_exercici=' + id_exercici);
 				solucions = resposta.solucions;
 				var solucions_llista = '';
 				var i;
