@@ -130,6 +130,7 @@ function carregaLlibres() {
 			curs:document.getElementById("selecciona_curs").value
 		},
 		function(resposta) {
+			console.log(resposta);
     		llibres = resposta.llibres;
         	var out = "";
 			var opcions_select = '';
@@ -159,7 +160,15 @@ function carregaExercicis() {
 			var opcions_llista = '';
         	var i;
         	for(i = 0; i < exercicis.length; i++) {
-				opcions_llista += '<li><a href="#" onclick="carregaSolucions(' + exercicis[i].Id_Exercici + ');">Ejercicio ' + exercicis[i].Numero + '<span class="ui-li-count">' + exercicis[i].NSolucions + '</span><p class="ui-li-aside">Respuestas</p></a><a data-ajax="false" href="aportar.html?id_exercici=' + exercicis[i].Id_Exercici + '">Aportar solución</a>';
+				opcions_llista += '\
+				<li>\
+					<a href="#" onclick="carregaSolucions(' + exercicis[i].Id_Exercici + ');">Ejercicio ' + exercicis[i].Numero + '\
+						<span class="ui-li-count">' + exercicis[i].NSolucions + '</span>\
+						<p class="ui-li-aside">Respuestas</p>\
+					</a>\
+					<a data-ajax="false" href="aportar.html?id_exercici=' + exercicis[i].Id_Exercici + '&id_usuari=' + id_usuari_global + '&password=' + password_global + '">\
+					Aportar solución\
+					</a>';
         	}
 			$("#llista_exercicis").append(opcions_llista);
 			$("#llista_exercicis").listview('refresh');
@@ -176,7 +185,7 @@ function carregaSolucions(id_exercici) {
 		function(resposta) {
 			if (resposta.success == 1) {
 				$.mobile.changePage( "#mostra_solucions", { transition: "slide"} );
-				$("#boto_aporta_solucions").attr('href','aportar.html?id_exercici=' + id_exercici);
+				$("#boto_aporta_solucions").attr('href','aportar.html?id_exercici=' + id_exercici + '&id_usuari=' + id_usuari_global + '&password=' + password_global);
 				solucions = resposta.solucions;
 				var solucions_llista = '';
 				var i;
@@ -193,7 +202,7 @@ function carregaSolucions(id_exercici) {
 						for(j = 0; j < solucions[i].NImatges; j++) {
 							solucions_llista += '\
 							<p>Figura ' + (j+1) + '</p>\
-							<img src=\'http://solucionsdemates.tk/android_connect/get_imatge_solucio.php?id_solucio=6&id_usuari=1&password="club9305"&nimatge=' + j + '\'>';
+							<img src=\'http://solucionsdemates.tk/android_connect/get_imatge_solucio.php?id_solucio=' + idSolucio + '&id_usuari=' + id_usuari_global + '&password="' + password_global + '"&nimatge=' + j + '\'>';
 						}
 					solucions_llista += '</div>\
 					<hr>';

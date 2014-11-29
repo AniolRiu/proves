@@ -13,3 +13,14 @@
 	padding: 0;
 	margin: 0;
 }
+
+.eliminar_imatge {
+    position:absolute; 
+	bottom:0; 
+	right:0; 
+}
+
+.contenidor_imatge {
+	position: relative; 
+	display: inline-block;
+}
