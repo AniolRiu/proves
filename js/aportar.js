@@ -18,7 +18,7 @@ $(document).ready(function (e) {
 	
 	$(function() {
 		$("#imatge_arxiu").change(function() {
-			var file = this.files[0];
+			/*var file = this.files[0];
 			var imagefile = file.type;
 			var match= ["image/jpeg","image/png","image/jpg"];	
 			if(!((imagefile==match[0]) || (imagefile==match[1]) || (imagefile==match[2]))) {
@@ -29,7 +29,10 @@ $(document).ready(function (e) {
 				var reader = new FileReader();	
 				reader.onload = imatge_carregada;
 				reader.readAsDataURL(this.files[0]);
-			}		
+			}	*/	
+			var reader = new FileReader();	
+			reader.onload = imatge_carregada;
+			reader.readAsDataURL(this.files[0]);
 		});
 	});
 	
