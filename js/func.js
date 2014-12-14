@@ -21,8 +21,8 @@ var temes = new Array("abstract","animals","business","cats","city","food","nigh
 
 function carregaImatge() {
 	alert("cuco tio");
-	var tema = temes[Math.floor(Math.random() * temes.length)];
-	document.body.style.backgroundImage='url("http://lorempixel.com/' + window.screen.availWidth + '/' + window.screen.availHeight + '/' + tema + '")';
+	//var tema = temes[Math.floor(Math.random() * temes.length)];
+	//document.body.style.backgroundImage='url("http://lorempixel.com/' + window.screen.availWidth + '/' + window.screen.availHeight + '/' + tema + '")';
 }
 function initApp() {
 	
