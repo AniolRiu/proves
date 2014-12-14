@@ -7,29 +7,32 @@
 </author>
 <icon src="res/icon.png" platform="ios" width="57" height="57" density="mdpi" />
 
-<gap:plugin name="com.google.cordova.admob" />
-
 <platform name="android">
-		  <icon src="res/android/drawable-ldpi/ic_launcher.png" density="ldpi" />
-		  <icon src="res/android/drawable-mdpi/ic_launcher.png" density="mdpi" />
-		  <icon src="res/android/drawable-hdpi/ic_launcher.png" density="hdpi" />
-		  <icon src="res/android/drawable-xhdpi/ic_launcher.png" density="xhdpi" />
- </platform>
+	<icon src="res/android/drawable-ldpi/ic_launcher.png" density="ldpi" />
+	<icon src="res/android/drawable-mdpi/ic_launcher.png" density="mdpi" />
+	<icon src="res/android/drawable-hdpi/ic_launcher.png" density="hdpi" />
+	<icon src="res/android/drawable-xhdpi/ic_launcher.png" density="xhdpi" />
+</platform>
 
 <platform name="ios">
-		  <!-- iOS 7.0+ -->
-		  <!-- iPhone / iPod Touch  -->
-		  <icon src="res/ios/icon-60.png" width="60" height="60" />
-		  <!-- iOS 6.1 -->
-		  <!-- iPhone / iPod Touch -->
-		  <icon src="res/ios/icon.png" width="57" height="57" />
-		  <icon src="res/ios/icon@2x.png" width="114" height="114" />
-		  <!-- iPad -->
-		  <icon src="res/ios/icon-72.png" width="72" height="72" />
-		  <icon src="res/ios/icon-72@2x.png" width="144" height="144" />
-		  <!-- iPad Spotlight and Settings Icon -->
-		  <icon src="res/ios/icon-50.png" width="50" height="50" />
-		  <icon src="res/ios/icon-50@2x.png" width="100" height="100" />
- </platform>
+	<!-- iOS 7.0+ -->
+	<!-- iPhone / iPod Touch  -->
+	<icon src="res/ios/icon-60.png" width="60" height="60" />
+	<!-- iOS 6.1 -->
+	<!-- iPhone / iPod Touch -->
+	<icon src="res/ios/icon.png" width="57" height="57" />
+	<icon src="res/ios/icon@2x.png" width="114" height="114" />
+	<!-- iPad -->
+	<icon src="res/ios/icon-72.png" width="72" height="72" />
+	<icon src="res/ios/icon-72@2x.png" width="144" height="144" />
+	<!-- iPad Spotlight and Settings Icon -->
+	<icon src="res/ios/icon-50.png" width="50" height="50" />
+	<icon src="res/ios/icon-50@2x.png" width="100" height="100" />
+</platform>
 
+<icon src="icon.png" />
+
+<gap:plugin name="com.google.cordova.admob" />
+<gap:plugin name="com.google.playservices" />
+<gap:plugin name="com.google.admobsdk" />
 </widget>
