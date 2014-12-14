@@ -1,68 +1,66 @@
 function onLoad() {
-	alert("yeye0");
 	if(( /(ipad|iphone|ipod|android)/i.test(navigator.userAgent) )) {
 		document.addEventListener('deviceready', initApp, false);
 	} else {
 		initApp();
 	}
 }
-
 var ad_units = {
 	ios : {
 		banner: 'ca-app-pub-6869992474017983/4806197152',
 		interstitial: 'ca-app-pub-6869992474017983/7563979554'
 	},
 	android : {
-		banner: 'ca-app-pub-5785179440070320/5595528894',
+		banner: 'ca-app-pub-5785179440070320/7600312495',
 		interstitial: 'ca-app-pub-6869992474017983/1657046752'
 	}
 };
 var admobid = ( /(android)/i.test(navigator.userAgent) ) ? ad_units.android : ad_units.ios;
+
+var temes = new Array("abstract","animals","business","cats","city","food","nightlife","fashion","people","nature","sports","technics","transport");
+
+function carregaImatge() {
+	var tema = temes[Math.floor(Math.random() * 13)];
+	document.body.style.backgroundImage='url("http://lorempixel.com/' + window.screen.availWidth + '/' + window.screen.availHeight + '/' + tema + '")';
+}
+
 function initApp() {
+	setInterval(function(){
+					carregaImatge();
+				}, 10000);
+	carregaImatge();
 	if (! AdMob ) { alert( 'admob plugin not ready' ); return; }
 	
 	initAd();
 	
 	// display the banner at startup
-	createSelectedBanner();
+	//createSelectedBanner();
+	AdMob.createBanner( {adId:admobid.banner, overlap:false, offsetTopBar:false, adSize: 'SMART_BANNER', position:AdMob.AD_POSITION.BOTTOM_CENTER} );
 }
+
 function initAd(){
 	var defaultOptions = {
-		alert("yeye1");
-		// bannerId: admobid.banner,
-		// interstitialId: admobid.interstitial,
-		// adSize: 'SMART_BANNER',
-		// width: integer, // valid when set adSize 'CUSTOM'
-		// height: integer, // valid when set adSize 'CUSTOM'
+		bannerId: admobid.banner,
+		interstitialId: admobid.interstitial,
+		adSize: 'SMART_BANNER',
+		//width: integer, // valid when set adSize 'CUSTOM'
+		//height: integer, // valid when set adSize 'CUSTOM'
 		position: AdMob.AD_POSITION.BOTTOM_CENTER,
-		// offsetTopBar: false, // avoid overlapped by status bar, for iOS7+
+		offsetTopBar: false, // avoid overlapped by status bar, for iOS7+
 		bgColor: 'black', // color name, or '#RRGGBB'
-		// x: integer,		// valid when set position to 0 / POS_XY
-		// y: integer,		// valid when set position to 0 / POS_XY
-		isTesting: true, // set to true, to receiving test ad for testing purpose
-		// autoShow: true // auto show interstitial ad when loaded, set to false if prepare/show
+		//x: integer,		// valid when set position to 0 / POS_XY
+		//y: integer,		// valid when set position to 0 / POS_XY
+		isTesting: false, // set to true, to receiving test ad for testing purpose
+		autoShow: true // auto show interstitial ad when loaded, set to false if prepare/show
 	};
 	AdMob.setOptions( defaultOptions );
 	registerAdEvents();
 }
 // optional, in case respond to events or handle error
 function registerAdEvents() {
-	/* deprecated
-	document.addEventListener('onBannerFailedToReceive', function(data){ alert('error: ' + data.error + ', reason: ' + data.reason); });
-	document.addEventListener('onBannerReceive', function(){});
-	document.addEventListener('onBannerPresent', function(){});
-	document.addEventListener('onBannerLeaveApp', function(){});
-	document.addEventListener('onBannerDismiss', function(){});
-	
-	document.addEventListener('onInterstitialFailedToReceive', function(data){ alert('error: ' + data.error + ', reason: ' + data.reason); });
-	document.addEventListener('onInterstitialReceive', function(){});
-	document.addEventListener('onInterstitialPresent', function(){});
-	document.addEventListener('onInterstitialLeaveApp', function(){});
-	document.addEventListener('onInterstitialDismiss', function(){});
-	*/
+
 	
 	// new events, with variable to differentiate: adNetwork, adType, adEvent
-	alert("yeye2");
 	document.addEventListener('onAdFailLoad', function(data){ 
 		alert('error: ' + data.error + 
 				', reason: ' + data.reason + 
@@ -75,7 +73,7 @@ function registerAdEvents() {
 	document.addEventListener('onAdLeaveApp', function(data){});
 	document.addEventListener('onAdDismiss', function(data){});
 }
-
+/*
 // click button to call following functions
 function getSelectedAdSize() {
 	var i = document.getElementById("adSize").selectedIndex;
@@ -115,4 +113,4 @@ function prepareInterstitial() {
 function onResize(){
 	var s = document.getElementById('sizeinfo');
 	s.innerHTML = "web view: " + window.innerWidth + " x " + window.innerHeight;
-}
+}*/
