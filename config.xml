@@ -32,5 +32,5 @@
 
 <icon src="icon.png" />
 
-<gap:plugin name="com.admob.google" source="plugins.cordova.io" />
+<gap:plugin name="com.google.cordova.admob" version="2.5.0" source="plugins.cordova.io"/>
 </widget>
