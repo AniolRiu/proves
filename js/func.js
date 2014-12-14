@@ -19,14 +19,14 @@ function onLoad() {
 
 var temes = new Array("abstract","animals","business","cats","city","food","nightlife","fashion","people","nature","sports","technics","transport");
 
-function carregaImatge() {
-	alert("cuco tio");
-	var tema = temes[Math.floor(Math.random() * temes.length)];
-	document.body.style.backgroundImage='url("http://lorempixel.com/' + window.screen.availWidth + '/' + window.screen.availHeight + '/' + tema + '")';
-}
-
 function initApp() {
-	setInterval(carregaImatge, 30000);
+	function carregaImatge() {
+		alert("cuco tio");
+		var tema = temes[Math.floor(Math.random() * temes.length)];
+		document.body.style.backgroundImage='url("http://lorempixel.com/' + window.screen.availWidth + '/' + window.screen.availHeight + '/' + tema + '")';
+	}
+	
+	setInterval(carregaImatge, 3000);
 	carregaImatge();
 	//if (! AdMob ) { alert( 'admob plugin not ready' ); return; }
 	
