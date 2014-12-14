@@ -5,7 +5,7 @@ function onLoad() {
 		initApp();
 	}
 }
-var ad_units = {
+/*var ad_units = {
 	ios : {
 		banner: 'ca-app-pub-6869992474017983/4806197152',
 		interstitial: 'ca-app-pub-6869992474017983/7563979554'
@@ -14,13 +14,13 @@ var ad_units = {
 		banner: 'ca-app-pub-5785179440070320/7600312495',
 		interstitial: 'ca-app-pub-6869992474017983/1657046752'
 	}
-};
-var admobid = ( /(android)/i.test(navigator.userAgent) ) ? ad_units.android : ad_units.ios;
+};*/
+//var admobid = ( /(android)/i.test(navigator.userAgent) ) ? ad_units.android : ad_units.ios;
 
 var temes = new Array("abstract","animals","business","cats","city","food","nightlife","fashion","people","nature","sports","technics","transport");
 
 function carregaImatge() {
-	var tema = temes[Math.floor(Math.random() * 13)];
+	var tema = temes[Math.floor(Math.random() * temes.length)];
 	document.body.style.backgroundImage='url("http://lorempixel.com/' + window.screen.availWidth + '/' + window.screen.availHeight + '/' + tema + '")';
 }
 
@@ -29,13 +29,13 @@ function initApp() {
 					carregaImatge();
 				}, 10000);
 	carregaImatge();
-	if (! AdMob ) { alert( 'admob plugin not ready' ); return; }
+	//if (! AdMob ) { alert( 'admob plugin not ready' ); return; }
 	
-	initAd();
+	//initAd();
 	
 	// display the banner at startup
 	//createSelectedBanner();
-	AdMob.createBanner( {adId:admobid.banner, overlap:false, offsetTopBar:false, adSize: 'SMART_BANNER', position:AdMob.AD_POSITION.BOTTOM_CENTER} );
+	//AdMob.createBanner( {adId:admobid.banner, overlap:false, offsetTopBar:false, adSize: 'SMART_BANNER', position:AdMob.AD_POSITION.BOTTOM_CENTER} );
 }
 
 function initAd(){
