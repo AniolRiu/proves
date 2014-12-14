@@ -26,9 +26,7 @@ function carregaImatge() {
 }
 
 function initApp() {
-	setInterval(function(){
-					carregaImatge();
-				}, 3000);
+	setInterval(carregaImatge, 30000);
 	carregaImatge();
 	//if (! AdMob ) { alert( 'admob plugin not ready' ); return; }
 	
