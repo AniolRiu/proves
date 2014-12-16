@@ -8,7 +8,7 @@ function createSelectedBanner() {
 	AdMob.createBanner( {adId:admobid.banner} );
 }
 function onLoad() {
-	setInterval(function() {carregaImatge();}, 10000);
+	setInterval(function() {carregaImatge();}, 15000);
 	carregaImatge();
 	if(( /(ipad|iphone|ipod|android)/i.test(navigator.userAgent) )) {
 		document.addEventListener('deviceready', initApp, false);
@@ -29,12 +29,9 @@ var admobid = ( /(android)/i.test(navigator.userAgent) ) ? ad_units.android : ad
 
 function initApp() {
 	if (! AdMob ) { alert( 'admob plugin not ready' ); return; }
-	alert("yeye0");
 	initAd();
-	alert("yeye1");
 	// display the banner at startup
 	createSelectedBanner();
-	alert("yeye1");
 }
 function initAd(){
 	var defaultOptions = {
@@ -46,11 +43,8 @@ function initAd(){
 		isTesting: true, // set to true, to receiving test ad for testing purpose
 		autoShow: true // auto show interstitial ad when loaded, set to false if prepare/show
 	};
-	alert("abans de setOptions");
 	AdMob.setOptions( defaultOptions );
-	alert("yeye abans de registe events");
 	registerAdEvents();
-	alert("yeye al final de initAd");
 }
 // optional, in case respond to events or handle error
 function registerAdEvents() {
@@ -62,16 +56,10 @@ function registerAdEvents() {
 				', adType:' + data.adType + 
 				', adEvent:' + data.adEvent); // adType: 'banner' or 'interstitial'
 	});
-	alert("yeye 10");
 	document.addEventListener('onAdLoaded', function(data){});
-	alert("yeye 11");
 	document.addEventListener('onAdPresent', function(data){});
-	alert("yeye 12");
 	document.addEventListener('onAdLeaveApp', function(data){});
-	alert("yeye 13");
 	document.addEventListener('onAdDismiss', function(data){});
-	alert("yeye 14");
-	
 }
 
 function onResize(){
