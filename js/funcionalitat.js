@@ -1,4 +1,4 @@
-var temes = new Array("abstract","animals","business","cats","city","food","nightlife","fashion","people","nature","sports","technics","transport");
+var temes = new Array("abstract","animals","cats","city","food","nightlife","fashion","nature","sports","transport");
 
 function carregaImatge() {
 	var tema = temes[Math.floor(Math.random() * temes.length)];
