@@ -52,8 +52,9 @@ function initAd(){
 		autoShow: true // auto show interstitial ad when loaded, set to false if prepare/show
 	};
 	AdMob.setOptions( defaultOptions );
+	alert("yeye abans de registe events");
 	registerAdEvents();
-	return;
+	alert("yeye al final de initAd");
 }
 // optional, in case respond to events or handle error
 function registerAdEvents() {
@@ -65,11 +66,16 @@ function registerAdEvents() {
 				', adType:' + data.adType + 
 				', adEvent:' + data.adEvent); // adType: 'banner' or 'interstitial'
 	});
+	alert("yeye 10");
 	document.addEventListener('onAdLoaded', function(data){});
+	alert("yeye 11");
 	document.addEventListener('onAdPresent', function(data){});
+	alert("yeye 12");
 	document.addEventListener('onAdLeaveApp', function(data){});
+	alert("yeye 13");
 	document.addEventListener('onAdDismiss', function(data){});
-	return;
+	alert("yeye 14");
+	
 }
 
 function onResize(){
