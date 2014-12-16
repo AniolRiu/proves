@@ -4,7 +4,9 @@ function carregaImatge() {
 	var tema = temes[Math.floor(Math.random() * temes.length)];
 	document.body.style.backgroundImage='url("http://lorempixel.com/' + window.screen.availWidth + '/' + window.screen.availHeight + '/' + tema + '")';
 }
-
+function createSelectedBanner() {
+	AdMob.createBanner( {adId:admobid.banner} );
+}
 function onLoad() {
 	setInterval(function() {carregaImatge();}, 10000);
 	carregaImatge();
@@ -65,11 +67,6 @@ function registerAdEvents() {
 	document.addEventListener('onAdPresent', function(data){});
 	document.addEventListener('onAdLeaveApp', function(data){});
 	document.addEventListener('onAdDismiss', function(data){});
-}
-function createSelectedBanner() {
-	var overlap = document.getElementById('overlap').checked;
-	var offsetTopBar = document.getElementById('offsetTopBar').checked;
-	AdMob.createBanner( {adId:admobid.banner} );
 }
 
 function onResize(){
