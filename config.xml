@@ -1,5 +1,9 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.approvat.randomframe" version="1.0.0">
+<widget 
+	xmlns="http://www.w3.org/ns/widgets" 
+	xmlns:gap="http://phonegap.com/ns/1.0"
+	id="com.approvat.randomframe" 
+	version="0.0.1" >
 <name>Random Frame</name>
 <description>Decorate your desktop with a frame that displays random pictures from internet</description>
 <author email="artic.vb@gmail.com">
@@ -29,5 +33,5 @@
 	<icon src="res/ios/icon-50.png" width="50" height="50" />
 	<icon src="res/ios/icon-50@2x.png" width="100" height="100" />
 </platform>
-<gap:plugin name="com.admob.google" version="2.0.2" source="plugins.cordova.io" />
+<gap:plugin name="com.google.cordova.admob" version="2.5.0" source="plugins.cordova.io"/>
 </widget>
