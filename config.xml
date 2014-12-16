@@ -5,8 +5,8 @@
 <author email="artic.vb@gmail.com">
 	Aniol Riu
 </author>
-<icon src="res/icon.png" platform="ios" width="57" height="57" density="mdpi" />
-
+<preference name="fullscreen" value="true" />
+<icon src="res/icon.png" />
 <platform name="android">
 	<icon src="res/android/drawable-ldpi/ic_launcher.png" density="ldpi" />
 	<icon src="res/android/drawable-mdpi/ic_launcher.png" density="mdpi" />
@@ -29,7 +29,5 @@
 	<icon src="res/ios/icon-50.png" width="50" height="50" />
 	<icon src="res/ios/icon-50@2x.png" width="100" height="100" />
 </platform>
-
-<icon src="icon.png" />
 
 </widget>
