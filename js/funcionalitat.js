@@ -97,7 +97,7 @@ function getSelectedPosition() {
 function createSelectedBanner() {
 	var overlap = document.getElementById('overlap').checked;
 	var offsetTopBar = document.getElementById('offsetTopBar').checked;
-	AdMob.createBanner( {adId:admobid.banner, overlap:false, offsetTopBar:false} );
+	AdMob.createBanner( {adId:admobid.banner/*, overlap:false, offsetTopBar:false*/} );
 }
 /*function createBannerOfGivenSize() {
 	var w = document.getElementById('w').value;
