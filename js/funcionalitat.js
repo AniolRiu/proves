@@ -53,6 +53,7 @@ function initAd(){
 	};
 	AdMob.setOptions( defaultOptions );
 	registerAdEvents();
+	return;
 }
 // optional, in case respond to events or handle error
 function registerAdEvents() {
@@ -68,6 +69,7 @@ function registerAdEvents() {
 	document.addEventListener('onAdPresent', function(data){});
 	document.addEventListener('onAdLeaveApp', function(data){});
 	document.addEventListener('onAdDismiss', function(data){});
+	return;
 }
 
 function onResize(){
