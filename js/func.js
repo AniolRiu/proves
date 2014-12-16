@@ -42,7 +42,7 @@ function initAd(){
 		height: integer, // valid when set adSize 'CUSTOM'
 		position: AdMob.AD_POSITION.BOTTOM_CENTER,
 		offsetTopBar: false, // avoid overlapped by status bar, for iOS7+
-		overlap: false,
+		overlap: true,
 		bgColor: 'black', // color name, or '#RRGGBB'
 		x: integer,		// valid when set position to 0 / POS_XY
 		y: integer,		// valid when set position to 0 / POS_XY
