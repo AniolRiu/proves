@@ -39,7 +39,6 @@ function initApp() {
 function initAd(){
 	var defaultOptions = {
 		bannerId: admobid.banner,
-		interstitialId: admobid.interstitial,
 		adSize: 'SMART_BANNER',
 		width: integer, // valid when set adSize 'CUSTOM'
 		height: integer, // valid when set adSize 'CUSTOM'
@@ -51,6 +50,7 @@ function initAd(){
 		isTesting: true, // set to true, to receiving test ad for testing purpose
 		autoShow: true // auto show interstitial ad when loaded, set to false if prepare/show
 	};
+	alert("abans de setOptions");
 	AdMob.setOptions( defaultOptions );
 	alert("yeye abans de registe events");
 	registerAdEvents();
