@@ -33,7 +33,7 @@ function initApp() {
 	initAd();
 	
 	// display the banner at startup
-	createSelectedBanner();
+	AdMob.createBanner( {adId:admobid.banner} );
 }
 function initAd(){
 	var defaultOptions = {
