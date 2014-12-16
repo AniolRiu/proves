@@ -118,8 +118,9 @@ function showBannerAtGivenXY() {
 function prepareInterstitial() {
 	var autoshow = document.getElementById('autoshow').checked;
 	AdMob.prepareInterstitial({adId:admobid.interstitial, autoShow:autoshow});
-}
+}*/
 function onResize(){
+	carregaImatge();
 	var s = document.getElementById('sizeinfo');
 	s.innerHTML = "web view: " + window.innerWidth + " x " + window.innerHeight;
-}*/
+}
