@@ -33,20 +33,16 @@ function initApp() {
 	initAd();
 	alert("yeye1");
 	// display the banner at startup
-	AdMob.createBanner( {adId:admobid.banner} );
+	createSelectedBanner();
 	alert("yeye1");
 }
 function initAd(){
 	var defaultOptions = {
 		bannerId: admobid.banner,
 		adSize: 'SMART_BANNER',
-		width: integer, // valid when set adSize 'CUSTOM'
-		height: integer, // valid when set adSize 'CUSTOM'
 		position: AdMob.AD_POSITION.BOTTOM_CENTER,
 		offsetTopBar: false, // avoid overlapped by status bar, for iOS7+
 		bgColor: 'black', // color name, or '#RRGGBB'
-		x: integer,		// valid when set position to 0 / POS_XY
-		y: integer,		// valid when set position to 0 / POS_XY
 		isTesting: true, // set to true, to receiving test ad for testing purpose
 		autoShow: true // auto show interstitial ad when loaded, set to false if prepare/show
 	};
