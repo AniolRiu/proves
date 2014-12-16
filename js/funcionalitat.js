@@ -31,9 +31,10 @@ function initApp() {
 	if (! AdMob ) { alert( 'admob plugin not ready' ); return; }
 	
 	initAd();
-	
+	alert("yeye1");
 	// display the banner at startup
 	AdMob.createBanner( {adId:admobid.banner} );
+	alert("yeye1");
 }
 function initAd(){
 	var defaultOptions = {
