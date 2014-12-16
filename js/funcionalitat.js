@@ -84,7 +84,7 @@ function registerAdEvents() {
 }
 
 // click button to call following functions
-function getSelectedAdSize() {
+/*function getSelectedAdSize() {
 	var i = document.getElementById("adSize").selectedIndex;
 	var items = document.getElementById("adSize").options;
 	return items[i].value;
@@ -93,13 +93,13 @@ function getSelectedPosition() {
 	var i = document.getElementById("adPosition").selectedIndex;
 	var items = document.getElementById("adPosition").options;
 	return parseInt( items[i].value );
-}
+}*/
 function createSelectedBanner() {
 	var overlap = document.getElementById('overlap').checked;
 	var offsetTopBar = document.getElementById('offsetTopBar').checked;
 	AdMob.createBanner( {adId:admobid.banner, overlap:false, offsetTopBar:false} );
 }
-function createBannerOfGivenSize() {
+/*function createBannerOfGivenSize() {
 	var w = document.getElementById('w').value;
 	var h = document.getElementById('h').value;
 	
@@ -122,4 +122,4 @@ function prepareInterstitial() {
 function onResize(){
 	var s = document.getElementById('sizeinfo');
 	s.innerHTML = "web view: " + window.innerWidth + " x " + window.innerHeight;
-}
+}*/
