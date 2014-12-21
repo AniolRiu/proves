@@ -31,7 +31,7 @@ function initApp() {
 	if (! AdMob ) { alert( 'admob plugin not ready' ); return; }
 	initAd();
 	// display the banner at startup
-	createSelectedBanner();
+	//createSelectedBanner();
 }
 function initAd(){
 	var defaultOptions = {
