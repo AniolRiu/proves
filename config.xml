@@ -3,7 +3,8 @@
 	xmlns="http://www.w3.org/ns/widgets" 
 	xmlns:gap="http://phonegap.com/ns/1.0"
 	id="com.approvat.randomframe" 
-	version="0.0.1" >
+	version="0.0.1"
+	versionCode="1" >
 <name>Random Frame</name>
 <description>Decorate your desktop with a frame that displays random pictures from internet</description>
 <author email="artic.vb@gmail.com">
