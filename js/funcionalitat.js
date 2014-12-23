@@ -1,15 +1,61 @@
-var temes = new Array("abstract","animals","cats","city","food","nightlife","fashion","nature","sports","transport");
+var adresa;
+var num_imatges_h=1;
+var num_imatges_v=1;
+var orientacio = (window.screen.availWidth > window.screen.availHeight ? "h" : "v" );
 
 function carregaImatge() {
-	var tema = temes[Math.floor(Math.random() * temes.length)];
-	document.body.style.backgroundImage='url("http://lorempixel.com/' + window.screen.availWidth + '/' + window.screen.availHeight + '/' + tema + '")';
+	var num_imatges = (orientacio == "h" ? num_imatges_h : num_imatges_v);
+	httpGetAdresa(Math.floor(Math.random() * num_imatges));
+	document.body.style.backgroundImage="url(" + adresa + ")";
 }
+
+function httpGetAdresa(num){
+	var xmlhttp = new XMLHttpRequest();
+	var url = " http://www.corsproxy.com/randomframe.esy.es/?num=" + num + "&orientacio=" + orientacio;
+	
+	xmlhttp.onreadystatechange = function() {
+		if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+			var myArr = JSON.parse(xmlhttp.responseText);
+			myFunction(myArr);
+		}
+	}
+	xmlhttp.open("GET", url, true);
+	xmlhttp.send();
+	
+	function myFunction(arr) {
+		adresa=arr.adresa;
+	}
+}
+
+function httpGetNumImatges(){
+	var xmlhttp = new XMLHttpRequest();
+	var url = " http://www.corsproxy.com/randomframe.esy.es/?num=x";
+	
+	xmlhttp.onreadystatechange = function() {
+		if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+			var myArr = JSON.parse(xmlhttp.responseText);
+			myFunction(myArr);
+		}
+	}
+	xmlhttp.open("GET", url, true);
+	xmlhttp.send();
+	
+	function myFunction(arr) {
+		num_imatges_h=arr.num_imatges_h;
+		num_imatges_v=arr.num_imatges_v;
+		carregaImatge();
+	}
+}
+
+
+
 function createSelectedBanner() {
 	AdMob.createBanner( {adId:admobid.banner} );
 }
+
 function onLoad() {
+	httpGetNumImatges();
 	setInterval(function() {carregaImatge();}, 15000);
-	carregaImatge();
 	if(( /(ipad|iphone|ipod|android)/i.test(navigator.userAgent) )) {
 		document.addEventListener('deviceready', initApp, false);
 	} else {
@@ -31,7 +77,7 @@ function initApp() {
 	if (! AdMob ) { alert( 'admob plugin not ready' ); return; }
 	initAd();
 	// display the banner at startup
-	//createSelectedBanner();
+	createSelectedBanner();
 }
 function initAd(){
 	var defaultOptions = {
@@ -40,7 +86,7 @@ function initAd(){
 		position: AdMob.AD_POSITION.BOTTOM_CENTER,
 		offsetTopBar: false, // avoid overlapped by status bar, for iOS7+
 		bgColor: 'black', // color name, or '#RRGGBB'
-		isTesting: false, // set to true, to receiving test ad for testing purpose
+		isTesting: true, // set to true, to receiving test ad for testing purpose
 		autoShow: true // auto show interstitial ad when loaded, set to false if prepare/show
 	};
 	AdMob.setOptions( defaultOptions );
@@ -63,7 +109,10 @@ function registerAdEvents() {
 }
 
 function onResize(){
-	carregaImatge();
+	var or_antic = orientacio;
+	orientacio = (window.screen.availWidth > window.screen.availHeight ? "h" : "v" );
+	if (or_antic != orientacio) {carregaImatge();}
+	
 	var s = document.getElementById('sizeinfo');
 	s.innerHTML = "web view: " + window.innerWidth + " x " + window.innerHeight;
 }
