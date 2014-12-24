@@ -87,7 +87,7 @@ function initAd(){
 		position: AdMob.AD_POSITION.BOTTOM_CENTER,
 		offsetTopBar: false, // avoid overlapped by status bar, for iOS7+
 		bgColor: 'black', // color name, or '#RRGGBB'
-		isTesting: true, // set to true, to receiving test ad for testing purpose
+		isTesting: false, // set to true, to receiving test ad for testing purpose
 		autoShow: true // auto show interstitial ad when loaded, set to false if prepare/show
 	};
 	AdMob.setOptions( defaultOptions );
