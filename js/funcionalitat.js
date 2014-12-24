@@ -3,15 +3,9 @@ var num_imatges_h=1;
 var num_imatges_v=1;
 var orientacio = (window.screen.availWidth > window.screen.availHeight ? "h" : "v" );
 
-function carregaImatge() {
-	var num_imatges = (orientacio == "h" ? num_imatges_h : num_imatges_v);
-	httpGetAdresa(Math.floor(Math.random() * num_imatges));
-	document.body.style.backgroundImage="url(" + adresa + ")";
-}
-
 function httpGetAdresa(num){
 	var xmlhttp = new XMLHttpRequest();
-	var url = " http://www.corsproxy.com/randomframe.esy.es/?num=" + num + "&orientacio=" + orientacio;
+	var url = " http://www.corsproxy.com/randomframe.tk/repo.php?num=" + num + "&orientacio=" + orientacio;
 	
 	xmlhttp.onreadystatechange = function() {
 		if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
@@ -27,9 +21,15 @@ function httpGetAdresa(num){
 	}
 }
 
+function carregaImatge() {
+	var num_imatges = (orientacio == "h" ? num_imatges_h : num_imatges_v);
+	httpGetAdresa(Math.floor(Math.random() * num_imatges));
+	document.body.style.backgroundImage="url(" + adresa + ")";
+}
+
 function httpGetNumImatges(){
 	var xmlhttp = new XMLHttpRequest();
-	var url = " http://www.corsproxy.com/randomframe.esy.es/?num=x";
+	var url = " http://www.corsproxy.com/randomframe.tk/repo.php?num=x";
 	
 	xmlhttp.onreadystatechange = function() {
 		if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
@@ -46,8 +46,6 @@ function httpGetNumImatges(){
 		carregaImatge();
 	}
 }
-
-
 
 function createSelectedBanner() {
 	AdMob.createBanner( {adId:admobid.banner} );
@@ -77,7 +75,10 @@ function initApp() {
 	if (! AdMob ) { alert( 'admob plugin not ready' ); return; }
 	initAd();
 	// display the banner at startup
+	
+	window.onclick = carregaImatge;
 	createSelectedBanner();
+	carregaImatge();
 }
 function initAd(){
 	var defaultOptions = {
