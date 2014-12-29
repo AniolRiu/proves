@@ -20,10 +20,47 @@ $(document).ready(function() {
 	var curSize = 20; // Guarda la mida del llapis 
 	var clickSize = new Array();
 	
-	function init() {
+	$(document).on("pageshow","#fes_dibuix", function() {
+		inicia_canvas();
+		$('#div_punta .ui-slider-track .ui-btn.ui-slider-handle').css({"height":curSize, "width":curSize});
+		$('#div_punta .ui-btn-up-c, .ui-btn-hover-c').css({"background":curColor});
+		
+		$('#color_blanc').bind('click',function(){
+			curColor = colorWhite;
+			$('#div_punta .ui-btn-up-c, .ui-btn-hover-c').css({"background":curColor});
+		});
+		
+		$('#color_blau').bind('click',function(){
+			curColor = colorBlue;
+			$('#div_punta .ui-btn-up-c, .ui-btn-hover-c').css({"background":curColor});
+		});
+		
+		$('#color_negre').bind('click',function(){
+			curColor = colorBlack;
+			$('#div_punta .ui-btn-up-c, .ui-btn-hover-c').css({"background":curColor});
+		});
+		
+		$('#color_vermell').bind('click',function(){
+			curColor = colorRed;
+			$('#div_punta .ui-btn-up-c, .ui-btn-hover-c').css({"background":curColor});
+		});
+		
+		$('#color_verd').bind('click',function(){
+			curColor = colorGreen;
+			$('#div_punta .ui-btn-up-c, .ui-btn-hover-c').css({"background":curColor});
+		});
+		
+		$('#slider').change(function() {
+			curSize = $('#slider').val();
+			$('#div_punta .ui-slider-track .ui-btn.ui-slider-handle').css({"height":curSize, "width":curSize});
+		});
+	});
+	
+	function inicia_canvas() {
 		canvas.width=window.innerWidth;
 		canvas.height=window.innerHeight - document.getElementById("header_canvas").offsetHeight;
-		redraw();
+		netejaCanvas();
+		//redraw();
 	}
 	
 	function netejaCanvas() {
@@ -44,15 +81,36 @@ $(document).ready(function() {
 	$('#color_verd').css({"background":colorGreen});
 	$('#color_blanc').css({"background":colorWhite});
 	
-	function addClick(x, y, dragging){
+	/*function addClick(x, y, dragging){
 	  clickX.push(x);
 	  clickY.push(y);
 	  clickDrag.push(dragging);
 	  clickColor.push(curColor);  
 	  clickSize.push(curSize);
+	}*/
+	
+	
+	var click_antic_X;
+	var click_antic_Y;
+	
+	function draw(click_X, click_Y, drag){
+		context.beginPath();
+		context.lineJoin = "round";
+		if(drag){
+			context.moveTo(click_antic_X, click_antic_Y);
+		}else{
+			context.moveTo(click_X - 1, click_Y);
+		}
+		context.lineTo(click_X, click_Y);
+		context.closePath();
+		context.strokeStyle = curColor;
+		context.lineWidth = curSize;
+		context.stroke();
+		click_antic_X = click_X;
+		click_antic_Y = click_Y;
 	}
 	
-	function redraw(){
+	/*function redraw(){
 	  context.fillStyle=colorWhite;
 	  context.fillRect(0, 0, context.canvas.width, context.canvas.height); // Clears the canvas
 	  context.lineJoin = "round";
@@ -70,63 +128,52 @@ $(document).ready(function() {
 		 context.lineWidth = clickSize[i];
 		 context.stroke();
 	  }
-	}
+	}*/
 	
 	// inici_dibuix ---------
-	/*canv.mousedown(function(e){
+	canv.mousedown(function(e){
 		paint = true;
-	  	addClick(e.pageX - this.offsetLeft, e.pageY - this.offsetTop);
-	  	redraw();
-	});*/
+	  	//addClick(e.pageX - this.offsetLeft, e.pageY - this.offsetTop);
+	  	draw(e.pageX - this.offsetLeft, e.pageY - this.offsetTop, false);
+	});
 	
-	can.addEventListener('touchstart', function(e) {
+	/*can.addEventListener('touchstart', function(e) {
 		paint = true;
 		toc = e.changedTouches[0];
 	  	addClick(toc.pageX - this.offsetLeft, toc.pageY - this.offsetTop);
 	  	redraw();
-	}, false);
+	}, false);*/
 	
 	// fent_dibuix ---------
-	/*canv.mousemove(function(e){
+	canv.mousemove(function(e){
 	  	if(paint){
-			alert(this.offsetTop);
-			addClick(e.pageX - this.offsetLeft, e.pageY - this.offsetTop, true);
-			redraw();
+			//addClick(e.pageX - this.offsetLeft, e.pageY - this.offsetTop, true);
+			draw(e.pageX - this.offsetLeft, e.pageY - this.offsetTop, true);
 	  	}
-	});*/
+	});
 	
-	can.addEventListener('touchmove', function(e) {
+	/*can.addEventListener('touchmove', function(e) {
 		if(paint){
 			toc = e.changedTouches[0];
 			addClick(toc.pageX - this.offsetLeft, toc.pageY - this.offsetTop, true);
 			redraw();
 	  	}
-	}, false);
+	}, false);*/
 	
-	/*function onTouchMove(e) {
-		if(paint){
-			addClick(e.pageX - this.offsetLeft, e.pageY - this.offsetTop, true);
-			redraw();
-	  	}
-	}*/
 	
 	// final_dibuix ---------
-	/*canv.mouseup(function(e){
+	canv.mouseup(function(e){
 	  paint = false;
-	});*/
+	});
 	
 	can.addEventListener('touchend', function(e) {
 		paint = false;
 	}, false);
 	
-	/*function onTouchEnd(e) {
-		paint = false;
-	}*/
-	
 	// fora_del_canvas -------
-	/*canv.mouseleave(function(e){
+	canv.mouseleave(function(e){
 	  paint = false;
-	});*/
+	});
 	
 	can.addEventListener('touchend', function(e) {
 		paint = false;
@@ -165,44 +212,6 @@ $(document).ready(function() {
 		netejaCanvas();
 	});
 	
-	$(document).on("pageshow","#fes_dibuix", function() {
-		init();
-		curColor=colorBlack;
-		curSize=20;
-		$('#div_punta .ui-slider-track .ui-btn.ui-slider-handle').css({"height":curSize, "width":curSize});
-		$('#div_punta .ui-btn-up-c, .ui-btn-hover-c').css({"background":curColor});
-		
-		$('#color_blanc').bind('click',function(){
-			curColor = colorWhite;
-			$('#div_punta .ui-btn-up-c, .ui-btn-hover-c').css({"background":curColor});
-		});
-		
-		$('#color_blau').bind('click',function(){
-			curColor = colorBlue;
-			$('#div_punta .ui-btn-up-c, .ui-btn-hover-c').css({"background":curColor});
-		});
-		
-		$('#color_negre').bind('click',function(){
-			curColor = colorBlack;
-			$('#div_punta .ui-btn-up-c, .ui-btn-hover-c').css({"background":curColor});
-		});
-		
-		$('#color_vermell').bind('click',function(){
-			curColor = colorRed;
-			$('#div_punta .ui-btn-up-c, .ui-btn-hover-c').css({"background":curColor});
-		});
-		
-		$('#color_verd').bind('click',function(){
-			curColor = colorGreen;
-			$('#div_punta .ui-btn-up-c, .ui-btn-hover-c').css({"background":curColor});
-		});
-		
-		$('#slider').change(function() {
-			curSize = $('#slider').val();
-			$('#div_punta .ui-slider-track .ui-btn.ui-slider-handle').css({"height":curSize, "width":curSize});
-		});
-		
-	});
-	window.onresize = init;
+	window.onresize = inicia_canvas;
 });
 
