@@ -13,7 +13,7 @@
     display: none !important;
 }
 
-#div_punta .ui-btn-up-c, .ui-btn-hover-c{
+#div_punta .ui-btn-up-c, #div_punta .ui-btn-hover-c{
 	size: 100px !important;
 	background-image:none;
 	background:black;

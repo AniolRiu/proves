@@ -11,10 +11,9 @@ $(document).ready(function (e) {
 		return vars;
 	}
 	
-	var id_exercici = /*getUrlVars()["id_exercici"]*/6;
-	var id_usuari = /*getUrlVars()["id_usuari"]*/1;
-	var password = /*getUrlVars()["password"]*/"club9305";
-	alert(id_exercici + " " + id_usuari + " " + password);
+	var id_exercici = getUrlVars()["id_exercici"];
+	var id_usuari = getUrlVars()["id_usuari"];
+	var password = getUrlVars()["password"];
 	
 	$(function() {
 		$("#imatge_arxiu").change(function() {
