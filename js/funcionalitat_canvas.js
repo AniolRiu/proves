@@ -73,14 +73,14 @@ $(document).ready(function() {
 	}
 	
 	// inici_dibuix ---------
-	canv.mousedown(function(e){
+	/*canv.mousedown(function(e){
 	  	var mouseX = e.pageX - this.offsetLeft;
 	   	var mouseY = e.pageY - this.offsetTop;
 			
 		paint = true;
 	  	addClick(e.pageX - this.offsetLeft, e.pageY - this.offsetTop);
 	  	redraw();
-	});
+	});*/
 	
 	can.addEventListener('touchstart', function(e) {
 		var mouseX = e.pageX - this.offsetLeft;
@@ -101,12 +101,12 @@ $(document).ready(function() {
 	}*/
 	
 	// fent_dibuix ---------
-	canv.mousemove(function(e){
+	/*canv.mousemove(function(e){
 	  	if(paint){
 			addClick(e.pageX - this.offsetLeft, e.pageY - this.offsetTop, true);
 			redraw();
 	  	}
-	});
+	});*/
 	
 	can.addEventListener('touchmove', function(e) {
 		if(paint){
@@ -123,9 +123,9 @@ $(document).ready(function() {
 	}*/
 	
 	// final_dibuix ---------
-	canv.mouseup(function(e){
+	/*canv.mouseup(function(e){
 	  paint = false;
-	});
+	});*/
 	
 	can.addEventListener('touchend', function(e) {
 		paint = false;
@@ -136,9 +136,9 @@ $(document).ready(function() {
 	}*/
 	
 	// fora_del_canvas -------
-	canv.mouseleave(function(e){
+	/*canv.mouseleave(function(e){
 	  paint = false;
-	});
+	});*/
 	
 	can.addEventListener('touchend', function(e) {
 		paint = false;
