@@ -74,18 +74,12 @@ $(document).ready(function() {
 	
 	// inici_dibuix ---------
 	canv.mousedown(function(e){
-	  	var mouseX = e.pageX - this.offsetLeft;
-	   	var mouseY = e.pageY - this.offsetTop;
-			
 		paint = true;
 	  	addClick(e.pageX - this.offsetLeft, e.pageY - this.offsetTop);
 	  	redraw();
 	});
 	
 	can.addEventListener('touchstart', function(e) {
-		var mouseX = e.pageX - this.offsetLeft;
-	   	var mouseY = e.pageY - this.offsetTop;
-			
 		paint = true;
 	  	addClick(e.changedTouches[0].pageX - this.offsetLeft, e.changedTouches[0].pageY - this.offsetTop);
 	  	redraw();
@@ -110,7 +104,9 @@ $(document).ready(function() {
 	
 	can.addEventListener('touchmove', function(e) {
 		if(paint){
-			addClick(e.changedTouches[0].pageX - this.offsetLeft, e.changedTouches[0].pageY - this.offsetTop, true);
+			toc = e.changedTouches[0];
+			alert(toc.pageX + " " + this.offsetLeft + " " + clientX);
+			addClick(toc.pageX - this.offsetLeft, toc.pageY - this.offsetTop, true);
 			redraw();
 	  	}
 	}, false);
