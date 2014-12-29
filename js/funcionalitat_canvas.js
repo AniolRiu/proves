@@ -83,7 +83,6 @@ $(document).ready(function() {
 	});
 	
 	can.addEventListener('touchstart', function(e) {
-		alert("tochstart");
 		var mouseX = e.pageX - this.offsetLeft;
 	   	var mouseY = e.pageY - this.offsetTop;
 			
