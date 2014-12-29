@@ -1,4 +1,8 @@
 $(document).ready(function() {
+	var can = document.getElementById("canvas");
+	var canv = $("#canvas");
+	var context = can.getContext("2d");
+	
 	var clickX = new Array();
 	var clickY = new Array();
 	var clickDrag = new Array();
@@ -19,7 +23,6 @@ $(document).ready(function() {
 	function init() {
 		canvas.width=window.innerWidth;
 		canvas.height=window.innerHeight - document.getElementById("header_canvas").offsetHeight;
-		context = document.getElementById('canvas').getContext("2d");
 		redraw();
 	}
 	
@@ -69,33 +72,63 @@ $(document).ready(function() {
 	  }
 	}
 	
-	
-	
-	
-	
-	$('#canvas').mousedown(function(e){
-	  var mouseX = e.pageX - this.offsetLeft;
-	  var mouseY = e.pageY - this.offsetTop;
+	// inici_dibuix ---------
+	canv.mousedown(function(e){
+	  	var mouseX = e.pageX - this.offsetLeft;
+	   	var mouseY = e.pageY - this.offsetTop;
 			
-	  paint = true;
-	  addClick(e.pageX - this.offsetLeft, e.pageY - this.offsetTop);
-	  redraw();
+		paint = true;
+	  	addClick(e.pageX - this.offsetLeft, e.pageY - this.offsetTop);
+	  	redraw();
 	});
 	
-	$('#canvas').mousemove(function(e){
-	  if(paint){
-		addClick(e.pageX - this.offsetLeft, e.pageY - this.offsetTop, true);
-		redraw();
-	  }
+	can.addEventListener('touchstart', onTouchStart, false);
+	
+	function onTouchStart(e) {
+		var mouseX = e.pageX - this.offsetLeft;
+	   	var mouseY = e.pageY - this.offsetTop;
+			
+		paint = true;
+	  	addClick(e.pageX - this.offsetLeft, e.pageY - this.offsetTop);
+	  	redraw();
+	}
+	
+	// fent_dibuix ---------
+	canv.mousemove(function(e){
+	  	if(paint){
+			addClick(e.pageX - this.offsetLeft, e.pageY - this.offsetTop, true);
+			redraw();
+	  	}
 	});
 	
-	$('#canvas').mouseup(function(e){
+	can.addEventListener('touchmove', onTouchMove, false);
+	
+	function onTouchMove(e) {
+		if(paint){
+			addClick(e.pageX - this.offsetLeft, e.pageY - this.offsetTop, true);
+			redraw();
+	  	}
+	}
+	
+	// final_dibuix ---------
+	canv.mouseup(function(e){
 	  paint = false;
 	});
 	
-	$('#canvas').mouseleave(function(e){
+	can.addEventListener('touchend', onTouchEnd, false);
+	
+	function onTouchEnd(e) {
+		paint = false;
+	}
+	
+	// fora_del_canvas -------
+	canv.mouseleave(function(e){
 	  paint = false;
 	});
+	
+	can.addEventListener('touchend', onTouchEnd, false);
+	
+	//-------------------------
 	
 	$('#cancel').bind('click',function(){
 		curColor = colorGreen;
