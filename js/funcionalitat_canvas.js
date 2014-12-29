@@ -111,9 +111,9 @@ $(document).ready(function() {
 	}*/
 	
 	// final_dibuix ---------
-	canv.mouseup(function(e){
+	/*canv.mouseup(function(e){
 	  paint = false;
-	});
+	});*/
 	
 	can.addEventListener('touchend', function(e) {
 		paint = false;
@@ -124,9 +124,9 @@ $(document).ready(function() {
 	}*/
 	
 	// fora_del_canvas -------
-	canv.mouseleave(function(e){
+	/*canv.mouseleave(function(e){
 	  paint = false;
-	});
+	});*/
 	
 	can.addEventListener('touchend', function(e) {
 		paint = false;
