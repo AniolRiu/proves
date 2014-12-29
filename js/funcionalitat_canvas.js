@@ -73,33 +73,31 @@ $(document).ready(function() {
 	}
 	
 	// inici_dibuix ---------
-	canv.mousedown(function(e){
+	/*canv.mousedown(function(e){
 		paint = true;
 	  	addClick(e.pageX - this.offsetLeft, e.pageY - this.offsetTop);
 	  	redraw();
-	});
+	});*/
 	
 	can.addEventListener('touchstart', function(e) {
 		paint = true;
 		toc = e.changedTouches[0];
-		alert(toc.pageX + " " + this.offsetLeft + " " + clientX);
 	  	addClick(toc.pageX - this.offsetLeft, toc.pageY - this.offsetTop);
 	  	redraw();
 	}, false);
 	
 	// fent_dibuix ---------
-	canv.mousemove(function(e){
+	/*canv.mousemove(function(e){
 	  	if(paint){
 			alert(this.offsetTop);
 			addClick(e.pageX - this.offsetLeft, e.pageY - this.offsetTop, true);
 			redraw();
 	  	}
-	});
+	});*/
 	
 	can.addEventListener('touchmove', function(e) {
 		if(paint){
 			toc = e.changedTouches[0];
-			alert(toc.pageX + " " + this.offsetLeft + " " + clientX);
 			addClick(toc.pageX - this.offsetLeft, toc.pageY - this.offsetTop, true);
 			redraw();
 	  	}
