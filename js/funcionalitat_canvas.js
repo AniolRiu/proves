@@ -81,22 +81,16 @@ $(document).ready(function() {
 	
 	can.addEventListener('touchstart', function(e) {
 		paint = true;
-	  	addClick(e.changedTouches[0].pageX - this.offsetLeft, e.changedTouches[0].pageY - this.offsetTop);
+		toc = e.changedTouches[0];
+		alert(toc.pageX + " " + this.offsetLeft + " " + clientX);
+	  	addClick(toc.pageX - this.offsetLeft, toc.pageY - this.offsetTop);
 	  	redraw();
 	}, false);
-	
-	/*function onTouchStart(e) {
-		var mouseX = e.pageX - this.offsetLeft;
-	   	var mouseY = e.pageY - this.offsetTop;
-			
-		paint = true;
-	  	addClick(e.pageX - this.offsetLeft, e.pageY - this.offsetTop);
-	  	redraw();
-	}*/
 	
 	// fent_dibuix ---------
 	canv.mousemove(function(e){
 	  	if(paint){
+			alert(this.offsetTop);
 			addClick(e.pageX - this.offsetLeft, e.pageY - this.offsetTop, true);
 			redraw();
 	  	}
