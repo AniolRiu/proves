@@ -131,49 +131,48 @@ $(document).ready(function() {
 	}*/
 	
 	// inici_dibuix ---------
-	canv.mousedown(function(e){
+	/*canv.mousedown(function(e){
 		paint = true;
 	  	//addClick(e.pageX - this.offsetLeft, e.pageY - this.offsetTop);
 	  	draw(e.pageX - this.offsetLeft, e.pageY - this.offsetTop, false);
-	});
+	});*/
 	
-	/*can.addEventListener('touchstart', function(e) {
+	can.addEventListener('touchstart', function(e) {
 		paint = true;
 		toc = e.changedTouches[0];
-	  	addClick(toc.pageX - this.offsetLeft, toc.pageY - this.offsetTop);
-	  	redraw();
-	}, false);*/
+	  	draw(toc.pageX - this.offsetLeft, toc.pageY - this.offsetTop,false);
+	}, false);
 	
 	// fent_dibuix ---------
-	canv.mousemove(function(e){
+	/*canv.mousemove(function(e){
 	  	if(paint){
 			//addClick(e.pageX - this.offsetLeft, e.pageY - this.offsetTop, true);
 			draw(e.pageX - this.offsetLeft, e.pageY - this.offsetTop, true);
 	  	}
-	});
+	});*/
 	
-	/*can.addEventListener('touchmove', function(e) {
+	can.addEventListener('touchmove', function(e) {
 		if(paint){
 			toc = e.changedTouches[0];
-			addClick(toc.pageX - this.offsetLeft, toc.pageY - this.offsetTop, true);
-			redraw();
+			draw(toc.pageX - this.offsetLeft, toc.pageY - this.offsetTop, true);
+			//redraw();
 	  	}
-	}, false);*/
+	}, false);
 	
 	
 	// final_dibuix ---------
-	canv.mouseup(function(e){
+	/*canv.mouseup(function(e){
 	  paint = false;
-	});
+	});*/
 	
 	can.addEventListener('touchend', function(e) {
 		paint = false;
 	}, false);
 	
 	// fora_del_canvas -------
-	canv.mouseleave(function(e){
+	/*canv.mouseleave(function(e){
 	  paint = false;
-	});
+	});*/
 	
 	can.addEventListener('touchend', function(e) {
 		paint = false;
