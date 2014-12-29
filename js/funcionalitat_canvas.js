@@ -138,6 +138,7 @@ $(document).ready(function() {
 	});*/
 	
 	can.addEventListener('touchstart', function(e) {
+		e.preventDefault();
 		paint = true;
 		toc = e.changedTouches[0];
 	  	draw(toc.pageX - this.offsetLeft, toc.pageY - this.offsetTop,false);
@@ -152,6 +153,7 @@ $(document).ready(function() {
 	});*/
 	
 	can.addEventListener('touchmove', function(e) {
+		e.preventDefault();
 		if(paint){
 			toc = e.changedTouches[0];
 			draw(toc.pageX - this.offsetLeft, toc.pageY - this.offsetTop, true);
@@ -166,6 +168,7 @@ $(document).ready(function() {
 	});*/
 	
 	can.addEventListener('touchend', function(e) {
+		e.preventDefault();
 		paint = false;
 	}, false);
 	
@@ -174,7 +177,8 @@ $(document).ready(function() {
 	  paint = false;
 	});*/
 	
-	can.addEventListener('touchend', function(e) {
+	can.addEventListener('touchcancel', function(e) {
+		e.preventDefault();
 		paint = false;
 	}, false);
 	
