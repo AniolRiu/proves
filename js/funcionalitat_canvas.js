@@ -128,7 +128,7 @@ $(document).ready(function() {
 	});
 	
 	can.addEventListener('touchstart', function(e) {
-		e.stopPropagation();
+		e.stopPropagation(); // Evitem que la senyal es propagui a mousedown
 		e.preventDefault();
 		paint = true;
 		toc = e.changedTouches[0];
@@ -143,7 +143,7 @@ $(document).ready(function() {
 	});
 	
 	can.addEventListener('touchmove', function(e) {
-		e.stopPropagation();
+		e.stopPropagation(); // Evitem que la senyal es propagui a mousemove
 		e.preventDefault();
 		if(paint){
 			toc = e.changedTouches[0];
@@ -158,7 +158,7 @@ $(document).ready(function() {
 	});
 	
 	can.addEventListener('touchend', function(e) {
-		e.stopPropagation();
+		e.stopPropagation(); // Evitem que la senyal es propagui a mouseup
 		e.preventDefault();
 		paint = false;
 	}, false);
@@ -169,7 +169,7 @@ $(document).ready(function() {
 	});
 	
 	can.addEventListener('touchcancel', function(e) {
-		e.stopPropagation();
+		e.stopPropagation();// Evitem que la senyal es propagui a mouseleave
 		e.preventDefault();
 		paint = false;
 	}, false);
