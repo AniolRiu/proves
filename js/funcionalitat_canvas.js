@@ -122,12 +122,13 @@ $(document).ready(function() {
 	}
 	
 	// inici_dibuix ---------
-	/*canv.mousedown(function(e){
+	canv.mousedown(function(e){
 		paint = true;
 	  	draw(e.pageX - this.offsetLeft, e.pageY - this.offsetTop, false);
-	});*/
+	});
 	
 	can.addEventListener('touchstart', function(e) {
+		e.stopPropagation();
 		e.preventDefault();
 		paint = true;
 		toc = e.changedTouches[0];
@@ -135,13 +136,14 @@ $(document).ready(function() {
 	}, false);
 	
 	// fent_dibuix ---------
-	/*canv.mousemove(function(e){
+	canv.mousemove(function(e){
 	  	if(paint){
 			draw(e.pageX - this.offsetLeft, e.pageY - this.offsetTop, true);
 	  	}
-	});*/
+	});
 	
 	can.addEventListener('touchmove', function(e) {
+		e.stopPropagation();
 		e.preventDefault();
 		if(paint){
 			toc = e.changedTouches[0];
@@ -151,21 +153,23 @@ $(document).ready(function() {
 	
 	
 	// final_dibuix ---------
-	/*canv.mouseup(function(e){
+	canv.mouseup(function(e){
 	  paint = false;
-	});*/
+	});
 	
 	can.addEventListener('touchend', function(e) {
+		e.stopPropagation();
 		e.preventDefault();
 		paint = false;
 	}, false);
 	
 	// fora_del_canvas -------
-	/*canv.mouseleave(function(e){
+	canv.mouseleave(function(e){
 	  paint = false;
-	});*/
+	});
 	
 	can.addEventListener('touchcancel', function(e) {
+		e.stopPropagation();
 		e.preventDefault();
 		paint = false;
 	}, false);
