@@ -75,7 +75,7 @@ $(document).ready(function() {
 					height: canvas.height
 				};
 				alert("yeye2");
-				window.canvasplugin(canvas, offset, 'image/png', function(val) {
+				window.canvasplugin(can, offset, 'image/png', function(val) {
 					alert("yeye3");
 					alert(val);
 					alert("yeye4");
