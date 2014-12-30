@@ -69,10 +69,10 @@ $(document).ready(function() {
 			if (img === 'data:,' || img.length < 10) {
 				alert("yeye1");
 				var offset = {
-					left: 0,
-					top: document.getElementById("header_canvas").offsetHeight,
-					width: canvas.width,
-					height: canvas.height
+					left: $canvas.offset().left,
+        			top: $canvas.offset().top,
+        			width: $canvas.width(),
+        			height: $canvas.height()
 				};
 				alert("yeye2");
 				window.canvasplugin(can, offset, 'image/png', function(val){
