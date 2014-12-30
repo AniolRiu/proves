@@ -63,7 +63,7 @@ $(document).ready(function() {
 		});
 		
 		$('#save').bind('click',function(){
-			var img=can.toDataURL("image/png");
+			var img=can.toDataURL("image/png").replace("image/png", "image/octet-stream");
 			alert(img);
 			$("#text_solucio").val(img);
 			//$canvas.mouseup();
