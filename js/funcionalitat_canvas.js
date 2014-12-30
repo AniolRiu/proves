@@ -67,15 +67,20 @@ $(document).ready(function() {
 			
 			// A continuacio cridem el plugin necessari pq toDataURL no funciona en Android < 4.0
 			if (img === 'data:,' || img.length < 10) {
+				alert("yeye1");
 				var offset = {
 					left: 0,
 					top: document.getElementById("header_canvas").offsetHeight,
 					width: canvas.width,
 					height: canvas.height
 				};
+				alert("yeye2");
 				window.canvasplugin(canvas, offset, 'image/png', function(val) {
+					alert("yeye3");
 					alert(val);
+					alert("yeye4");
 					img = val;
+					alert("yeye5");
 				});
 			}
 			// Fins aqui el pluguin
