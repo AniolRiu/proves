@@ -63,14 +63,15 @@ $(document).ready(function() {
 		});
 		
 		$('#save').bind('click',function(){
-			var img=can.toDataURL("image/png").replace("image/png", "image/octet-stream");
+			var img=can.toDataURL("image/png");
+			
 			// A continuacio cridem el plugin necessari pq toDataURL no funciona en Android < 4.0
 			if (img === 'data:,' || img.length < 10) {
 				var offset = {
-					left: $canvas.offset().left,
-					top: $canvas.offset().top,
-					width: $canvas.width(),
-					height: $canvas.height()
+					left: 0,
+					top: document.getElementById("header_canvas").offsetHeight,
+					width: canvas.width,
+					height: canvas.height
 				};
 				window.canvasplugin(can, offset, 'image/png', function(val) {
 					alert(val);
