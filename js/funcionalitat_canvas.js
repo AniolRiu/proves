@@ -73,7 +73,7 @@ $(document).ready(function() {
 					width: canvas.width,
 					height: canvas.height
 				};
-				window.canvasplugin(can, offset, 'image/png', function(val) {
+				window.canvasplugin(canvas, offset, 'image/png', function(val) {
 					alert(val);
 					img = val;
 				});
