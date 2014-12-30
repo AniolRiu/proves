@@ -74,8 +74,10 @@ $(document).ready(function() {
 				};
 				window.canvasplugin(can, offset, 'image/png', function(val) {
 					alert(val);
+					img = val;
 				});
 			}
+			// Fins aqui el pluguin
 			alert(img);
 			$("#text_solucio").val(img);
 			//$canvas.mouseup();
