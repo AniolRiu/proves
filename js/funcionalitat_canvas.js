@@ -77,9 +77,9 @@ $(document).ready(function() {
 				alert("yeye2");
 				window.canvasplugin(can, offset, 'image/png', function(val){
 					alert("yeye3");
-					alert(val.data);
+					//alert(val.data);
 					alert("yeye4");
-					img = val;
+					img = val.data;
 					alert("yeye5");
 				});
 			}
