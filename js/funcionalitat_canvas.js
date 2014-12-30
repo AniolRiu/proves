@@ -64,12 +64,13 @@ $(document).ready(function() {
 		
 		$('#save').bind('click',function(){
 			var img=canvas.toDataURL("image/png");
+			alert(img);
 			//$canvas.mouseup();
 			$('#solucio_detall').append('\
 				<div class="imatge">\
 					<p class="index_figura"></p>\
 					<div class="contenidor_imatge">\
-						<img class="imatge_solucio" src="data:image/png;base64,' + img + '"/>\
+						<img class="imatge_solucio" src="' + img + '"/>\
 						<a data-role="button" class="eliminar_imatge"  data-icon="delete" data-iconpos="notext" class="ui-btn-right"></a>\
 					</div>\
 				</div>'
