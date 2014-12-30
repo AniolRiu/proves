@@ -63,7 +63,7 @@ $(document).ready(function() {
 		});
 		
 		$('#save').bind('click',function(){
-			var img=canvas.toDataURL("image/png");
+			var img=can.toDataURL("image/png");
 			alert(img);
 			//$canvas.mouseup();
 			$('#solucio_detall').append('\
