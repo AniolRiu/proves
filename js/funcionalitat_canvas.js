@@ -85,7 +85,6 @@ $(document).ready(function() {
 			}
 			// Fins aqui el pluguin
 			alert(img);
-			$("#text_solucio").val(img);
 			//$canvas.mouseup();
 			$('#solucio_detall').append('\
 				<div class="imatge">\
