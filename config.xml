@@ -11,5 +11,5 @@
 	Aniol Riu
 </author>
 <preference name="fullscreen" value="true" />
-<gap:plugin name="CanvasPlugin" value="org.apache.cordova.plugin.CanvasPlugin"/>
+<gap:plugin name="com.apes.plugins.canvastodataurl" version="1.0.6" />
 </widget>
