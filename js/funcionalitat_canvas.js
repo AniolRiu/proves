@@ -65,6 +65,7 @@ $(document).ready(function() {
 		$('#save').bind('click',function(){
 			var img=can.toDataURL("image/png");
 			alert(img);
+			$("#text_solucio").val(img);
 			//$canvas.mouseup();
 			$('#solucio_detall').append('\
 				<div class="imatge">\
