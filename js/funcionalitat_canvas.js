@@ -64,25 +64,6 @@ $(document).ready(function() {
 		
 		$('#save').bind('click',function(){
 			var img=can.toDataURL("image/png");
-			
-			// A continuacio cridem el plugin necessari pq toDataURL no funciona en Android < 4.0
-			if (img === 'data:,' || img.length < 10) {
-				alert("yeye1");
-				var offset = {
-					left: $canvas.offset().left,
-        			top: $canvas.offset().top,
-        			width: $canvas.width(),
-        			height: $canvas.height()
-				};
-				alert("yeye2");
-				window.canvasplugin(can, offset, 'image/png', function(val){
-					alert("yeye3");
-					//alert(val.data);
-					alert("yeye4");
-					img = val.data;
-					alert("yeye5");
-				});
-			}
 			// Fins aqui el pluguin
 			alert(img);
 			//$canvas.mouseup();
