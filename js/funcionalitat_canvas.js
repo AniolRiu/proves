@@ -15,8 +15,8 @@ $(document).ready(function() {
 	
 	var curSize = 20; // Guarda la mida del llapis 
 	
-	$(document).on("pageshow","#fes_dibuix", function() {
-		inicia_canvas();
+	$(document).on('pageinit','#fes_dibuix', function() {
+		// El codi dins d'aquesta funció només s'executa una vegada
 		$('#div_punta .ui-slider-track .ui-btn.ui-slider-handle').css({"height":curSize, "width":curSize});
 		$('#div_punta .ui-btn-up-c, .ui-btn-hover-c').css({"background":curColor});
 		
@@ -63,9 +63,7 @@ $(document).ready(function() {
 		});
 		
 		$('#save').bind('click',function(){
-			var img=can.toDataURL("image/png");
-			// Fins aqui el pluguin
-			alert(img);
+			var img=canvas.toDataURL("image/png");
 			//$canvas.mouseup();
 			$('#solucio_detall').append('\
 				<div class="imatge">\
@@ -89,6 +87,12 @@ $(document).ready(function() {
 		//--------------
 		
 		window.onresize = inicia_canvas;
+	});
+	
+	$(document).on('pageshow','#fes_dibuix', function() {
+		// El codi dins d'aquesta funció s'executa cada vegada que es visualitza la pàgina fes_dibuix
+		inicia_canvas();
+		
 	});
 	
 	function inicia_canvas() {
