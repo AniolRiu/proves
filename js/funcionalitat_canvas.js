@@ -101,14 +101,16 @@ $(document).ready(function() {
 	
 	function mostra_loading(cert) {
 		if(cert) {
-			setTimeout(function(){
+			var interval = setInterval(function(){
 				$.mobile.loading('show');
-			},1);  
+				clearInterval(interval);
+			},1);    
 		}
 		else {
-			setTimeout(function(){
+			var interval = setInterval(function(){
 				$.mobile.loading('hide');
-			},300);      
+				clearInterval(interval);
+			},1);      
 		}
 	}
 	
