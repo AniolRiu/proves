@@ -101,10 +101,7 @@ $(document).ready(function() {
 	
 	function mostra_loading(cert) {
 		if(cert) {
-			$.mobile.loading( 'show', {
-				text: 'Se está creando la imagen...',
-				textVisible: true
-			});
+			$.mobile.loading( 'show');
 		}
 		else {
 			$.mobile.loading( 'hide');
