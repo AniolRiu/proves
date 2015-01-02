@@ -63,6 +63,8 @@ $(document).ready(function() {
 		});
 		
 		$('#save').bind('click',function(){
+			mostra_loading(true);
+			alert();
 			var img=canvas.toDataURL("image/png");
 			//$canvas.mouseup();
 			$('#solucio_detall').append('\
@@ -76,6 +78,8 @@ $(document).ready(function() {
 			);
 			$(".eliminar_imatge").button();
 			netejaCanvas();
+			mostra_loading(false);
+			alert();
 			$.mobile.changePage( "#aporta_solucio", { transition: "slide"} );
 		});
 		
@@ -94,6 +98,18 @@ $(document).ready(function() {
 		inicia_canvas();
 		
 	});
+	
+	function mostra_loading(cert) {
+		if(cert) {
+			$.mobile.loading( 'show', {
+				text: 'Se está creando la imagen...',
+				textVisible: true
+			});
+		}
+		else {
+			$.mobile.loading( 'hide');
+		}
+	}
 	
 	function inicia_canvas() {
 		canvas.width=window.innerWidth;
