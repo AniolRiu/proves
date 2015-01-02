@@ -100,9 +100,12 @@ $(document).ready(function() {
 	});
 	
 	function mostra_loading(showOrHide) {
-		setTimeout(function(){
+		$.mobile.loadingMessageTextVisible = true;
+		$.mobile.loadingMessage = "please wait...";
+		$.mobile.showPageLoadingMsg();
+		/*setTimeout(function(){
 			$.mobile.loading(showOrHide);
-		}, 1); 
+		}, 1); */
 	}
 	
 	function inicia_canvas() {
