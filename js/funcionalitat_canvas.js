@@ -63,7 +63,7 @@ $(document).ready(function() {
 		});
 		
 		$('#save').bind('click',function(){
-			mostra_loading(true);
+			mostra_loading('show');
 			alert();
 			var img=canvas.toDataURL("image/png");
 			//$canvas.mouseup();
@@ -78,7 +78,7 @@ $(document).ready(function() {
 			);
 			$(".eliminar_imatge").button();
 			netejaCanvas();
-			mostra_loading(false);
+			mostra_loading('hide');
 			alert();
 			$.mobile.changePage( "#aporta_solucio", { transition: "slide"} );
 		});
@@ -99,19 +99,10 @@ $(document).ready(function() {
 		
 	});
 	
-	function mostra_loading(cert) {
-		if(cert) {
-			var interval = setInterval(function(){
-				$.mobile.loading('show');
-				clearInterval(interval);
-			},1);    
-		}
-		else {
-			var interval = setInterval(function(){
-				$.mobile.loading('hide');
-				clearInterval(interval);
-			},1);      
-		}
+	function mostra_loading(showOrHide) {
+		setTimeout(function(){
+			$.mobile.loading(showOrHide);
+		}, 1); 
 	}
 	
 	function inicia_canvas() {
