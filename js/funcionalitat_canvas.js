@@ -63,7 +63,7 @@ $(document).ready(function() {
 		});
 		
 		$('#save').bind('click',function(){
-			mostra_loading('show');
+			spinnerplugin.show();
 			alert();
 			var img=canvas.toDataURL("image/png");
 			//$canvas.mouseup();

@@ -11,4 +11,5 @@
 	Aniol Riu
 </author>
 <preference name="fullscreen" value="true" />
+<gap:plugin name="it.mobimentum.phonegapspinnerplugin" version="1.0.0" />
 </widget>
