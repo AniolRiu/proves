@@ -1,4 +1,5 @@
 $(document).ready(function() {
+
 	var can = document.getElementById("canvas");
 	var canv = $("#canvas");
 	var context = can.getContext("2d");
@@ -63,7 +64,9 @@ $(document).ready(function() {
 		});
 		
 		$('#save').bind('click',function(){
-			spinnerplugin.show();
+			{
+				fullscreen: true,  // defaults to false
+			}
 			alert();
 			var img=canvas.toDataURL("image/png");
 			//$canvas.mouseup();
@@ -78,7 +81,7 @@ $(document).ready(function() {
 			);
 			$(".eliminar_imatge").button();
 			netejaCanvas();
-			mostra_loading('hide');
+			spinnerplugin.hide();
 			alert();
 			$.mobile.changePage( "#aporta_solucio", { transition: "slide"} );
 		});
