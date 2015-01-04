@@ -79,7 +79,7 @@ $(document).ready(function() {
 		
 		$('#save').bind('click',function(){
 			text_popup();
-			setInterval(function(){text_popup();}, 500)
+			var interval_text_dinamic = setInterval(function(){text_popup();}, 500)
 			$("#popup_espera_dibuix").popup('open');
 			alert();
 			var img=canvas.toDataURL("image/png");
@@ -96,6 +96,7 @@ $(document).ready(function() {
 			$(".eliminar_imatge").button();
 			netejaCanvas();
 			$("#popup_espera_dibuix").popup('close');
+			clearInterval(interval_text_dinamic);
 			alert();
 			$.mobile.changePage( "#aporta_solucio", { transition: "slide"} );
 		});
