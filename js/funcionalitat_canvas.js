@@ -63,7 +63,8 @@ $(document).ready(function() {
 			netejaCanvas();
 		});
 		
-		$('#save').bind('click',function(){
+		/*$('#save').bind('click',function(){
+			
 			var img=canvas.toDataURL("image/png");
 			//$canvas.mouseup();
 			$('#solucio_detall').append('\
@@ -84,7 +85,7 @@ $(document).ready(function() {
 		$('#cancel').bind('click',function(){
 			$.mobile.changePage( "#aporta_solucio", { transition: "slide"} );
 			netejaCanvas();
-		});
+		});*/
 		//--------------
 		//--------------
 		
