@@ -64,7 +64,7 @@ $(document).ready(function() {
 		});
 		
 		$('#save').bind('click',function(){
-			spinnerplugin.show();
+			spinnerplugin.show({'overlay':true});
 			alert();
 			var img=canvas.toDataURL("image/png");
 			//$canvas.mouseup();
