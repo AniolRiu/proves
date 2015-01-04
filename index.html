@@ -48,9 +48,8 @@
 	<div data-role="header" id="header_canvas">
 		<div class="ui-btn-left" data-role="controlgroup" data-type="horizontal">
             <button id="cancel" data-icon="delete"></button>
-			<button id="save" data-icon="check"></button>
+			<a id="save" href="#popup_espera_dibuix" data-role="button" data-rel="popup" data-icon="check" data-transition="pop" data-position-to="window"></a>
 			<button id="clear" data-icon="refresh"></button>
-			<a href="#popup_espera_dibuix" data-role="button" data-rel="popup" data-icon="refresh" data-transition="pop"></a>
 		</div>  
 		<h1>Haz un dibujo</h1>
 		<a href="#add-form" data-icon="plus" class="ui-btn-right"></a>
@@ -85,8 +84,7 @@
     </div>
 	
 	<div data-role="popup" id="popup_espera_dibuix" data-dismissible="false">
-		<p id="text_popup">Creando dibujo</p>
-		<div id="progressbar"></div>
+		<p id="text_popup">Creando dibujo ...</p>
     </div>
 </div>
 

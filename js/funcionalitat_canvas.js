@@ -64,11 +64,6 @@ $(document).ready(function() {
 		});
 		
 		$('#save').bind('click',function(){
-			$( "#progressbar" ).progressbar({
-			  value: false
-			});
-			$("#popup_espera_dibuix").popup('open');
-			alert();
 			var img=canvas.toDataURL("image/png");
 			//$canvas.mouseup();
 			$('#solucio_detall').append('\
@@ -83,7 +78,6 @@ $(document).ready(function() {
 			$(".eliminar_imatge").button();
 			netejaCanvas();
 			$("#popup_espera_dibuix").popup('close');
-			alert();
 			$.mobile.changePage( "#aporta_solucio", { transition: "slide"} );
 		});
 		
