@@ -67,6 +67,7 @@ $(document).ready(function() {
 			{
 				fullscreen: true,  // defaults to false
 			}
+			spinnerplugin.show();
 			alert();
 			var img=canvas.toDataURL("image/png");
 			//$canvas.mouseup();
