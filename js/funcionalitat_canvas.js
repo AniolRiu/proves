@@ -65,7 +65,7 @@ $(document).ready(function() {
 		
 		$('#save').bind('click',function(){
 			$("#popup_espera_dibuix").popup('open');
-			/*var img=canvas.toDataURL("image/png");
+			var img=canvas.toDataURL("image/png");
 			//$canvas.mouseup();
 			$('#solucio_detall').append('\
 				<div class="imatge">\
