@@ -16,6 +16,20 @@ $(document).ready(function() {
 	
 	var curSize = 20; // Guarda la mida del llapis 
 	
+	// Amb aquesta variable i funcio creem una efecte de tres punts suspensius dinamics
+	// en el popup d'espera de creacio del dibuix
+	var n_punts=0;
+	var text = "Creando dibujo ";
+	function text_popup() {
+		var text_popup = text;
+		for (i=0; i<n_punts; ++i) {
+			text_popup += "."
+		}
+		n_punts += 1;
+		if (n_punts == 4)n_punts = 0;
+		document.getElementById('text_popup').innerHTML = text_popup;
+	}
+	
 	$(document).on('pageinit','#fes_dibuix', function() {
 		// El codi dins d'aquesta funció només s'executa una vegada
 		$('#div_punta .ui-slider-track .ui-btn.ui-slider-handle').css({"height":curSize, "width":curSize});
@@ -64,7 +78,9 @@ $(document).ready(function() {
 		});
 		
 		$('#save').bind('click',function(){
-			spinnerplugin.show({'overlay':true});
+			text_popup();
+			setInterval(function(){text_popup();}, 500)
+			$("#popup_espera_dibuix").popup('open');
 			alert();
 			var img=canvas.toDataURL("image/png");
 			//$canvas.mouseup();
@@ -79,7 +95,7 @@ $(document).ready(function() {
 			);
 			$(".eliminar_imatge").button();
 			netejaCanvas();
-			spinnerplugin.hide();
+			$("#popup_espera_dibuix").popup('close');
 			alert();
 			$.mobile.changePage( "#aporta_solucio", { transition: "slide"} );
 		});
