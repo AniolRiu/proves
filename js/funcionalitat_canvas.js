@@ -64,8 +64,16 @@ $(document).ready(function() {
 		});
 		
 		$('#save').bind('click',function(){
-			$("#popup_espera_dibuix").popup('open');
+			
 			function doThis(callback) {
+				$("#popup_espera_dibuix").popup('open');
+				
+				if (typeof callback === 'function') {
+					callback();
+				}
+			}
+			
+			function doThat() {
 				var img=canvas.toDataURL("image/png");
 				$('#solucio_detall').append('\
 					<div class="imatge">\
@@ -78,12 +86,6 @@ $(document).ready(function() {
 				);
 				$(".eliminar_imatge").button();
 				$("#popup_espera_dibuix").popup('close');
-				if (typeof callback === 'function') {
-					callback();
-				}
-			}
-			
-			function doThat() {
 				netejaCanvas();
 				$.mobile.changePage( "#aporta_solucio", { transition: "slide"} );
 			}
