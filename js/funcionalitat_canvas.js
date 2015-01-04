@@ -65,20 +65,30 @@ $(document).ready(function() {
 		
 		$('#save').bind('click',function(){
 			$("#popup_espera_dibuix").popup('open');
-			var img=canvas.toDataURL("image/png");
-			$('#solucio_detall').append('\
-				<div class="imatge">\
-					<p class="index_figura"></p>\
-					<div class="contenidor_imatge">\
-						<img class="imatge_solucio" src="' + img + '"/>\
-						<a data-role="button" class="eliminar_imatge"  data-icon="delete" data-iconpos="notext" class="ui-btn-right"></a>\
-					</div>\
-				</div>'
-			);
-			$(".eliminar_imatge").button();
-			//$("#popup_espera_dibuix").popup('close');
-			netejaCanvas();
-			$.mobile.changePage( "#aporta_solucio", { transition: "slide"} );
+			function doThis(callback) {
+				var img=canvas.toDataURL("image/png");
+				$('#solucio_detall').append('\
+					<div class="imatge">\
+						<p class="index_figura"></p>\
+						<div class="contenidor_imatge">\
+							<img class="imatge_solucio" src="' + img + '"/>\
+							<a data-role="button" class="eliminar_imatge"  data-icon="delete" data-iconpos="notext" class="ui-btn-right"></a>\
+						</div>\
+					</div>'
+				);
+				$(".eliminar_imatge").button();
+				$("#popup_espera_dibuix").popup('close');
+				if (typeof callback === 'function') {
+					callback();
+				}
+			}
+			
+			function doThat() {
+				netejaCanvas();
+				$.mobile.changePage( "#aporta_solucio", { transition: "slide"} );
+			}
+
+			doThis(doThat);
 		});
 		
 		$('#cancel').bind('click',function(){
