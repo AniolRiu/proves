@@ -64,7 +64,11 @@ $(document).ready(function() {
 		});
 		
 		$('#save').bind('click',function(){
-			$.mobile.showPageLoadingMsg();
+			$( "#progressbar" ).progressbar({
+			  value: false
+			});
+			$("#popup_espera_dibuix").popup('open');
+			alert();
 			var img=canvas.toDataURL("image/png");
 			//$canvas.mouseup();
 			$('#solucio_detall').append('\
@@ -77,8 +81,9 @@ $(document).ready(function() {
 				</div>'
 			);
 			$(".eliminar_imatge").button();
-			$.mobile.hidePageLoadingMsg();
 			netejaCanvas();
+			$("#popup_espera_dibuix").popup('close');
+			alert();
 			$.mobile.changePage( "#aporta_solucio", { transition: "slide"} );
 		});
 		
