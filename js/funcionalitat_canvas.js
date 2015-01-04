@@ -63,9 +63,9 @@ $(document).ready(function() {
 			netejaCanvas();
 		});
 		
-		/*$('#save').bind('click',function(){
-			
-			var img=canvas.toDataURL("image/png");
+		$('#save').bind('click',function(){
+			$("#popup_espera_dibuix").popup('open');
+			/*var img=canvas.toDataURL("image/png");
 			//$canvas.mouseup();
 			$('#solucio_detall').append('\
 				<div class="imatge">\
@@ -79,13 +79,13 @@ $(document).ready(function() {
 			$(".eliminar_imatge").button();
 			netejaCanvas();
 			$("#popup_espera_dibuix").popup('close');
-			$.mobile.changePage( "#aporta_solucio", { transition: "slide"} );
+			$.mobile.changePage( "#aporta_solucio", { transition: "slide"} );*/
 		});
 		
 		$('#cancel').bind('click',function(){
 			$.mobile.changePage( "#aporta_solucio", { transition: "slide"} );
 			netejaCanvas();
-		});*/
+		});
 		//--------------
 		//--------------
 		
