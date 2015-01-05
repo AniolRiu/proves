@@ -1,17 +1,22 @@
-// JavaScript Document
-document.addEventListener('deviceready', function () {
+ var onFailSoHard = function(e)
+    {
+            console.log('failed',e);
+    }
 
-    // have to call initialize function with canvas object
-    var objCanvas = document.getElementById("canvas");
-    window.plugin.CanvasCamera.initialize(objCanvas);
+    window.URL = window.URL || window.webkitURL ;
+    navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia;
 
-    // window.plugin.CanvasCamera is now available
-	var options = {
-        quality: 75,
-        destinationType: CanvasCamera.DestinationType.DATA_URL,
-        encodingType: CanvasCamera.EncodingType.JPEG,
-        width: 640,
-        height: 480
-    };
-    window.plugin.CanvasCamera.start(options);
-}, false);
+    var video = document.querySelector('video');
+
+    if(navigator.getUserMedia)
+    {
+        navigator.getUserMedia({video: true},function(stream) {
+        video.src = window.URL.createObjectURL(stream);
+        },onFailSoHard);
+    }
+
+    document.getElementById('snapshot').onclick = function() { 
+        var canvas = document.getElementById('canvas'); 
+        var ctx = canvas.getContext('2d'); 
+        ctx.drawImage(video,0,0); 
+    } 
