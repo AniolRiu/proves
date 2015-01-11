@@ -11,5 +11,5 @@
 	Aniol Riu
 </author>
 <preference name="fullscreen" value="true" />
-<plugin name="Compass" value="org.apache.cordova.CompassListener" />
+<gap:plugin name="org.apache.cordova.device-orientation" version="0.3.1" />
 </widget>

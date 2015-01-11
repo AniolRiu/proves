@@ -1,129 +1,22 @@
 <!DOCTYPE html>
 <!-- saved from url=(0086)http://www.html5rocks.com/en/tutorials/device/orientation/deviceorientationsample.html -->
-<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  <meta charset="UTF-8">
-  <script src="http://code.jquery.com/jquery-1.11.1.min.js" type="text/javascript"></script>
-  <title></title>
-  
-  <style type="text/css">
-    body {
-      font-family: sans-serif;
-    }
-  
-      .main {
-      border: 1px solid black;
-      box-shadow: 10px 10px 5px #888;
-      border-radius: 12px;
-      padding: 20px;
-      background-color: #ddd;
-      margin: 25px;
-      width: 450px;
-      margin-left:auto;
-      margin-right:auto;  
-    }
-    
-    .logo {
-      width:275px;
-      margin-left: auto;
-      margin-right: auto;
-      display: block;
-      padding: 15px;
-    }
-    
-    .container {
-      -webkit-perspective: 300; perspective: 300;
-    }
-  </style>
-
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  	<meta charset="UTF-8">
+  	<title></title>
 </head>
 <body>
-  <div class="main">
-      <h2>Device Orientation</h2>
-      <table>
-        <tbody><tr>
-          <td>Event Supported</td>
-          <td id="doEvent">DeviceOrientation</td>
-        </tr>
-        <tr>
-          <td>Tilt Left/Right [gamma]</td>
-          <td id="doTiltLR">0</td>
-        </tr>
-        <tr>
-          <td>Tilt Front/Back [beta]</td>
-          <td id="doTiltFB">0</td>
-        </tr>
-        <tr>
-          <td>Direction [alpha]</td>
-          <td id="doDirection">0</td>
-        </tr>
-      </tbody></table>
-  </div>
-  
-  <div class="container" style="-webkit-perspective: 300; perspective: 300;">
-    <img src="./deviceorientationsample_files/html5_logo.png" id="imgLogo" class="logo">
-  </div>
-  
-  <script type="text/javascript">
-    init();
-    var count = 0;
-    
-    function init() {
-		if(window.DeviceMotionEvent) {
-  			alert("We got device motion event!");
-			$("window").bind("devicemotion", function( e ) {
-			  // Something moved
-			  var motionEvent = e.originalEvent,
-				  accel = motionEvent.accelerationIncludingGravity,
-				  x = accel.x,
-				  y = accel.y,
-				  z =  accel.z;
-			  $("body").html(  
-				  "x:" + x + "<br/>" +
-				  "y:" + y + "<br/>" +
-				  "z:" + z
-);
-			});
+
+	<script type="text/javascript">
+		document.addEventListener("deviceready", onDeviceReady, false);
+		function onDeviceReady() {
+			alert();
 		}
-      if (window.DeviceOrientationEvent) {
-        document.getElementById("doEvent").innerHTML = "DeviceOrientation";
-        // Listen for the deviceorientation event and handle the raw data
-        window.addEventListener('deviceorientation', function(eventData) {
-          // gamma is the left-to-right tilt in degrees, where right is positive
-          var tiltLR = eventData.gamma;
-          
-          // beta is the front-to-back tilt in degrees, where front is positive
-          var tiltFB = eventData.beta;
-          
-          // alpha is the compass direction the device is facing in degrees
-          var dir = eventData.alpha
-          
-          // call our orientation event handler
-          deviceOrientationHandler(tiltLR, tiltFB, dir);
-          }, false);
-      } else {
-        document.getElementById("doEvent").innerHTML = "Not supported on your device or browser.  Sorry."
-      }
-    }
-  
-    function deviceOrientationHandler(tiltLR, tiltFB, dir) {
-      document.getElementById("doTiltLR").innerHTML = Math.round(tiltLR);
-      document.getElementById("doTiltFB").innerHTML = Math.round(tiltFB);
-      document.getElementById("doDirection").innerHTML = Math.round(dir);
-      
-      // Apply the transform to the image
-      var logo = document.getElementById("imgLogo");
-      logo.style.webkitTransform = "rotate("+ tiltLR +"deg) rotate3d(1,0,0, "+ (tiltFB*-1)+"deg)";
-      logo.style.MozTransform = "rotate("+ tiltLR +"deg)";
-      logo.style.transform = "rotate("+ tiltLR +"deg) rotate3d(1,0,0, "+ (tiltFB*-1)+"deg)";
-    }
-    
-    
-    // Some other fun rotations to try...
-    //var rotation = "rotate3d(0,1,0, "+ (tiltLR*-1)+"deg) rotate3d(1,0,0, "+ (tiltFB*-1)+"deg)";
-    //var rotation = "rotate("+ tiltLR +"deg) rotate3d(0,1,0, "+ (tiltLR*-1)+"deg) rotate3d(1,0,0, "+ (tiltFB*-1)+"deg)";
-  </script>
+    </script>
   
   
 
 
-</body></html>
+</body>
+</html>
