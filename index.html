@@ -29,31 +29,22 @@
 
       
 <script type="text/javascript" charset="utf-8">
-function onSuccess(heading) {
-    alert('Heading: ' + heading.magneticHeading);
-};
 
-function onError(error) {
-    alert('CompassError: ' + error.code);
-};
-
-navigator.compass.getCurrentHeading(onSuccess, onError);
+function init() {
+	function onSuccess(heading) {
+		alert('Heading: ' + heading.magneticHeading);
+	};
+	
+	function onError(error) {
+		alert('CompassError: ' + error.code);
+	};
+	
+	navigator.compass.getCurrentHeading(onSuccess, onError);
+}
 </script>
 
   </head>
-  <body onload="init();" id="stage" class="theme">
-  
-    <h1>Compass</h1>
-    <div id="info">
-        <b>Status:</b> <span id="compass_status">Stopped</span>
-        <table width="100%"><tr>
-            <td width="33%">Heading: <span id="compassHeading"> </span></td>
-        </tr></table>
-    </div>
-    <h2>Action</h2>
-    <div class="btn large" onclick="getCompass();">Get Compass</div>
-    <div class="btn large" onclick="watchCompass();">Start Watching Compass</div>
-    <div class="btn large" onclick="stopCompass();">Stop Watching Compass</div>
-    <h2> </h2><div class="backBtn" onclick="backHome();">Bacck</div>
+  <body onload="init();">
+
   </body>
 </html>      
