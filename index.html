@@ -120,7 +120,8 @@
     function init() {
         document.addEventListener("deviceready", function() {
                 deviceReady = true;
-                console.log("Device="+device.platform+" "+device.version);
+                //console.log("Device="+device.platform+" "+device.version);
+				alert("yeye");
             }, false);
         window.setTimeout(function() {
         	if (!deviceReady) {
