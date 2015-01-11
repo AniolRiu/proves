@@ -31,7 +31,9 @@
 <script type="text/javascript" charset="utf-8">
 
 function init() {
+	
 	function onSuccess(acceleration) {
+		alert("caca");
 		alert('Acceleration X: ' + acceleration.x + '\n' +
 			  'Acceleration Y: ' + acceleration.y + '\n' +
 			  'Acceleration Z: ' + acceleration.z + '\n' +
@@ -41,13 +43,13 @@ function init() {
 	function onError() {
 		alert('onError!');
 	};
-	
+	alert("caca");
 	navigator.accelerometer.getCurrentAcceleration(onSuccess, onError);
 }
 </script>
 
   </head>
   <body onload="init();">
-
+wqwwqqw
   </body>
 </html>      
