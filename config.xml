@@ -1,15 +1,18 @@
-<?xml version='1.0' encoding='utf-8'?>
-<widget 
-	xmlns="http://www.w3.org/ns/widgets" 
-	xmlns:gap="http://phonegap.com/ns/1.0"
-	id="com.approvat.proves" 
-	version="0.0.1"
-	versionCode="1" >
-<name>Proves</name>
-<description>Decorate your desktop with a frame that displays random pictures from Internet</description>
-<author href="http://randomframe.tk" email="artic.vb@gmail.com">
-	Aniol Riu
-</author>
-<preference name="fullscreen" value="true" />
-<gap:plugin name="org.apache.cordova.device-motion" version="0.2.10"/>
+<?xml version="1.0" encoding="UTF-8"?>
+
+<widget xmlns:gap = "http://phonegap.com/ns/1.0"
+        id        = "com.phonegap.hello-world"
+        version   = "1.0.0">
+
+    <name>Proves</name>
+
+    <description>
+        lalalala
+    </description>
+
+    <author>
+        nosaltres
+    </author>
+
+    <gap:plugin name="com.tlantic.plugins.socket" />
 </widget>
