@@ -2,14 +2,14 @@
 <head>
 	<script type="text/javascript">
 		window.plugins.socketClient.sendSocket(
-			"127.0.0.1", 
-			"80", 
-			"test", 
+			"192.168.1.255", 
+			"10000", 
+			"datus", 
 			function(e){
-				console.log("success: " + e);
+				alert("success");
 			}, 
 			function(e){
-				console.log("error: "+e);
+				alert("error");
 			});
 	</script>
 </head>
