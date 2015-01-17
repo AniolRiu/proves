@@ -1,7 +1,16 @@
 <html>
 <head>
 	<script type="text/javascript">
-		
+		window.plugins.socketClient.sendSocket(
+			"127.0.0.1", 
+			"80", 
+			"test", 
+			function(e){
+				console.log("success: " + e);
+			}, 
+			function(e){
+				console.log("error: "+e);
+			});
 	</script>
 </head>
 </html>
