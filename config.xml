@@ -14,5 +14,5 @@
         nosaltres
     </author>
 
-    <gap:plugin name="com.tlantic.plugins.socket" />
+    <gap:plugin name="es.abrego.plugins.socketclient" version="2.0" />
 </widget>
