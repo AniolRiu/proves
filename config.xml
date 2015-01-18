@@ -15,5 +15,5 @@
     </author>
 
     <gap:plugin name="com.ququplay.websocket.websocket" version="0.1.0" />
-    <access origin="*" />
+    <access origin="http://192.168.1.34:1337" />
 </widget>
