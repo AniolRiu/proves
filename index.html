@@ -40,7 +40,7 @@
 		}
 		var tiltLR1 = Math.round(((acceleration.x) / 9.81) * 90);*/
 		var tiltFB = 0;
-		if (acceleration.y > 0) {
+		if (acceleration.y < 0) {
 			tiltFB = -1;
 		} 
 		var tiltLR2 = Math.asin(acceleration.x / 9.81) * rad2deg + 180 * tiltFB;
@@ -51,6 +51,10 @@
                             '2: '      + tiltLR2  + '<br />';
                             
 							$("#climber")
+								.css({'-webkit-transform': 'rotate(' + tiltLR2 + 'deg)'})
+								.css({'-moz-transform': 'rotate(' + tiltLR2 + 'deg)'})
+								.css({'transform': 'rotate(' + tiltLR2 + 'deg)'});
+							$("#sky")
 								.css({'-webkit-transform': 'rotate(' + tiltLR2 + 'deg)'})
 								.css({'-moz-transform': 'rotate(' + tiltLR2 + 'deg)'})
 								.css({'transform': 'rotate(' + tiltLR2 + 'deg)'});
