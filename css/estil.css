@@ -3,6 +3,7 @@
     -webkit-transform-origin: top 67%; /* Chrome */
     -ms-transform-origin: top 67%; /* IE 9 */
     z-index:3;
+    max-height:30%;
 }
 
 #rock {
@@ -14,5 +15,5 @@
 }
 
 img {
-	display: inline-block;
+	position: fixed;
 }
