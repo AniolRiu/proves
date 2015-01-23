@@ -1,19 +1,14 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
-<widget xmlns:gap = "http://phonegap.com/ns/1.0"
-        id        = "com.phonegap.hello-world"
-        version   = "1.0.0">
-
-    <name>Proves</name>
-
-    <description>
-        lalalala
-    </description>
-
-    <author>
-        nosaltres
-    </author>
-
-    <gap:plugin name="com.ququplay.websocket.websocket" version="0.1.0" />
-    <access origin="http://192.168.1.34:1337" />
+<?xml version='1.0' encoding='utf-8'?>
+<widget 
+	xmlns="http://www.w3.org/ns/widgets" 
+	xmlns:gap="http://phonegap.com/ns/1.0"
+	id="com.articapps.routeangle" 
+	version="0.0.1"
+	versionCode="1" >
+<name>Route Angle</name>
+<description>This app determines the inclination of a climbing route</description>
+<author email="artic.vb@gmail.com">
+	Aniol Riu
+</author>
+<preference name="fullscreen" value="true" />
 </widget>
