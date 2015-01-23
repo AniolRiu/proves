@@ -2,6 +2,7 @@
 <html>
   <head>
     <title>Acceleration Example</title>
+    <link rel="stylesheet" type="text/css" href="css/estil.css">
     <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
     <script src='http://ajax.googleapis.com/ajax/libs/jquery/1.4.1/jquery.min.js' type='text/javascript'></script>
     <script type="text/javascript" charset="utf-8">
@@ -45,7 +46,7 @@
                             'Acceleration Z: ' + acceleration.z         + '<br />' +
                             '2: '      + tiltLR2  + '<br />';
                             
-							$("#climber1")
+							$("#climber")
 								.css({'-webkit-transform': 'rotate(' + tiltLR2 + 'deg)'})
 								.css({'-moz-transform': 'rotate(' + tiltLR2 + 'deg)'})
 								.css({'transform': 'rotate(' + tiltLR2 + 'deg)'});
@@ -62,8 +63,8 @@
   <body>
     <div id="accelerometer">Waiting for accelerometer...</div>
     <div>
-		<img id="climber1" src="res/climber.png">
-		<img id="climber2" src="res/climber.png">
+		<img id="rock" src="res/rock.png">
+		<img id="climber" src="res/climber.png">
     </div>
   </body>
 </html>
