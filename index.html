@@ -44,7 +44,8 @@
                             'Acceleration Z: ' + acceleration.z         + '<br />' +
                             'Timestamp: '      + acceleration.timestamp + '<br />' +
                             '1: '      + tiltLR + '<br />' +
-                            'Timestamp: '      + Math.asin(acceleration.x / 9.81) + '<br />';
+                            '2: '      + Math.round(acceleration.x / 9.81) + '<br />' +
+                            '3: '      + Math.asin(Math.round(acceleration.x / 9.81)) + '<br />';
     }
 
     // onError: Failed to get the acceleration
