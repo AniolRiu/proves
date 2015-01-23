@@ -2,5 +2,17 @@
     transform-origin: top 67%; /* IE 10+, Firefox, etc. */
     -webkit-transform-origin: top 67%; /* Chrome */
     -ms-transform-origin: top 67%; /* IE 9 */
-    display: inline-block;
+    z-index:3;
+}
+
+#rock {
+	z-index:2;
+}
+
+#sky {
+	z-index:1;
+}
+
+img {
+	display: inline-block;
 }

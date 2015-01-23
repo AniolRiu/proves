@@ -38,8 +38,12 @@
         if (acceleration.z > 0) {
 			facingUp = +1;
 		}
-		var tiltLR1 = Math.round(((acceleration.x) / 9.81) * 90);*/ 
-		var tiltLR2 = Math.asin(acceleration.x / 9.81) * rad2deg;
+		var tiltLR1 = Math.round(((acceleration.x) / 9.81) * 90);*/
+		var tiltFB = 0;
+		if (acceleration.y > 0) {
+			tiltFB = -1;
+		} 
+		var tiltLR2 = Math.asin(acceleration.x / 9.81) * rad2deg + 180 * tiltFB;
         var element = document.getElementById('accelerometer');
         element.innerHTML = 'Acceleration X: ' + acceleration.x         + '<br />' +
                             'Acceleration Y: ' + acceleration.y         + '<br />' +
@@ -64,6 +68,7 @@
     <div id="accelerometer">Waiting for accelerometer...</div>
     <div>
 		<img id="rock" src="res/rock.png">
+		<img id="sky" src="res/sky.jpg">
 		<img id="climber" src="res/climber.png">
     </div>
   </body>
