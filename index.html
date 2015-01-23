@@ -36,16 +36,15 @@
         if (acceleration.z > 0) {
 			facingUp = +1;
 		}
-		var tiltLR = Math.round(((acceleration.x) / 9.81) * -90); 
+		var tiltLR = Math.round(((acceleration.x) / 9.81) * 90); 
 		
         var element = document.getElementById('accelerometer');
         element.innerHTML = 'Acceleration X: ' + acceleration.x         + '<br />' +
                             'Acceleration Y: ' + acceleration.y         + '<br />' +
                             'Acceleration Z: ' + acceleration.z         + '<br />' +
-                            'Timestamp: '      + acceleration.timestamp + '<br />' +
                             '1: '      + tiltLR + '<br />' +
                             '2: '      + (acceleration.x / 9.81) + '<br />' +
-                            '3: '      + Math.asin(acceleration.x / 9.81) + '<br />';
+                            '3: '      + Math.asin(acceleration.x / 9.81) * (180 / Math.PI)  + '<br />';
     }
 
     // onError: Failed to get the acceleration
