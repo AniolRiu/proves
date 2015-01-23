@@ -1,86 +1,40 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta charset="utf-8">
+<html>
+  <head>
+    <title>Acceleration Example</title>
 
-	<title>RouteAngle</title>
-	
-</head>
-<body>
+    <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
+    <script type="text/javascript" charset="utf-8">
 
-<div class="main">
-</div>
+    // Wait for device API libraries to load
+    //
+    document.addEventListener("deviceready", onDeviceReady, false);
 
-	<div class="container" style="perspective: 300;">
-	  <img src="src/climber.png" id="imgLogo" class="logo">
-	</div>
+    // device APIs are available
+    //
+    function onDeviceReady() {
+        navigator.accelerometer.getCurrentAcceleration(onSuccess, onError);
+    }
 
+    // onSuccess: Get a snapshot of the current acceleration
+    //
+    function onSuccess(acceleration) {
+        alert('Acceleration X: ' + acceleration.x + '\n' +
+              'Acceleration Y: ' + acceleration.y + '\n' +
+              'Acceleration Z: ' + acceleration.z + '\n' +
+              'Timestamp: '      + acceleration.timestamp + '\n');
+    }
 
-	<div>
-    	<canvas id="canvas" width="600" height="600"></canvas>
-	</div>
-	<script>
-	$(document).bind('deviceready', function() {
-		var watchId;
-		var options = {frequency: 100};
-		watchId = navigator.accelerometer.watchAcceleration(onSuccess, onError, option)
-	}, false);
-	
-	function onSuccess(acceleration){
-		var element = document.getElementById('main');
-		element.innerHTML = 'Acceleration X: ' + acceleration.x + '<br />' +
-							'Acceleration Y: ' + acceleration.y + '<br />' +
-							'Acceleration Z: ' + acceleration.z + '<br />' + 
-							'Timestamp: '      + acceleration.timestamp + '<br />';
-	}
-	
-	function onError() {
-		alert("oops!");
-	}
-	/*window.addEventListener("load", init); 
-	
-	var climberImg = new Image(); 
-	climberImg.src = 'res/climber.png';
-	var canvas = document.getElementById('canvas'); 
-	var context = canvas.getContext('2d'); 
+    // onError: Failed to get the acceleration
+    //
+    function onError() {
+        alert('onError!');
+    }
 
-	function init() { 
-		context.rotate(1);
-		context.drawImage(climberImg, 50,35);
-		if (window.DeviceOrientationEvent) {
- 			console.log("DeviceOrientation is supported");
-		}
-		else {
-			console.log("DeviceOrientation is not supported");
-		}
-		if (window.DeviceOrientationEvent) {
-  // Listen for the event and handle DeviceOrientationEvent object
-  window.addEventListener('deviceorientation', devOrientHandler, false);
-}
-if (window.DeviceOrientationEvent) {
-  document.getElementById("doEvent").innerHTML = "DeviceOrientation";
-  // Listen for the deviceorientation event and handle the raw data
-  window.addEventListener('deviceorientation', function(eventData) {
-    // gamma is the left-to-right tilt in degrees, where right is positive
-    var tiltLR = eventData.gamma;
-
-    // beta is the front-to-back tilt in degrees, where front is positive
-    var tiltFB = eventData.beta;
-
-    // alpha is the compass direction the device is facing in degrees
-    var dir = eventData.alpha
-
-    // call our orientation event handler
-    deviceOrientationHandler(tiltLR, tiltFB, dir);
-  }, false);
-} else {
-  document.getElementById("doEvent").innerHTML = "Not supported."
-}
-	
-	}*/
-
-	</script>
-
-</body>
+    </script>
+  </head>
+  <body>
+    <h1>Example</h1>
+    <p>getCurrentAcceleration</p>
+  </body>
 </html>
