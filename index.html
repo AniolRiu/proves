@@ -2,7 +2,7 @@
 <html>
   <head>
     <title>Acceleration Example</title>
-
+	<img src="img/climber.png" id="imgLogo2" class="logo" align="right" height="100" width="100">
     <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
     <script type="text/javascript" charset="utf-8">
 
@@ -36,15 +36,18 @@
         if (acceleration.z > 0) {
 			facingUp = +1;
 		}
-		var tiltLR = Math.round(((acceleration.x) / 9.81) * 90); 
-		
+		var tiltLR1 = Math.round(((acceleration.x) / 9.81) * 90); 
+		var tiltLR2 = Math.asin(acceleration.x / 9.81) * (180 / Math.PI)
         var element = document.getElementById('accelerometer');
         element.innerHTML = 'Acceleration X: ' + acceleration.x         + '<br />' +
                             'Acceleration Y: ' + acceleration.y         + '<br />' +
                             'Acceleration Z: ' + acceleration.z         + '<br />' +
-                            '1: '      + tiltLR + '<br />' +
-                            '2: '      + (acceleration.x / 9.81) + '<br />' +
-                            '3: '      + Math.asin(acceleration.x / 9.81) * (180 / Math.PI)  + '<br />';
+                            '1: '      + tiltLR1 + '<br />' +
+                            '2: '      + tiltLR2  + '<br />';
+                            
+                            var rotateAngle = "rotateX(" + tiltLR2 + "deg);
+							//document.getElementById("imgLogo2").style.webkitTransform = rotateAngle;
+							document.getElementById("imgLogo2").style.transform = 'rotate(' + tiltLR2 + 'deg)';
     }
 
     // onError: Failed to get the acceleration
