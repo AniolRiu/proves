@@ -43,7 +43,7 @@
 		if (acceleration.y < 0) {
 			tiltFB = -1;
 		} 
-		var tiltLR2 = Math.asin(acceleration.x / 9.81) * rad2deg + 180 * tiltFB;
+		var tiltLR2 = 180 * tiltFB - Math.asin(acceleration.x / 9.81) * rad2deg;
         var element = document.getElementById('accelerometer');
         element.innerHTML = 'Acceleration X: ' + acceleration.x         + '<br />' +
                             'Acceleration Y: ' + acceleration.y         + '<br />' +
