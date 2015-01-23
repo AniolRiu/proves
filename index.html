@@ -17,8 +17,7 @@
     // device APIs are available
     //
     function onDeviceReady() {
-		degrees=25;
-		elem=document.getElementById("climber2");
+		document.getElementById("climber2").style.webkitTransform = "rotate(25deg)";
 		/*if(navigator.userAgent.match("Chrome")){
 			elem.style.WebkitTransform = "rotate("+degrees+"deg)";
 		} else if(navigator.userAgent.match("Firefox")){
