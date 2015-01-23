@@ -15,7 +15,9 @@
     // device APIs are available
     //
     function onDeviceReady() {
-		document.getElementById("climber2").style.transform="rotate(15deg)";
+		var rotateAngle = "rotateX(" + tiltLR2 + "deg)";
+		document.getElementById("climber2").style.webkitTransform = "rotateX(25deg)";
+		//document.getElementById("climber2").style.transform="rotate(15deg)";
         startWatch();
     }
 
