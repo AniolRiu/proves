@@ -16,11 +16,11 @@
     // device APIs are available
     //
     function onDeviceReady() {
-		document.getElementById("climber2").style.transform="rotate(25deg)";
-		/*$("#climber2")
-			.css({'-webkit-transform': 'rotate(28deg)'})
-            .css({'-moz-transform': 'rotate(28deg)'})
-            .css({'transform': 'rotate(28deg)'});*/
+		//document.getElementById("climber2").style.transform="rotate(25deg)";
+		$("#climber2")
+			//.css({'-webkit-transform': 'rotate(28deg)'})
+            //.css({'-moz-transform': 'rotate(28deg)'})
+            .css({'transform': 'rotate(28deg)'});
 		//document.getElementById("climber2").style.transform="rotate(15deg)";
         startWatch();
     }
@@ -51,9 +51,10 @@
                             '1: '      + tiltLR1 + '<br />' +
                             '2: '      + tiltLR2  + '<br />';
                             
-                            var rotateAngle = "rotateX(" + tiltLR2 + "deg)";
-							//document.getElementById("imgLogo2").style.webkitTransform = rotateAngle;
-							document.getElementById("climber1").style.transform = 'rotate(' + tiltLR2 + 'deg)';
+							$("#climber1")
+								.css({'-webkit-transform': 'rotate(' + tiltLR2 + 'deg)'})
+								.css({'-moz-transform': 'rotate(' + tiltLR2 + 'deg)'})
+								.css({'transform': 'rotate(' + tiltLR2 + 'deg)'});
     }
 
     // onError: Failed to get the acceleration
