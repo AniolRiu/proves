@@ -8,6 +8,7 @@
 	
     // The watch id references the current `watchAcceleration`
     var watchID = null;
+    var rad2deg = 180 / Math.PI;
 
     // Wait for device API libraries to load
     //
@@ -38,12 +39,12 @@
     // onSuccess: Get a snapshot of the current acceleration
     //
     function onSuccess(acceleration) {
-		var facingUp = -1;
+		/*var facingUp = -1;
         if (acceleration.z > 0) {
 			facingUp = +1;
 		}
-		var tiltLR1 = Math.round(((acceleration.x) / 9.81) * 90); 
-		var tiltLR2 = Math.asin(acceleration.x / 9.81) * (180 / Math.PI)
+		var tiltLR1 = Math.round(((acceleration.x) / 9.81) * 90);*/ 
+		var tiltLR2 = Math.asin(acceleration.x / 9.81) * rad2deg;
         var element = document.getElementById('accelerometer');
         element.innerHTML = 'Acceleration X: ' + acceleration.x         + '<br />' +
                             'Acceleration Y: ' + acceleration.y         + '<br />' +
