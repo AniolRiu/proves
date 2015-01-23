@@ -17,11 +17,22 @@
     // device APIs are available
     //
     function onDeviceReady() {
-		//document.getElementById("climber2").style.transform="rotate(25deg)";
-		$("#climber2")
-			//.css({'-webkit-transform': 'rotate(28deg)'})
-            //.css({'-moz-transform': 'rotate(28deg)'})
-            .css({'transform': 'rotate(28deg)'});
+		degrees=25;
+		if(navigator.userAgent.match("Chrome")){
+		elem.style.WebkitTransform = "rotate("+degrees+"deg)";
+	} else if(navigator.userAgent.match("Firefox")){
+		elem.style.MozTransform = "rotate("+degrees+"deg)";
+	} else if(navigator.userAgent.match("MSIE")){
+		elem.style.msTransform = "rotate("+degrees+"deg)";
+	} else if(navigator.userAgent.match("Opera")){
+		elem.style.OTransform = "rotate("+degrees+"deg)";
+	} else {
+		elem.style.transform = "rotate("+degrees+"deg)";
+	}
+		/*$("#climber2")
+			.css({'-webkit-transform': 'rotate(90deg)'})
+            .css({'-moz-transform': 'rotate(45deg)'})
+            .css({'transform': 'rotate(0deg)'});*/
 		//document.getElementById("climber2").style.transform="rotate(15deg)";
         startWatch();
     }
