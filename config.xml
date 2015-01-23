@@ -11,4 +11,8 @@
 	Aniol Riu
 </author>
 <preference name="fullscreen" value="true" />
+<feature name="Accelerometer">
+    <param name="android-package" value="org.apache.cordova.devicemotion.AccelListener" />
+</feature>
+<gap:plugin name="org.apache.cordova.device-motion"/>
 </widget>
