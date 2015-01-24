@@ -4,12 +4,14 @@
     -ms-transform-origin: top 67%; /* IE 9 */
     z-index:3;
     max-height:30%;
+    left:25%;
+    top:30%;
 }
 
 #rock {
 	z-index:2;
-	left: -20px;
-	top: -20px;
+	left: -75px;
+	top: -5%;
 	height: 110%;
 	vertical-align: middle;
 }
@@ -19,10 +21,13 @@
 	top: -20px;
 	height: 110%;
 	vertical-align: middle;
-	left: 50%;
-    margin-right: -50%;
+	right: 0%;
 }
 
 img {
-	position: absolute;
+	position: fixed;
+}
+
+#escenari {
+	height: 90%;
 }
