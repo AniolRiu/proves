@@ -20,8 +20,8 @@
 #sky {
 	z-index:1;
 	top: -10%;
-	width: 142%;
 	height: 142%;
+	width: auto;
 	vertical-align: middle;
 	right: 0%;
 }
