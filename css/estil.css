@@ -8,15 +8,19 @@
 
 #rock {
 	z-index:2;
-	left: -20;
-	top: -20;
+	left: -20px;
+	top: -20px;
 	height: 110%;
+	vertical-align: middle;
 }
 
 #sky {
 	z-index:1;
+	top: -20px;
 	height: 110%;
-	top: -20%;
+	vertical-align: middle;
+	left: 50%;
+    margin-right: -50%;
 }
 
 img {
