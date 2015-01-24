@@ -8,6 +8,8 @@
 
 #rock {
 	z-index:2;
+	left: -20;
+	top: -20;
 }
 
 #sky {

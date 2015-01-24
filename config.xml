@@ -11,6 +11,7 @@
 	Aniol Riu
 </author>
 <preference name="fullscreen" value="true" />
+<preference name="orientation" value="portrait" />
 
 <gap:plugin name="org.apache.cordova.device-motion" version="0.2.10" />
 
