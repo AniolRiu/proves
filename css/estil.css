@@ -4,15 +4,15 @@
     -ms-transform-origin: top 67%; /* IE 9 */
     z-index:3;
     max-height:30%;
-    left:25%;
+    right:56%;
     top:30%;
 }
 
 #rock {
 	z-index:2;
-	right: 60%;
+	right: 58%;
 	top: -4%;
-	width: 51%;
+	width: 55%;
 	height: 107%;
 	vertical-align: middle;
 }
@@ -20,6 +20,7 @@
 #sky {
 	z-index:1;
 	top: -10%;
+	width: 142%;
 	height: 142%;
 	vertical-align: middle;
 	right: 0%;
