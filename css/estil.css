@@ -19,11 +19,10 @@
 
 #sky {
 	z-index:1;
-	top: -10%;
-	height: 142%;
+	height: 130%;
 	width: auto;
 	vertical-align: middle;
-	right: 0%;
+	right: -15%;
 }
 
 img {
