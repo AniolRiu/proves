@@ -14,17 +14,19 @@
 	top: -4%;
 	width: 55%;
 	height: 107%;
-	vertical-align: middle;
 }
 
 #sky {
+	top: -21%;
 	z-index:1;
-	height: 143%;
+	height: 142%;
 	width: auto;
-	vertical-align: middle;
-	
 }
 
 img {
 	position: fixed;
+}
+
+#accelerometer {
+	z-index: 10;
 }
