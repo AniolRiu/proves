@@ -19,16 +19,12 @@
 
 #sky {
 	z-index:1;
-	height: 130%;
+	height: 143%;
 	width: auto;
 	vertical-align: middle;
-	right: -15%;
+	
 }
 
 img {
 	position: fixed;
-}
-
-#escenari {
-	height: 90%;
 }
