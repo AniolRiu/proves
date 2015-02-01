@@ -8,17 +8,17 @@ var orientacio = (window.screen.availWidth > window.screen.availHeight ? "h" : "
 var num_imatges_h=h.length;
 var num_imatges_v=v.length;
 var periode = 15;
+var interval;
 
 function onLoad() {
 	//document.addEventListener("deviceready", onDeviceReady, false);
-	setInterval(function() {carregaImatge();}, periode * 1000);
+	interval=setInterval(function() {carregaImatge();}, periode * 1000);
 	//carregaImatge();
 	$('html').click(function() {
 		carregaImatge();
 	});
 	descarregaLlista();
 
-	
 	if(( /(ipad|iphone|ipod|android)/i.test(navigator.userAgent) )) {
 		document.addEventListener('deviceready', initApp, false);
 	} else {
@@ -26,7 +26,7 @@ function onLoad() {
 	}
 }
 
-function onVolumeDownKeyDown() {
+function desaccelera() {
 	/*
 	 * El periode minim son 5 segons
 	 * De 5 a 15 augmenta de 5 en 5
@@ -50,9 +50,11 @@ function onVolumeDownKeyDown() {
 		missatge = "Refresh time: " + periode / 60 + " mins";
 	}
     alert(missatge);
+    clearInterval(interval);
+    interval = setInterval(function() {carregaImatge();}, periode * 1000);
 }
 
-function onVolumeUpKeyDown() {
+function accelera() {
     /*
 	 * El periode minim son 5 segons
 	 * De 5 a 15 augmenta de 5 en 5
@@ -60,11 +62,11 @@ function onVolumeUpKeyDown() {
 	 * a partir de 60 augmenta de 60 en 60
 	 */
 	var missatge;
-	if (periode < 16) {
+	if (periode < 14) {
 		periode += 5;
 		missatge = "Refresh time: " + periode + " secs";
 	}
-	else if (periode < 61) {
+	else if (periode < 59) {
 		periode += 15;
 		missatge = "Refresh time: " + periode + " secs";
 	}
@@ -73,6 +75,8 @@ function onVolumeUpKeyDown() {
 		missatge = "Refresh time: " + periode / 60 + " mins";
 	}
     alert(missatge);
+    clearInterval(interval);
+    interval = setInterval(function() {carregaImatge();}, periode * 1000);
 }
 
 function getAdresa(num) {
@@ -117,8 +121,17 @@ var ad_units = {
 var admobid = ( /(android)/i.test(navigator.userAgent) ) ? ad_units.android : ad_units.ios;
 
 function initApp() {
-	document.addEventListener("volumedownbutton", onVolumeDownKeyDown, false);
-	document.addEventListener("volumeupbutton", onVolumeUpKeyDown, false);
+	alert();
+	document.addEventListener('keydown', function(event) {
+		if(event.keyCode == 37) {
+			desaccelera();
+		}
+		else if(event.keyCode == 39) {
+			accelera();
+		}
+	});
+	document.addEventListener("volumedownbutton", desaccelera, false);
+	document.addEventListener("volumeupbutton", accelera, false);
 	
 	// Daki en avall es el tema de la publicitat
 	if (! AdMob ) { alert( 'admob plugin not ready' ); return; }
