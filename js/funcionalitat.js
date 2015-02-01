@@ -15,7 +15,9 @@ function onLoad() {
 		carregaImatge();
 	});
 	descarregaLlista();
-	document.addEventListener("menubutton", mostraMenu, false);
+	document.addEventListener("volumedownbutton", onVolumeDownKeyDown, false);
+	document.addEventListener("volumeupbutton", onVolumeUpKeyDown, false);
+
 	
 	if(( /(ipad|iphone|ipod|android)/i.test(navigator.userAgent) )) {
 		document.addEventListener('deviceready', initApp, false);
@@ -24,8 +26,12 @@ function onLoad() {
 	}
 }
 
-function mostraMenu() {
-	alert();
+function onVolumeDownKeyDown() {
+    alert("volum avall");
+}
+
+function onVolumeUpKeyDown() {
+    alert("volum amunt");
 }
 
 function getAdresa(num) {
