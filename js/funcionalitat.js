@@ -9,14 +9,13 @@ var num_imatges_h=h.length;
 var num_imatges_v=v.length;
 
 function onLoad() {
+	document.addEventListener("deviceready", onDeviceReady, false);
 	setInterval(function() {carregaImatge();}, 15000);
 	//carregaImatge();
 	$('html').click(function() {
 		carregaImatge();
 	});
 	descarregaLlista();
-	document.addEventListener("volumedownbutton", onVolumeDownKeyDown, false);
-	document.addEventListener("volumeupbutton", onVolumeUpKeyDown, false);
 
 	
 	if(( /(ipad|iphone|ipod|android)/i.test(navigator.userAgent) )) {
@@ -24,6 +23,14 @@ function onLoad() {
 	} else {
 		initApp();
 	}
+}
+
+// device APIs are available
+//
+function onDeviceReady() {
+	// Register the event listener
+	document.addEventListener("volumedownbutton", onVolumeDownKeyDown, false);
+	document.addEventListener("volumeupbutton", onVolumeUpKeyDown, false);
 }
 
 function onVolumeDownKeyDown() {
