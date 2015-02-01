@@ -1,79 +1,15 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Acceleration Example</title>
-    <link rel="stylesheet" type="text/css" href="css/estil.css">
-    <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
-    <script src='http://ajax.googleapis.com/ajax/libs/jquery/1.4.1/jquery.min.js' type='text/javascript'></script>
-    <script type="text/javascript" charset="utf-8">
-	
-    // The watch id references the current `watchAcceleration`
-    var watchID = null;
-    var rad2deg = 180 / Math.PI;
-
-    // Wait for device API libraries to load
-    //
-    document.addEventListener("deviceready", onDeviceReady, false);
-
-    // device APIs are available
-    //
-    function onDeviceReady() {
-        startWatch();
-    }
-
-    // Start watching the acceleration
-    //
-    function startWatch() {
-
-        // Update acceleration every 0.3 seconds
-        var options = { frequency: 40 };
-
-        watchID = navigator.accelerometer.watchAcceleration(onSuccess, onError, options);
-    }
-
-    // onSuccess: Get a snapshot of the current acceleration
-    //
-    function onSuccess(acceleration) {
-		/*var facingUp = -1;
-        if (acceleration.z > 0) {
-			facingUp = +1;
-		}
-		var tiltLR1 = Math.round(((acceleration.x) / 9.81) * 90);*/
-		var tiltLR = Math.asin(acceleration.x / 9.81) * rad2deg;
-		if (acceleration.y < 0) {
-			tiltLR = 180 - tiltLR;
-		}
-		
-        var element = document.getElementById('accelerometer');
-        element.innerHTML = 'Acceleration X: ' + acceleration.x         + '<br />' +
-                            'Acceleration Y: ' + acceleration.y         + '<br />' +
-                            'Acceleration Z: ' + acceleration.z         + '<br />' +
-                            '2: '      + tiltLR  + '<br />';
-                            
-							$("#climber")
-								.css({'-webkit-transform': 'rotate(' + tiltLR + 'deg)'})
-								.css({'-moz-transform': 'rotate(' + tiltLR + 'deg)'})
-								.css({'transform': 'rotate(' + tiltLR + 'deg)'});
-							$("#sky")
-								.css({'-webkit-transform': 'rotate(' + tiltLR + 'deg)'})
-								.css({'-moz-transform': 'rotate(' + tiltLR + 'deg)'})
-								.css({'transform': 'rotate(' + tiltLR + 'deg)'});
-    }
-
-    // onError: Failed to get the acceleration
-    //
-    function onError() {
-        alert('Error!');
-    }
-
-    </script>
-  </head>
-  <body>
-    <div id="escenari">
-		<img id="rock" src="res/rock.png">
-		<img id="sky" src="res/sky.jpg"/>
-		<img id="climber" src="res/climber.png">
-    </div>
-    <div id="accelerometer">Waiting for accelerometer...</div>
-  </body>
+<head>
+<meta charset="utf-8" />
+<meta name="format-detection" content="telephone=no" />
+<meta name="viewport"
+	content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width" />
+<title>Random Frame</title>
+<script type="text/javascript" src="cordova.js"></script>
+<script type="text/javascript" src="js/funcionalitat.js"></script>
+</head>
+<body style="background:no-repeat center center fixed; -webkit-background-size: cover; -moz-background-size: cover; -o-background-size: cover; background-size: cover;" onload="onLoad()" onresize="onResize()">
+	<div id="imatge"></div>
+</body>
 </html>
