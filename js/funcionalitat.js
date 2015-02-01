@@ -22,8 +22,10 @@ function onLoad() {
 	descarregaLlista();
 	alert("3");
 	if(( /(ipad|iphone|ipod|android)/i.test(navigator.userAgent) )) {
+		alert("3.1a");
 		document.addEventListener('deviceready', initApp, false);
 	} else {
+		alert("3.1b");
 		initApp();
 	}
 }
