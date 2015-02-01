@@ -35,7 +35,7 @@ function desaccelera() {
 	 * de 15 a 60 augmenta de 15 en 15
 	 * a partir de 60 augmenta de 60 en 60
 	 */
-	var missatge;
+	/*var missatge;
 	if (periode == 5 ) {
 		missatge = "Minimum refresh time is 5 secs";
 	}
@@ -53,7 +53,7 @@ function desaccelera() {
 	}
     alert(missatge);
     clearInterval(interval);
-    interval = setInterval(function() {carregaImatge();}, periode * 1000);
+    interval = setInterval(function() {carregaImatge();}, periode * 1000);*/
 }
 
 function accelera() {
@@ -63,7 +63,7 @@ function accelera() {
 	 * de 15 a 60 augmenta de 15 en 15
 	 * a partir de 60 augmenta de 60 en 60
 	 */
-	var missatge;
+	/*var missatge;
 	if (periode < 14) {
 		periode += 5;
 		missatge = "Refresh time: " + periode + " secs";
@@ -78,7 +78,7 @@ function accelera() {
 	}
     alert(missatge);
     clearInterval(interval);
-    interval = setInterval(function() {carregaImatge();}, periode * 1000);
+    interval = setInterval(function() {carregaImatge();}, periode * 1000);*/
 }
 
 function getAdresa(num) {
