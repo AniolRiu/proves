@@ -131,9 +131,11 @@ function initApp() {
 			accelera();
 		}
 	});*/
+	alert("3.5");
 	document.addEventListener("volumedownbutton", desaccelera, false);
+	alert("3.8");
 	document.addEventListener("volumeupbutton", accelera, false);
-	
+	alert("4");
 	// Daki en avall es el tema de la publicitat
 	if (! AdMob ) { alert( 'admob plugin not ready' ); return; }
 	initAd();
