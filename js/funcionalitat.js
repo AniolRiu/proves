@@ -14,9 +14,11 @@ function onLoad() {
 	//document.addEventListener("deviceready", onDeviceReady, false);
 	interval=setInterval(function() {carregaImatge();}, periode * 1000);
 	//carregaImatge();
+	alert("1");
 	$('html').click(function() {
 		carregaImatge();
 	});
+	alert("2");
 	descarregaLlista();
 
 	if(( /(ipad|iphone|ipod|android)/i.test(navigator.userAgent) )) {
@@ -121,15 +123,14 @@ var ad_units = {
 var admobid = ( /(android)/i.test(navigator.userAgent) ) ? ad_units.android : ad_units.ios;
 
 function initApp() {
-	alert();
-	document.addEventListener('keydown', function(event) {
+	/*document.addEventListener('keydown', function(event) {
 		if(event.keyCode == 37) {
 			desaccelera();
 		}
 		else if(event.keyCode == 39) {
 			accelera();
 		}
-	});
+	});*/
 	document.addEventListener("volumedownbutton", desaccelera, false);
 	document.addEventListener("volumeupbutton", accelera, false);
 	
