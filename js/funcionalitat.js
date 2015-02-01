@@ -10,34 +10,35 @@ $(document).ready(function() {
 	var num_imatges_v=v.length;
 	var periode = 15;
 	var interval;
+
+	interval=setInterval(function() {carregaImatge();}, periode * 1000);
+	$('html').click(function() {carregaImatge();});
+	descarregaLlista();
 	
-	alert();
-    // are we running in native app or in a browser?
+	alert("3");
+	
+	if(( /(ipad|iphone|ipod|android)/i.test(navigator.userAgent) )) {
+		alert("3.1a");
+		document.addEventListener('deviceready', initApp, false);
+	} else {
+		alert("3.1b");
+		initApp();
+	}
+
+    /*// are we running in native app or in a browser?
     window.isphone = false;
     if(document.URL.indexOf("http://") === -1 
         && document.URL.indexOf("https://") === -1) {
         window.isphone = true;
     }
-
-	interval=setInterval(function() {carregaImatge();}, periode * 1000);
-	//carregaImatge();
-	alert("1");
-	$('html').click(function() {
-		carregaImatge();
-	});
-	alert("2");
-	descarregaLlista();
-	alert("3");
-	
-
-
+     
     if( window.isphone ) {
 		alert("3.1a");
         document.addEventListener("deviceready", initApp, false);
     } else {
 		alert("3.1b");
         initApp();
-    }
+    }*/
 
 	/*function onLoad() {
 		interval=setInterval(function() {carregaImatge();}, periode * 1000);
@@ -62,9 +63,9 @@ $(document).ready(function() {
 			else if(event.keyCode == 39) {
 				accelera();
 			}
-		});*/
+		});
 		// Daki en avall es el tema de la publicitat
-		/*
+		
 		if(( /(ipad|iphone|ipod|android)/i.test(navigator.userAgent) )) {
 			alert("3.1a");
 			document.addEventListener('deviceready', function(){initApp();}, false);
