@@ -40,7 +40,7 @@ function getAdresa(num) {
 
 function descarregaLlista() {
 	var xmlhttp = new XMLHttpRequest();
-	var url = "http://randomframe.tk/repo.php?num=l";
+	var url = "http://www.corsproxy.com/randomframe.tk/repo.php?num=l";
 	
 	xmlhttp.onreadystatechange = function() {
 		if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
