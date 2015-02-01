@@ -7,10 +7,11 @@ var v = [	'https://lh6.googleusercontent.com/-Fo1kY7PE5Fk/UfiYPx6GrDI/AAAAAAAAGB
 var orientacio = (window.screen.availWidth > window.screen.availHeight ? "h" : "v" );
 var num_imatges_h=h.length;
 var num_imatges_v=v.length;
+var periode = 15;
 
 function onLoad() {
 	//document.addEventListener("deviceready", onDeviceReady, false);
-	setInterval(function() {carregaImatge();}, 15000);
+	setInterval(function() {carregaImatge();}, periode * 1000);
 	//carregaImatge();
 	$('html').click(function() {
 		carregaImatge();
@@ -26,11 +27,52 @@ function onLoad() {
 }
 
 function onVolumeDownKeyDown() {
-    alert("volum avall");
+	/*
+	 * El periode minim son 5 segons
+	 * De 5 a 15 augmenta de 5 en 5
+	 * de 15 a 60 augmenta de 15 en 15
+	 * a partir de 60 augmenta de 60 en 60
+	 */
+	var missatge;
+	if (periode == 5 ) {
+		missatge = "Minimum refresh time is 5 secs";
+	}
+	else if (periode < 16) {
+		periode -= 5;
+		missatge = "Refresh time: " + periode + " secs";
+	}
+	else if (periode < 61) {
+		periode -= 15;
+		missatge = "Refresh time: " + periode + " secs";
+	}
+	else {
+		periode -= 60;
+		missatge = "Refresh time: " + periode / 60 + " mins";
+	}
+    alert(missatge);
 }
 
 function onVolumeUpKeyDown() {
-    alert("volum amunt");
+    /*
+	 * El periode minim son 5 segons
+	 * De 5 a 15 augmenta de 5 en 5
+	 * de 15 a 60 augmenta de 15 en 15
+	 * a partir de 60 augmenta de 60 en 60
+	 */
+	var missatge;
+	if (periode < 16) {
+		periode += 5;
+		missatge = "Refresh time: " + periode + " secs";
+	}
+	else if (periode < 61) {
+		periode += 15;
+		missatge = "Refresh time: " + periode + " secs";
+	}
+	else {
+		periode += 60;
+		missatge = "Refresh time: " + periode / 60 + " mins";
+	}
+    alert(missatge);
 }
 
 function getAdresa(num) {
