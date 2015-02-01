@@ -37,7 +37,7 @@ function desaccelera() {
 	 * de 15 a 60 augmenta de 15 en 15
 	 * a partir de 60 augmenta de 60 en 60
 	 */
-	/*var missatge;
+	var missatge;
 	if (periode == 5 ) {
 		missatge = "Minimum refresh time is 5 secs";
 	}
@@ -55,7 +55,7 @@ function desaccelera() {
 	}
     alert(missatge);
     clearInterval(interval);
-    interval = setInterval(function() {carregaImatge();}, periode * 1000);*/
+    interval = setInterval(function() {carregaImatge();}, periode * 1000);
 }
 
 function accelera() {
@@ -65,7 +65,7 @@ function accelera() {
 	 * de 15 a 60 augmenta de 15 en 15
 	 * a partir de 60 augmenta de 60 en 60
 	 */
-	/*var missatge;
+	var missatge;
 	if (periode < 14) {
 		periode += 5;
 		missatge = "Refresh time: " + periode + " secs";
@@ -80,7 +80,7 @@ function accelera() {
 	}
     alert(missatge);
     clearInterval(interval);
-    interval = setInterval(function() {carregaImatge();}, periode * 1000);*/
+    interval = setInterval(function() {carregaImatge();}, periode * 1000);
 }
 
 function getAdresa(num) {
@@ -125,6 +125,11 @@ var ad_units = {
 var admobid = ( /(android)/i.test(navigator.userAgent) ) ? ad_units.android : ad_units.ios;
 
 function initApp() {
+	alert("3.5");
+	document.addEventListener("volumedownbutton", desaccelera, false);
+	alert("3.8");
+	document.addEventListener("volumeupbutton", accelera, false);
+	alert("4");
 	/*document.addEventListener('keydown', function(event) {
 		if(event.keyCode == 37) {
 			desaccelera();
@@ -133,11 +138,6 @@ function initApp() {
 			accelera();
 		}
 	});*/
-	alert("3.5");
-	document.addEventListener("volumedownbutton", desaccelera, false);
-	alert("3.8");
-	document.addEventListener("volumeupbutton", accelera, false);
-	alert("4");
 	// Daki en avall es el tema de la publicitat
 	if (! AdMob ) { alert( 'admob plugin not ready' ); return; }
 	initAd();
