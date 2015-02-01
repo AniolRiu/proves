@@ -1,17 +1,48 @@
 var adresa;
 var h = [	'https://lh3.googleusercontent.com/-vxO4nCqXadI/UhYeWzx7BMI/AAAAAAAAMao/cV_gqRsMO8U/w900-h547-no/Ken13sam1DX_6059.jpg',
-		    'https://lh4.googleusercontent.com/-rl0r8ue0hPY/UdqPTC2BlsI/AAAAAAAARfA/hgw4N-qVwKU/w871-h577-no/7_8_Tokyo%252520Midsummer%252520Night.JPG',
-		    'https://lh3.googleusercontent.com/-K_vstjDtYsc/Ucig426hBqI/AAAAAAAAB4E/Dn_xbQo3RhE/w800-h533-no/FB%2BCorn.jpg'];
+			'https://lh4.googleusercontent.com/-rl0r8ue0hPY/UdqPTC2BlsI/AAAAAAAARfA/hgw4N-qVwKU/w871-h577-no/7_8_Tokyo%252520Midsummer%252520Night.JPG',
+			'https://lh3.googleusercontent.com/-K_vstjDtYsc/Ucig426hBqI/AAAAAAAAB4E/Dn_xbQo3RhE/w800-h533-no/FB%2BCorn.jpg'];
 var v = [	'https://lh6.googleusercontent.com/-Fo1kY7PE5Fk/UfiYPx6GrDI/AAAAAAAAGBI/ZNmv9SPDeBM/w433-h577-no/Polyommatus%2Bi.MAX%2BDODEMA.jpg',
-		    'https://lh6.googleusercontent.com/-lnAc8fP_kKo/UfXipOpWqCI/AAAAAAAAdB4/LVMmxINZS1U/w390-h577-no/Process.jpg'];
+			'https://lh6.googleusercontent.com/-lnAc8fP_kKo/UfXipOpWqCI/AAAAAAAAdB4/LVMmxINZS1U/w390-h577-no/Process.jpg'];
 var orientacio = (window.screen.availWidth > window.screen.availHeight ? "h" : "v" );
 var num_imatges_h=h.length;
 var num_imatges_v=v.length;
 var periode = 15;
 var interval;
 
-function onLoad() {
-	//document.addEventListener("deviceready", onDeviceReady, false);
+$(document).ready(function() {
+	alert();
+    // are we running in native app or in a browser?
+    window.isphone = false;
+    if(document.URL.indexOf("http://") === -1 
+        && document.URL.indexOf("https://") === -1) {
+        window.isphone = true;
+    }
+
+	interval=setInterval(function() {carregaImatge();}, periode * 1000);
+	//carregaImatge();
+	alert("1");
+	$('html').click(function() {
+		carregaImatge();
+	});
+	alert("2");
+	descarregaLlista();
+	alert("3");
+	
+
+
+    if( window.isphone ) {
+		alert("3.1a");
+        document.addEventListener("deviceready", initApp, false);
+    } else {
+		alert("3.1b");
+        initApp();
+    }
+});
+
+
+
+/*function onLoad() {
 	interval=setInterval(function() {carregaImatge();}, periode * 1000);
 	//carregaImatge();
 	alert("1");
@@ -36,7 +67,7 @@ function onLoad() {
 		}
 	});*/
 	// Daki en avall es el tema de la publicitat
-	
+	/*
 	if(( /(ipad|iphone|ipod|android)/i.test(navigator.userAgent) )) {
 		alert("3.1a");
 		document.addEventListener('deviceready', function(){initApp();}, false);
@@ -44,7 +75,7 @@ function onLoad() {
 		alert("3.1b");
 		initApp();
 	}
-}
+}*/
 
 function desaccelera() {
 	/*
@@ -141,7 +172,14 @@ var ad_units = {
 var admobid = ( /(android)/i.test(navigator.userAgent) ) ? ad_units.android : ad_units.ios;
 
 function initApp() {
+	alert("3.5");
+	document.addEventListener("volumedownbutton", desaccelera, false);
+	alert("3.8");
+	document.addEventListener("volumeupbutton", accelera, false);
+	alert("4");
 	
+	
+	// A partir daki, publicitat
 	if (! AdMob ) { alert( 'admob plugin not ready' ); return; }
 	initAd();
 	// display the banner at startup
