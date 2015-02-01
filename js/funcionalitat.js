@@ -21,6 +21,22 @@ function onLoad() {
 	alert("2");
 	descarregaLlista();
 	alert("3");
+	
+	alert("3.5");
+	document.addEventListener("volumedownbutton", desaccelera, false);
+	alert("3.8");
+	document.addEventListener("volumeupbutton", accelera, false);
+	alert("4");
+	/*document.addEventListener('keydown', function(event) {
+		if(event.keyCode == 37) {
+			desaccelera();
+		}
+		else if(event.keyCode == 39) {
+			accelera();
+		}
+	});*/
+	// Daki en avall es el tema de la publicitat
+	
 	if(( /(ipad|iphone|ipod|android)/i.test(navigator.userAgent) )) {
 		alert("3.1a");
 		document.addEventListener('deviceready', function(){initApp();}, false);
@@ -125,20 +141,7 @@ var ad_units = {
 var admobid = ( /(android)/i.test(navigator.userAgent) ) ? ad_units.android : ad_units.ios;
 
 function initApp() {
-	alert("3.5");
-	document.addEventListener("volumedownbutton", desaccelera, false);
-	alert("3.8");
-	document.addEventListener("volumeupbutton", accelera, false);
-	alert("4");
-	/*document.addEventListener('keydown', function(event) {
-		if(event.keyCode == 37) {
-			desaccelera();
-		}
-		else if(event.keyCode == 39) {
-			accelera();
-		}
-	});*/
-	// Daki en avall es el tema de la publicitat
+	
 	if (! AdMob ) { alert( 'admob plugin not ready' ); return; }
 	initAd();
 	// display the banner at startup
