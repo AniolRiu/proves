@@ -16,14 +16,19 @@ $(document).ready(function() {
 	descarregaLlista();
 	
 	alert("3");
-	
 	if(( /(ipad|iphone|ipod|android)/i.test(navigator.userAgent) )) {
+		document.addEventListener('deviceready', initApp, false);
+	} else {
+		initApp();
+	}
+	
+	/*if(( /(ipad|iphone|ipod|android)/i.test(navigator.userAgent) )) {
 		alert("3.1a");
 		document.addEventListener('deviceready', initApp, false);
 	} else {
 		alert("3.1b");
 		initApp();
-	}
+	}*/
 
     /*// are we running in native app or in a browser?
     window.isphone = false;
