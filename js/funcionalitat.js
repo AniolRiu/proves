@@ -9,7 +9,7 @@ var num_imatges_h=h.length;
 var num_imatges_v=v.length;
 
 function onLoad() {
-	document.addEventListener("deviceready", onDeviceReady, false);
+	//document.addEventListener("deviceready", onDeviceReady, false);
 	setInterval(function() {carregaImatge();}, 15000);
 	//carregaImatge();
 	$('html').click(function() {
@@ -21,6 +21,7 @@ function onLoad() {
 	if(( /(ipad|iphone|ipod|android)/i.test(navigator.userAgent) )) {
 		document.addEventListener('deviceready', initApp, false);
 	} else {
+		alert("h");
 		initApp();
 	}
 }
