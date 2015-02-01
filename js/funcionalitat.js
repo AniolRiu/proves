@@ -20,7 +20,7 @@ function onLoad() {
 	});
 	alert("2");
 	descarregaLlista();
-
+	alert("3");
 	if(( /(ipad|iphone|ipod|android)/i.test(navigator.userAgent) )) {
 		document.addEventListener('deviceready', initApp, false);
 	} else {
