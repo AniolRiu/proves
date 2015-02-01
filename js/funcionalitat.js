@@ -21,17 +21,8 @@ function onLoad() {
 	if(( /(ipad|iphone|ipod|android)/i.test(navigator.userAgent) )) {
 		document.addEventListener('deviceready', initApp, false);
 	} else {
-		alert("h");
 		initApp();
 	}
-}
-
-// device APIs are available
-//
-function onDeviceReady() {
-	// Register the event listener
-	document.addEventListener("volumedownbutton", onVolumeDownKeyDown, false);
-	document.addEventListener("volumeupbutton", onVolumeUpKeyDown, false);
 }
 
 function onVolumeDownKeyDown() {
@@ -50,7 +41,7 @@ function descarregaLlista() {
 	$.getJSON(
 		"http://randomframe.tk/repo.php?jsoncallback=?",
 		{
-			num:"l"
+			num:"l"	//llista
 		}, 
 		function(resposta) {
 			console.log(resposta);
@@ -84,6 +75,10 @@ var ad_units = {
 var admobid = ( /(android)/i.test(navigator.userAgent) ) ? ad_units.android : ad_units.ios;
 
 function initApp() {
+	document.addEventListener("volumedownbutton", onVolumeDownKeyDown, false);
+	document.addEventListener("volumeupbutton", onVolumeUpKeyDown, false);
+	
+	// Daki en avall es el tema de la publicitat
 	if (! AdMob ) { alert( 'admob plugin not ready' ); return; }
 	initAd();
 	// display the banner at startup
