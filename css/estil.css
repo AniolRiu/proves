@@ -1,32 +1,13 @@
-#climber {
-    transform-origin: top 67%; /* IE 10+, Firefox, etc. */
-    -webkit-transform-origin: top 67%; /* Chrome */
-    -ms-transform-origin: top 67%; /* IE 9 */
-    z-index:3;
-    max-height:30%;
-    right:56%;
-    top:30%;
+.ui-page, .ui-body-c, .ui-page-active, .ui-overlay-c, .ui-mobile-viewport
+{
+    background: transparent !important;
 }
 
-#rock {
-	z-index:2;
-	right: 58%;
-	top: -4%;
-	width: 55%;
-	height: 107%;
-}
-
-#sky {
-	top: -21%;
-	z-index:1;
-	height: 142%;
-	width: auto;
-}
-
-img {
-	position: fixed;
-}
-
-#accelerometer {
-	z-index: 10;
+body, .ui-overlay-c
+{
+    background: url('http://www.hdwallpapers.in/wallpapers/digital_layers-1440x900.jpg') !important;
+    background-repeat:repeat-y !important;
+    background-position:center center !important;
+    background-attachment:scroll !important;
+    background-size:100% 100% !important;
 }

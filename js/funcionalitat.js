@@ -1,6 +1,3 @@
-// Wait for Cordova to load
-document.addEventListener("deviceready", onDeviceReady, false);
-
 var adresa;
 var h = [	'https://lh3.googleusercontent.com/-vxO4nCqXadI/UhYeWzx7BMI/AAAAAAAAMao/cV_gqRsMO8U/w900-h547-no/Ken13sam1DX_6059.jpg',
 		    'https://lh4.googleusercontent.com/-rl0r8ue0hPY/UdqPTC2BlsI/AAAAAAAARfA/hgw4N-qVwKU/w871-h577-no/7_8_Tokyo%252520Midsummer%252520Night.JPG',
@@ -8,13 +5,30 @@ var h = [	'https://lh3.googleusercontent.com/-vxO4nCqXadI/UhYeWzx7BMI/AAAAAAAAMa
 var v = [	'https://lh6.googleusercontent.com/-Fo1kY7PE5Fk/UfiYPx6GrDI/AAAAAAAAGBI/ZNmv9SPDeBM/w433-h577-no/Polyommatus%2Bi.MAX%2BDODEMA.jpg',
 		    'https://lh6.googleusercontent.com/-lnAc8fP_kKo/UfXipOpWqCI/AAAAAAAAdB4/LVMmxINZS1U/w390-h577-no/Process.jpg'];
 var orientacio = (window.screen.availWidth > window.screen.availHeight ? "h" : "v" );
-var num_imatges_h=h.length; //deixar a 1
-var num_imatges_v=v.length; //deixar a 1
+var num_imatges_h=h.length;
+var num_imatges_v=v.length;
 
-document.addEventListener("deviceready", onDeviceReady, false);
+function onLoad() {
+	document.addEventListener("deviceready", init, false);
+	
+	if(( /(ipad|iphone|ipod|android)/i.test(navigator.userAgent) )) {
+		document.addEventListener('deviceready', initApp, false);
+	} else {
+		initApp();
+	}
+}
 
-function onDeviceReady() {
-	onTouchStart()
+function init() {
+	carregaImatge();
+	$('html').click(function() {
+		carregaImatge();
+	});
+	descarregaLlista();
+	document.addEventListener("menubutton", mostraMenu, false);
+}
+
+function mostraMenu() {
+	alert();
 }
 
 function getAdresa(num) {
@@ -22,70 +36,30 @@ function getAdresa(num) {
 }
 
 function descarregaLlista() {
-	var xmlhttp = new XMLHttpRequest();
-	var url = "http://www.corsproxy.com/randomframe.tk/repo.php?num=l";
-	
-	xmlhttp.onreadystatechange = function() {
-		if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-			var myArr = JSON.parse(xmlhttp.responseText);
-			myFunction(myArr);
+	$.getJSON(
+		"http://randomframe.tk/repo.php?jsoncallback=?",
+		{
+			num:"l"
+		}, 
+		function(resposta) {
+			console.log(resposta);
+			h=resposta.horitzontals;
+			v=resposta.verticals;
+			num_imatges_h=h.length; 
+			num_imatges_v=v.length;
+			setInterval(function() {carregaImatge();}, 15000);
 		}
-	}
-	xmlhttp.open("GET", url, true);
-	xmlhttp.send();
-	console.log("hem demanat cosetessss");
-	
-	function myFunction(arr) {
-		h=arr.horitzontals;
-		v=arr.verticals;
-		num_imatges_h=h.length; 
-		num_imatges_v=v.length;
-		//document.body.style.backgroundImage="url(" + h[0] + ")";
-	}
+	);
 }
 
 function carregaImatge() {
 	var num_imatges = (orientacio == "h" ? num_imatges_h : num_imatges_v);
 	getAdresa(Math.floor(Math.random() * num_imatges));
-	console.log(adresa);
 	document.body.style.backgroundImage="url(" + adresa + ")";
 }
 
-/*function httpGetNumImatges() {
-	var xmlhttp = new XMLHttpRequest();
-	var url = "http://www.corsproxy.com/randomframe.tk/repo.php?num=x";
-	
-	xmlhttp.onreadystatechange = function() {
-		if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-			var myArr = JSON.parse(xmlhttp.responseText);
-			myFunction(myArr);
-		}
-	}
-	xmlhttp.open("GET", url, true);
-	xmlhttp.send();
-	carregaImatge();
-	function myFunction(arr) {
-		num_imatges_h=arr.num_imatges_h;
-		num_imatges_v=arr.num_imatges_v;
-		carregaImatge();
-	}
-}*/
-
 function createSelectedBanner() {
 	AdMob.createBanner( {adId:admobid.banner} );
-}
-
-function onLoad() {
-	alert();
-	carregaImatge();
-	descarregaLlista();
-	setInterval(function() {carregaImatge();}, 15000);
-	
-	if(( /(ipad|iphone|ipod|android)/i.test(navigator.userAgent) )) {
-		document.addEventListener('deviceready', initApp, false);
-	} else {
-		initApp();
-	}
 }
         
 var ad_units = {
