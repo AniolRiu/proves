@@ -9,22 +9,19 @@ var num_imatges_h=h.length;
 var num_imatges_v=v.length;
 
 function onLoad() {
-	document.addEventListener("deviceready", init, false);
+	setInterval(function() {carregaImatge();}, 15000);
+	//carregaImatge();
+	$('html').click(function() {
+		carregaImatge();
+	});
+	descarregaLlista();
+	document.addEventListener("menubutton", mostraMenu, false);
 	
 	if(( /(ipad|iphone|ipod|android)/i.test(navigator.userAgent) )) {
 		document.addEventListener('deviceready', initApp, false);
 	} else {
 		initApp();
 	}
-}
-
-function init() {
-	carregaImatge();
-	$('html').click(function() {
-		carregaImatge();
-	});
-	descarregaLlista();
-	document.addEventListener("menubutton", mostraMenu, false);
 }
 
 function mostraMenu() {
@@ -47,7 +44,7 @@ function descarregaLlista() {
 			v=resposta.verticals;
 			num_imatges_h=h.length; 
 			num_imatges_v=v.length;
-			setInterval(function() {carregaImatge();}, 15000);
+			carregaImatge();
 		}
 	);
 }
