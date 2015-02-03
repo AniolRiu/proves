@@ -10,9 +10,28 @@
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <script type="text/javascript" src="js/funcionalitat.js"></script>
 <script type="text/javascript" src="cordova.js"></script>
+<link href='http://fonts.googleapis.com/css?family=Droid+Sans' rel='stylesheet' type='text/css'>
 
 </head>
-<body style="background:no-repeat center center fixed; -webkit-background-size: cover; -moz-background-size: cover; -o-background-size: cover; background-size: cover;" onresize="onResize()">
+<body onresize="onResize()" style="	background:no-repeat center center fixed; 
+									-webkit-background-size: cover; 
+									-moz-background-size: cover; 
+									-o-background-size: cover; 
+									background-size: cover;" >
+<div id="div_missatge" style="	max-width:250px; 
+								height:50px; 
+								border-radius:25px; 
+								background-color:#B9D3EE;
+								box-shadow: 6px 6px #888888;
+								display:table">
 
+	<div id="div_fill" style="	vertical-align: middle; 
+								display:table-cell;
+								padding-right: 15px;
+								padding-left: 15px">
+		<p style="text-align:center; font-family: 'Droid Sans', sans-serif;" id="missatge">Refresh time: 15 secs</p>
+	</div>
+
+</div>
 </body>
 </html>

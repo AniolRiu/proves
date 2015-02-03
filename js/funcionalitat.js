@@ -1,9 +1,6 @@
 var adresa;
-var h = [	'https://lh3.googleusercontent.com/-vxO4nCqXadI/UhYeWzx7BMI/AAAAAAAAMao/cV_gqRsMO8U/w900-h547-no/Ken13sam1DX_6059.jpg',
-			'https://lh4.googleusercontent.com/-rl0r8ue0hPY/UdqPTC2BlsI/AAAAAAAARfA/hgw4N-qVwKU/w871-h577-no/7_8_Tokyo%252520Midsummer%252520Night.JPG',
-			'https://lh3.googleusercontent.com/-K_vstjDtYsc/Ucig426hBqI/AAAAAAAAB4E/Dn_xbQo3RhE/w800-h533-no/FB%2BCorn.jpg'];
-var v = [	'https://lh6.googleusercontent.com/-Fo1kY7PE5Fk/UfiYPx6GrDI/AAAAAAAAGBI/ZNmv9SPDeBM/w433-h577-no/Polyommatus%2Bi.MAX%2BDODEMA.jpg',
-			'https://lh6.googleusercontent.com/-lnAc8fP_kKo/UfXipOpWqCI/AAAAAAAAdB4/LVMmxINZS1U/w390-h577-no/Process.jpg'];
+var h = ['res/ops_h.png'];
+var v = ['res/ops_v.png'];
 var orientacio = (window.screen.availWidth > window.screen.availHeight ? "h" : "v" );
 var num_imatges_h=h.length;
 var num_imatges_v=v.length;
@@ -11,15 +8,24 @@ var periode = 15;
 var interval;
 
 $(document).ready(function() {
-	
-
+	carregaImatge();
+	$("#div_missatge").hide();
 	interval=setInterval(function() {carregaImatge();}, periode * 1000);
 	$('html').click(function() {carregaImatge();});
 	descarregaLlista();
 	
+	
 	if(( /(ipad|iphone|ipod|android)/i.test(navigator.userAgent) )) {
 		document.addEventListener('deviceready', initApp, false);
 	} else {
+		document.addEventListener('keydown', function(event) {
+			if(event.keyCode == 37) {
+				desaccelera();
+			}
+			else if(event.keyCode == 39) {
+				accelera();
+			}
+		});
 		initApp();
 	}
 });
@@ -47,7 +53,9 @@ function desaccelera() {
 		periode -= 60;
 		missatge = "Refresh time: " + periode / 60 + " mins";
 	}
-	alert(missatge);
+	$("#missatge").html(missatge);
+	$("#div_missatge").show();
+	setTimeout(function() {$("#div_missatge").hide();},5000);
 	clearInterval(interval);
 	interval = setInterval(function() {carregaImatge();}, periode * 1000);
 }
@@ -72,7 +80,9 @@ function accelera() {
 		periode += 60;
 		missatge = "Refresh time: " + periode / 60 + " mins";
 	}
-	alert(missatge);
+	$("#missatge").html(missatge);
+	$("#div_missatge").show();
+	setTimeout(function() {$("#div_missatge").hide();},5000);
 	clearInterval(interval);
 	interval = setInterval(function() {carregaImatge();}, periode * 1000);
 }
@@ -93,7 +103,6 @@ function descarregaLlista() {
 			v=resposta.verticals;
 			num_imatges_h=h.length; 
 			num_imatges_v=v.length;
-			carregaImatge();
 		}
 	);
 }
@@ -119,9 +128,10 @@ var ad_units = {
 var admobid = ( /(android)/i.test(navigator.userAgent) ) ? ad_units.android : ad_units.ios;
 
 function initApp() {
+	// Les dues comandes següents s'han de cridar un cop s'ha fet el fire de deviceready
 	document.addEventListener("volumedownbutton", desaccelera, false);
 	document.addEventListener("volumeupbutton", accelera, false);
-
+	
 	// A partir daki, publicitat
 	if (! AdMob ) { alert( 'admob plugin not ready' ); return; }
 	initAd();
