@@ -17,7 +17,7 @@
 }
 
 #sky {
-	transform-origin: 0% 100%; /* IE 10+, Firefox, etc. */
+	transform-origin: 40% 50%; /* IE 10+, Firefox, etc. */
     -webkit-transform-origin: 0% 100%; /* Chrome */
     -ms-transform-origin: 0% 100%; /* IE 9 */
 	top: -21%;
