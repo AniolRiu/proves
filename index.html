@@ -10,8 +10,10 @@
     // The watch id references the current `watchAcceleration`
     var watchID = null;
     var rad2deg = 180 / Math.PI;
+    var deg2rad = 1 / rad2deg;
     var can;
 	var ctx;
+	var screen_w, screen_h;
 	//var h_trans=-700 /*Meitat de l'ample del cel*/ + $(window).width()*0.65 /*El centre s'ha de situar a un 65% de la pantalla*/;;
     
     // Wait for device API libraries to load
@@ -22,28 +24,11 @@
     //
     function onDeviceReady() {
 		can = document.getElementById("canvas");
-		if (!can) {
-			alert('Error: Cannot find the canvas element!');
-			return;
-		  }
-
-		  if (!can.getContext) {
-			alert('Error: Canvas context does not exist!');
-			return;
-		  }
-		alert("0");
 		ctx = can.getContext("2d");
-		alert("1");
-        can.width=window.innerWidth;
-        alert("2");
-		can.height=window.innerHeight;
-		alert("3");
-		ctx.beginPath();
-		alert("4");
-		ctx.arc(100,75,50,0,2*Math.PI);
-		alert("5");
-		ctx.stroke();
-		alert("6");
+		screen_w = window.innerWidth;
+		screen_h = window.innerHeight;
+        can.width= screen_w;
+		can.height=screen_h;
         startWatch();
     }
 
@@ -69,7 +54,7 @@
 		if (acceleration.y < 0) {
 			tiltLR = 180 - tiltLR;
 		}
-		
+		drawAngle(screen_w*0.44,screen_h * 0.3, 50, 270, tiltLR, false, "red");
         var element = document.getElementById('accelerometer');
         element.innerHTML = 'Acceleration X: ' + acceleration.x         + '<br />' +
                             'Acceleration Y: ' + acceleration.y         + '<br />' +
@@ -91,6 +76,39 @@
     function onError() {
         alert('Error!');
     }
+    
+    function drawAngle(x, y, r, init_a, a, cw, color) {
+		if(cw) {
+			init_a = init_a - a;
+		}
+		// Create text
+		var mida_lletra=20;
+		var semi_a = init_a + a/2;
+		// The text coord makes reference to its bottom-left corner
+		// To make it understandable, we try to move that corner away from the colored area
+		// The closest is the middle angle to the 220º, the farther is the text 
+		var factor = (1 - Math.abs(225 - semi_a)/225) * 2 * mida_lletra; 
+		var semi_a_rad = semi_a*deg2rad;
+		var semi_x =(r+factor)*Math.cos(semi_a_rad);
+		var semi_y = (r+factor)*Math.sin(semi_a_rad);
+		ctx.fillStyle=color;
+		ctx.font= mida_lletra + "px Droid Sans";
+		ctx.fillText(a + "º",x + semi_x, y - semi_y);
+		// Angle drawing
+		ctx.beginPath();
+		ctx.moveTo(x,y);
+		ctx.arc(x,y,r,(360-init_a)*deg2rad,(360-(init_a+a))*deg2rad, true);
+		ctx.closePath();
+
+		// Create gradient
+		var grd = ctx.createRadialGradient(x,y,r*0.6,x,y,r*1.2);
+		grd.addColorStop(0,"transparent");
+		grd.addColorStop(1, color);
+		ctx.fillStyle = grd;
+
+
+		ctx.fill();
+	}
 
     </script>
   </head>
