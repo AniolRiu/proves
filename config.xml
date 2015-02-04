@@ -4,7 +4,7 @@
 	xmlns:gap="http://phonegap.com/ns/1.0"
 	id="com.approvat.randomframe" 
 	version="1.0.3"
-	versionCode="3" >
+	versionCode="4" >
 <name>Random Frame</name>
 <description>Decorate your desktop with a frame that displays random pictures from Internet</description>
 <author href="http://randomframe.tk" email="artic.vb@gmail.com">
