@@ -21,12 +21,12 @@
     // device APIs are available
     //
     function onDeviceReady() {
-        startWatch();
         canvas.width=window.innerWidth;
 		canvas.height=window.innerHeight - document.getElementById("header_canvas").offsetHeight;
 		ctx.beginPath();
 		ctx.arc(100,75,50,0,2*Math.PI);
 		ctx.stroke();
+        startWatch();
     }
 
     // Start watching the acceleration
