@@ -20,9 +20,9 @@
 	transform-origin: 40% 50%; /* IE 10+, Firefox, etc. */
     -webkit-transform-origin: 40% 50%; /* Chrome */
     -ms-transform-origin: 40% 50%; /* IE 9 */
-	top: -21%;
+	top: -25%;
 	z-index:4;
-	height: 142%;
+	height: 150%;
 	width: auto;
 }
 
