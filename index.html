@@ -19,6 +19,11 @@
     //
     function onDeviceReady() {
         startWatch();
+        desplasament_dreta=700 /*Meitat de l'ample del cel*/ - $(window).height()*0.65 /*El centre s'ha de situar a un 65% de la pantalla*/;
+        $("#sky")
+			.css({'-webkit-transform': 'translate(' + desplasament_dreta + 'px)'})
+			.css({'-moz-transform': 'translate(' + desplasament_dreta + 'px)'})
+			.css({'transform': 'translate(' + desplasament_dreta + 'px)'});
     }
 
     // Start watching the acceleration
