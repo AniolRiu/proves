@@ -16,15 +16,19 @@
 	height: 107%;
 }
 
-#sky {
+/*#sky {
 	top: -11%;
 	z-index:4;
 	height: 122%;
 	width: auto;
 	left: 0%;
+}*/
+
+#canvas {
+	z-index:10;
 }
 
-img {
+img, canvas {
 	position: fixed;
 }
 
