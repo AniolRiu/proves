@@ -22,11 +22,17 @@
     // device APIs are available
     //
     function onDeviceReady() {
+		alert("1");
         can.width=window.innerWidth;
+        alert("2");
 		can.height=window.innerHeight;
+		alert("3");
 		ctx.beginPath();
+		alert("4");
 		ctx.arc(100,75,50,0,2*Math.PI);
+		alert("5");
 		ctx.stroke();
+		alert("6");
         startWatch();
     }
 
