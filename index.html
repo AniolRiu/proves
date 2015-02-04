@@ -14,6 +14,7 @@
 	var canv = $("#canvas");
 	var ctx = can.getContext("2d");
 	//var h_trans=-700 /*Meitat de l'ample del cel*/ + $(window).width()*0.65 /*El centre s'ha de situar a un 65% de la pantalla*/;;
+    
     // Wait for device API libraries to load
     //
     document.addEventListener("deviceready", onDeviceReady, false);
@@ -22,7 +23,7 @@
     //
     function onDeviceReady() {
         can.width=window.innerWidth;
-		can.height=window.innerHeight - document.getElementById("header_canvas").offsetHeight;
+		can.height=window.innerHeight;
 		ctx.beginPath();
 		ctx.arc(100,75,50,0,2*Math.PI);
 		ctx.stroke();
