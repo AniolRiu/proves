@@ -50,11 +50,12 @@
 			facingUp = +1;
 		}
 		var tiltLR1 = Math.round(((acceleration.x) / 9.81) * 90);*/
-		var tiltLR = Math.asin(acceleration.x / 9.81) * rad2deg;
+		var tiltLRpre = Math.round(Math.asin(acceleration.x / 9.81) * rad2deg);
+		vartiltLR = tiltLRpre;
 		if (acceleration.y < 0) {
-			tiltLR = 180 - tiltLR;
+			tiltLR = 180 - tiltLRpre;
 		}
-		drawAngle(screen_w*0.44,screen_h * 0.3, 50, 270, tiltLR, false, "red");
+		drawAngle(screen_w*0.44,screen_h * 0.3, 150, 270, tiltLRpre, false, "red");
         var element = document.getElementById('accelerometer');
         element.innerHTML = 'Acceleration X: ' + acceleration.x         + '<br />' +
                             'Acceleration Y: ' + acceleration.y         + '<br />' +
