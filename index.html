@@ -50,7 +50,7 @@
 			facingUp = +1;
 		}
 		var tiltLR1 = Math.round(((acceleration.x) / 9.81) * 90);*/
-		var tiltLRpre = Math.round(Math.asin(acceleration.x / 9.81) * rad2deg);
+		var tiltLRpre = Math.asin(acceleration.x / 9.81) * rad2deg;
 		vartiltLR = tiltLRpre;
 		if (acceleration.y < 0) {
 			tiltLR = 180 - tiltLRpre;
