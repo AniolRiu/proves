@@ -10,7 +10,7 @@
     // The watch id references the current `watchAcceleration`
     var watchID = null;
     var rad2deg = 180 / Math.PI;
-
+	var h_trans=700 /*Meitat de l'ample del cel*/ - $(window).width()*0.65 /*El centre s'ha de situar a un 65% de la pantalla*/;;
     // Wait for device API libraries to load
     //
     document.addEventListener("deviceready", onDeviceReady, false);
@@ -19,12 +19,7 @@
     //
     function onDeviceReady() {
         startWatch();
-        desplasament_dreta=700 /*Meitat de l'ample del cel*/ - $(window).width()*0.65 /*El centre s'ha de situar a un 65% de la pantalla*/;
-        alert(desplasament_dreta);
-        $("#sky")
-			.css({'-webkit-transform': 'translate(' + desplasament_dreta + 'px)'})
-			.css({'-moz-transform': 'translate(' + desplasament_dreta + 'px)'})
-			.css({'transform': 'translate(' + desplasament_dreta + 'px)'});
+        alert(h_trans);
     }
 
     // Start watching the acceleration
@@ -61,9 +56,9 @@
 								.css({'-moz-transform': 'rotate(' + tiltLR + 'deg)'})
 								.css({'transform': 'rotate(' + tiltLR + 'deg)'});
 							$("#sky")
-								.css({'-webkit-transform': 'rotate(' + tiltLR + 'deg)'})
-								.css({'-moz-transform': 'rotate(' + tiltLR + 'deg)'})
-								.css({'transform': 'rotate(' + tiltLR + 'deg)'});
+								.css({'-webkit-transform': 'translate(' + h_trans + 'px) rotate(' + tiltLR + 'deg)'})
+								.css({'-moz-transform': 'translate(' + h_trans + 'px) rotate(' + tiltLR + 'deg)'})
+								.css({'transform': 'translate(' + h_trans + 'px) rotate(' + tiltLR + 'deg)'});
     }
 
     // onError: Failed to get the acceleration
