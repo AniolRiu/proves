@@ -1,19 +1,17 @@
-#climber {
-    transform-origin: top 67%; /* IE 10+, Firefox, etc. */
-    -webkit-transform-origin: top 67%; /* Chrome */
-    -ms-transform-origin: top 67%; /* IE 9 */
+#gear {
+    transform-origin: 15% 30%; /* IE 10+, Firefox, etc. */
+    -webkit-transform-origin: 15% 50%; /* Chrome */
+    -ms-transform-origin: 15% 50%; /* IE 9 */
     z-index:3;
-    height:50%;
-    right:56%;
-    top:25%;
+    height:15%;
+    right:51%;
+    top:53%;
 }
 
 #rock {
 	z-index:2;
-	right: 58%;
-	top: -4%;
-	width: 55%;
-	height: 107%;
+	height: 100%;
+	max-width: 90%;
 }
 
 /*#sky {
@@ -34,4 +32,9 @@ img, canvas {
 
 #accelerometer {
 	z-index: 10;
+}
+
+div, body {
+	padding:0px;
+	margin:0px;
 }
