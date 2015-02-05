@@ -54,13 +54,12 @@
 		var tiltLR1 = Math.round(((acceleration.x) / 9.81) * 90);*/
 		var tiltLR = Math.round(Math.asin(acceleration.x / 9.81) * rad2deg);
 		var upside_down = (acceleration.y < 0);
-		var tiltLRclimber = tiltLR;
+		var tiltLRgear = tiltLR;
 		if (tiltLR > 0) {
 			// La paret és tumbada
-			tiltLRclimber = 0;
+			tiltLRgear = 0;
 			if (upside_down) {
 				// La paret és una baixada
-				;
 				tiltLR = 180 - tiltLR;
 			}
 			drawAngle(screen_w*0.4,screen_h * 0.25, 150, 270, tiltLR, true, "#FF7F24");
@@ -71,14 +70,14 @@
 			if (upside_down) {
 				// La paret és un sostre inclinat avall
 				tiltLR = 180 - tiltLR;
-				tiltLRclimber = - tiltLR;
+				tiltLRgear = 90;
 			}
-			drawAngle(screen_w*(0.37*(screen_w/screen_h)+0.3),screen_h * 0.5, 100, 270, tiltLR, false, "#FF7F24");
+			drawAngle(screen_w *0.2,screen_h * 0.5, 0.6 * screen_w, 270, tiltLR, false, "#FF7F24");
 		}
 							$("#gear")
-								.css({'-webkit-transform': 'rotate(' + tiltLRclimber + 'deg)'})
-								.css({'-moz-transform': 'rotate(' + tiltLRclimber + 'deg)'})
-								.css({'transform': 'rotate(' + tiltLRclimber + 'deg)'});
+								.css({'-webkit-transform': 'rotate(' + tiltLRgear + 'deg)'})
+								.css({'-moz-transform': 'rotate(' + tiltLRgear + 'deg)'})
+								.css({'transform': 'rotate(' + tiltLRgear + 'deg)'});
 							/*$("#sky")
 								.css({'-webkit-transform': 'translate(' + 0 + 'px) rotate(' + tiltLR + 'deg)'})
 								.css({'-moz-transform': 'translate(' + 0 + 'px) rotate(' + tiltLR + 'deg)'})
@@ -126,7 +125,7 @@
 
     </script>
   </head>
-  <body style="background-color:#5570DD">
+  <body style="background-color:#C6E2FF">
     <div id="escenari">
 		<img id="rock" src="res/left_climber.png">
 		<!--<img id="sky" src="res/sky.jpg"/>-->
