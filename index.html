@@ -50,37 +50,32 @@
 			facingUp = +1;
 		}
 		var tiltLR1 = Math.round(((acceleration.x) / 9.81) * 90);*/
-		var tiltLRpre = Math.round(Math.asin(acceleration.x / 9.81) * rad2deg);
+		var tiltLR = Math.round(Math.asin(acceleration.x / 9.81) * rad2deg);
 		var upside_down = (acceleration.y < 0);
-		var tiltLR = tiltLRpre;
-		if (tiltLRpre > 0) {
+		var tiltLRclimber = tiltLR;
+		if (tiltLR > 0) {
 			// La paret és tumbada
+			tiltLRclimber = 0;
 			if (upside_down) {
 				// La paret és una baixada
-				tiltLR = 180 - tiltLRpre;
-				tiltLRpre = 180 - tiltLRpre;
+				;
+				tiltLR = 180 - tiltLR;
 			}
-			drawAngle(screen_w*0.4,screen_h * 0.25, 150, 270, tiltLRpre, true, "red");
+			drawAngle(screen_w*0.4,screen_h * 0.25, 150, 270, tiltLR, true, "red");
 		}
 		else {
 			// La paret desploma
-			tiltLRpre = -tiltLRpre;
+			tiltLR = -tiltLR;
 			if (upside_down) {
 				// La paret és un sostre inclinat avall
-				tiltLRpre = 180 - tiltLRpre;
+				tiltLR = 180 - tiltLR;
 			}
-			drawAngle(screen_w*0.4,screen_h * 0.25, 150, 270, tiltLRpre, false, "red");
+			drawAngle(screen_w*0.4,screen_h * 0.25, 150, 270, tiltLR, false, "red");
 		}
-        var element = document.getElementById('accelerometer');
-        element.innerHTML = 'Acceleration X: ' + acceleration.x         + '<br />' +
-                            'Acceleration Y: ' + acceleration.y         + '<br />' +
-                            'Acceleration Z: ' + acceleration.z         + '<br />' +
-                            '2: '      + tiltLR  + '<br />';
-                            
 							$("#climber")
-								.css({'-webkit-transform': 'rotate(' + tiltLR + 'deg)'})
-								.css({'-moz-transform': 'rotate(' + tiltLR + 'deg)'})
-								.css({'transform': 'rotate(' + tiltLR + 'deg)'});
+								.css({'-webkit-transform': 'rotate(' + tiltLRclimber + 'deg)'})
+								.css({'-moz-transform': 'rotate(' + tiltLRclimber + 'deg)'})
+								.css({'transform': 'rotate(' + tiltLRclimber + 'deg)'});
 							/*$("#sky")
 								.css({'-webkit-transform': 'translate(' + 0 + 'px) rotate(' + tiltLR + 'deg)'})
 								.css({'-moz-transform': 'translate(' + 0 + 'px) rotate(' + tiltLR + 'deg)'})
@@ -136,6 +131,5 @@
 		<img id="climber" src="res/climber.png">
 		<canvas id="canvas"></canvas>
     </div>
-    <div id="accelerometer">Waiting for accelerometer...</div>
   </body>
 </html>
