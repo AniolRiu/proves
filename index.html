@@ -51,17 +51,25 @@
 		}
 		var tiltLR1 = Math.round(((acceleration.x) / 9.81) * 90);*/
 		var tiltLRpre = Math.round(Math.asin(acceleration.x / 9.81) * rad2deg);
+		var upside_down = (acceleration.y < 0);
 		var tiltLR = tiltLRpre;
-		if (acceleration.y < 0) {
-			tiltLR = 180 - tiltLRpre;
-		}
 		if (tiltLRpre > 0) {
 			// La paret és tumbada
+			if (upside_down) {
+				// La paret és una baixada
+				tiltLR = 180 - tiltLRpre;
+				tiltLRpre = 180 - tiltLRpre;
+			}
 			drawAngle(screen_w*0.4,screen_h * 0.25, 150, 270, tiltLRpre, true, "red");
 		}
 		else {
 			// La paret desploma
-			drawAngle(screen_w*0.4,screen_h * 0.25, 150, 270, -tiltLRpre, false, "red");
+			tiltLRpre = -tiltLRpre;
+			if (upside_down) {
+				// La paret és un sostre inclinat avall
+				tiltLRpre = 180 - tiltLRpre;
+			}
+			drawAngle(screen_w*0.4,screen_h * 0.25, 150, 270, tiltLRpre, false, "red");
 		}
         var element = document.getElementById('accelerometer');
         element.innerHTML = 'Acceleration X: ' + acceleration.x         + '<br />' +
