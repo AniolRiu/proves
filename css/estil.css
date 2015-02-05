@@ -1,7 +1,7 @@
 #gear {
-    transform-origin: 50% 15%; /* IE 10+, Firefox, etc. */
-    -webkit-transform-origin: 50% 15%; /* Chrome */
-    -ms-transform-origin: 50% 15%; /* IE 9 */
+    transform-origin: 10% 10%; /* IE 10+, Firefox, etc. */
+    -webkit-transform-origin: 10% 10%; /* Chrome */
+    -ms-transform-origin: 10% 10%; /* IE 9 */
     z-index:3;
     height:15%;
     right:51%;
