@@ -61,7 +61,8 @@
 				// La paret és una baixada
 				tiltLR = 180 - tiltLR;
 			}
-			drawAngle(screen_w *0.2,screen_h * 0.5, 0.6 * screen_w, 90, tiltLR, false, "#FF7F24");
+			ctx.clearRect( 0 , 0 , canvas.width, canvas.height );
+			drawAngle(screen_w *0.2,screen_h * 0.5, 0.6 * screen_w, 90, tiltLR, true, "#FF7F24");
 		}
 		else {
 			// La paret desploma
@@ -71,7 +72,9 @@
 				tiltLR = 180 - tiltLR;
 				tiltLRgear = - 90;
 			}
+			ctx.clearRect( 0 , 0 , canvas.width, canvas.height );
 			drawAngle(screen_w *0.2,screen_h * 0.5, 0.6 * screen_w, 270, tiltLR, false, "#FF7F24");
+			drawAngle(screen_w *0.2,screen_h * 0.95, 0.2 * screen_w, 90, 90-tiltLR, true, "#66CDAA");
 		}
 							$("#gear")
 								.css({'-webkit-transform': 'rotate(' + tiltLRgear + 'deg)'})
@@ -89,7 +92,6 @@
     }
     
     function drawAngle(x, y, r, init_a, a, cw, color) {
-		ctx.clearRect( 0 , 0 , canvas.width, canvas.height );
 		if(cw) {
 			init_a = init_a - a;
 		}
