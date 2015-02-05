@@ -55,7 +55,14 @@
 		if (acceleration.y < 0) {
 			tiltLR = 180 - tiltLRpre;
 		}
-		drawAngle(screen_w*0.44,screen_h * 0.3, 150, 270, -tiltLRpre, false, "red");
+		if (tiltLRpre > 0) {
+			// La paret és tumbada
+			drawAngle(screen_w*0.4,screen_h * 0.25, 150, 270, tiltLRpre, true, "red");
+		}
+		else {
+			// La paret desploma
+			drawAngle(screen_w*0.4,screen_h * 0.25, 150, 270, -tiltLRpre, false, "red");
+		}
         var element = document.getElementById('accelerometer');
         element.innerHTML = 'Acceleration X: ' + acceleration.x         + '<br />' +
                             'Acceleration Y: ' + acceleration.y         + '<br />' +

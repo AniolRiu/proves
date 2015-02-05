@@ -3,9 +3,9 @@
     -webkit-transform-origin: top 67%; /* Chrome */
     -ms-transform-origin: top 67%; /* IE 9 */
     z-index:3;
-    max-height:30%;
+    height:50%;
     right:56%;
-    top:30%;
+    top:25%;
 }
 
 #rock {
