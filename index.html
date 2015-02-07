@@ -14,6 +14,7 @@
     var can;
 	var ctx;
 	var screen_w, screen_h;
+	var left_side = true;
 	//var h_trans=-700 /*Meitat de l'ample del cel*/ + $(window).width()*0.65 /*El centre s'ha de situar a un 65% de la pantalla*/;;
     
     // Wait for device API libraries to load
@@ -46,44 +47,59 @@
 
     // onSuccess: Get a snapshot of the current acceleration
     function onSuccess(acceleration) {
-		/*var facingUp = -1;
-        if (acceleration.z > 0) {
-			facingUp = +1;
-		}
-		var tiltLR1 = Math.round(((acceleration.x) / 9.81) * 90);*/
 		var tiltLR = Math.round(Math.asin(acceleration.x / 9.81) * rad2deg);
 		var upside_down = (acceleration.y < 0);
 		var tiltLRgear = tiltLR;
-		if (tiltLR > 0) {
-			// La paret és tumbada
-			tiltLRgear = 0;
-			if (upside_down) {
-				// La paret és una baixada
-				tiltLR = 180 - tiltLR;
+		if (left_side){
+			if (tiltLR > 0) {
+				// La paret és tumbada
+				tiltLRgear = 0;
+				if (upside_down) {
+					// La paret és una baixada
+					tiltLR = 180 - tiltLR;
+				}
+				drawAngle(screen_w *0.2,screen_h * 0.5, 0.6 * screen_w, 90, tiltLR, true, "#FF7F24");
 			}
-			ctx.clearRect( 0 , 0 , canvas.width, canvas.height );
-			drawAngle(screen_w *0.2,screen_h * 0.5, 0.6 * screen_w, 90, tiltLR, true, "#FF7F24");
-		}
-		else {
-			// La paret desploma
-			tiltLR = -tiltLR;
-			if (upside_down) {
-				// La paret és un sostre inclinat avall
-				tiltLR = 180 - tiltLR;
-				tiltLRgear = - 90;
+			else {
+				// La paret desploma
+				tiltLR = -tiltLR;
+				if (upside_down) {
+					// La paret és un sostre inclinat avall
+					tiltLR = 180 - tiltLR;
+					tiltLRgear = - 90;
+				}
+				drawAngle(screen_w *0.2,screen_h * 0.5, 0.6 * screen_w, 270, tiltLR, false, "#FF7F24");
 			}
-			ctx.clearRect( 0 , 0 , canvas.width, canvas.height );
-			drawAngle(screen_w *0.2,screen_h * 0.5, 0.6 * screen_w, 270, tiltLR, false, "#FF7F24");
-			drawAngle(screen_w *0.2,screen_h * 0.95, 0.2 * screen_w, 90, 90-tiltLR, true, "#66CDAA");
 		}
-							$("#gear")
-								.css({'-webkit-transform': 'rotate(' + tiltLRgear + 'deg)'})
-								.css({'-moz-transform': 'rotate(' + tiltLRgear + 'deg)'})
-								.css({'transform': 'rotate(' + tiltLRgear + 'deg)'});
-							/*$("#sky")
-								.css({'-webkit-transform': 'translate(' + 0 + 'px) rotate(' + tiltLR + 'deg)'})
-								.css({'-moz-transform': 'translate(' + 0 + 'px) rotate(' + tiltLR + 'deg)'})
-								.css({'transform': 'translate(' + 0 + 'px) rotate(' + tiltLR + 'deg)'});*/
+		else { //right_side
+			if (tiltLR > 0) {
+				// La paret desploma
+				if (upside_down) {
+					// La paret és un sostre inclinat avall
+					tiltLR = 180 - tiltLR;
+					tiltLRgear = 90;
+				}
+				drawAngle(screen_w *0.8,screen_h * 0.5, 0.6 * screen_w, 270, tiltLR, true, "#FF7F24");
+			}
+			else {
+				// La paret és tumbada
+				tiltLR = -tiltLR;
+				tiltLRgear = 0;
+				if (upside_down) {
+					// La paret és una baixada
+					tiltLR = 180 - tiltLR;
+				}
+				drawAngle(screen_w *0.8,screen_h * 0.5, 0.6 * screen_w, 90, tiltLR, false, "#FF7F24");
+			}
+		}
+		$("#gear")
+			.css({'-webkit-transform': 'rotate(' + tiltLRgear + 'deg)'})
+			.css({'-moz-transform': 'rotate(' + tiltLRgear + 'deg)'})
+			.css({'transform': 'rotate(' + tiltLRgear + 'deg)'});
+		/*$("#sky")
+			.css({'-webkit-transform': 'translate(' + 0 + 'px) rotate(' + tiltLR + 'deg)'})
+			.css({'-moz-transform': 'translate(' + 0 + 'px) rotate(' + tiltLR + 'deg)'})
+			.css({'transform': 'translate(' + 0 + 'px) rotate(' + tiltLR + 'deg)'});*/
     }
 
     // onError: Failed to get the acceleration
@@ -92,6 +108,7 @@
     }
     
     function drawAngle(x, y, r, init_a, a, cw, color) {
+		ctx.clearRect( 0 , 0 , canvas.width, canvas.height );
 		if(cw) {
 			init_a = init_a - a;
 		}
