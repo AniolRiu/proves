@@ -122,7 +122,10 @@
 			$("#gear")
 				.attr({'src': 'res/left_gear.png'})
 				.css({'right': pos_gear + '%'})
-				.css({'left':''});
+				.css({'left':''})
+				.css({'transform-origin':'10% 10%'})
+				.css({'-webkit-transform-origin':'10% 10%'})
+				.css({'-ms-transform-origin':'10% 10%'});
 			$("#rock")
 				.attr({'src': 'res/left_climber.png'})
 				.css({'right':'30%'})
@@ -132,7 +135,10 @@
 			$("#gear")
 				.attr({'src': 'res/right_gear.png'})
 				.css({'left': pos_gear + '%'})
-				.css({'right':''});
+				.css({'right':''})
+				.css({'transform-origin':'90% 10%'})
+				.css({'-webkit-transform-origin':'90% 10%'})
+				.css({'-ms-transform-origin':'90% 10%'});
 			$("#rock")
 				.attr({'src': 'res/right_climber.png'})
 				.css({'left':'30%'})
