@@ -113,18 +113,22 @@
 		if (left_side) {
 			$("#gear")
 				.attr({'src': 'res/left_gear.png'})
-				.css({'right':'51%'});
+				.css({'right':'51%'})
+				.css({'left':''});
 			$("#rock")
 				.attr({'src': 'res/left_climber.png'})
-				.css({'right':'30'});
+				.css({'right':'30'})
+				.css({'left':''});
 		}
 		else {
 			$("#gear")
 				.attr({'src': 'res/right_gear.png'})
-				.css({'left':'51%'});
+				.css({'left':'51%'})
+				.css({'right':''});
 			$("#rock")
 				.attr({'src': 'res/right_climber.png'})
-				.css({'left':'30'});
+				.css({'left':'30'})
+				.css({'right':''});
 		}
 	}
     
