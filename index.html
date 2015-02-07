@@ -110,7 +110,22 @@
     
     function swap() {
 		left_side = !left_side;
-		alert(left_side);
+		if (left_side) {
+			$("#gear")
+				.css({'background-image': 'url(res/left_gear.png)'})
+				.css({'right':'51%'});
+			$("#rock")
+				.css({'background-image': 'url(res/left_climber.png)'})
+				.css({'right':'30'});
+		}
+		else {
+			$("#gear")
+				.css({'background-image': 'url(res/left_gear.png)'})
+				.css({'left':'51%'});
+			$("#rock")
+				.css({'background-image': 'url(res/left_climber.png)'})
+				.css({'left':'30'});
+		}
 	}
     
     function drawAngle(x, y, r, init_a, a, cw, color) {
