@@ -15,6 +15,7 @@
 	var ctx;
 	var screen_w, screen_h;
 	var left_side = true;
+	var pos_gear;
 	//var h_trans=-700 /*Meitat de l'ample del cel*/ + $(window).width()*0.65 /*El centre s'ha de situar a un 65% de la pantalla*/;;
     
     // Wait for device API libraries to load
@@ -32,7 +33,8 @@
 		screen_h = window.innerHeight;
         can.width = screen_w;
 		can.height = screen_h;
-		$("#gear").css({'right': 30 + (14 * (screen_h / screen_w)) + '%'});
+		pos_gear = 30 + (14 * (screen_h / screen_w));
+		$("#gear").css({'right': pos_gear + '%'});
         startWatch();
     }
 
@@ -113,7 +115,7 @@
 		if (left_side) {
 			$("#gear")
 				.attr({'src': 'res/left_gear.png'})
-				.css({'right': 30 + (14 * (screen_h / screen_w)) + '%'})
+				.css({'right': pos_gear + '%'})
 				.css({'left':''});
 			$("#rock")
 				.attr({'src': 'res/left_climber.png'})
@@ -123,7 +125,7 @@
 		else {
 			$("#gear")
 				.attr({'src': 'res/right_gear.png'})
-				.css({'left': 30 + (14 * (screen_h / screen_w)) + '%'})
+				.css({'left': pos_gear + '%'})
 				.css({'right':''});
 			$("#rock")
 				.attr({'src': 'res/right_climber.png'})
@@ -171,7 +173,7 @@
   <body style="background-color:#C6E2FF">
     <div id="escenari">
 		<img id="rock" src="res/left_climber.png">
-		<!--<img id="sky" src="res/sky.jpg"/>-->
+		<img id="sky" src="res/sky.jpg"/>
 		<!--<img id="climber" src="res/climber.png">-->
 		<img id="gear" src="res/left_gear.png">
 		<canvas id="canvas"></canvas>
