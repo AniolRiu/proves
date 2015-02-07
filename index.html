@@ -25,6 +25,7 @@
     //
     function onDeviceReady() {
 		can = document.getElementById("canvas");
+		window.onclick = swap;
 		
 		ctx = can.getContext("2d");
 		screen_w = window.innerWidth;
@@ -106,6 +107,11 @@
     function onError() {
         alert('Error!');
     }
+    
+    function swap() {
+		left_side = !left_side;
+		alert(left_side);
+	}
     
     function drawAngle(x, y, r, init_a, a, cw, color) {
 		ctx.clearRect( 0 , 0 , canvas.width, canvas.height );
