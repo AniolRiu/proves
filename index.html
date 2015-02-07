@@ -62,6 +62,7 @@
 				if (upside_down) {
 					// La paret és una baixada
 					tiltLR = 180 - tiltLR;
+					tiltLRsky = tiltLR;
 				}
 				drawAngle(screen_w *0.2,screen_h * 0.5, 0.6 * screen_w, 90, tiltLR, true, "#FF7F24");
 			}
@@ -72,6 +73,7 @@
 					// La paret és un sostre inclinat avall
 					tiltLR = 180 - tiltLR;
 					tiltLRgear = - 90;
+					tiltLRsky = -tiltLR;
 				}
 				drawAngle(screen_w *0.2,screen_h * 0.5, 0.6 * screen_w, 270, tiltLR, false, "#FF7F24");
 			}
@@ -83,6 +85,7 @@
 					// La paret és un sostre inclinat avall
 					tiltLR = 180 - tiltLR;
 					tiltLRgear = 90;
+					tiltLRsky = tiltLR;
 				}
 				drawAngle(screen_w *0.8,screen_h * 0.5, 0.6 * screen_w, 270, tiltLR, true, "#FF7F24");
 			}
@@ -93,6 +96,7 @@
 				if (upside_down) {
 					// La paret és una baixada
 					tiltLR = 180 - tiltLR;
+					tiltLRsky = -tiltLR;
 				}
 				drawAngle(screen_w *0.8,screen_h * 0.5, 0.6 * screen_w, 90, tiltLR, false, "#FF7F24");
 			}
