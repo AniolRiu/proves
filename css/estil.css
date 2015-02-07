@@ -18,7 +18,7 @@
 	z-index:4;
 	height: 122%;
 	width: auto;
-}*/
+}
 
 #canvas {
 	z-index:10;
@@ -26,10 +26,6 @@
 
 img, canvas {
 	position: fixed;
-}
-
-#accelerometer {
-	z-index: 10;
 }
 
 div, body {
