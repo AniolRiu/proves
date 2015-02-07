@@ -14,7 +14,7 @@
     var can;
 	var ctx;
 	var screen_w, screen_h;
-	var left_side = false;
+	var left_side = true;
 	//var h_trans=-700 /*Meitat de l'ample del cel*/ + $(window).width()*0.65 /*El centre s'ha de situar a un 65% de la pantalla*/;;
     
     // Wait for device API libraries to load
@@ -120,10 +120,10 @@
 		}
 		else {
 			$("#gear")
-				.css({'background-image': 'url(res/left_gear.png)'})
+				.css({'background-image': 'url(res/right_gear.png)'})
 				.css({'left':'51%'});
 			$("#rock")
-				.css({'background-image': 'url(res/left_climber.png)'})
+				.css({'background-image': 'url(res/right_climber.png)'})
 				.css({'left':'30'});
 		}
 	}
