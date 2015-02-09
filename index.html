@@ -22,21 +22,22 @@
 
     // device APIs are available
     function onDeviceReady() {
+		initAd();
 		can = document.getElementById("canvas");
 		window.onclick = swap;
 		
 		ctx = can.getContext("2d");
 		screen_w = window.innerWidth;
 		screen_h = window.innerHeight;
+		alert(window.innerWidth + "" + window.innerHeight + "" + document.innerWidth + "" + document.innerHeight);
         can.width = screen_w;
 		can.height = screen_h;
 		pos_gear = 30 + (14 * (screen_h / screen_w));
 		$("#gear").css({'right': pos_gear + '%'});
 		//$("#sky").css({'left': ((screen_h * 1.22 * 1166/730) - screen_w) / -2 + 'px'});
 		// Advertisement -----
-		initAd();
+		
 		// ----------
-		alert("yeye1");
         startWatch();
     }
 
@@ -44,13 +45,11 @@
     function startWatch() {
         // Update acceleration every 0.3 seconds
         var options = { frequency: 40 };
-		alert("yeye2");
         watchID = navigator.accelerometer.watchAcceleration(onSuccess, onError, options);
     }
 
     // onSuccess: Get a snapshot of the current acceleration
     function onSuccess(acceleration) {
-		alert("yeye3");
 		var tiltLR = Math.round(Math.asin(acceleration.x / 9.81) * rad2deg);
 		var upside_down = (acceleration.y < 0);
 		var tiltLRgear = tiltLR;

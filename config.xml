@@ -36,4 +36,5 @@
 	<icon src="res/ios/icon-50@2x.png" width="100" height="100" />
 </platform>
 <gap:plugin name="com.google.cordova.admob" version="2.7.0" source="plugins.cordova.io"/>
+<gap:plugin name="org.apache.cordova.device-motion" version="0.2.10" />
 </widget>
