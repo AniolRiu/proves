@@ -6,6 +6,7 @@
     <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
     <script src='http://ajax.googleapis.com/ajax/libs/jquery/1.4.1/jquery.min.js' type='text/javascript'></script>
     <script type="text/javascript" charset="utf-8">
+	<link href='http://fonts.googleapis.com/css?family=Droid+Sans' rel='stylesheet' type='text/css'>
 	
     // The watch id references the current `watchAcceleration`
     var watchID = null;
@@ -206,50 +207,30 @@
 			position: AdMob.AD_POSITION.BOTTOM_CENTER,
 			isTesting: true, // set to true, to receiving test ad for testing purpose 
 			autoShow: true } );
+			/*
+				bannerId: admobid.banner,
+				adSize: 'SMART_BANNER',
+				position: AdMob.AD_POSITION.BOTTOM_CENTER,
+				offsetTopBar: false, // avoid overlapped by status bar, for iOS7+
+				bgColor: 'black', // color name, or '#RRGGBB'
+				isTesting: false, // set to true, to receiving test ad for testing purpose
+				autoShow: true // auto show interstitial ad when loaded, set to false if prepare/show
+			*/
 	}
-		/*var defaultOptions = {
-			bannerId: admobid.banner,
-			adSize: 'SMART_BANNER',
-			position: AdMob.AD_POSITION.BOTTOM_CENTER,
-			offsetTopBar: false, // avoid overlapped by status bar, for iOS7+
-			bgColor: 'black', // color name, or '#RRGGBB'
-			isTesting: false, // set to true, to receiving test ad for testing purpose
-			autoShow: true // auto show interstitial ad when loaded, set to false if prepare/show
-		};
-		AdMob.setOptions( defaultOptions );
-		registerAdEvents();
-	}*/
-	// optional, in case respond to events or handle error
-	/*function registerAdEvents() {
-		// new events, with variable to differentiate: adNetwork, adType, adEvent
-		document.addEventListener('onAdFailLoad', function(data){ 
-			alert('error: ' + data.error + 
-					', reason: ' + data.reason + 
-					', adNetwork:' + data.adNetwork + 
-					', adType:' + data.adType + 
-					', adEvent:' + data.adEvent); // adType: 'banner' or 'interstitial'
-		});
-		document.addEventListener('onAdLoaded', function(data){});
-		document.addEventListener('onAdPresent', function(data){});
-		document.addEventListener('onAdLeaveApp', function(data){});
-		document.addEventListener('onAdDismiss', function(data){});
-	}*/
-
-	/*function onResize() {
-		var or_antic = orientacio;
-		orientacio = ($( window ).width() > $( window ).height() ? "h" : "v" );
-		if (or_antic != orientacio) {carregaImatge();}
 		
-		//var s = document.getElementById('sizeinfo');
-		//s.innerHTML = "web view: " + window.innerWidth + " x " + window.innerHeight;
-	}*/
+	
     </script>
   </head>
   <body style="background-color:#C6E2FF">
     <div id="escenari">
+		<div style="	background:url(res/tap_screen.png) center center no-repeat;
+						background-size:auto 100%;
+						height: 50% " id="div_tap_screen">
+			<p style="	text-align:center; 
+						font-family: 'Droid Sans', sans-serif;">SWAP</p>
+		</div>
 		<img id="rock" src="res/left_climber.png">
 		<!--<img id="sky" src="res/sky.png"/>-->
-		<!--<img id="climber" src="res/climber.png">-->
 		<img id="gear" src="res/left_gear.png">
 		<canvas id="canvas"></canvas>
     </div>
