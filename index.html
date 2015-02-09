@@ -163,11 +163,7 @@
 		var semi_y = (r+factor)*Math.sin(semi_a_rad);
 		ctx.fillStyle=color;
 		ctx.font= mida_lletra + "px Droid Sans";
-		alert(a);
-		alert(a + String.fromCharCode(176));
-		var text = a + "º";
-		text = text.replace('Â','');
-		ctx.fillText(text,x + semi_x, y - semi_y);
+		ctx.fillText(a + String.fromCharCode(176),x + semi_x, y - semi_y);
 		// Angle drawing
 		ctx.beginPath();
 		ctx.moveTo(x,y);
@@ -209,7 +205,7 @@
 		if(AdMob) AdMob.createBanner( {
 			adId: admobid.banner, 
 			position: AdMob.AD_POSITION.BOTTOM_CENTER,
-			isTesting: true, // set to true, to receiving test ad for testing purpose 
+			isTesting: false, // set to true, to receiving test ad for testing purpose 
 			autoShow: true } );
 			/*
 				bannerId: admobid.banner,
