@@ -36,22 +36,21 @@
 		// Advertisement -----
 		initAd();
 		// ----------
-		alert();
+		alert("yeye1");
         startWatch();
     }
 
     // Start watching the acceleration
-    //
     function startWatch() {
-
         // Update acceleration every 0.3 seconds
         var options = { frequency: 40 };
-
+		alert("yeye2");
         watchID = navigator.accelerometer.watchAcceleration(onSuccess, onError, options);
     }
 
     // onSuccess: Get a snapshot of the current acceleration
     function onSuccess(acceleration) {
+		alert("yeye3");
 		var tiltLR = Math.round(Math.asin(acceleration.x / 9.81) * rad2deg);
 		var upside_down = (acceleration.y < 0);
 		var tiltLRgear = tiltLR;
