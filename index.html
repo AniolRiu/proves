@@ -22,7 +22,7 @@
 
     // device APIs are available
     function onDeviceReady() {
-		var AdHeight = 50;
+		var AdHeight = (window.screen.availHeight > 720 ? 90 : 50 );
 		initAd();
 		can = document.getElementById("canvas");
 		window.onclick = swap;
@@ -30,8 +30,7 @@
 		ctx = can.getContext("2d");
 		screen_w = window.innerWidth;
 		screen_h = window.innerHeight - AdHeight;
-		alert(window.screen.availHeight + " " + window.innerHeight + " " + document.body.scrollHeight + " " + document.body.offsetHeight + " " + document.documentElement.clientHeight + ' ' + document.documentElement.scrollHeight + ' ' + document.documentElement.offsetHeight );
-        can.width = screen_w;
+		can.width = screen_w;
 		can.height = screen_h;
 		pos_gear = 30 + (14 * (screen_h / screen_w));
 		$("#gear").css({'right': pos_gear + '%'});
