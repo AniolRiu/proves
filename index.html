@@ -30,7 +30,7 @@
 		ctx = can.getContext("2d");
 		screen_w = window.innerWidth;
 		screen_h = window.innerHeight - AdHeight;
-		alert(window.innerWidth + " " + window.innerHeight + " " + document.body.scrollHeight + " " + document.body.offsetHeight + " " + document.documentElement.clientHeight + ' ' + document.documentElement.scrollHeight + ' ' + document.documentElement.offsetHeight );
+		alert(window.screen.availHeight + " " + window.innerHeight + " " + document.body.scrollHeight + " " + document.body.offsetHeight + " " + document.documentElement.clientHeight + ' ' + document.documentElement.scrollHeight + ' ' + document.documentElement.offsetHeight );
         can.width = screen_w;
 		can.height = screen_h;
 		pos_gear = 30 + (14 * (screen_h / screen_w));
