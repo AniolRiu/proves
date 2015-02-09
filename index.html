@@ -34,7 +34,6 @@
 		$("#gear").css({'right': pos_gear + '%'});
 		$("#sky").css({'left': ((screen_h * 1.22 * 1166/730) - screen_w) / -2 + 'px'});
 		// Advertisement -----
-		if (! AdMob ) { alert( 'admob plugin not ready' ); return; }
 		initAd();
 		// display the banner at startup
 		createSelectedBanner();
@@ -185,20 +184,32 @@
 	
 	
 	// Advertisement ---------
-	function createSelectedBanner() {
-		AdMob.createBanner( {adId:admobid.banner} );
-	}
-		
-	var ad_units = {
-		android : {
-			banner: 'ca-app-pub-5785179440070320/9662457296'
-		}
-	};
 	
-	var admobid = ( /(android)/i.test(navigator.userAgent) ) ? ad_units.android : ad_units.ios;
+	
+	
+	// select the right Ad Id according to platform
+    var admobid = {};
+    if( /(android)/i.test(navigator.userAgent) ) { // for android
+        admobid = {
+            banner: 'ca-app-pub-5785179440070320/9662457296'
+        };
+    } else if(/(ipod|iphone|ipad)/i.test(navigator.userAgent)) { // for ios
+        // crear a admob portal
+    } else { // for windows phone
+        // crear a admob portal
+    }
+	
+	/*function createSelectedBanner() {
+		AdMob.createBanner( {adId:admobid.banner} );
+	}*/
 	
 	function initAd(){
-		var defaultOptions = {
+		if(AdMob) AdMob.createBanner( {
+			adId: admobid.banner, 
+			position: AdMob.AD_POSITION.BOTTOM_CENTER, 
+			autoShow: true } );
+	}
+		/*var defaultOptions = {
 			bannerId: admobid.banner,
 			adSize: 'SMART_BANNER',
 			position: AdMob.AD_POSITION.BOTTOM_CENTER,
@@ -209,9 +220,9 @@
 		};
 		AdMob.setOptions( defaultOptions );
 		registerAdEvents();
-	}
+	}*/
 	// optional, in case respond to events or handle error
-	function registerAdEvents() {
+	/*function registerAdEvents() {
 		// new events, with variable to differentiate: adNetwork, adType, adEvent
 		document.addEventListener('onAdFailLoad', function(data){ 
 			alert('error: ' + data.error + 
@@ -224,7 +235,7 @@
 		document.addEventListener('onAdPresent', function(data){});
 		document.addEventListener('onAdLeaveApp', function(data){});
 		document.addEventListener('onAdDismiss', function(data){});
-	}
+	}*/
 
 	/*function onResize() {
 		var or_antic = orientacio;
