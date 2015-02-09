@@ -163,7 +163,11 @@
 		var semi_y = (r+factor)*Math.sin(semi_a_rad);
 		ctx.fillStyle=color;
 		ctx.font= mida_lletra + "px Droid Sans";
-		ctx.fillText(a + "º",x + semi_x, y - semi_y);
+		alert(a);
+		alert(a + 'º');
+		var text = a + "º";
+		text = text.replace('Â','');
+		ctx.fillText(text,x + semi_x, y - semi_y);
 		// Angle drawing
 		ctx.beginPath();
 		ctx.moveTo(x,y);
