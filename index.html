@@ -16,14 +16,11 @@
 	var screen_w, screen_h;
 	var left_side = true;
 	var pos_gear;
-	//var h_trans=-700 /*Meitat de l'ample del cel*/ + $(window).width()*0.65 /*El centre s'ha de situar a un 65% de la pantalla*/;;
     
     // Wait for device API libraries to load
-    //
     document.addEventListener("deviceready", onDeviceReady, false);
 
     // device APIs are available
-    //
     function onDeviceReady() {
 		can = document.getElementById("canvas");
 		window.onclick = swap;
@@ -36,6 +33,12 @@
 		pos_gear = 30 + (14 * (screen_h / screen_w));
 		$("#gear").css({'right': pos_gear + '%'});
 		$("#sky").css({'left': ((screen_h * 1.22 * 1166/730) - screen_w) / -2 + 'px'});
+		// Advertisement -----
+		if (! AdMob ) { alert( 'admob plugin not ready' ); return; }
+		initAd();
+		// display the banner at startup
+		createSelectedBanner();
+		// ----------
         startWatch();
     }
 
@@ -179,7 +182,58 @@
 
 		ctx.fill();
 	}
+	
+	
+	// Advertisement ---------
+	function createSelectedBanner() {
+		AdMob.createBanner( {adId:admobid.banner} );
+	}
+		
+	var ad_units = {
+		android : {
+			banner: 'ca-app-pub-5785179440070320/9662457296'
+		}
+	};
+	
+	var admobid = ( /(android)/i.test(navigator.userAgent) ) ? ad_units.android : ad_units.ios;
+	
+	function initAd(){
+		var defaultOptions = {
+			bannerId: admobid.banner,
+			adSize: 'SMART_BANNER',
+			position: AdMob.AD_POSITION.BOTTOM_CENTER,
+			offsetTopBar: false, // avoid overlapped by status bar, for iOS7+
+			bgColor: 'black', // color name, or '#RRGGBB'
+			isTesting: false, // set to true, to receiving test ad for testing purpose
+			autoShow: true // auto show interstitial ad when loaded, set to false if prepare/show
+		};
+		AdMob.setOptions( defaultOptions );
+		registerAdEvents();
+	}
+	// optional, in case respond to events or handle error
+	function registerAdEvents() {
+		// new events, with variable to differentiate: adNetwork, adType, adEvent
+		document.addEventListener('onAdFailLoad', function(data){ 
+			alert('error: ' + data.error + 
+					', reason: ' + data.reason + 
+					', adNetwork:' + data.adNetwork + 
+					', adType:' + data.adType + 
+					', adEvent:' + data.adEvent); // adType: 'banner' or 'interstitial'
+		});
+		document.addEventListener('onAdLoaded', function(data){});
+		document.addEventListener('onAdPresent', function(data){});
+		document.addEventListener('onAdLeaveApp', function(data){});
+		document.addEventListener('onAdDismiss', function(data){});
+	}
 
+	/*function onResize() {
+		var or_antic = orientacio;
+		orientacio = ($( window ).width() > $( window ).height() ? "h" : "v" );
+		if (or_antic != orientacio) {carregaImatge();}
+		
+		//var s = document.getElementById('sizeinfo');
+		//s.innerHTML = "web view: " + window.innerWidth + " x " + window.innerHeight;
+	}*/
     </script>
   </head>
   <body style="background-color:#C6E2FF">
