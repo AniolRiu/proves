@@ -56,7 +56,7 @@
 		var upside_down = (acceleration.y < 0);
 		if (upside_down) {
 			// Baixada a l'esquerra
-			drawAngle(screen_w *0.5,screen_h * 0.8, 0.6 * screen_h, 270, tiltLR, true, "#FF7F24");
+			drawAngle(screen_w *0.5,screen_h * 0.8, 0.6 * screen_h, 180, tiltLR, true, "#FF7F24");
 		}
 		else {
 			// Pujada a l'esquerra
@@ -202,9 +202,8 @@
 						height: 50px " id="div_tap_screen">
 	</div>
 	<div id="escenari">
-		<img id="rock" src="res/left_climber.png">
+		<img id="floor" src="res/cycle.png">
 		<!--<img id="sky" src="res/sky.png"/>-->
-		<img id="gear" src="res/left_gear.png">
 		<canvas id="canvas"></canvas>
     </div>
   </body>
