@@ -52,53 +52,28 @@
     // onSuccess: Get a snapshot of the current acceleration
     function onSuccess(acceleration) {
 		var tiltLR = Math.round(Math.asin(acceleration.x / 9.81) * rad2deg);
+		tiltLR = 90 - tiltLR;
 		var upside_down = (acceleration.y < 0);
-		var tiltLRgear = tiltLR;
-		//var tiltLRsky = tiltLR;
-		if (left_side){
-			if (tiltLR > 0) {
-				// La paret és tumbada
-				tiltLRgear = 0;
-				if (upside_down) {
-					// La paret és una baixada
-					tiltLR = 180 - tiltLR;
-					//tiltLRsky = tiltLR;
-				}
-				drawAngle(screen_w *0.2,screen_h * 0.5, 0.6 * screen_w, 90, tiltLR, true, "#FF7F24");
-			}
-			else {
-				// La paret desploma
-				tiltLR = -tiltLR;
-				if (upside_down) {
-					// La paret és un sostre inclinat avall
-					tiltLR = 180 - tiltLR;
-					tiltLRgear = - 90;
-					//tiltLRsky = -tiltLR;
-				}
-				drawAngle(screen_w *0.2,screen_h * 0.5, 0.6 * screen_w, 270, tiltLR, false, "#FF7F24");
-			}
+		if (upside_down) {
+			// Baixada a l'esquerra
+			drawAngle(screen_w *0.5,screen_h * 0.8, 0.6 * screen_h, 270, tiltLR, true, "#FF7F24");
+		}
+		else {
+			// Pujada a l'esquerra
+			drawAngle(screen_w *0.5,screen_h * 0.8, 0.6 * screen_h, 0, tiltLR, false, "#FF7F24");
+		}
+		/*if (left_side){
+			
 		}
 		else { //right_side
-			if (tiltLR > 0) {
-				// La paret desploma
-				if (upside_down) {
-					// La paret és un sostre inclinat avall
-					tiltLR = 180 - tiltLR;
-					tiltLRgear = 90;
-					//tiltLRsky = tiltLR;
-				}
-				drawAngle(screen_w *0.8,screen_h * 0.5, 0.6 * screen_w, 270, tiltLR, true, "#FF7F24");
+			tiltLR = 90 + tiltLR;
+			if (upside_down) {
+				// Baixada a la dreta
+				drawAngle(screen_w *0.5,screen_h * 0.8, 0.6 * screen_h, 0, tiltLR, false, "#FF7F24");
 			}
 			else {
-				// La paret és tumbada
-				tiltLR = -tiltLR;
-				tiltLRgear = 0;
-				if (upside_down) {
-					// La paret és una baixada
-					tiltLR = 180 - tiltLR;
-					//tiltLRsky = -tiltLR;
-				}
-				drawAngle(screen_w *0.8,screen_h * 0.5, 0.6 * screen_w, 90, tiltLR, false, "#FF7F24");
+				// Pujada a la dreta
+				drawAngle(screen_w *0.5,screen_h * 0.8, 0.6 * screen_h, 0, tiltLR, false, "#FF7F24");
 			}
 		}
 		$("#gear")
