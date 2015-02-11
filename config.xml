@@ -12,6 +12,7 @@
 </author>
 <preference name="fullscreen" value="true" />
 <preference name="orientation" value="landscape" />
+<icon src="res/icon.png" />
 <platform name="android">
 	<icon src="res/android/drawable-ldpi/ic_launcher.png" density="ldpi" />
 	<icon src="res/android/drawable-mdpi/ic_launcher.png" density="mdpi" />
