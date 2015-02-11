@@ -94,30 +94,12 @@
     function swap() {
 		left_side = !left_side;
 		if (left_side) {
-			$("#gear")
-				.attr({'src': 'res/left_gear.png'})
-				.css({'right': pos_gear + '%'})
-				.css({'left':''})
-				.css({'transform-origin':'10% 10%'})
-				.css({'-webkit-transform-origin':'10% 10%'})
-				.css({'-ms-transform-origin':'10% 10%'});
-			$("#rock")
-				.attr({'src': 'res/left_climber.png'})
-				.css({'right':'30%'})
-				.css({'left':''});
+			$("#floor")
+				.attr({'src': 'res/left_cycle.png'})
 		}
 		else {
-			$("#gear")
-				.attr({'src': 'res/right_gear.png'})
-				.css({'left': pos_gear + '%'})
-				.css({'right':''})
-				.css({'transform-origin':'90% 10%'})
-				.css({'-webkit-transform-origin':'90% 10%'})
-				.css({'-ms-transform-origin':'90% 10%'});
 			$("#rock")
-				.attr({'src': 'res/right_climber.png'})
-				.css({'left':'30%'})
-				.css({'right':''});
+				.attr({'src': 'res/right_cycle.png'})
 		}
 	}
     
@@ -195,7 +177,7 @@
 						height: 50px " id="div_tap_screen">
 	</div>
 	<div id="escenari">
-		<img id="floor" src="res/cycle.png">
+		<img id="floor" src="res/left_cycle.png">
 		<!--<img id="sky" src="res/sky.png"/>-->
 		<canvas id="canvas"></canvas>
     </div>
