@@ -157,9 +157,6 @@
 	
 	
 	// Advertisement ---------
-	
-	
-	
 	// select the right Ad Id according to platform
     var admobid = {};
     if( /(android)/i.test(navigator.userAgent) ) { // for android
@@ -171,10 +168,6 @@
     } else { // for windows phone
         // crear a admob portal
     }
-	
-	/*function createSelectedBanner() {
-		AdMob.createBanner( {adId:admobid.banner} );
-	}*/
 	
 	function initAd(){
 		if(AdMob) AdMob.createBanner( {
