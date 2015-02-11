@@ -16,13 +16,13 @@
 	var ctx;
 	var screen_w, screen_h;
 	var left_side = true;
-	var pos_gear;
     
     // Wait for device API libraries to load
     document.addEventListener("deviceready", onDeviceReady, false);
 
     // device APIs are available
     function onDeviceReady() {
+		var AdHeight = 32;
 		//initAd();
 		can = document.getElementById("canvas");
 		window.onclick = swap;
@@ -32,10 +32,6 @@
 		screen_h = window.innerHeight - AdHeight;
 		can.width = screen_w;
 		can.height = screen_h;
-		//$("#sky").css({'left': ((screen_h * 1.22 * 1166/730) - screen_w) / -2 + 'px'});
-		// Advertisement -----
-		
-		// ----------
         startWatch();
     }
 
