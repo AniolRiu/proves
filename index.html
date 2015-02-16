@@ -23,7 +23,6 @@
 	<script>
 	  var socket = io('http://192.168.1.35:3000');
 	  $('form').submit(function(){
-		  alert();
 		socket.emit('chat message', $('#m').val());
 		$('#m').val('');
 		return false;
