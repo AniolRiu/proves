@@ -7,13 +7,19 @@
     <script type="text/javascript" charset="utf-8">
 		// Wait for device API libraries to load
 		document.addEventListener("deviceready", onDeviceReady, false);
-
+		
 		// device APIs are available
 		function onDeviceReady() {
-			var socket = io('http://192.168.1.36:3000');
-			$('form').submit(function(){
+			var ip;
+			var socket;
+			$('#form_missatge').submit(function(){
 				socket.emit('chat message', $('#m').val());
 				$('#m').val('');
+				return false;
+			});
+			$('#form_connexio').submit(function(){
+				ip = $('#ip').val());
+				socket = io('http://' + ip + ':3000');
 				return false;
 			});
 			socket.on('chat message', function(msg){
@@ -24,8 +30,12 @@
   </head>
   <body>
     <ul id="messages"></ul>
-    <form action="">
-      <input id="m" autocomplete="off" /><button>Envia</button>
+    <form action="form_missatge">
+      <input id="m" autocomplete="off" /><button>Envia</button>  
+    </form>
+    
+    <form action="form_connexio">
+      <input id="ip" autocomplete="off" /><button>Envia</button>
     </form>
 	
   </body>
