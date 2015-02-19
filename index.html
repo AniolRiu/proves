@@ -25,7 +25,7 @@
 			
 			ctx.clearRect( 0 , 0 , canvas.width, canvas.height );
 			draw_round_button(50, 50, 30, 'red', 'up');
-			canvas.addEventListener("touchstart",doTouchStart,false);
+			can.addEventListener("touchstart",doTouchStart,false);
 			
 			$('#form_missatge').submit(function(){
 				socket.emit('chat message', $('#m').val());
