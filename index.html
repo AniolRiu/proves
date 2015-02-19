@@ -25,7 +25,9 @@
 			
 			ctx.clearRect( 0 , 0 , canvas.width, canvas.height );
 			draw_round_button(50, 50, 30, 'red', 'up');
+			alert("yeye1");
 			can.addEventListener("touchstart",doTouchStart,false);
+			alert("yeye2");
 			
 			$('#form_missatge').submit(function(){
 				socket.emit('chat message', $('#m').val());
@@ -42,9 +44,13 @@
 			});
 		}
 		function doTouchStart(event){
+			alert('1');
 			event.preventDefault();
+			alert('2');
 			canvas_x = event.targetTouches[0].pageX;
+			alert('3');
 			canvas_y = event.targetTouches[0].pageY;
+			alert('4');
 			alert("X=" + canvas_x + " Y=" + canvas_Y);
 		}
 		function draw_round_button(x, y, rad, color, text) {	
