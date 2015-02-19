@@ -8,7 +8,8 @@
 		var ip;
 		var socket;
 		var can;
-		var two_pi_rad = 2 * Math.PI; 
+		var two_pi_rad = 2 * Math.PI;
+		var connection_div_h = document.getElementById('form_connection').offsetHeight;
 		// Wait for device API libraries to load
 		document.addEventListener("deviceready", onDeviceReady, false);
 		
@@ -20,7 +21,7 @@
 			screen_w = window.innerWidth;
 			screen_h = window.innerHeight;
 			can.width = screen_w;
-			can.height = screen_h;
+			can.height = screen_h - connection_div_h;
 			// ------
 			
 			ctx.clearRect( 0 , 0 , canvas.width, canvas.height );
@@ -44,15 +45,22 @@
 			});
 		}
 		function doTouchStart(event){
-			alert('1');
 			event.preventDefault();
-			alert('2');
 			canvas_x = event.targetTouches[0].pageX;
-			alert('3');
-			canvas_y = event.targetTouches[0].pageY;
-			alert('4');
+			canvas_y = event.targetTouches[0].pageY - connection_div_h;
 			alert("X=" + canvas_x + " Y=" + canvas_y);
+			if (dist_btwn_points(canvas_x, canvas_y, 50, 50) < 30) socket.emit('chat message', "UP"); 
 		}
+		
+		// Return distance between points
+		function dist_btwn_points(x1, y1, x2, y2) {
+			x = x1 - x2;
+			x = x * x;
+			y = y1 - y2;
+			y = y * y;
+			return Math.sqrt(x + y); 
+		}
+		
 		function draw_round_button(x, y, rad, color, text) {	
 			// Button drawing
 			ctx.beginPath();
@@ -72,7 +80,7 @@
 	</script>
   </head>
   <body>
-	<form id="form_connexio">
+	<form id="form_connection">
       <input id="ip" autocomplete="off" /><button>Connecta</button>
     </form>
 	<div id="pad">
