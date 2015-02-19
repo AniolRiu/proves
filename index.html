@@ -5,13 +5,28 @@
     <script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
     <script src="https://cdn.socket.io/socket.io-1.3.3.js"></script>
     <script type="text/javascript" charset="utf-8">
+		var ip;
+		var socket;
+		var can;
+		var two_pi_rad = 2 * Math.PI; 
 		// Wait for device API libraries to load
 		document.addEventListener("deviceready", onDeviceReady, false);
 		
 		// device APIs are available
 		function onDeviceReady() {
-			var ip;
-			var socket;
+			// Sizing canvas ---
+			can = document.getElementById("canvas");
+			ctx = can.getContext("2d");
+			screen_w = window.innerWidth;
+			screen_h = window.innerHeight;
+			can.width = screen_w;
+			can.height = screen_h;
+			// ------
+			
+			ctx.clearRect( 0 , 0 , canvas.width, canvas.height );
+			draw_round_button(50, 50, 30, 'red', 'up');
+			canvas.addEventListener("touchstart",doTouchStart,false);
+			
 			$('#form_missatge').submit(function(){
 				socket.emit('chat message', $('#m').val());
 				$('#m').val('');
@@ -26,17 +41,43 @@
 				$('#messages').append($('<li>').text(msg));
 			});
 		}
+		function doTouchStart(event){
+			event.preventDefault();
+			canvas_x = event.targetTouches[0].pageX;
+			canvas_y = event.targetTouches[0].pageY;
+			alert("X=" + canvas_x + " Y=" + canvas_Y);
+		}
+		function draw_round_button(x, y, rad, color, text) {	
+			// Button drawing
+			ctx.beginPath();
+			ctx.arc(x,y,rad,0,two_pi_rad,false);
+			ctx.fillStyle = 'green';
+			ctx.fill();
+			ctx.lineWidth = 2;
+			ctx.strokeStyle = '#003300';
+			ctx.stroke();
+			
+			// Create text
+			var mida_lletra=20;
+			ctx.fillStyle='black';
+			ctx.font= mida_lletra + "px Droid Sans";
+			ctx.fillText(text, x, y);
+		}
 	</script>
   </head>
   <body>
+	<form id="form_connexio">
+      <input id="ip" autocomplete="off" /><button>Connecta</button>
+    </form>
+	<div id="pad">
+		<canvas id="canvas"></canvas>
+    </div>
     <ul id="messages"></ul>
     <form id="form_missatge">
       <input id="m" autocomplete="off" /><button>Envia</button>  
     </form>
     
-    <form id="form_connexio">
-      <input id="ip" autocomplete="off" /><button>Connecta</button>
-    </form>
+    
 	
   </body>
 </html>
