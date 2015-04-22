@@ -3,8 +3,7 @@ var url_registre = "http://queprefereixes.tk/app_connection/registre.php";
 url_pregunta_random = "http://queprefereixes.tk/app_connection/get_random_question.php";
 var jsoncb = "?jsoncallback=?";
 
-var id_usuari_global;
-var password_global;
+var storage = window.localStorage;
 
 // Wait for device API libraries to load
 window.onload = onDeviceReady;
@@ -12,7 +11,17 @@ window.onload = onDeviceReady;
 function onDeviceReady() {
 	document.getElementById("boto_login").onclick = autenticacio;
 	$("#formulari_signup").submit(function(event) {registre(event)});
-	carregaPreguntaRandom();
+	document.getElementById("boto_logout").onclick = logout;
+	
+	if(window.localStorage.key(0)==null) {
+		// Usuari no autèntic
+		carregaPreguntaRandom();
+	}
+	else {
+		// Usuari autèntic
+		$('#boto_usuari .ui-btn-text').text(window.localStorage.getItem("nick"));
+		$('#boto_usuari').attr("href","#panel_usuari_autentic");
+	}
 }
 
 function carregaPregunta() {
@@ -154,19 +163,23 @@ function carregaPreguntaRandom() {
 }
 
 function autenticacio() {
+	var nick = document.getElementById("usuari").value;
+	var pwd = document.getElementById("password").value;
 	$.getJSON( 
 		url_autenticacio.concat(jsoncb), 
 		{
-			nick:document.getElementById("usuari").value, 
-			pwd:document.getElementById("password").value
+			nick:nick, 
+			pwd:pwd
 		}, 
 		function(resposta) {
-			console.log(resposta);
 			if (resposta.success == 1) {
 				// Autenticació correcta
-				id_usuari_global = resposta.id_usuari;
-				password_global = resposta.password;
-				$.mobile.changePage($('#main'), { transition: "flip"});
+				window.localStorage.setItem("id_usuari", resposta.id_usuari);
+				window.localStorage.setItem("pwd", resposta.password);
+				window.localStorage.setItem("nick",nick);
+				$('#boto_usuari .ui-btn-text').text(nick);
+				$('#boto_usuari').attr("href","#panel_usuari_autentic");
+				$('#panel_usuari_no_autentic').panel('close');
 				carregaPregunta();
 			} else {
 				$('#capsa_login').shake();
@@ -177,6 +190,14 @@ function autenticacio() {
 	return false;
 }
 
+function logout() {
+	window.localStorage.clear();
+	$('#boto_usuari .ui-btn-text').text("Identifica't");
+	$('#boto_usuari').attr("href","#panel_usuari_no_autentic");
+	$('#panel_usuari_autentic').panel('close');
+	carregaPreguntaRandom();
+}
+
 function validateEmail(email) { 
   // http://stackoverflow.com/a/46181/11236
   
@@ -185,6 +206,7 @@ function validateEmail(email) {
 }
 
 function registre(e) {
+	$('#error_signup').html();
 	e.preventDefault();
 	var nick = $("#signup_usuari").val();
 	var email = $("#signup_email").val();
@@ -221,10 +243,6 @@ function registre(e) {
 			$('#error_signup').html("Processant...");
 			if (resposta.success == 1) {
 				$("#popup_signup").popup("close");
-				id_usuari_global = resposta.Id_Usuari;
-				password_global = password;
-				$.mobile.changePage($('#main'), { transition: "flip"});
-				carregaPregunta();
 			}
 			else if (resposta.success == '2') {
 				$("#popup_signup").shake();
@@ -234,7 +252,6 @@ function registre(e) {
 				$("#popup_signup").shake();
 				$('#error_signup').html("<span style='color:#cc0000'>Error:</span> S'ha produït un error durant el procés de registre.");
 			}
-			
 		});
 	}
 }

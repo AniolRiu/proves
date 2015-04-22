@@ -15,11 +15,66 @@
 <body>
 
 <div data-role="page" id="main">
+  <div data-role="panel" id="panel_usuari_autentic" data-display="overlay">
+	<input type="button" id="boto_logout" value="Desconnecta't">
+	<a href="#popup_aporta" data-rel="popup" class="ui-btn ui-corner-all ui-shadow ui-btn-inline" data-transition="pop">Penja la teva pregunta</a>
+  </div>
+  
+  <div data-role="panel" id="panel_usuari_no_autentic" data-display="overlay">
+	<div data-role="collapsible-set">
 
+		<div data-role="collapsible" data-collapsed="false">
+			<h3>Identifica't</h3>
+			<div id="capsa_login" data-role="content">	
+
+				<form id="formulari_login" >
+		  
+					<label> Nick d'usuari </label>
+					<input type="text" id="usuari" name="usuari">
+			  
+					<label> Contrassenya </label>
+					<input type="password" id="password" name="password" >
+		 
+					<input type="submit" value="Login" id="boto_login">
+					
+					<div id="error_login"></div>
+					
+				</form>		
+			</div>
+
+		</div>
+		
+		<div data-role="collapsible">
+			<h3>Registra't</h3>
+			<div id="capsa_signup" data-role="content">	
+				<form id="formulari_signup" data-ajax="false">
+			  
+					<label> Nom d'usuari </label>
+					<input type="text" id="signup_usuari" name="signup_usuari">
+					
+					<label> Email </label>
+					<input type="text" id="signup_email" name="signup_email">
+					
+					<label> Contrassenya </label>
+					<input type="password" id="signup_password" name="signup_password" >
+					
+					<label> Repeteix la contrassenya </label>
+					<input type="password" id="signup_password_rep" name="signup_password_rep" >
+					
+					<input type="submit" value="Registrar-me" id="boto_signup">
+					
+					<div id="error_signup"></div>
+					
+				</form>		
+			</div>
+		</div>
+	</div>
+  </div>
+  
   <div data-role="header">
-	<a href="index.html" data-icon="power">Surt</a>
+	<a href="#panel_usuari_no_autentic" data-icon="plus" id="boto_usuari">Identifica't</a>
 	<h1>Què prefereixes?</h1>
-	<a href="#autenticacio" data-icon="plus">Usuari</a>
+	<a href="index.html" data-icon="power">Surt</a>
   </div>
   
   <div data-role="content" class="ui-content">
@@ -33,57 +88,10 @@
 		</tr>
 	</table>
   </div>
-  
-</div>
-
-<div data-role="page" id="autenticacio">
- 
-	<div data-role="header">
-		<h1>Autenticació d'usuari</h1>
-	</div>
-	
-    <div id="capsa_login" data-role="content">	
-		<form id="formulari_login" >
-      
-      		<label> Nick d'usuari </label>
-      		<input type="text" id="usuari" name="usuari">
-      
-      		<label> Contrassenya </label>
-     		<input type="password" id="password" name="password" >
- 
-     		<input type="submit" value="Login" id="boto_login">
-      		
-            <div id="error_login"></div>
-            
-    	</form>		
-        <br>
-        <p>No estàs registrat? <a href="#popup_signup" data-position-to="window" data-rel="popup"> Registra't </a></p>
-	</div>
     
-    <div data-role="popup" id="popup_signup">
-    	<a href="#" data-rel="back" data-role="button" data-icon="delete" data-iconpos="notext" class="ui-btn-right"></a>
-        <div id="capsa_signup" data-role="content">	
-            <form id="formulari_signup" data-ajax="false">
-          
-                <label> Nom d'usuari </label>
-                <input type="text" id="signup_usuari" name="signup_usuari">
-                
-                <label> Email </label>
-                <input type="text" id="signup_email" name="signup_email">
-                
-                <label> Contrassenya </label>
-                <input type="password" id="signup_password" name="signup_password" >
-                
-                <label> Repeteix la contrassenya </label>
-                <input type="password" id="signup_password_rep" name="signup_password_rep" >
-                
-                <input type="submit" value="Registrarme" id="boto_signup">
-                
-                <div id="error_signup"></div>
-                
-            </form>		
-        </div>
-    </div>
+  <div data-role="popup" id="popup_aporta">
+	<p>This is a completely basic popup, no options set.</p>
+  </div>
 </div>
 
 </body>
