@@ -222,7 +222,7 @@ function registre(e) {
 			if (resposta.success == 1) {
 				$("#popup_signup").popup("close");
 				id_usuari_global = resposta.Id_Usuari;
-				password_global = pwd;
+				password_global = password;
 				$.mobile.changePage($('#main'), { transition: "flip"});
 				carregaPregunta();
 			}
