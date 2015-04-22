@@ -1,17 +1,29 @@
-url_autenticacio = "http://queprefereixes.tk/app_connection/autenticacio.php";
+var url_autenticacio = "http://queprefereixes.tk/app_connection/autenticacio.php";
+var url_registre = "http://queprefereixes.tk/app_connection/registre.php";
 url_pregunta_random = "http://queprefereixes.tk/app_connection/get_random_question.php";
 var jsoncb = "?jsoncallback=?";
+
+var id_usuari_global;
+var password_global;
 
 // Wait for device API libraries to load
 window.onload = onDeviceReady;
 
 function onDeviceReady() {
-	//document.getElementById("boto_login").onclick = autenticacio; // AIXO VA AL EVENT PAGE_AUTENTICACIO_ON_SHOW
+	document.getElementById("boto_login").onclick = autenticacio;
+	$("#formulari_signup").submit(function(event) {registre(event)});
+	carregaPreguntaRandom();
+}
+
+function carregaPregunta() {
+	alert("carrega prgunta");
+}
+
+function carregaPreguntaRandom() {
 	$.getJSON( 
 		url_pregunta_random.concat(jsoncb), 
-		{}, 
+		{}, // No te parametres
 		function(resposta) {
-			console.log(resposta);
 			if (resposta.success == 1) {
 				$('#pregunta').text(resposta.Pregunta);
 				$("#resposta1").prev('span').find('span.ui-btn-text').text(resposta.Resposta1);
@@ -145,8 +157,8 @@ function autenticacio() {
 	$.getJSON( 
 		url_autenticacio.concat(jsoncb), 
 		{
-			usuari:document.getElementById("usuari").value, 
-			password:document.getElementById("password").value
+			nick:document.getElementById("usuari").value, 
+			pwd:document.getElementById("password").value
 		}, 
 		function(resposta) {
 			console.log(resposta);
@@ -154,15 +166,75 @@ function autenticacio() {
 				// Autenticació correcta
 				id_usuari_global = resposta.id_usuari;
 				password_global = resposta.password;
-				$.mobile.changePage($('#selecciona_exercici')/*, { transition: "flip"}*/ );
-				//$("#autenticacio").trigger("pagecreate");
-				//window.location.replace = "#selecciona_exercici";
-				carregaEditorials();
+				$.mobile.changePage($('#main'), { transition: "flip"});
+				carregaPregunta();
 			} else {
 				$('#capsa_login').shake();
-				$('#error_login').html("<span style='color:#cc0000'>Error:</span> Nombre de usuario o contraseña incorrectos.");
+				$('#error_login').html("<span style='color:#cc0000'>Error:</span> Nick d'usuari o contrassenya incorrectes.");
 			}
 		}
 	);
 	return false;
+}
+
+function validateEmail(email) { 
+  // http://stackoverflow.com/a/46181/11236
+  
+    var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(email);
+}
+
+function registre(e) {
+	e.preventDefault();
+	var nick = $("#signup_usuari").val();
+	var email = $("#signup_email").val();
+	var password = $("#signup_password").val();
+	var password_rep = $("#signup_password_rep").val();
+	
+	
+	if (nick == '' || email == '' || password == '' || password_rep == '') {
+		//$("#popup_signup").shake();
+		//$('#error_signup').html("<span style='color:#cc0000'>Error:</span> Tots els camps són obligatoris.");
+		alert("Camps vuits");
+	} 
+	else if ((password.length) < 4) {
+		$("#popup_signup").shake();
+		$('#error_signup').html("<span style='color:#cc0000'>Error:</span> La contrassenya ha de tenir una longitud mínima de 4 caràcters.");
+	}
+	else if (!validateEmail(email)) {
+		$("#popup_signup").shake();
+		$('#error_signup').html("<span style='color:#cc0000'>Error:</span> El format del correu electrónic no és correcte.");
+	}
+	else if (!(password).match(password_rep)) {
+		$("#popup_signup").shake();
+		$('#error_signup').html("<span style='color:#cc0000'>Error:</span> Les contrassenyes no coincideixen.");
+	} 
+	else {
+		$.getJSON(
+		url_registre.concat(jsoncb), 
+		{
+			nick: nick,
+			pwd: password,
+			email: email
+		}, 
+		function(resposta) {
+			$('#error_signup').html("Processant...");
+			if (resposta.success == 1) {
+				$("#popup_signup").popup("close");
+				id_usuari_global = resposta.Id_Usuari;
+				password_global = pwd;
+				$.mobile.changePage($('#main'), { transition: "flip"});
+				carregaPregunta();
+			}
+			else if (resposta.success == '2') {
+				$("#popup_signup").shake();
+				$('#error_signup').html("<span style='color:#cc0000'>Error:</span> Ja existeix un usuari amb aquest nick o email.");
+			}
+			else {
+				$("#popup_signup").shake();
+				$('#error_signup').html("<span style='color:#cc0000'>Error:</span> S'ha produït un error durant el procés de registre.");
+			}
+			
+		});
+	}
 }
