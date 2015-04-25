@@ -4,12 +4,13 @@
   <meta charset="utf-8">
   <title>Què prefereixes</title>
   <link href="http://code.jquery.com/mobile/1.3.1/jquery.mobile-1.3.1.min.css" rel="stylesheet" type="text/css">
-  
   <script src="http://code.jquery.com/jquery-1.11.1.min.js" type="text/javascript"></script>
   <script src="http://code.jquery.com/mobile/1.3.1/jquery.mobile-1.3.1.min.js" type="text/javascript"></script>
   <script src="js/jquery.ui.shake.js"></script>
   <script src="js/funcionalitat.js"></script>
-  <script src="js/chartinator.js"></script>
+  <script language="javascript" type="text/javascript" src="js/jquery.jqplot.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="css/jquery.jqplot.css" />
+  <script src="js/jqplot.pieRenderer.min.js" type="text/javascript"></script>
 </head>
 
 <body>
@@ -17,7 +18,23 @@
 <div data-role="page" id="main">
   <div data-role="panel" id="panel_usuari_autentic" data-display="overlay">
 	<input type="button" id="boto_logout" value="Desconnecta't">
-	<a href="#popup_aporta" data-rel="popup" class="ui-btn ui-corner-all ui-shadow ui-btn-inline" data-transition="pop">Penja la teva pregunta</a>
+	<div data-role="collapsible">
+		<h3>Aporta una pregunta</h3>
+		<form id="formulari_pregunta">
+		  <div class="ui-field-contain">
+			<label for="pregunta">Pregunta</label>
+			<input type="text" name="pregunta" id="pregunta" placeholder="Què prefereixes?">
+
+			<label for="r1">Resposta 1</label>
+			<input type="text" name="r1" id="r1" placeholder="Queixals al cap?">
+
+			<label for="r2">Resposta 2</label>
+			<input type="text" name="r2" id="r2" placeholder="O una llengua gegant a l'esquena">
+			
+			<input type="submit" value="Penja" id="boto_submit_pregunta">
+		  </div>
+		</form>
+	</div>
   </div>
   
   <div data-role="panel" id="panel_usuari_no_autentic" data-display="overlay">
@@ -53,13 +70,36 @@
 					<input type="text" id="signup_usuari" name="signup_usuari">
 					
 					<label> Email </label>
-					<input type="text" id="signup_email" name="signup_email">
+					<input type="email" id="signup_email" name="signup_email">
 					
 					<label> Contrassenya </label>
 					<input type="password" id="signup_password" name="signup_password" >
 					
 					<label> Repeteix la contrassenya </label>
 					<input type="password" id="signup_password_rep" name="signup_password_rep" >
+					
+					<fieldset class="ui-field-contain">
+						<label for="genere">Gènere</label>
+						<select name="genere" id="genere">
+							<option value="nul">----</option>
+							<option value="home">Home</option>
+							<option value="dona">Dona</option>
+						</select>
+					</fieldset>
+					
+					<fieldset class="ui-field-contain">
+						<label for="generacio">Generació</label>
+						<select name="generacio" id="generacio">
+							<option value="nul">----</option>
+							<option value="50">50's</option>
+							<option value="60">60's</option>
+							<option value="70">70's</option>
+							<option value="80">80's</option>
+							<option value="90">90's</option>
+							<option value="00">00's</option>
+							<option value="10">10's</option>
+						</select>
+					</fieldset>
 					
 					<input type="submit" value="Registrar-me" id="boto_signup">
 					
@@ -81,16 +121,7 @@
     <h1 id="pregunta"></h1>
 	<input type="button" id="resposta1">
 	<input type="button" id="resposta2">
-	<table id="pieChart" class="pieChart data-table">
-		<tr>
-			<td>China</td>
-			<td align="right">20</td>
-		</tr>
-	</table>
-  </div>
-    
-  <div data-role="popup" id="popup_aporta">
-	<p>This is a completely basic popup, no options set.</p>
+	<div id="chart" style="height:400px;width:300px; "></div>
   </div>
 </div>
 
