@@ -19,7 +19,6 @@ function onDeviceReady() {
 	$("#resposta1").parent().css('background-image', 'linear-gradient(#1C86EE, #5BBEF0)');
 	$("#resposta2").parent().css('background-image', 'linear-gradient(#FF8C00, #F5BB1B)');
 	
-
 	if(window.localStorage.key(0)==null) {
 		// Usuari no autèntic
 		carregaPreguntaRandom();
@@ -49,73 +48,66 @@ function carregaPreguntaRandom() {
 					['opció A', resposta.NResposta1 / total],['opció B', resposta.NResposta2 / total]
 				  ];
 				jQuery.jqplot ('chart_global', [data], 
-
-					{ 
-					  seriesDefaults: {
-						// Make this a pie chart.
-						renderer: jQuery.jqplot.PieRenderer, 
-						rendererOptions: {
-						  // Put data labels on the pie slices.
-						  // By default, labels show the percentage of the slice.
-						  showDataLabels: true,
-						  seriesColors: [ "#1C86EE", "#FF8C00"]
+					{
+						grid: {
+							borderColor: 'transparent',
+							shadow: false,
+							background: 'transparent'
+						},
+						seriesDefaults: {
+							// Make this a pie chart.
+							renderer: jQuery.jqplot.PieRenderer, 
+							rendererOptions: {
+								// Put data labels on the pie slices.
+								// By default, labels show the percentage of the slice.
+								showDataLabels: true,
+								seriesColors: [ "#1C86EE", "#FF8C00"]
+							}
 						}
-					  }
 					}
 				);
 				
-				$(function () {
-					$('#highcharts').highcharts({
-						chart: {
-							type: 'pie',
-							options3d: {
-								enabled: true,
-								alpha: 45,
-								beta: 0
-							},
-							backgroundColor: 'rgba(255, 255, 255, 0)'
-						},
-						credits: {
-							enabled: false
-						},
-						exporting: {
-							enabled: false	// Es poden exportar gràfiques, però molaria que es pogués afegir info abans (pregunta i opcions A i B). TODO: Mirar-ho per més endavant
-						},
-						colors: [ "#1C86EE", "#FF8C00"],
-						title: {
-							text: 'Highcharts'
-						},
-						tooltip: {
-							pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-						},
-						plotOptions: {
-							pie: {
-								allowPointSelect: true,
-								cursor: 'pointer',
-								depth: 35,
-								dataLabels: {
-									enabled: true,
-									format: '{point.percentage:.1f}%</b>'
-								}
-							}
-						},
-						series: [{
-							type: 'pie',
-							name: 'percentatge',
-							data: data
-						}]
-					});
-				});
-				
-				$.plot('#flot', data, {
-					series: {
-						pie: {
-							show: true
-						}
-					}
-				});
-				
 
+				$('#highcharts').highcharts({
+					chart: {
+						type: 'pie',
+						options3d: {
+							enabled: true,
+							alpha: 45,
+							beta: 0
+						},
+						backgroundColor: 'transparent'
+					},
+					credits: {
+						enabled: false
+					},
+					exporting: {
+						enabled: false	// Es poden exportar gràfiques, però molaria que es pogués afegir info abans (pregunta i opcions A i B). TODO: Mirar-ho per més endavant
+					},
+					colors: [ "#1C86EE", "#FF8C00"],
+					title: {
+						text: 'Highcharts'
+					},
+					tooltip: {
+						pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+					},
+					plotOptions: {
+						pie: {
+							allowPointSelect: true,
+							cursor: 'pointer',
+							depth: 35,
+							dataLabels: {
+								enabled: true,
+								format: '{point.percentage:.1f}%</b>'
+							}
+						}
+					},
+					series: [{
+						type: 'pie',
+						name: 'percentatge',
+						data: data
+					}]
+				});
 			} else {
 				//TODO: Deal with
 			}
