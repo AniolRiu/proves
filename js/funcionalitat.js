@@ -7,7 +7,14 @@ var jsoncb = "?jsoncallback=?";
 var storage = window.localStorage;
 
 // Wait for device API libraries to load
+//
+function onLoad() {
+	document.addEventListener("deviceready", onDeviceReady, false);
+}
+
 window.onload = onDeviceReady;
+
+
 
 function onDeviceReady() {
 	document.getElementById("boto_login").onclick = autenticacio;
