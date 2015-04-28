@@ -24,6 +24,7 @@ function onDeviceReady() {
 	
 	// Estilitzem els botons
 	$("#resposta1").parent().css('background-image', 'linear-gradient(#1C86EE, #5BBEF0)');
+	$("#resposta1").parent().append('<p>hola</p>');
 	$("#resposta2").parent().css('background-image', 'linear-gradient(#FF8C00, #F5BB1B)');
 	
 	if(window.localStorage.key(0)==null) {
