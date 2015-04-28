@@ -1,3 +1,13 @@
-.btn-blue {
-  background-color: black !important;
+#div_content > div:nth-of-type(1) {
+	background-image: linear-gradient(#1C86EE, #5BBEF0);
+}
+
+#div_content > div:nth-of-type(2) {
+	background-image: linear-gradient(#FF8C00, #F5BB1B);
+	 background-image: -webkit-gradient(linear, left top, left bottom, from( #3c3c3c), to( #000000)) !important; /* Saf4+, Chrome */
+        background-image: -webkit-linear-gradient(#3c3c3c, #000000) !important; /* Chrome 10+, Saf5.1+ */
+        background-image:    -moz-linear-gradient(#3c3c3c, #000000) !important; /* FF3.6 */
+        background-image:     -ms-linear-gradient(#3c3c3c, #000000) !important; /* IE10 */
+        background-image:      -o-linear-gradient(#3c3c3c, #000000) !important; /* Opera 11.10+ */
+        background-image:         linear-gradient(#3c3c3c, #000000) !important;
 }
