@@ -19,6 +19,7 @@ function onDeviceReady() {
 	$("#resposta1").parent().css('background-image', 'linear-gradient(#1C86EE, #5BBEF0)');
 	$("#resposta2").parent().css('background-image', 'linear-gradient(#FF8C00, #F5BB1B)');
 	
+
 	if(window.localStorage.key(0)==null) {
 		// Usuari no autèntic
 		carregaPreguntaRandom();
@@ -48,6 +49,7 @@ function carregaPreguntaRandom() {
 					['opció A', resposta.NResposta1 / total],['opció B', resposta.NResposta2 / total]
 				  ];
 				jQuery.jqplot ('chart_global', [data], 
+
 					{ 
 					  seriesDefaults: {
 						// Make this a pie chart.
@@ -113,6 +115,7 @@ function carregaPreguntaRandom() {
 					}
 				});
 				
+
 			} else {
 				//TODO: Deal with
 			}
