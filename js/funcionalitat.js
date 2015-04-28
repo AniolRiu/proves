@@ -1,138 +1,117 @@
-url_autenticacio = "http://queprefereixes.tk/app_connection/autenticacio.php";
-url_pregunta_random = "http://queprefereixes.tk/app_connection/get_random_question.php";
+var url_autenticacio = "http://queprefereixes.tk/app_connection/autenticacio.php";
+var url_registre = "http://queprefereixes.tk/app_connection/registre.php";
+var url_pregunta_random = "http://queprefereixes.tk/app_connection/get_random_question.php";
+var url_submit_question = "http://queprefereixes.tk/app_connection/submit_question.php";
 var jsoncb = "?jsoncallback=?";
+
+var storage = window.localStorage;
 
 // Wait for device API libraries to load
 window.onload = onDeviceReady;
 
 function onDeviceReady() {
-	//document.getElementById("boto_login").onclick = autenticacio; // AIXO VA AL EVENT PAGE_AUTENTICACIO_ON_SHOW
+	document.getElementById("boto_login").onclick = autenticacio;
+	$("#formulari_signup").submit(function(event) {registre(event)});
+	document.getElementById("boto_logout").onclick = logout;
+	$("#formulari_pregunta").submit(function(event) {aporta_pregunta(event)});
+	
+	// Estilitzem els botons
+	$("#resposta1").parent().css('background-image', 'linear-gradient(#1C86EE, #5BBEF0)');
+	$("#resposta2").parent().css('background-image', 'linear-gradient(#FF8C00, #F5BB1B)');
+	
+	if(window.localStorage.key(0)==null) {
+		// Usuari no autèntic
+		carregaPreguntaRandom();
+	}
+	else {
+		// Usuari autèntic
+		$('#boto_usuari .ui-btn-text').text(window.localStorage.getItem("nick"));
+		$('#boto_usuari').attr("href","#panel_usuari_autentic");
+	}
+}
+
+function carregaPregunta() {
+	alert("carrega prgunta");
+}
+
+function carregaPreguntaRandom() {
 	$.getJSON( 
 		url_pregunta_random.concat(jsoncb), 
-		{}, 
+		{}, // No te parametres
 		function(resposta) {
-			console.log(resposta);
 			if (resposta.success == 1) {
 				$('#pregunta').text(resposta.Pregunta);
-				$("#resposta1").prev('span').find('span.ui-btn-text').text(resposta.Resposta1);
-				$("#resposta2").prev('span').find('span.ui-btn-text').text(resposta.Resposta2);
+				$("#resposta1").prev('span').find('span.ui-btn-text').text("A) " + resposta.Resposta1);
+				$("#resposta2").prev('span').find('span.ui-btn-text').text("B) " + resposta.Resposta2);
+				var total = resposta.NResposta1 + resposta.NResposta2;
+				var data = [
+					['opció A', resposta.NResposta1 / total],['opció B', resposta.NResposta2 / total]
+				  ];
+				jQuery.jqplot ('chart_global', [data], 
+					{ 
+					  seriesDefaults: {
+						// Make this a pie chart.
+						renderer: jQuery.jqplot.PieRenderer, 
+						rendererOptions: {
+						  // Put data labels on the pie slices.
+						  // By default, labels show the percentage of the slice.
+						  showDataLabels: true,
+						  seriesColors: [ "#1C86EE", "#FF8C00"]
+						}
+					  }
+					}
+				);
 				
-				jQuery(function ($) {
-            /**
-             * A jQuery plugin that loads data from HTML tables, Google Sheets and data arrays and draws charts using Google Charts.
-             *
-             * Using HTML Tables
-             * HTML tables can help make the chart data accessible.
-             * You can either display the table with the chart or accessibly hide the table
-             *
-             * Suggested HTML Table setup
-             * Create an HTML table with a caption and 'th' elements in the first row
-             * For each 'th' element apply one of the following
-             * 'data-type' attribute: 'string' 'number' 'boolean' 'date' 'datetime' 'timeofday'
-             * or 'data-role' attribute:  'tooltip','annotation'
-             * The caption element's text is used as a title for the chart by default.
-             *
-             * Apply the jQuery Chartinator plugin to the chart canvas(es)
-             * or select the table(s) and Chartinator will insert a new chart canvas(es) after the table
-             * or create js data arrays
-             * See examples below and the readme file for more info
-             */
-
-            
-            //  Pie Chart Example
-            var chart2 = $('#pieChart').chartinator({
-
-                // Custom Options ------------------------------------------------------
-                // Note: This example appends data from a data array
-                // to the data extracted from an HTML table
-                // Google Charts does not support custom tooltips or annotations on Pie Charts
-
-                // Append the following rows of data to the data extracted from the table
-                rows: [
-                    ['France', 5],
-                    ['Mexico', 2]],
-
-                // The chart type - String
-                // Derived from the Google Charts visualization class name
-                // Default: 'BarChart'
-                // Use TitleCase names. eg. BarChart, PieChart, ColumnChart, Calendar, GeoChart, Table.
-                // See Google Charts Gallery for a complete list of Chart types
-                // https://developers.google.com/chart/interactive/docs/gallery
-                chartType: 'PieChart',
-
-                // The chart aspect ratio custom option - width/height
-                // Used to calculate the chart dimensions relative to the width or height
-                // this is overridden if the Google Chart's height and width options have values
-                // Suggested value: 1.25
-                // Default: false - not used
-                chartAspectRatio: 1.25,
-
-                // Google Pie Chart Options
-                pieChart: {
-
-                    // Width of chart in pixels - Number
-                    // Default: automatic (unspecified)
-                    width: null,
-
-                    // Height of chart in pixels - Number
-                    // Default: automatic (unspecified)
-                    //height: 400,
-
-                    chartArea: {
-                        left: "25%",
-                        top: "0%",
-                        width: "50%",
-                        height: "50%"
-                    },
-
-                    // The font size in pixels - Number
-                    // Or use css selectors as keywords to assign font sizes from the page
-                    // For example: 'body'
-                    // Default: false - Use Google Charts defaults
-                    fontSize: 'body',
-
-                    // Font-family name - String
-                    // Default: 'Arial'
-                    //fontName: 'Roboto',
-
-                    // Chart Title - String
-                    // Default: Table caption.
-                    //title: 'Pie Chart Sample',
-
-                    titleTextStyle: {
-
-                        // The font size in pixels - Number
-                        // Or use css selectors as keywords to assign font sizes from the page
-                        // For example: 'body'
-                        // Default: false - Use Google Charts defaults
-                        fontSize: 'h3'
-                    },
-                    legend: {
-
-                        // Legend position - String
-                        // Options: bottom, top, left, right, in, none.
-                        // Default: right
-                        position: 'none'
-                    },
-
-                    // Array of colours
-                    colors: ['#94ac27', '#3691ff', '#e248b3', '#f58327', '#bf5cff'],
-
-                    // Make chart 3D - Boolean
-                    // Default: false.
-                    is3D: true,
-
-                    tooltip: {
-
-                        // Shows tooltip with values on hover - String
-                        // Options: focus, none.
-                        // Default: focus
-                        trigger: 'focus'
-                    }
-                }
-            });
-
-        });
+				$(function () {
+					$('#highcharts').highcharts({
+						chart: {
+							type: 'pie',
+							options3d: {
+								enabled: true,
+								alpha: 45,
+								beta: 0
+							},
+							backgroundColor: 'rgba(255, 255, 255, 0)'
+						},
+						credits: {
+							enabled: false
+						},
+						exporting: {
+							enabled: false	// Es poden exportar gràfiques, però molaria que es pogués afegir info abans (pregunta i opcions A i B). TODO: Mirar-ho per més endavant
+						},
+						colors: [ "#1C86EE", "#FF8C00"],
+						title: {
+							text: 'Highcharts'
+						},
+						tooltip: {
+							pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+						},
+						plotOptions: {
+							pie: {
+								allowPointSelect: true,
+								cursor: 'pointer',
+								depth: 35,
+								dataLabels: {
+									enabled: true,
+									format: '{point.percentage:.1f}%</b>'
+								}
+							}
+						},
+						series: [{
+							type: 'pie',
+							name: 'percentatge',
+							data: data
+						}]
+					});
+				});
+				
+				$.plot('#flot', data, {
+					series: {
+						pie: {
+							show: true
+						}
+					}
+				});
 				
 			} else {
 				//TODO: Deal with
@@ -142,25 +121,125 @@ function onDeviceReady() {
 }
 
 function autenticacio() {
+	var nick = document.getElementById("usuari").value;
+	var pwd = document.getElementById("password").value;
 	$.getJSON( 
 		url_autenticacio.concat(jsoncb), 
 		{
-			usuari:document.getElementById("usuari").value, 
-			password:document.getElementById("password").value
+			nick:nick, 
+			pwd:pwd
 		}, 
 		function(resposta) {
-			console.log(resposta);
+			alert(resposta);
 			if (resposta.success == 1) {
 				// Autenticació correcta
-				id_usuari_global = resposta.id_usuari;
-				password_global = resposta.password;
-				$.mobile.changePage($('#selecciona_exercici')/*, { transition: "flip"}*/ );
-				//$("#autenticacio").trigger("pagecreate");
-				//window.location.replace = "#selecciona_exercici";
-				carregaEditorials();
+				window.localStorage.setItem("id_usuari", resposta.id_usuari);
+				window.localStorage.setItem("pwd", pwd);
+				window.localStorage.setItem("nick",nick);
+				$('#boto_usuari .ui-btn-text').text(nick);
+				$('#boto_usuari').attr("href","#panel_usuari_autentic");
+				$('#panel_usuari_no_autentic').panel('close');
+				carregaPregunta();
 			} else {
 				$('#capsa_login').shake();
-				$('#error_login').html("<span style='color:#cc0000'>Error:</span> Nombre de usuario o contraseña incorrectos.");
+				$('#error_login').html("<span style='color:#cc0000'>Error:</span> " + resposta.message);
+			}
+		}
+	);
+	return false;
+}
+
+function logout() {
+	window.localStorage.clear();
+	$('#boto_usuari .ui-btn-text').text("Identifica't");
+	$('#boto_usuari').attr("href","#panel_usuari_no_autentic");
+	$('#panel_usuari_autentic').panel('close');
+	carregaPreguntaRandom();
+}
+
+function validateEmail(email) { 
+  // http://stackoverflow.com/a/46181/11236
+  
+    var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(email);
+}
+
+function registre(e) {
+	$('#error_signup').html();
+	e.preventDefault();
+	var nick = $("#signup_usuari").val();
+	var email = $("#signup_email").val();
+	var password = $("#signup_password").val();
+	var password_rep = $("#signup_password_rep").val();
+	var genere = $("#genere").val();
+	var generacio = $("#generacio").val();
+	
+	if (nick == '' || email == '' || password == '' || password_rep == '') {
+		//$("#popup_signup").shake();
+		//$('#error_signup').html("<span style='color:#cc0000'>Error:</span> Tots els camps són obligatoris.");
+		alert("Camps vuits");
+	} 
+	else if ((password.length) < 4) {
+		$("#capsa_signup").shake();
+		$('#error_signup').html("<span style='color:#cc0000'>Error:</span> La contrassenya ha de tenir una longitud mínima de 4 caràcters.");
+	}
+	else if (!validateEmail(email)) {
+		$("#capsa_signup").shake();
+		$('#error_signup').html("<span style='color:#cc0000'>Error:</span> El format del correu electrónic no és correcte.");
+	}
+	else if (!(password).match(password_rep)) {
+		$("#capsa_signup").shake();
+		$('#error_signup').html("<span style='color:#cc0000'>Error:</span> Les contrassenyes no coincideixen.");
+	} 
+	else {
+		$('#error_signup').html("Processant...");
+		$.getJSON(
+		url_registre.concat(jsoncb), 
+		{
+			nick: nick,
+			pwd: password,
+			email: email,
+			genere: genere,
+			generacio: generacio
+		}, 
+		function(resposta) {
+			if (resposta.success == 1) {
+				// TODO: Instar l'usuari perquè s'autentiqui
+				$("#panel_usuari_no_autentic").panel("close");
+			}
+			else if (resposta.success == 2) {
+				$("#capsa_signup").shake();
+				$('#error_signup').html("<span style='color:#cc0000'>Error:</span> Ja existeix un usuari amb aquest nick o email.");
+			}
+			else {
+				$("#capsa_signup").shake();
+				$('#error_signup').html("<span style='color:#cc0000'>Error:</span> S'ha produït un error durant el procés de registre.");
+			}
+		});
+	}
+}
+
+function aporta_pregunta() {
+	var id_usuari = window.localStorage.getItem("id_usuari");
+	var pwd = window.localStorage.getItem("pwd");
+	alert(id_usuari + pwd);
+	var pregunta = $('#formulari_pregunta #pregunta').val();
+	var r1 = $('#formulari_pregunta #r1').val();
+	var r2 = $('#formulari_pregunta #r2').val();
+	$.getJSON( 
+		url_submit_question.concat(jsoncb), 
+		{
+			id_usuari:id_usuari, 
+			pwd:pwd,
+			pregunta:pregunta,
+			r1:r1,
+			r2:r2
+		}, 
+		function(resposta) {
+			if (resposta.success == 1) {
+				alert("yeah");
+			} else {
+				alert("no yeah" + resposta.message);
 			}
 		}
 	);
