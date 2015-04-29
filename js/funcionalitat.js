@@ -1,9 +1,12 @@
 var url_autenticacio = "http://queprefereixes.tk/app_connection/autenticacio.php";
 var url_registre = "http://queprefereixes.tk/app_connection/registre.php";
 var url_pregunta_random = "http://queprefereixes.tk/app_connection/get_random_question.php";
+var url_pregunta = "http://queprefereixes.tk/app_connection/get_question.php";
 var url_submit_question = "http://queprefereixes.tk/app_connection/submit_question.php";
+var url_submit_answer = "http://queprefereixes.tk/app_connection/submit_answer.php";
 var jsoncb = "?jsoncallback=?";
-
+var usuari_activat=false;
+var pregunta_actual;
 var storage = window.localStorage;
 
 window.onload = onDeviceReady;
@@ -13,11 +16,7 @@ function onDeviceReady() {
 	$("#formulari_signup").submit(function(event) {registre(event)});
 	document.getElementById("boto_logout").onclick = logout;
 	$("#formulari_pregunta").submit(function(event) {aporta_pregunta(event)});
-	
-	// Estilitzem els botons
-	//$("#resposta1").parent().css('background-image', 'linear-gradient(#1C86EE, #5BBEF0)');
-	//$("#resposta1").parent().append('<p>hola</p>');
-	//$("#resposta2").parent().css('background-image', 'linear-gradient(#FF8C00, #F5BB1B)');
+	$("#estadistiques").hide();
 	
 	if(window.localStorage.key(0)==null) {
 		// Usuari no autèntic
@@ -25,13 +24,33 @@ function onDeviceReady() {
 	}
 	else {
 		// Usuari autèntic
+		usuari_activat=true;
 		$('#boto_usuari .ui-btn-text').text(window.localStorage.getItem("nick"));
 		$('#boto_usuari').attr("href","#panel_usuari_autentic");
+		carregaPregunta();
 	}
 }
 
 function carregaPregunta() {
-	alert("carrega prgunta");
+	$("#coll_stats").collapsible("option","collapsed",true);
+	var id_usuari = window.localStorage.getItem("id_usuari");
+	var pwd = window.localStorage.getItem("pwd");
+	$.getJSON( 
+		url_pregunta.concat(jsoncb), 
+		{
+			id_usuari: id_usuari,
+			pwd: pwd
+		},
+		function(resposta) {
+			if (resposta.success == 1) {
+				mostra_pregunta(resposta.Pregunta, resposta.Resposta1, resposta.Resposta2);
+				pregunta_actual = resposta.Id_Pregunta;
+			} else {
+				//TODO: Deal with
+				alert(resposta.message);
+			}
+		}
+	);
 }
 
 function carregaPreguntaRandom() {
@@ -40,74 +59,7 @@ function carregaPreguntaRandom() {
 		{}, // No te parametres
 		function(resposta) {
 			if (resposta.success == 1) {
-				$('#pregunta').text(resposta.Pregunta);
-				$("#resposta1").prev('span').find('span.ui-btn-text').text("A) " + resposta.Resposta1);
-				$("#resposta2").prev('span').find('span.ui-btn-text').text("B) " + resposta.Resposta2);
-				var total = resposta.NResposta1 + resposta.NResposta2;
-				var data = [
-					['opció A', resposta.NResposta1 / total],['opció B', resposta.NResposta2 / total]
-				  ];
-				jQuery.jqplot ('chart_global', [data], 
-					{
-						grid: {
-							borderColor: 'transparent',
-							shadow: false,
-							background: 'transparent'
-						},
-						seriesDefaults: {
-							// Make this a pie chart.
-							renderer: jQuery.jqplot.PieRenderer, 
-							rendererOptions: {
-								// Put data labels on the pie slices.
-								// By default, labels show the percentage of the slice.
-								showDataLabels: true,
-								seriesColors: [ "#1C86EE", "#FF8C00"]
-							}
-						}
-					}
-				);
-				
-
-				$('#highcharts').highcharts({
-					chart: {
-						type: 'pie',
-						options3d: {
-							enabled: true,
-							alpha: 45,
-							beta: 0
-						},
-						backgroundColor: 'transparent'
-					},
-					credits: {
-						enabled: false
-					},
-					exporting: {
-						enabled: false	// Es poden exportar gràfiques, però molaria que es pogués afegir info abans (pregunta i opcions A i B). TODO: Mirar-ho per més endavant
-					},
-					colors: [ "#1C86EE", "#FF8C00"],
-					title: {
-						text: 'Highcharts'
-					},
-					tooltip: {
-						pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-					},
-					plotOptions: {
-						pie: {
-							allowPointSelect: true,
-							cursor: 'pointer',
-							depth: 35,
-							dataLabels: {
-								enabled: true,
-								format: '{point.percentage:.1f}%</b>'
-							}
-						}
-					},
-					series: [{
-						type: 'pie',
-						name: 'percentatge',
-						data: data
-					}]
-				});
+				mostra_pregunta(resposta.Pregunta, resposta.Resposta1, resposta.Resposta2);
 			} else {
 				//TODO: Deal with
 			}
@@ -125,9 +77,9 @@ function autenticacio() {
 			pwd:pwd
 		}, 
 		function(resposta) {
-			alert(resposta);
 			if (resposta.success == 1) {
 				// Autenticació correcta
+				usuari_activat=true;
 				window.localStorage.setItem("id_usuari", resposta.id_usuari);
 				window.localStorage.setItem("pwd", pwd);
 				window.localStorage.setItem("nick",nick);
@@ -145,11 +97,13 @@ function autenticacio() {
 }
 
 function logout() {
+	usuri_activat = false;
 	window.localStorage.clear();
 	$('#boto_usuari .ui-btn-text').text("Identifica't");
 	$('#boto_usuari').attr("href","#panel_usuari_no_autentic");
 	$('#panel_usuari_autentic').panel('close');
 	carregaPreguntaRandom();
+	$("#estadistiques").hide();
 }
 
 function validateEmail(email) { 
@@ -217,7 +171,6 @@ function registre(e) {
 function aporta_pregunta() {
 	var id_usuari = window.localStorage.getItem("id_usuari");
 	var pwd = window.localStorage.getItem("pwd");
-	alert(id_usuari + pwd);
 	var pregunta = $('#formulari_pregunta #pregunta').val();
 	var r1 = $('#formulari_pregunta #r1').val();
 	var r2 = $('#formulari_pregunta #r2').val();
@@ -238,5 +191,121 @@ function aporta_pregunta() {
 			}
 		}
 	);
+	return false;
+}
+
+function aporta_resposta(resposta) {
+	if (usuari_activat) {
+		var id_usuari = window.localStorage.getItem("id_usuari");
+		var pwd = window.localStorage.getItem("pwd");
+		$.getJSON( 
+			url_submit_answer.concat(jsoncb), 
+			{
+				id_usuari:id_usuari, 
+				pwd:pwd,
+				id_pregunta:pregunta_actual,
+				resposta: resposta
+			}, 
+			function(resposta) {
+				if (resposta.success == 1) {
+					$("#estadistiques").show();
+					var total = resposta.NResposta1 + resposta.NResposta2;
+					$(".boto-resposta").button("disable");
+					var data = [
+						['opció B', resposta.NResposta2 / total],['opció A', resposta.NResposta1 / total]
+					  ];
+					mostra_grafica($('#chart'),data,'Titol');
+					mostra_grafica($('#chart2'),data,'Titol');
+					mostra_grafica($('#chart3'),data,'Titol');
+					mostra_grafica($('#chart4'),data,'Titol');
+				} else {
+					// TODO: Deal with
+					alert("no yeah" + resposta.message);
+				}
+			}
+		);
+	}
+	else {
+		carregaPreguntaRandom();
+	}
+	return false;
+}
+
+function mostra_grafica(element, data, title) {
+	/*jQuery.jqplot (element, [data], 
+		{
+			grid: {
+				borderColor: 'transparent',
+				shadow: false,
+				background: 'transparent'
+			},
+			seriesDefaults: {
+				// Make this a pie chart.
+				renderer: jQuery.jqplot.PieRenderer, 
+				rendererOptions: {
+					// Put data labels on the pie slices.
+					// By default, labels show the percentage of the slice.
+					showDataLabels: true,
+					seriesColors: [ "#1C86EE", "#FF8C00"]
+				}
+			}
+		}
+	);*/
+	//TODO: L'anterior és per mostrar la grafica amb jqPlot. Si no ho fax servir s'haurien de borrar els fitxers corresponents de la carpeta js i els links de les capsaleres
+	
+	element.highcharts({
+		chart: {
+			type: 'pie',
+			options3d: {
+				enabled: true,
+				alpha: 45,
+				beta: 0
+			},
+			backgroundColor: 'transparent'
+		},
+		credits: {
+			enabled: false
+		},
+		exporting: {
+			enabled: false	// Es poden exportar gràfiques, però molaria que es pogués afegir info abans (pregunta i opcions A i B). TODO: Mirar-ho per més endavant
+		},
+		colors: [ "#FF8C00", "#1C86EE"],
+		title: {
+			text: title
+		},
+		tooltip: {
+			pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+		},
+		plotOptions: {
+			pie: {
+				allowPointSelect: true,
+				cursor: 'pointer',
+				depth: 35,
+				dataLabels: {
+					enabled: true,
+					format: '{point.percentage:.1f}%</b>'
+				}
+			}
+		},
+		series: [{
+			type: 'pie',
+			name: 'percentatge',
+			data: data
+		}]
+	});
+}
+
+function exit() {
+	navigator.app.exitApp();
+}
+
+function mostra_pregunta(p,r1,r2) {
+	$(".boto-resposta").button("enable");
+	$("#estadistiques").hide();
+	$('#pregunta').text(p);
+	$("#resposta1").siblings("span").remove();
+	$("#resposta2").siblings("span").remove();
+	$("#resposta1").parent().append("<span>A) " + r1 + "</span>");
+	$("#resposta2").parent().append("<span>B) " + r2 + "</span>");
 	return false;
 }

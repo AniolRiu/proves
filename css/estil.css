@@ -15,3 +15,7 @@
 	background-image:      -o-linear-gradient(#FF8C00, #F5BB1B) !important; /* Opera 11.10+ */
 	background-image:         linear-gradient(#FF8C00, #F5BB1B) !important;
 }
+
+.ui-btn-inner { 
+  white-space: normal !important; 
+}
