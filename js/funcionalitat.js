@@ -4,6 +4,7 @@ var url_pregunta_random = "http://queprefereixes.tk/app_connection/get_random_qu
 var url_pregunta = "http://queprefereixes.tk/app_connection/get_question.php";
 var url_submit_question = "http://queprefereixes.tk/app_connection/submit_question.php";
 var url_submit_answer = "http://queprefereixes.tk/app_connection/submit_answer.php";
+var url_get_stats = "http://queprefereixes.tk/app_connection/get_stats.php";
 var jsoncb = "?jsoncallback=?";
 var usuari_activat = false;
 var pregunta_actual;
@@ -16,6 +17,7 @@ function onDeviceReady() {
 	$("#formulari_signup").submit(function(event) {registre(event)});
 	document.getElementById("boto_logout").onclick = logout;
 	$("#formulari_pregunta").submit(function(event) {aporta_pregunta(event)});
+	$("#formulari_filter_stats").submit(function(event) {get_stats(event)});
 	$("#estadistiques").hide();
 	
 	if(window.localStorage.key(0)==null) {
@@ -218,10 +220,7 @@ function aporta_resposta(resposta) {
 					var data = [
 						['opció B', resposta.NResposta2 / total],['opció A', resposta.NResposta1 / total]
 					  ];
-					mostra_grafica($('#chart'),data,'Titol');
-					mostra_grafica($('#chart2'),data,'Titol');
-					mostra_grafica($('#chart3'),data,'Titol');
-					mostra_grafica($('#chart4'),data,'Titol');
+					mostra_grafica($('#chart'),data,'Respostes');
 				} else {
 					// TODO: Deal with
 					alert("no yeah" + resposta.message);
@@ -298,6 +297,45 @@ function mostra_grafica(element, data, title) {
 		}]
 	});
 }
+
+function get_stats(e) {
+	e.preventDefault()
+	var id_usuari = window.localStorage.getItem("id_usuari");
+	var pwd = window.localStorage.getItem("pwd");
+	var pregunta = pregunta_actual;
+	var genere = $('#formulari_filter_stats #genere').val();
+	var generacio = $('#formulari_filter_stats #generacio').val();
+	$.getJSON( 
+		url_get_stats.concat(jsoncb), 
+		{
+			id_usuari:id_usuari, 
+			pwd:pwd,
+			pregunta:pregunta,
+			genere:genere,
+			generacio:generacio
+		}, 
+		function(resposta) {
+			if (resposta.success == 1) {
+				$("#estadistiques").show();
+				var total = resposta.NResposta1 + resposta.NResposta2;
+				$(".boto-resposta").button("disable");
+				var data = [
+					['opció B', resposta.NResposta2 / total],['opció A', resposta.NResposta1 / total]
+				  ];
+				var titol_genere = "";
+				if(genere == '0')titol_genere="dels homes ";
+				if(genere == '1')titol_genere="de les dones ";
+				var titol_generacio = "";
+				if(generacio != 'nul')titol_generacio="de la generacio dels " + generacio + "'s";
+				mostra_grafica($('#chart'),data,'Respostes ' + titol_genere + titol_generacio);
+			} else {
+				alert(resposta.message);
+			}
+		}
+	);
+	return false;
+}
+
 
 function exit() {
 	navigator.app.exitApp();
