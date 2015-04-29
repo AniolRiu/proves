@@ -34,12 +34,12 @@
 		<form id="formulari_pregunta">
 		  <div class="ui-field-contain">
 			<label for="pregunta">Pregunta</label>
-			<input type="text" name="pregunta" id="pregunta" placeholder="Què prefereixes?">
+			<input type="text" name="pregunta" id="pregunta" value="Què prefereixes?" placeholder="Què prefereixes?">
 
-			<label for="r1">Resposta 1</label>
+			<label for="r1">A)</label>
 			<input type="text" name="r1" id="r1" placeholder="Queixals al cap?">
 
-			<label for="r2">Resposta 2</label>
+			<label for="r2">B)</label>
 			<input type="text" name="r2" id="r2" placeholder="O una llengua gegant a l'esquena">
 			
 			<input type="submit" value="Penja" id="boto_submit_pregunta">
@@ -129,7 +129,7 @@
   </div>
   
   <div data-role="content" class="ui-content" id="div_content">
-    <h1 id="pregunta"></h1>
+    <h1 id="h_pregunta"></h1>
 	<input type="button" class="boto-resposta" id="resposta1" onclick="aporta_resposta(0)">
 	<input type="button" class="boto-resposta" id="resposta2" onclick="aporta_resposta(1)">
 	<div id="estadistiques">

@@ -5,7 +5,7 @@ var url_pregunta = "http://queprefereixes.tk/app_connection/get_question.php";
 var url_submit_question = "http://queprefereixes.tk/app_connection/submit_question.php";
 var url_submit_answer = "http://queprefereixes.tk/app_connection/submit_answer.php";
 var jsoncb = "?jsoncallback=?";
-var usuari_activat=false;
+var usuari_activat = false;
 var pregunta_actual;
 var storage = window.localStorage;
 
@@ -83,7 +83,6 @@ function autenticacio() {
 				window.localStorage.setItem("id_usuari", resposta.id_usuari);
 				window.localStorage.setItem("pwd", pwd);
 				window.localStorage.setItem("nick",nick);
-				$('#boto_usuari .ui-btn-text').text(nick);
 				$('#boto_usuari').attr("href","#panel_usuari_autentic");
 				$('#panel_usuari_no_autentic').panel('close');
 				carregaPregunta();
@@ -97,7 +96,7 @@ function autenticacio() {
 }
 
 function logout() {
-	usuri_activat = false;
+	usuari_activat = false;
 	window.localStorage.clear();
 	$('#boto_usuari .ui-btn-text').text("Identifica't");
 	$('#boto_usuari').attr("href","#panel_usuari_no_autentic");
@@ -126,6 +125,7 @@ function registre(e) {
 	if (nick == '' || email == '' || password == '' || password_rep == '') {
 		//$("#popup_signup").shake();
 		//$('#error_signup').html("<span style='color:#cc0000'>Error:</span> Tots els camps són obligatoris.");
+		$("#capsa_signup").shake();
 		alert("Camps vuits");
 	} 
 	else if ((password.length) < 4) {
@@ -168,7 +168,8 @@ function registre(e) {
 	}
 }
 
-function aporta_pregunta() {
+function aporta_pregunta(e) {
+	e.preventDefault();
 	var id_usuari = window.localStorage.getItem("id_usuari");
 	var pwd = window.localStorage.getItem("pwd");
 	var pregunta = $('#formulari_pregunta #pregunta').val();
@@ -302,10 +303,10 @@ function exit() {
 function mostra_pregunta(p,r1,r2) {
 	$(".boto-resposta").button("enable");
 	$("#estadistiques").hide();
-	$('#pregunta').text(p);
+	$('#h_pregunta').text(p);
 	$("#resposta1").siblings("span").remove();
 	$("#resposta2").siblings("span").remove();
-	$("#resposta1").parent().append("<span>A) " + r1 + "ñ,d smnvdfnvnkldfvnkfd fjk nvdfjkvjkfldnvjkfdnjklvlnfjkdsldknlvkjsfdvlkjfdvblkfvb nkljblkb nblkjbnjkbjkb jkbkjbkbkb k kbkjbklbl" + "</span>");
+	$("#resposta1").parent().append("<span>A) " + r1 + "</span>");
 	$("#resposta2").parent().append("<span>B) " + r2 + "</span>");
 	return false;
 }
