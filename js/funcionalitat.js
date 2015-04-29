@@ -305,7 +305,7 @@ function mostra_pregunta(p,r1,r2) {
 	$('#pregunta').text(p);
 	$("#resposta1").siblings("span").remove();
 	$("#resposta2").siblings("span").remove();
-	$("#resposta1").parent().append("<span>A) " + r1 + "</span>");
+	$("#resposta1").parent().append("<span>A) " + r1 + "ñ,d smnvdfnvnkldfvnkfd fjk nvdfjkvjkfldnvjkfdnjklvlnfjkdsldknlvkjsfdvlkjfdvblkfvb nkljblkb nblkjbnjkbjkb jkbkjbkbkb k kbkjbklbl" + "</span>");
 	$("#resposta2").parent().append("<span>B) " + r2 + "</span>");
 	return false;
 }
