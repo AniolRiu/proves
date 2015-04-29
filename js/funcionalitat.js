@@ -169,7 +169,7 @@ function registre(e) {
 }
 
 function aporta_pregunta(e) {
-	e.preventDefault();
+	e.preventDefault()
 	var id_usuari = window.localStorage.getItem("id_usuari");
 	var pwd = window.localStorage.getItem("pwd");
 	var pregunta = $('#formulari_pregunta #pregunta').val();
@@ -186,9 +186,12 @@ function aporta_pregunta(e) {
 		}, 
 		function(resposta) {
 			if (resposta.success == 1) {
-				alert("yeah");
+				$('#error_submit_question').html("La pregunta s'ha penjat correctament.");
+				$('#formulari_pregunta #pregunta').val('Què prefereixes?');
+				$('#formulari_pregunta #r1').val('');
+				$('#formulari_pregunta #r2').val('');
 			} else {
-				alert("no yeah" + resposta.message);
+				$('#error_submit_question').html("<span style='color:#cc0000'>Error:</span> La pregunta no s'ha penjat correctament.");
 			}
 		}
 	);
