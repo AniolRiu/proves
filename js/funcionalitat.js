@@ -9,7 +9,7 @@ var jsoncb = "?jsoncallback=?";
 var usuari_activat = false;
 var pregunta_actual;
 var storage = window.localStorage;
-
+var screen_w, screen_h;
 window.onload = onDeviceReady;
 
 function onDeviceReady() {
@@ -18,6 +18,9 @@ function onDeviceReady() {
 	$("#formulari_pregunta").submit(function(e) {aporta_pregunta(e)});
 	$("#formulari_filter_stats").submit(function(e) {get_stats(e)});
 	$("#estadistiques").hide();
+	
+	var AdHeight = 32;
+	
 	
 	if(window.localStorage.key(0)==null) {
 		// Usuari no autèntic
