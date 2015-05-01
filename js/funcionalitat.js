@@ -22,6 +22,8 @@ function onDeviceReady() {
 	var AdHeight = 32;
 	screen_w = window.innerWidth;
 	screen_h = window.innerHeight - AdHeight;
+	mida_popup = (screen_w < screen_h) ?  screen_w: screen_h
+	$("#popup_stats").css("height", (mida_popup - 10) + 'px').css("width", (mida_popup - 10) + 'px');
 	
 	if(window.localStorage.key(0)==null) {
 		// Usuari no autèntic
@@ -285,8 +287,7 @@ function mostra_grafica(element, data, title) {
 				alpha: 45,
 				beta: 0
 			},
-			backgroundColor: 'transparent',
-			height:(screen_w < screen_h) ?  screen_w: screen_h
+			backgroundColor: 'transparent'
 		},
 		credits: {
 			enabled: false
