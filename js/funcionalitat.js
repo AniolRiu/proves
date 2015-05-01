@@ -13,27 +13,24 @@ var storage = window.localStorage;
 window.onload = onDeviceReady;
 
 function onDeviceReady() {
-	document.getElementById("boto_login").onclick = autenticacio;
-	$("#formulari_signup").submit(function(event) {registre(event)});
-	document.getElementById("boto_logout").onclick = logout;
-	$("#formulari_pregunta").submit(function(event) {aporta_pregunta(event)});
-	$("#formulari_filter_stats").submit(function(event) {get_stats(event)});
+	$("#formulari_signup").submit(function(e) {registre(e)});
+	$("#formulari_login").submit(function(e) {autenticacio(e)});
+	$("#formulari_pregunta").submit(function(e) {aporta_pregunta(e)});
+	$("#formulari_filter_stats").submit(function(e) {get_stats(e)});
 	$("#estadistiques").hide();
 	
 	if(window.localStorage.key(0)==null) {
 		// Usuari no autèntic
-		carregaPreguntaRandom();
+		logout();
 	}
 	else {
 		// Usuari autèntic
-		usuari_activat=true;
-		$('#boto_usuari .ui-btn-text').text(window.localStorage.getItem("nick"));
-		$('#boto_usuari').attr("href","#panel_usuari_autentic");
-		carregaPregunta();
+		login();
 	}
 }
 
 function carregaPregunta() {
+	$("#boto_next").addClass('ui-disabled');
 	$("#coll_stats").collapsible("option","collapsed",true);
 	var id_usuari = window.localStorage.getItem("id_usuari");
 	var pwd = window.localStorage.getItem("pwd");
@@ -64,12 +61,14 @@ function carregaPreguntaRandom() {
 				mostra_pregunta(resposta.Pregunta, resposta.Resposta1, resposta.Resposta2);
 			} else {
 				//TODO: Deal with
+				alert();
 			}
 		}
 	);
 }
 
-function autenticacio() {
+function autenticacio(e) {
+	e.preventDefault();
 	var nick = document.getElementById("usuari").value;
 	var pwd = document.getElementById("password").value;
 	$.getJSON( 
@@ -81,15 +80,12 @@ function autenticacio() {
 		function(resposta) {
 			if (resposta.success == 1) {
 				// Autenticació correcta
-				usuari_activat=true;
 				window.localStorage.setItem("id_usuari", resposta.id_usuari);
 				window.localStorage.setItem("pwd", pwd);
 				window.localStorage.setItem("nick",nick);
-				$('#boto_usuari').attr("href","#panel_usuari_autentic");
-				$('#panel_usuari_no_autentic').panel('close');
-				carregaPregunta();
+				login();
 			} else {
-				$('#capsa_login').shake();
+				$('#formulari_login').shake();
 				$('#error_login').html("<span style='color:#cc0000'>Error:</span> " + resposta.message);
 			}
 		}
@@ -97,14 +93,20 @@ function autenticacio() {
 	return false;
 }
 
+function login() {
+	show_message("Benvingut " + window.localStorage.getItem("nick"));
+	$("#header_no_autentic").hide();
+	$("#header_autentic").show();
+	usuari_activat=true;
+	carregaPregunta();
+}
+
 function logout() {
+	$("#header_autentic").hide();
+	$("#header_no_autentic").show();
 	usuari_activat = false;
 	window.localStorage.clear();
-	$('#boto_usuari .ui-btn-text').text("Identifica't");
-	$('#boto_usuari').attr("href","#panel_usuari_no_autentic");
-	$('#panel_usuari_autentic').panel('close');
 	carregaPreguntaRandom();
-	$("#estadistiques").hide();
 }
 
 function validateEmail(email) { 
@@ -115,8 +117,8 @@ function validateEmail(email) {
 }
 
 function registre(e) {
-	$('#error_signup').html();
 	e.preventDefault();
+	$('#error_signup').html();
 	var nick = $("#signup_usuari").val();
 	var email = $("#signup_email").val();
 	var password = $("#signup_password").val();
@@ -127,19 +129,19 @@ function registre(e) {
 	if (nick == '' || email == '' || password == '' || password_rep == '') {
 		//$("#popup_signup").shake();
 		//$('#error_signup').html("<span style='color:#cc0000'>Error:</span> Tots els camps són obligatoris.");
-		$("#capsa_signup").shake();
+		$("#formulari_signup").shake();
 		alert("Camps vuits");
 	} 
 	else if ((password.length) < 4) {
-		$("#capsa_signup").shake();
+		$("#formulari_signup").shake();
 		$('#error_signup').html("<span style='color:#cc0000'>Error:</span> La contrassenya ha de tenir una longitud mínima de 4 caràcters.");
 	}
 	else if (!validateEmail(email)) {
-		$("#capsa_signup").shake();
+		$("#formulari_signup").shake();
 		$('#error_signup').html("<span style='color:#cc0000'>Error:</span> El format del correu electrónic no és correcte.");
 	}
 	else if (!(password).match(password_rep)) {
-		$("#capsa_signup").shake();
+		$("#formulari_signup").shake();
 		$('#error_signup').html("<span style='color:#cc0000'>Error:</span> Les contrassenyes no coincideixen.");
 	} 
 	else {
@@ -156,14 +158,15 @@ function registre(e) {
 		function(resposta) {
 			if (resposta.success == 1) {
 				// TODO: Instar l'usuari perquè s'autentiqui
-				$("#panel_usuari_no_autentic").panel("close");
+				//$("#panel_usuari_no_autentic").panel("close");
+				alert("registre casi complet");
 			}
 			else if (resposta.success == 2) {
-				$("#capsa_signup").shake();
+				$("#formulari_signup").shake();
 				$('#error_signup').html("<span style='color:#cc0000'>Error:</span> Ja existeix un usuari amb aquest nick o email.");
 			}
 			else {
-				$("#capsa_signup").shake();
+				$("#formulari_signup").shake();
 				$('#error_signup').html("<span style='color:#cc0000'>Error:</span> S'ha produït un error durant el procés de registre.");
 			}
 		});
@@ -172,31 +175,44 @@ function registre(e) {
 
 function aporta_pregunta(e) {
 	e.preventDefault()
+	$('#error_submit_question').html("Processant...");
 	var id_usuari = window.localStorage.getItem("id_usuari");
 	var pwd = window.localStorage.getItem("pwd");
 	var pregunta = $('#formulari_pregunta #pregunta').val();
 	var r1 = $('#formulari_pregunta #r1').val();
 	var r2 = $('#formulari_pregunta #r2').val();
-	$.getJSON( 
-		url_submit_question.concat(jsoncb), 
-		{
-			id_usuari:id_usuari, 
-			pwd:pwd,
-			pregunta:pregunta,
-			r1:r1,
-			r2:r2
-		}, 
-		function(resposta) {
-			if (resposta.success == 1) {
-				$('#error_submit_question').html("La pregunta s'ha penjat correctament.");
-				$('#formulari_pregunta #pregunta').val('Què prefereixes?');
-				$('#formulari_pregunta #r1').val('');
-				$('#formulari_pregunta #r2').val('');
-			} else {
-				$('#error_submit_question').html("<span style='color:#cc0000'>Error:</span> La pregunta no s'ha penjat correctament.");
+	if (pregunta == '' || r1 == '' || r2 == '') {
+		$("#formulari_pregunta").shake();
+		$('#error_submit_question').html("<span style='color:#cc0000'>Error:</span> Tots els camps s'han d'omplir.");
+	}
+	else if (r1 == r2) {
+		$("#formulari_pregunta").shake();
+		$('#error_submit_question').html("<span style='color:#cc0000'>Error:</span> Les respostes han de ser diferents, evidentment ;)");
+	}
+	else {
+		$.getJSON( 
+			url_submit_question.concat(jsoncb), 
+			{
+				id_usuari:id_usuari, 
+				pwd:pwd,
+				pregunta:pregunta,
+				r1:r1,
+				r2:r2
+			}, 
+			function(resposta) {
+				if (resposta.success == 1) {
+					show_message("La pregunta s'ha penjat correctament. Gràcies per aportar!");
+					$('#formulari_pregunta #pregunta').val('Què prefereixes?');
+					$('#formulari_pregunta #r1').val('');
+					$('#formulari_pregunta #r2').val('');
+					$('#error_submit_question').html('');
+				} else {
+					$("#formulari_pregunta").shake();
+					$('#error_submit_question').html("<span style='color:#cc0000'>Error: </span>" + resposta.message);
+				}
 			}
-		}
-	);
+		);
+	}
 	return false;
 }
 
@@ -214,6 +230,7 @@ function aporta_resposta(resposta) {
 			}, 
 			function(resposta) {
 				if (resposta.success == 1) {
+					$("#boto_next").removeClass('ui-disabled');
 					$("#estadistiques").show();
 					var total = resposta.NResposta1 + resposta.NResposta2;
 					$(".boto-resposta").button("disable");
@@ -316,7 +333,6 @@ function get_stats(e) {
 		}, 
 		function(resposta) {
 			if (resposta.success == 1) {
-				$("#estadistiques").show();
 				var total = resposta.NResposta1 + resposta.NResposta2;
 				$(".boto-resposta").button("disable");
 				var data = [
@@ -336,11 +352,6 @@ function get_stats(e) {
 	return false;
 }
 
-
-function exit() {
-	navigator.app.exitApp();
-}
-
 function mostra_pregunta(p,r1,r2) {
 	$(".boto-resposta").button("enable");
 	$("#estadistiques").hide();
@@ -350,4 +361,10 @@ function mostra_pregunta(p,r1,r2) {
 	$("#resposta1").parent().append("<span>A) " + r1 + "</span>");
 	$("#resposta2").parent().append("<span>B) " + r2 + "</span>");
 	return false;
+}
+
+function show_message(text) {
+	$("div[data-role='popup']").popup("close");
+	$("#popup_message").popup("open");
+	$("#text_message").text(text);
 }

@@ -19,3 +19,8 @@
 span { 
   white-space: normal !important; 
 }
+
+/*Amb això centrem els botons de la barra d'eines, cada un dins del seu grid*/
+.center {
+    text-align: center;
+}
