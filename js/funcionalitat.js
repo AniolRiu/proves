@@ -17,6 +17,7 @@ function onDeviceReady() {
 	$("#formulari_login").submit(function(e) {autenticacio(e)});
 	$("#formulari_pregunta").submit(function(e) {aporta_pregunta(e)});
 	$("#formulari_filter_stats").submit(function(e) {get_stats(e)});
+	$("#boto_filtrar").click(get_stats);
 	$("#estadistiques").hide();
 	
 	var AdHeight = 32;
