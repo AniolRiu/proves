@@ -23,7 +23,7 @@ function onDeviceReady() {
 	screen_w = window.innerWidth;
 	screen_h = window.innerHeight - AdHeight;
 	mida_popup = (screen_w < screen_h) ?  screen_w: screen_h
-	$("#popup_stats").css("height", (mida_popup - 30) + 'px').css("width", (mida_popup - 10) + 'px');
+	$("#popup_stats").css("height", (mida_popup/2) + 'px').css("width", (mida_popup/2) + 'px');
 	
 	if(window.localStorage.key(0)==null) {
 		// Usuari no autèntic
@@ -376,5 +376,5 @@ function show_message(text) {
 	$("#popup_message").popup("open");
 	setTimeout(function() {
 		$("#popup_message").popup("close");
-	}, 3000);
+	}, 5000);
 }
