@@ -370,13 +370,14 @@ function mostra_pregunta(p,r1,r2) {
 		indexPregunta=0;
 		// show the interstitial later, e.g. at end of game level
 		if(AdMob) AdMob.showInterstitial();
-		
+	}
+	if(indexPregunta==1){
 		// preppare and load ad resource in background, e.g. at begining of game level
-		/*if(AdMob) AdMob.prepareInterstitial( {
+		if(AdMob) AdMob.prepareInterstitial( {
 			adId:admobid.interstitial, 
 			autoShow:false,
 			isTesting: true
-		} );*/
+		} );
 	}
 	$(".boto-resposta").button("enable");
 	$("#estadistiques").hide();
@@ -422,13 +423,6 @@ function ad() {
 		adId: admobid.banner, 
 		position: AdMob.AD_POSITION.BOTTOM_CENTER, 
 		autoShow: true,
-		isTesting: true
-	} );
-	
-	// preppare and load ad resource in background, e.g. at begining of game level
-	if(AdMob) AdMob.prepareInterstitial( {
-		adId:admobid.interstitial, 
-		autoShow:false,
 		isTesting: true
 	} );
 }
