@@ -15,19 +15,18 @@ var indexPregunta = 0; // Conta les preguntes per posar publicitat cada 5 pregun
 var admobid = {};
 
 function onDeviceReady() {
-	ad();	// Cridem la generació de publicitat
 	$("#formulari_signup").submit(function(e) {registre(e)});
 	$("#formulari_login").submit(function(e) {autenticacio(e)});
 	$("#formulari_pregunta").submit(function(e) {aporta_pregunta(e)});
 	$("#formulari_filter_stats").submit(function(e) {get_stats(e)});
 	$("#boto_filtrar").click(get_stats);
 	$("#estadistiques").hide();
-	
 	var AdHeight = 32;
 	screen_w = window.innerWidth;
 	screen_h = window.innerHeight - AdHeight;
 	mida_popup = (screen_w < screen_h) ?  screen_w: screen_h
 	$("#popup_stats").css("height", (mida_popup*2/3) + 'px').css("width", (mida_popup*2/3) + 'px');
+	ad();	// Cridem la generació de publicitat
 	
 	if(window.localStorage.key(0)==null) {
 		// Usuari no autèntic
@@ -417,9 +416,14 @@ function ad() {
 	if(AdMob) AdMob.createBanner( {
 		adId: admobid.banner, 
 		position: AdMob.AD_POSITION.TOP_CENTER, 
-		autoShow: true 
+		autoShow: true,
+		isTesting: true
 	} );
 	
 	// preppare and load ad resource in background, e.g. at begining of game level
-	if(AdMob) AdMob.prepareInterstitial( {adId:admobid.interstitial, autoShow:false} );
+	if(AdMob) AdMob.prepareInterstitial( {
+		adId:admobid.interstitial, 
+		autoShow:false,
+		isTesting: true
+	} );
 }
