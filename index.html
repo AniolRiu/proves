@@ -40,7 +40,7 @@
 	<div class="ui-grid-c center">
 		<div class="ui-block-a"><a id="boto_logout" onclick="logout()" class="ui-shadow ui-btn ui-corner-all ui-icon-power ui-btn-icon-notext ui-btn-inline"></a></div>
 		<div class="ui-block-b"><a href="#popup_edit_question" data-rel="popup" id="boto_edit_question" class="ui-shadow ui-btn ui-corner-all ui-icon-edit ui-btn-icon-notext ui-btn-inline"></a></div>
-		<div class="ui-block-c"><a id="boto_inadequate" class="ui-shadow ui-btn ui-corner-all ui-icon-alert ui-btn-icon-notext ui-btn-inline"></a></div>
+		<div class="ui-block-c"><a href="#popup_mark_as_inappropriate" data-rel="popup" id="boto_inadequate" class="ui-shadow ui-btn ui-corner-all ui-icon-alert ui-btn-icon-notext ui-btn-inline"></a></div>
 		<div class="ui-block-d"><a id="boto_next" onclick="carregaPregunta()" class="ui-shadow ui-btn ui-corner-all ui-icon-arrow-r ui-btn-icon-notext ui-btn-inline"></a></div>
 	</div>
   </div>
@@ -172,6 +172,16 @@
   
   <div data-role="popup" id="popup_stats">
 	<div id="chart"></div>
+  </div>
+  
+  <div data-role="popup" id="popup_mark_as_inappropriate" class="ui-content">
+	<h3>Marca com a inapropiat</h3>
+	<p>Voleu marcar aquesta pregunta com a inapropiada pel seu contingut?</p>
+	<div align="center">
+		<input type="submit" data-icon="check" data-iconpos="notext" id="boto_mark_as_inappropriate">
+	</div>
+	
+	<div id="error_mark_as_inappropriate"></div>
   </div>
   
 </div>

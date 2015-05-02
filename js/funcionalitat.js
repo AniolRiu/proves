@@ -5,6 +5,7 @@ var url_pregunta = "http://queprefereixes.tk/app_connection/get_question.php";
 var url_submit_question = "http://queprefereixes.tk/app_connection/submit_question.php";
 var url_submit_answer = "http://queprefereixes.tk/app_connection/submit_answer.php";
 var url_get_stats = "http://queprefereixes.tk/app_connection/get_stats.php";
+var url_mark_as_inappropriate = "http://queprefereixes.tk/app_connection/mark_as_inappropriate.php";
 var jsoncb = "?jsoncallback=?";
 var usuari_activat = false;
 var pregunta_actual;
@@ -20,6 +21,7 @@ function onDeviceReady() {
 	$("#formulari_pregunta").submit(function(e) {aporta_pregunta(e)});
 	$("#formulari_filter_stats").submit(function(e) {get_stats(e)});
 	$("#boto_filtrar").click(get_stats);
+	$("#boto_mark_as_inappropriate").click(mark_as_inappropriate);
 	$("#estadistiques").hide();
 	var AdHeight = 32;
 	screen_w = window.innerWidth;
@@ -222,6 +224,27 @@ function aporta_pregunta(e) {
 			}
 		);
 	}
+	return false;
+}
+
+function mark_as_inappropriate(e) {
+	e.preventDefault()
+	$('#error_mark_as_inappropriate').html("Processant...");
+	var id_usuari = window.localStorage.getItem("id_usuari");
+	var pwd = window.localStorage.getItem("pwd");
+	var pregunta = pregunta_actual;
+	$.getJSON( 
+		url_mark_as_inappropriate.concat(jsoncb), 
+		{
+			id_usuari:id_usuari, 
+			pwd:pwd,
+			id_pregunta:pregunta
+		}, 
+		function(resposta) {
+			$('#error_mark_as_inappropriate').html("");
+			show_message(resposta.message);
+		}
+	);
 	return false;
 }
 
