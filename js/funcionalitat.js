@@ -11,8 +11,11 @@ var pregunta_actual;
 var storage = window.localStorage;
 var screen_w, screen_h;
 window.onload = onDeviceReady;
+var indexPregunta = 0; // Conta les preguntes per posar publicitat cada 5 preguntes
+var admobid = {};
 
 function onDeviceReady() {
+	ad();	// Cridem la generació de publicitat
 	$("#formulari_signup").submit(function(e) {registre(e)});
 	$("#formulari_login").submit(function(e) {autenticacio(e)});
 	$("#formulari_pregunta").submit(function(e) {aporta_pregunta(e)});
@@ -363,6 +366,14 @@ function get_stats(e) {
 }
 
 function mostra_pregunta(p,r1,r2) {
+	if(indexPregunta==5) {
+		indexPregunta=0;
+		// show the interstitial later, e.g. at end of game level
+		if(AdMob) AdMob.showInterstitial();
+		
+		// preppare and load ad resource in background, e.g. at begining of game level
+		if(AdMob) AdMob.prepareInterstitial( {adId:admobid.interstitial, autoShow:false} );
+	}
 	$(".boto-resposta").button("enable");
 	$("#estadistiques").hide();
 	$('#h_pregunta').text(p);
@@ -370,6 +381,7 @@ function mostra_pregunta(p,r1,r2) {
 	$("#resposta2").siblings("span").remove();
 	$("#resposta1").parent().append("<span>A) " + r1 + "</span>");
 	$("#resposta2").parent().append("<span>B) " + r2 + "</span>");
+	indexPregunta++;
 	return false;
 }
 
@@ -380,4 +392,34 @@ function show_message(text) {
 	setTimeout(function() {
 		$("#popup_message").popup("close");
 	}, 5000);
+}
+
+function ad() {
+	// select the right Ad Id according to platform
+    if( /(android)/i.test(navigator.userAgent) ) { // for android
+        admobid = {
+            banner: 'ca-app-pub-5785179440070320/5793768897', // or DFP format "/6253334/dfp_example_ad"
+            interstitial: 'ca-app-pub-5785179440070320/7761526497'
+        };
+    } else if(/(ipod|iphone|ipad)/i.test(navigator.userAgent)) { // for ios
+        admobid = {
+            banner: 'ca-app-pub-xxx/zzz', // or DFP format "/6253334/dfp_example_ad"
+            interstitial: 'ca-app-pub-xxx/kkk'
+        };
+    } else { // for windows phone
+        admobid = {
+            banner: 'ca-app-pub-xxx/zzz', // or DFP format "/6253334/dfp_example_ad"
+            interstitial: 'ca-app-pub-xxx/kkk'
+        };
+    }
+	
+	// it will display smart banner at top center, using the default options
+	if(AdMob) AdMob.createBanner( {
+		adId: admobid.banner, 
+		position: AdMob.AD_POSITION.TOP_CENTER, 
+		autoShow: true 
+	} );
+	
+	// preppare and load ad resource in background, e.g. at begining of game level
+	if(AdMob) AdMob.prepareInterstitial( {adId:admobid.interstitial, autoShow:false} );
 }
