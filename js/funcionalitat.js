@@ -28,7 +28,7 @@ function onDeviceReady() {
 	screen_h = window.innerHeight - AdHeight;
 	mida_popup = (screen_w < screen_h) ?  screen_w: screen_h
 	$("#popup_stats").css("height", (mida_popup*2/3) + 'px').css("width", (mida_popup*2/3) + 'px');
-	ad();	// Cridem la generació de publicitat. Això s'hauria de treure en una hipotètica versió per ordinador
+	//ad();	// Cridem la generació de publicitat. Això s'hauria de treure en una hipotètica versió per ordinador
 	
 	if(window.localStorage.key(0)==null) {
 		// Usuari no autèntic
