@@ -365,6 +365,7 @@ function get_stats(e) {
 }
 
 function mostra_pregunta(p,r1,r2) {
+	alert(indexPregunta);
 	if(indexPregunta==5) {
 		indexPregunta=0;
 		// show the interstitial later, e.g. at end of game level
