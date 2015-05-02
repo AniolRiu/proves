@@ -26,7 +26,7 @@ function onDeviceReady() {
 	screen_h = window.innerHeight - AdHeight;
 	mida_popup = (screen_w < screen_h) ?  screen_w: screen_h
 	$("#popup_stats").css("height", (mida_popup*2/3) + 'px').css("width", (mida_popup*2/3) + 'px');
-	ad();	// Cridem la generació de publicitat
+	ad();	// Cridem la generació de publicitat. Això s'hauria de treure en una hipotètica versió per ordinador
 	
 	if(window.localStorage.key(0)==null) {
 		// Usuari no autèntic
@@ -372,7 +372,11 @@ function mostra_pregunta(p,r1,r2) {
 		if(AdMob) AdMob.showInterstitial();
 		
 		// preppare and load ad resource in background, e.g. at begining of game level
-		if(AdMob) AdMob.prepareInterstitial( {adId:admobid.interstitial, autoShow:false} );
+		/*if(AdMob) AdMob.prepareInterstitial( {
+			adId:admobid.interstitial, 
+			autoShow:false,
+			isTesting: true
+		} );*/
 	}
 	$(".boto-resposta").button("enable");
 	$("#estadistiques").hide();
@@ -416,7 +420,7 @@ function ad() {
 	// it will display smart banner at top center, using the default options
 	if(AdMob) AdMob.createBanner( {
 		adId: admobid.banner, 
-		position: AdMob.AD_POSITION.TOP_CENTER, 
+		position: AdMob.AD_POSITION.BOTTOM_CENTER, 
 		autoShow: true,
 		isTesting: true
 	} );
