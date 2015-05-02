@@ -55,7 +55,7 @@ function carregaPregunta() {
 				pregunta_actual = resposta.Id_Pregunta;
 			} else {
 				//TODO: Deal with
-				alert(resposta.message);
+				show_message(resposta.message);
 			}
 		}
 	);
@@ -70,7 +70,7 @@ function carregaPreguntaRandom() {
 				mostra_pregunta(resposta.Pregunta, resposta.Resposta1, resposta.Resposta2);
 			} else {
 				//TODO: Deal with
-				alert();
+				show_message(resposta.message);
 			}
 		}
 	);
@@ -139,7 +139,7 @@ function registre(e) {
 		//$("#popup_signup").shake();
 		//$('#error_signup').html("<span style='color:#cc0000'>Error:</span> Tots els camps són obligatoris.");
 		$("#formulari_signup").shake();
-		alert("Camps vuits");
+		$('#error_signup').html("<span style='color:#cc0000'>Error:</span> Camps obligatoris buit.");
 	} 
 	else if ((password.length) < 4) {
 		$("#formulari_signup").shake();
@@ -168,7 +168,7 @@ function registre(e) {
 			if (resposta.success == 1) {
 				// TODO: Instar l'usuari perquè s'autentiqui
 				//$("#panel_usuari_no_autentic").panel("close");
-				alert("registre casi complet");
+				show_message("Per acabar el procés, prem el link del mail que t'hem enviat a " + email);
 			}
 			else if (resposta.success == 2) {
 				$("#formulari_signup").shake();
@@ -249,7 +249,7 @@ function aporta_resposta(resposta) {
 					mostra_grafica($('#chart'),data,'Respostes');
 				} else {
 					// TODO: Deal with
-					alert("no yeah" + resposta.message);
+					show_message(resposta.message);
 				}
 			}
 		);
@@ -357,7 +357,7 @@ function get_stats(e) {
 				if(generacio != 'nul')titol_generacio="de la generacio dels " + generacio + "'s";
 				mostra_grafica($('#chart'),data,'Respostes ' + titol_genere + titol_generacio);
 			} else {
-				alert(resposta.message);
+				show_message(resposta.message);
 			}
 		}
 	);
@@ -365,7 +365,6 @@ function get_stats(e) {
 }
 
 function mostra_pregunta(p,r1,r2) {
-	alert(indexPregunta);
 	if(indexPregunta==5) {
 		indexPregunta=0;
 		// show the interstitial later, e.g. at end of game level
