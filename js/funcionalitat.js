@@ -11,9 +11,10 @@ var usuari_activat = false;
 var pregunta_actual;
 var storage = window.localStorage;
 var screen_w, screen_h;
-window.onload = onDeviceReady;
 var indexPregunta = 0; // Conta les preguntes per posar publicitat cada 5 preguntes
-var admobid = {};
+var admobid = {};	// Guarda els paràmetres de la publicitat
+
+window.onload = onDeviceReady;
 
 function onDeviceReady() {
 	$("#formulari_signup").submit(function(e) {registre(e)});
@@ -28,8 +29,7 @@ function onDeviceReady() {
 	screen_h = window.innerHeight - AdHeight;
 	mida_popup = (screen_w < screen_h) ?  screen_w: screen_h
 	$("#popup_stats").css("height", (mida_popup*2/3) + 'px').css("width", (mida_popup*2/3) + 'px');
-	ad();	// Cridem la generació de publicitat. Això s'hauria de treure en una hipotètica versió per ordinador
-	
+	//ad();	// Cridem la generació de publicitat. Això s'hauria de treure en una hipotètica versió per ordinador
 	if(window.localStorage.key(0)==null) {
 		// Usuari no autèntic
 		logout();
@@ -39,6 +39,35 @@ function onDeviceReady() {
 		login();
 	}
 }
+
+$(document).ready(function(){ 
+	// Aquesta funció es crida quan tots els objectes de la DOM estan carregats
+	// Formulari aporta una pregunta
+	$("#h_submit_question").text(_("Aporta una pregunta"));
+	$("#formulari_pregunta #pregunta").attr("value", _("Què prefereixes?"));
+	$("#r1").attr("placeholder", _("Opció A"));
+	$("#r2").attr("placeholder", _("Opció B"));
+	
+	// Formulari inapropiat
+	$("#h_inappropriate").text(_("Marca com a inapropiat"));
+	$("#p_inappropriate").text(_("Voleu marcar aquesta pregunta com a inapropiada pel seu contingut?"));
+	
+	//Formulari LogIn
+	$("#formulari_login #usuari").attr("placeholder", _("Nom d'usuari"));
+	$("#formulari_login #password").attr("placeholder", _("Contrassenya"));
+	
+	//Formulari SignUp
+	$("#signup_usuari").attr("placeholder", _("Nom d'usuari"));
+	$("#signup_email").attr("placeholder", _("Email"));
+	$("#signup_password").attr("placeholder", _("Contrassenya"));
+	$("#signup_password_rep").attr("placeholder", _("Repeteix la contrassenya"));
+	// Per cambiar el placeholder dels selects canviem el text de l'span creat per juqery
+	$("#genere-button span").text( _("Gènere") );
+	$("#genere option:nth-child(2)").text(_("Home"));
+	$("#genere option:nth-child(3)").text(_("Dona"));
+	$("#generacio-button span").text( _("Generació") );
+	$("#genere option:nth-child(2)").text(_("Anterior"));
+});
 
 function carregaPregunta() {
 	$("#boto_next").addClass('ui-disabled');
@@ -105,7 +134,7 @@ function autenticacio(e) {
 }
 
 function login() {
-	show_message("Encantats de tornar-te a veure, " + window.localStorage.getItem("nick"));
+	show_message(_("Encantats de tornar-te a veure, ") + window.localStorage.getItem("nick"));
 	$("#header_no_autentic").hide();
 	$("#header_autentic").show();
 	usuari_activat=true;
@@ -134,7 +163,7 @@ function registre(e) {
 	var email = $("#signup_email").val();
 	var password = $("#signup_password").val();
 	var password_rep = $("#signup_password_rep").val();
-	var genere = $("#genere").val();
+	var genere = $("#formulari_signup #genere").val();
 	var generacio = $("#generacio").val();
 	
 	if (nick == '' || email == '' || password == '' || password_rep == '') {
@@ -447,4 +476,12 @@ function ad() {
 		autoShow: true,
 		isTesting: false
 	} );
+}
+
+/* Amb aquesta funcio substiutim els strings en funcio de l'idioma que hi hagi carregat */
+function _(s) {
+   if (typeof(i18n)!='undefined' && i18n[s]) {
+      return i18n[s];
+   }
+   return s;
 }
