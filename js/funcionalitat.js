@@ -516,14 +516,14 @@ function share(expr){
         break; 
       case "WhatsApp": 
             window.plugins.socialsharing.shareViaWhatsApp(
-				'Message via WhatsApp', 
-				null /* img */, 
-				null /* url */, 
+				pregunta + " " + resposta1 + " " + resposta2 + ". Més preguntes estúpides a l'app QuèPrefereixes?", 
+				http://queprefereixes.tk/favicon.png, 
+				https://play.google.com/store/apps/details?id=com.articapps.queprefereixes /* url */, 
 				function() {
-					alert('share ok')
+					show_message('Pregunta compartida correctament!');
 				}, 
 				function(errormsg){
-					alert(errormsg)
+					show_message(errormsg);
 				}
 			); 
             $("#popup_share").popup('close');
