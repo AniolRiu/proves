@@ -508,42 +508,21 @@ function share(expr){
 	var pregunta_actual = $("#h_pregunta").text();
 	var resposta1_actual = $("#resposta1").siblings("span").text();
 	var resposta2_actual = $("#resposta2").siblings("span").text();
-	alert(pregunta_actual + resposta1 + resposta2);
+	var missatge = pregunta_actual + "&#10x" + resposta1_actual + "%0A" + resposta2_actual + "%0AMés preguntes estúpides a l'app QuèPrefereixes?%0A";
+	var url = "https://play.google.com/store/apps/details?id=com.articapps.queprefereixes";
+	var img = "http://queprefereixes.tk/favicon.png";
+	alert(missatge);
     switch (expr) { 
       case "Twitter": 
-        window.plugins.socialsharing.shareViaTwitter(
-			'Message and link via Twitter', 
-			null /* img */, 
-			'http://www.phonegapspain.com'
-		); 
+        window.plugins.socialsharing.shareViaTwitter(missatge, img, url); 
         $("#popup_share").popup('close');
         break; 
       case "Facebook": 
-		window.plugins.socialsharing.shareViaFacebook(
-			'Message via Facebook', 
-			null /* img */, 
-			null /* url */, 
-			function() {
-				console.log('share ok')
-			}, 
-			function(errormsg){
-				console.log(errormsg)
-			}
-		); 
+		window.plugins.socialsharing.shareViaFacebook(missatge, img, url); 
 		$("#popup_share").popup('close');
         break; 
       case "WhatsApp": 
-		window.plugins.socialsharing.shareViaWhatsApp(
-			pregunta_actual + "&#10x" + resposta1_actual + "%0A" + resposta2_actual + "%0AMés preguntes estúpides a l'app QuèPrefereixes?%0A", 
-			"http://queprefereixes.tk/favicon.png", 
-			"https%3A%2F%2Fplay.google.com%2Fstore%2Fapps%2Fdetails%3Fid%3Dcom.articapps.queprefereixes" /* url *//*, 
-			function() {
-				show_message('Pregunta compartida correctament!');
-			}, 
-			function(errormsg){
-				show_message(errormsg);
-			}*/
-		); 
+		window.plugins.socialsharing.shareViaWhatsApp(missatge, img, url); 
 		$("#popup_share").popup('close');
         break;
       default: 
