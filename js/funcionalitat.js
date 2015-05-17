@@ -27,7 +27,7 @@ function onDeviceReady() {
 	var AdHeight = 32;
 	screen_w = window.innerWidth;
 	screen_h = window.innerHeight - AdHeight;
-	mida_popup = (screen_w < screen_h) ?  screen_w: screen_h
+	mida_popup = (screen_w < screen_h) ?  screen_w: screen_h;
 	$("#popup_stats").css("height", (mida_popup*2/3) + 'px').css("width", (mida_popup*2/3) + 'px');
 	//ad();	// Cridem la generació de publicitat. Això s'hauria de treure en una hipotètica versió per ordinador
 	if(window.localStorage.key(0)==null) {
@@ -517,8 +517,8 @@ function share(expr){
       case "WhatsApp": 
             window.plugins.socialsharing.shareViaWhatsApp(
 				pregunta + " " + resposta1 + " " + resposta2 + ". Més preguntes estúpides a l'app QuèPrefereixes?", 
-				http://queprefereixes.tk/favicon.png, 
-				https://play.google.com/store/apps/details?id=com.articapps.queprefereixes /* url */, 
+				"http://queprefereixes.tk/favicon.png", 
+				"https://play.google.com/store/apps/details?id=com.articapps.queprefereixes" /* url */, 
 				function() {
 					show_message('Pregunta compartida correctament!');
 				}, 
@@ -527,7 +527,7 @@ function share(expr){
 				}
 			); 
             $("#popup_share").popup('close');
-        break; 
+        break;
       default: 
         alert('nops');
     } 
