@@ -508,18 +508,28 @@ function share(expr){
     switch (expr) { 
       case "Twitter": 
         window.plugins.socialsharing.shareViaTwitter('Message and link via Twitter', null /* img */, 'http://www.phonegapspain.com'); 
-            closeOptions(); 
+            $("#popup_share").popup('close');
         break; 
       case "Facebook": 
         window.plugins.socialsharing.shareViaFacebook('Message via Facebook', null /* img */, null /* url */, function() {console.log('share ok')}, function(errormsg){console.log(errormsg)}); 
-            closeOptions(); 
+            $("#popup_share").popup('close');
         break; 
       case "WhatsApp": 
-            window.plugins.socialsharing.shareViaWhatsApp('Message via WhatsApp', null /* img */, null /* url */, function() {console.log('share ok')}, function(errormsg){console.log(errormsg)}); 
-            closeOptions(); 
+            window.plugins.socialsharing.shareViaWhatsApp(
+				'Message via WhatsApp', 
+				null /* img */, 
+				null /* url */, 
+				function() {
+					alert('share ok')
+				}, 
+				function(errormsg){
+					alert(errormsg)
+				}
+			); 
+            $("#popup_share").popup('close');
         break; 
       default: 
-        console.log(""); 
+        alert('nops');
     } 
 } - See more at: http://www.phonegapspain.com/tutorial/comparte-desde-tu-app-phonegap-con-social-sharing/#sthash.jBLWaJHI.dpuf
 
