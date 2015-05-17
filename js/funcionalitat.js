@@ -504,7 +504,11 @@ function ad() {
 	} );
 }
 
-function share(expr){ 
+function share(expr){
+	var pregunta_actual = $("#h_pregunta").text();
+	var resposta1_actual = $("#resposta1").siblings("span").text();
+	var resposta2_actual = $("#resposta2").siblings("span").text();
+	alert(pregunta_actual + resposta1 + resposta2);
     switch (expr) { 
       case "Twitter": 
         window.plugins.socialsharing.shareViaTwitter('Message and link via Twitter', null /* img */, 'http://www.phonegapspain.com'); 
@@ -516,9 +520,9 @@ function share(expr){
         break; 
       case "WhatsApp": 
             window.plugins.socialsharing.shareViaWhatsApp(
-				pregunta + " " + resposta1 + " " + resposta2 + ". Més preguntes estúpides a l'app QuèPrefereixes?", 
+				pregunta_actual + "%0A" + resposta1_actual + "%0A" + resposta2_actual + "%0AMés preguntes estúpides a l'app QuèPrefereixes?%0A", 
 				"http://queprefereixes.tk/favicon.png", 
-				"https://play.google.com/store/apps/details?id=com.articapps.queprefereixes" /* url */, 
+				"https%3A%2F%2Fplay.google.com%2Fstore%2Fapps%2Fdetails%3Fid%3Dcom.articapps.queprefereixes" /* url */, 
 				function() {
 					show_message('Pregunta compartida correctament!');
 				}, 
