@@ -508,7 +508,7 @@ function share(expr){
 	var pregunta_actual = $("#h_pregunta").text();
 	var resposta1_actual = $("#resposta1").siblings("span").text();
 	var resposta2_actual = $("#resposta2").siblings("span").text();
-	var missatge = pregunta_actual + "\n" + resposta1_actual + "<br>" + resposta2_actual + "\rMés preguntes estúpides a l'app QuèPrefereixes?%0A";
+	var missatge = pregunta_actual + "\n" + resposta1_actual + "\n" + resposta2_actual + "\nMés preguntes estúpides a l'app QuèPrefereixes?%0A\n";
 	var url = "https://play.google.com/store/apps/details?id=com.articapps.queprefereixes";
 	var img = "http://queprefereixes.tk/favicon.png";
 	alert(missatge);
