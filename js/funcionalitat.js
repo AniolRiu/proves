@@ -531,7 +531,7 @@ function share(expr){
       default: 
         alert('nops');
     } 
-} - See more at: http://www.phonegapspain.com/tutorial/comparte-desde-tu-app-phonegap-con-social-sharing/#sthash.jBLWaJHI.dpuf
+}
 
 /* Amb aquesta funcio substiutim els strings en funcio de l'idioma que hi hagi carregat */
 function _(s) {
