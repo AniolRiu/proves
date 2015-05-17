@@ -84,7 +84,7 @@ function carregaPregunta() {
 				pregunta_actual = resposta.Id_Pregunta;
 				pregunta = resposta.Pregunta;
 				resposta1 = resposta.Resposta1;
-				reposta2 = resposta.Resposta2;
+				resposta2 = resposta.Resposta2;
 				if (primera_pregunta == 0) {
 					primera_pregunta = 1;
 					mostra_pregunta();
@@ -503,6 +503,25 @@ function ad() {
 		isTesting: false
 	} );
 }
+
+function share(expr){ 
+    switch (expr) { 
+      case "Twitter": 
+        window.plugins.socialsharing.shareViaTwitter('Message and link via Twitter', null /* img */, 'http://www.phonegapspain.com'); 
+            closeOptions(); 
+        break; 
+      case "Facebook": 
+        window.plugins.socialsharing.shareViaFacebook('Message via Facebook', null /* img */, null /* url */, function() {console.log('share ok')}, function(errormsg){console.log(errormsg)}); 
+            closeOptions(); 
+        break; 
+      case "WhatsApp": 
+            window.plugins.socialsharing.shareViaWhatsApp('Message via WhatsApp', null /* img */, null /* url */, function() {console.log('share ok')}, function(errormsg){console.log(errormsg)}); 
+            closeOptions(); 
+        break; 
+      default: 
+        console.log(""); 
+    } 
+} - See more at: http://www.phonegapspain.com/tutorial/comparte-desde-tu-app-phonegap-con-social-sharing/#sthash.jBLWaJHI.dpuf
 
 /* Amb aquesta funcio substiutim els strings en funcio de l'idioma que hi hagi carregat */
 function _(s) {

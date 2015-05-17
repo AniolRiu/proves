@@ -33,17 +33,18 @@
 <div data-role="page" id="main">
   
   <div data-role="footer" id="header_no_autentic">
-	<div class="ui-grid-c center">
+	<div class="ui-grid-d center">
 		<div class="ui-block-a"><a href="#popup_usuari" data-rel="popup" id="boto_usuari_no_autentic" class="ui-shadow ui-btn ui-corner-all ui-icon-user ui-btn-icon-notext ui-btn-inline"></a></div>
 	</div>
   </div>
   
   <div data-role="footer" id="header_autentic">
-	<div class="ui-grid-c center">
+	<div class="ui-grid-d center">
 		<div class="ui-block-a"><a id="boto_logout" onclick="logout()" class="ui-shadow ui-btn ui-corner-all ui-icon-power ui-btn-icon-notext ui-btn-inline"></a></div>
 		<div class="ui-block-b"><a href="#popup_edit_question" data-rel="popup" id="boto_edit_question" class="ui-shadow ui-btn ui-corner-all ui-icon-edit ui-btn-icon-notext ui-btn-inline"></a></div>
 		<div class="ui-block-c"><a href="#popup_mark_as_inappropriate" data-rel="popup" id="boto_inadequate" class="ui-shadow ui-btn ui-corner-all ui-icon-alert ui-btn-icon-notext ui-btn-inline"></a></div>
-		<div class="ui-block-d"><a id="boto_next" onclick="mostra_pregunta()" class="ui-shadow ui-btn ui-corner-all ui-icon-arrow-r ui-btn-icon-notext ui-btn-inline"></a></div>
+		<div class="ui-block-d"><a href="#popup_share" data-rel="popup" id="boto_share" class="ui-shadow ui-btn ui-corner-all ui-icon-comment ui-btn-icon-notext ui-btn-inline"></a></div>
+		<div class="ui-block-e"><a id="boto_next" onclick="mostra_pregunta()" class="ui-shadow ui-btn ui-corner-all ui-icon-arrow-r ui-btn-icon-notext ui-btn-inline"></a></div>
 	</div>
   </div>
   
@@ -184,6 +185,14 @@
 	</div>
 	
 	<div id="error_mark_as_inappropriate"></div>
+  </div>
+  
+  <div data-role="popup" id="popup_share" class="ui-content"> 
+    <div id="contentShare"> 
+        <div onclick="share('Twitter')" class="buttonShare buttonFacebook">Twitter</div> 
+        <div onclick="share('Facebook')" class="buttonShare buttonTwitter">Facebook</div> 
+        <div onclick="share('WhatsApp')" class="buttonShare buttonWhatsApp">WhatsApp</div>
+    </div> 
   </div>
   
 </div>

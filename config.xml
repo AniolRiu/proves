@@ -35,4 +35,5 @@
 	<icon src="res/ios/icon-50@2x.png" width="100" height="100" />
 </platform>
 <gap:plugin name="com.google.cordova.admob" version="2.7.0" source="plugins.cordova.io"/>
+<gap:plugin name="nl.x-services.plugins.socialsharing" version="4.3.8" />
 </widget>
