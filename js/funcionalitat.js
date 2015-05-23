@@ -62,11 +62,9 @@ $(document).ready(function(){
 	$("#signup_password").attr("placeholder", _("Contrassenya"));
 	$("#signup_password_rep").attr("placeholder", _("Repeteix la contrassenya"));
 	// Per cambiar el placeholder dels selects canviem el text de l'span creat per juqery
-	$("#genere-button span").text( _("Gènere") );
-	$("#genere option:nth-child(2)").text(_("Home"));
-	$("#genere option:nth-child(3)").text(_("Dona"));
-	$("#generacio-button span").text( _("Generació") );
-	$("#generacio option:nth-child(2)").text(_("Anterior"));
+	$("#genere option:nth-child(1)").text(_("Home"));
+	$("#genere option:nth-child(2)").text(_("Dona"));
+	$("#generacio option:nth-child(1)").text(_("Anterior"));
 });
 
 function carregaPregunta() {
@@ -508,10 +506,9 @@ function share(expr){
 	var pregunta_actual = $("#h_pregunta").text();
 	var resposta1_actual = $("#resposta1").siblings("span").text();
 	var resposta2_actual = $("#resposta2").siblings("span").text();
-	var missatge = pregunta_actual + "\n" + resposta1_actual + "\n" + resposta2_actual + "\nMés preguntes estúpides a l'app QuèPrefereixes?%0A\n";
+	var missatge = pregunta_actual + "\n" + resposta1_actual + "\n" + resposta2_actual + "\nMés preguntes estúpides a l'app QuèPrefereixes?\n";
 	var url = "https://play.google.com/store/apps/details?id=com.articapps.queprefereixes";
 	var img = "http://queprefereixes.tk/favicon.png";
-	alert(missatge);
     switch (expr) { 
       case "Twitter": 
         window.plugins.socialsharing.shareViaTwitter(missatge, img, url); 
