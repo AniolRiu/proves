@@ -8,7 +8,7 @@ var url_get_stats = "http://queprefereixes.tk/app_connection/get_stats.php";
 var url_mark_as_inappropriate = "http://queprefereixes.tk/app_connection/mark_as_inappropriate.php";
 var jsoncb = "?jsoncallback=?";
 var usuari_activat = false;
-var pregunta_actual, pregunta, resposta1, resposta2, primera_pregunta = 0;
+var id_pregunta_actual, id_pregunta_futura, pregunta, resposta1, resposta2, primera_pregunta = 0;
 var storage = window.localStorage;
 var screen_w, screen_h;
 var indexPregunta = 0; // Conta les preguntes per posar publicitat cada 5 preguntes
@@ -17,6 +17,11 @@ var admobid = {};	// Guarda els paràmetres de la publicitat
 window.onload = onDeviceReady;
 
 function onDeviceReady() {
+	
+	$(function() {
+		FastClick.attach(document.body);
+	});
+	
 	$("#formulari_signup").submit(function(e) {registre(e)});
 	$("#formulari_login").submit(function(e) {autenticacio(e)});
 	$("#formulari_pregunta").submit(function(e) {aporta_pregunta(e)});
@@ -36,6 +41,7 @@ function onDeviceReady() {
 	}
 	else {
 		// Usuari autèntic
+		alert(1);
 		login();
 	}
 }
@@ -79,7 +85,7 @@ function carregaPregunta() {
 		},
 		function(resposta) {
 			if (resposta.success == 1) {
-				pregunta_actual = resposta.Id_Pregunta;
+				id_pregunta_futura = resposta.Id_Pregunta;
 				pregunta = resposta.Pregunta;
 				resposta1 = resposta.Resposta1;
 				resposta2 = resposta.Resposta2;
@@ -117,6 +123,8 @@ function carregaPreguntaRandom() {
 }
 
 function mostra_pregunta() {
+	// TODO: Descomentar al compilar
+	/*
 	if(indexPregunta==5) {
 		indexPregunta=0;
 		// show the interstitial later, e.g. at end of game level
@@ -130,12 +138,13 @@ function mostra_pregunta() {
 			isTesting: false
 		} );
 	}
-	indexPregunta++;
+	indexPregunta++;*/
 	if(usuari_activat) {
 		$("#boto_next").addClass('ui-disabled');
 		$("#coll_stats").collapsible("option","collapsed",true);
 		$(".boto-resposta").button("enable");
 		$("#estadistiques").hide();
+		id_pregunta_actual = id_pregunta_futura;
 	}
 	$('#h_pregunta').text(pregunta);
 	$("#resposta1").siblings("span").remove();
@@ -162,7 +171,7 @@ function aporta_resposta(resposta) {
 			{
 				id_usuari:id_usuari, 
 				pwd:pwd,
-				id_pregunta:pregunta_actual,
+				id_pregunta:id_pregunta_actual,
 				resposta: resposta
 			}, 
 			function(resposta) {
@@ -345,7 +354,8 @@ function mark_as_inappropriate(e) {
 	$('#error_mark_as_inappropriate').html("Processant...");
 	var id_usuari = window.localStorage.getItem("id_usuari");
 	var pwd = window.localStorage.getItem("pwd");
-	var pregunta = pregunta_actual;
+	var pregunta = id_pregunta_actual;
+	$("#boto_next").removeClass('ui-disabled');
 	$.getJSON( 
 		url_mark_as_inappropriate.concat(jsoncb), 
 		{
@@ -432,7 +442,7 @@ function get_stats(e) {
 	e.preventDefault()
 	var id_usuari = window.localStorage.getItem("id_usuari");
 	var pwd = window.localStorage.getItem("pwd");
-	var pregunta = pregunta_actual;
+	var pregunta = id_pregunta_actual;
 	var genere = $('#formulari_filter_stats #genere').val();
 	var generacio = $('#formulari_filter_stats #generacio').val();
 	$.getJSON( 
@@ -522,8 +532,8 @@ function share(expr){
 		window.plugins.socialsharing.shareViaWhatsApp(missatge, img, url); 
 		$("#popup_share").popup('close');
         break;
-      default: 
-        alert('nops');
+      //default: 
+        //TODO: Deal with
     } 
 }
 
