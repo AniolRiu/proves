@@ -35,6 +35,11 @@ function onDeviceReady() {
 	$("div[data-role='popup']").popup();	// Pq no falli a la 1a iteració quan tanquem els popups al mostrar el popup de benvinguda
 	
 	// Escoltem el swipe i cambiem de pregunta quan pertoqui
+	$.extend($.event.special.swipe,{
+	  scrollSupressionThreshold: 10, // More than this horizontal displacement, and we will suppress scrolling.
+	  durationThreshold: 500, // More time than this, and it isn't a swipe.
+	  horizontalDistanceThreshold: 30,  // Swipe horizontal displacement must be more than this.
+	});
 	jQuery( window ).on( "swipeleft", function( event ) {
 		if(next_question_enabled){
 			mostra_pregunta();
