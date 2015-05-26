@@ -8,7 +8,8 @@ var url_get_stats = "http://queprefereixes.tk/app_connection/get_stats.php";
 var url_mark_as_inappropriate = "http://queprefereixes.tk/app_connection/mark_as_inappropriate.php";
 var jsoncb = "?jsoncallback=?";
 var usuari_activat = false;
-var id_pregunta_actual, id_pregunta_futura, pregunta, resposta1, resposta2, primera_pregunta = 0;
+var next_question_enabled = false;
+var id_pregunta_actual, id_pregunta_futura, pregunta, resposta1, resposta2, n_resposta1, n_resposta2, primera_pregunta = 0;
 var storage = window.localStorage;
 var screen_w, screen_h;
 var indexPregunta = 0; // Conta les preguntes per posar publicitat cada 5 preguntes
@@ -29,9 +30,21 @@ function onDeviceReady() {
 	$("#boto_filtrar").click(get_stats);
 	$("#boto_mark_as_inappropriate").click(mark_as_inappropriate);
 	$("#estadistiques").hide();
+	
+	$(".boto-resposta").button();	// Això és pq no falli a la primera iteració quan posem els botons en enable
+	$("div[data-role='popup']").popup();	// Pq no falli a la 1a iteració quan tanquem els popups al mostrar el popup de benvinguda
+	
+	// Escoltem el swipe i cambiem de pregunta quan pertoqui
+	jQuery( window ).on( "swipeleft", function( event ) {
+		if(next_question_enabled){
+			mostra_pregunta();
+		}
+	} )
+	
 	var AdHeight = 32;
 	screen_w = window.innerWidth;
 	screen_h = window.innerHeight - AdHeight;
+
 	mida_popup = (screen_w < screen_h) ?  screen_w: screen_h;
 	$("#popup_stats").css("height", (mida_popup*2/3) + 'px').css("width", (mida_popup*2/3) + 'px');
 	//ad();	// Cridem la generació de publicitat. Això s'hauria de treure en una hipotètica versió per ordinador
@@ -41,7 +54,6 @@ function onDeviceReady() {
 	}
 	else {
 		// Usuari autèntic
-		alert(1);
 		login();
 	}
 }
@@ -89,6 +101,8 @@ function carregaPregunta() {
 				pregunta = resposta.Pregunta;
 				resposta1 = resposta.Resposta1;
 				resposta2 = resposta.Resposta2;
+				n_resposta1 = resposta.NResposta1;
+				n_resposta2 = resposta.NResposta2;
 				if (primera_pregunta == 0) {
 					primera_pregunta = 1;
 					mostra_pregunta();
@@ -123,6 +137,7 @@ function carregaPreguntaRandom() {
 }
 
 function mostra_pregunta() {
+	$.mobile.changePage( "#main", {allowSamePageTransition:"true", transition: "slide"})
 	// TODO: Descomentar al compilar
 	/*
 	if(indexPregunta==5) {
@@ -139,13 +154,7 @@ function mostra_pregunta() {
 		} );
 	}
 	indexPregunta++;*/
-	if(usuari_activat) {
-		$("#boto_next").addClass('ui-disabled');
-		$("#coll_stats").collapsible("option","collapsed",true);
-		$(".boto-resposta").button("enable");
-		$("#estadistiques").hide();
-		id_pregunta_actual = id_pregunta_futura;
-	}
+
 	$('#h_pregunta').text(pregunta);
 	$("#resposta1").siblings("span").remove();
 	$("#resposta2").siblings("span").remove();
@@ -153,7 +162,12 @@ function mostra_pregunta() {
 	$("#resposta2").parent().append("<span>B) " + resposta2 + "</span>");
 	
 	if(usuari_activat){
+		next_question_enabled = false;
+		$(".boto-resposta").button("enable");
+		$("#estadistiques").hide();
+		id_pregunta_actual = id_pregunta_futura;
 		carregaPregunta();
+		$("#popup_stats").popup("close");
 	}
 	else {
 		carregaPreguntaRandom();
@@ -164,30 +178,41 @@ function mostra_pregunta() {
 
 function aporta_resposta(resposta) {
 	if (usuari_activat) {
+		next_question_enabled = true;
+		$("#estadistiques").show();
+		var total = n_resposta1 + n_resposta2;
+		$(".boto-resposta").button("disable");
+		var data = [
+			['opció B', n_resposta2 / total],['opció A', n_resposta1 / total]
+		];
+		mostra_grafica($('#chart'),data,'Respostes');
+		
 		var id_usuari = window.localStorage.getItem("id_usuari");
 		var pwd = window.localStorage.getItem("pwd");
 		$.getJSON( 
 			url_submit_answer.concat(jsoncb), 
 			{
-				id_usuari:id_usuari, 
-				pwd:pwd,
-				id_pregunta:id_pregunta_actual,
+				id_usuari: id_usuari,
+				pwd: pwd,
+				id_pregunta: id_pregunta_actual,
 				resposta: resposta
-			}, 
+			},
 			function(resposta) {
-				if (resposta.success == 1) {
-					$("#boto_next").removeClass('ui-disabled');
-					$("#estadistiques").show();
-					var total = resposta.NResposta1 + resposta.NResposta2;
-					$(".boto-resposta").button("disable");
-					var data = [
-						['opció B', resposta.NResposta2 / total],['opció A', resposta.NResposta1 / total]
-					  ];
-					mostra_grafica($('#chart'),data,'Respostes');
+				/*if (resposta.success == 1) {
+					id_pregunta_futura = resposta.Id_Pregunta;
+					pregunta = resposta.Pregunta;
+					resposta1 = resposta.Resposta1;
+					resposta2 = resposta.Resposta2;
+					n_resposta1 = resposta.NResposta1;
+					n_resposta2 = resposta.NResposta2;
+					if (primera_pregunta == 0) {
+						primera_pregunta = 1;
+						mostra_pregunta();
+					}
 				} else {
-					// TODO: Deal with
+					//TODO: Deal with
 					show_message(resposta.message);
-				}
+				}*/
 			}
 		);
 	}
@@ -235,6 +260,10 @@ function login() {
 function logout() {
 	$("#header_autentic").hide();
 	$("#header_no_autentic").show();
+	
+	$(".boto-resposta").button("enable");
+	$("#estadistiques").hide();
+	
 	usuari_activat = false;
 	window.localStorage.clear();
 	primera_pregunta = 0;
@@ -355,7 +384,7 @@ function mark_as_inappropriate(e) {
 	var id_usuari = window.localStorage.getItem("id_usuari");
 	var pwd = window.localStorage.getItem("pwd");
 	var pregunta = id_pregunta_actual;
-	$("#boto_next").removeClass('ui-disabled');
+	next_question_enabled = true;
 	$.getJSON( 
 		url_mark_as_inappropriate.concat(jsoncb), 
 		{
@@ -481,7 +510,7 @@ function show_message(text) {
 	$("#popup_message").popup("open");
 	setTimeout(function() {
 		$("#popup_message").popup("close");
-	}, 5000);
+	}, 4000);
 }
 
 function ad() {

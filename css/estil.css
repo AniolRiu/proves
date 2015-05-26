@@ -29,6 +29,10 @@ span {
   white-space: normal !important; 
 }
 
+/*#div_content { height: 100% !important; }
+
+#div_content .ui-btn { padding: 10%; max-height: 5% !important; }*/
+
 /*Amb això centrem els botons de la barra d'eines, cada un dins del seu grid*/
 .center {
     text-align: center;
