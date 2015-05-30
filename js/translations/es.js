@@ -1,5 +1,6 @@
 /* Castellà */
 var i18n = {
+	"cat" : "es",
 	"Encantats de tornar-te a veure, ":"Encantados de volver a verte, " ,
 	"Opció A" : "Opción A",
 	"Opció B" : "Opción B",
@@ -15,4 +16,8 @@ var i18n = {
 	"Repeteix la contrassenya" : "Repite la contraseña",
 	"Generació" : "Generación",
 	"Anterior" : "Anterior",
+	"Respostes " : "Respuestas ",
+	"dels homes " : "de los hombres ",
+	"de les dones " : "de las mujeres ",
+	"de la generacio dels " : "de la generación "
 };

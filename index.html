@@ -4,7 +4,7 @@
   <meta name="QuèPrefereixes?" charset="utf-8" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, usr-scalable=no">
   <title>QuèPrefereixes?</title>
   
-  <script src="js/translations/en.js" type="text/javascript"></script>
+  <!--<script src="js/translations/en.js" type="text/javascript"></script>-->
   
   <link rel="stylesheet" type="text/css" href="css/estil.css" />
   <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
@@ -59,11 +59,13 @@
 			<fieldset data-role="controlgroup" data-type="horizontal">
 
 				<select name="genere" id="genere" data-icon="gender" >
+					<option value="nul" selected></option>
 					<option value="0"></option>
 					<option value="1"></option>
 				</select>
 				
 				<select name="generacio" id="generacio" data-icon="generation">
+					<option value="nul" selected></option>
 					<option value="40"></option>
 					<option value="50">50's</option>
 					<option value="60">60's</option>
@@ -137,6 +139,7 @@
 					
 					<fieldset class="ui-field-contain">
 						<select name="genere" id="genere" data-icon="gender" >
+							<option value="NULL" selected disabled style="display:none"></option>
 							<option value="0"></option>
 							<option value="1"></option>
 						</select>
@@ -144,6 +147,7 @@
 					
 					<fieldset class="ui-field-contain">
 						<select name="generacio" id="generacio" data-icon="generation">
+							<option value="NULL" selected disabled style="display:none"></option>
 							<option value="40"></option>
 							<option value="50">50's</option>
 							<option value="60">60's</option>

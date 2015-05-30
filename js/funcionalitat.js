@@ -14,6 +14,7 @@ var storage = window.localStorage;
 var screen_w, screen_h;
 var indexPregunta = 0; // Conta les preguntes per posar publicitat cada 5 preguntes
 var admobid = {};	// Guarda els paràmetres de la publicitat
+var lang = _("cat");
 
 window.onload = onDeviceReady;
 
@@ -85,9 +86,9 @@ $(document).ready(function(){
 	$("#signup_password").attr("placeholder", _("Contrassenya"));
 	$("#signup_password_rep").attr("placeholder", _("Repeteix la contrassenya"));
 	// Per cambiar el placeholder dels selects canviem el text de l'span creat per juqery
-	$("#genere option:nth-child(1)").text(_("Home"));
-	$("#genere option:nth-child(2)").text(_("Dona"));
-	$("#generacio option:nth-child(1)").text(_("Anterior"));
+	$("#genere option:nth-child(2)").text(_("Home"));
+	$("#genere option:nth-child(3)").text(_("Dona"));
+	$("#generacio option:nth-child(2)").text(_("Anterior"));
 });
 
 function carregaPregunta() {
@@ -96,6 +97,7 @@ function carregaPregunta() {
 	$.getJSON( 
 		url_pregunta.concat(jsoncb), 
 		{
+			lang: lang,
 			id_usuari: id_usuari,
 			pwd: pwd,
 			n_pregunta: primera_pregunta
@@ -123,7 +125,9 @@ function carregaPregunta() {
 function carregaPreguntaRandom() {
 	$.getJSON( 
 		url_pregunta_random.concat(jsoncb), 
-		{}, // No te parametres
+		{
+			lang: lang
+		},
 		function(resposta) {
 			if (resposta.success == 1) {
 				pregunta = resposta.Pregunta;
@@ -142,7 +146,7 @@ function carregaPreguntaRandom() {
 }
 
 function mostra_pregunta() {
-	$.mobile.changePage( "#main", {allowSamePageTransition:"true", transition: "slide"})
+	if(primera_pregunta == 1) $.mobile.changePage( "#main", {allowSamePageTransition:"true", transition: "slide"})
 	// TODO: Descomentar al compilar
 	/*
 	if(indexPregunta==5) {
@@ -197,6 +201,7 @@ function aporta_resposta(resposta) {
 		$.getJSON( 
 			url_submit_answer.concat(jsoncb), 
 			{
+				lang: lang,
 				id_usuari: id_usuari,
 				pwd: pwd,
 				id_pregunta: id_pregunta_actual,
@@ -234,6 +239,7 @@ function autenticacio(e) {
 	$.getJSON( 
 		url_autenticacio.concat(jsoncb), 
 		{
+			lang: lang,
 			nick:nick, 
 			pwd:pwd
 		}, 
@@ -316,6 +322,7 @@ function registre(e) {
 		$.getJSON(
 		url_registre.concat(jsoncb), 
 		{
+			lang: lang,
 			nick: nick,
 			pwd: password,
 			email: email,
@@ -360,6 +367,7 @@ function aporta_pregunta(e) {
 		$.getJSON( 
 			url_submit_question.concat(jsoncb), 
 			{
+				lang: lang,
 				id_usuari:id_usuari, 
 				pwd:pwd,
 				pregunta:pregunta,
@@ -393,6 +401,7 @@ function mark_as_inappropriate(e) {
 	$.getJSON( 
 		url_mark_as_inappropriate.concat(jsoncb), 
 		{
+			lang: lang,
 			id_usuari:id_usuari, 
 			pwd:pwd,
 			id_pregunta:pregunta
@@ -482,6 +491,7 @@ function get_stats(e) {
 	$.getJSON( 
 		url_get_stats.concat(jsoncb), 
 		{
+			lang: lang,
 			id_usuari:id_usuari, 
 			pwd:pwd,
 			pregunta:pregunta,
@@ -496,11 +506,11 @@ function get_stats(e) {
 					['opció B', resposta.NResposta2 / total],['opció A', resposta.NResposta1 / total]
 				  ];
 				var titol_genere = "";
-				if(genere == '0')titol_genere="dels homes ";
-				if(genere == '1')titol_genere="de les dones ";
+				if(genere == '0')titol_genere=_("dels homes ");
+				if(genere == '1')titol_genere=_("de les dones ");
 				var titol_generacio = "";
-				if(generacio != 'nul')titol_generacio="de la generacio dels " + generacio + "'s";
-				mostra_grafica($('#chart'),data,'Respostes ' + titol_genere + titol_generacio);
+				if(generacio != 'nul')titol_generacio=_("de la generacio dels ") + generacio + _("'s");
+				mostra_grafica($('#chart'),data,_('Respostes ') + titol_genere + titol_generacio);
 			} else {
 				show_message(resposta.message);
 			}
@@ -550,7 +560,7 @@ function share(expr){
 	var pregunta_actual = $("#h_pregunta").text();
 	var resposta1_actual = $("#resposta1").siblings("span").text();
 	var resposta2_actual = $("#resposta2").siblings("span").text();
-	var missatge = pregunta_actual + "\n" + resposta1_actual + "\n" + resposta2_actual + "\nMés preguntes estúpides a l'app QuèPrefereixes?\n";
+	var missatge = pregunta_actual + "\n" + resposta1_actual + "\n" + resposta2_actual + _("\nMés preguntes estúpides a l'app QuèPrefereixes?\n");
 	var url = "https://play.google.com/store/apps/details?id=com.articapps.queprefereixes";
 	var img = "http://queprefereixes.tk/favicon.png";
     switch (expr) { 
