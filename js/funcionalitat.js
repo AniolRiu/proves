@@ -53,7 +53,7 @@ function onDeviceReady() {
 
 	mida_popup = (screen_w < screen_h) ?  screen_w: screen_h;
 	$("#popup_stats").css("height", (mida_popup*2/3) + 'px').css("width", (mida_popup*2/3) + 'px');
-	//ad();	// Cridem la generació de publicitat. Això s'hauria de treure en una hipotètica versió per ordinador
+	ad();	// Cridem la generació de publicitat. Això s'hauria de treure en una hipotètica versió per ordinador
 	if(window.localStorage.key(0)==null) {
 		// Usuari no autèntic
 		logout();
@@ -148,7 +148,6 @@ function carregaPreguntaRandom() {
 function mostra_pregunta() {
 	if(primera_pregunta == 1) $.mobile.changePage( "#main", {allowSamePageTransition:"true", transition: "slide"})
 	// TODO: Descomentar al compilar
-	/*
 	if(indexPregunta==5) {
 		indexPregunta=0;
 		// show the interstitial later, e.g. at end of game level
@@ -162,7 +161,7 @@ function mostra_pregunta() {
 			isTesting: false
 		} );
 	}
-	indexPregunta++;*/
+	indexPregunta++;
 
 	$('#h_pregunta').text(pregunta);
 	$("#resposta1").siblings("span").remove();
