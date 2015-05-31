@@ -146,7 +146,8 @@ function carregaPreguntaRandom() {
 }
 
 function mostra_pregunta() {
-	if(primera_pregunta == 1) $.mobile.changePage( "#main", {allowSamePageTransition:"true", transition: "slide"})
+	$.mobile.changePage( "#main", {allowSamePageTransition:"true", transition: "slide"})
+	
 	// TODO: Descomentar al compilar
 	if(indexPregunta==5) {
 		indexPregunta=0;
@@ -302,22 +303,22 @@ function registre(e) {
 		//$("#popup_signup").shake();
 		//$('#error_signup').html("<span style='color:#cc0000'>Error:</span> Tots els camps són obligatoris.");
 		$("#formulari_signup").shake();
-		$('#error_signup').html("<span style='color:#cc0000'>Error:</span> Camps obligatoris buit.");
+		$('#error_signup').html("<span style='color:#cc0000'>Error:</span> " + _("Camps obligatoris buits."));
 	} 
 	else if ((password.length) < 4) {
 		$("#formulari_signup").shake();
-		$('#error_signup').html("<span style='color:#cc0000'>Error:</span> La contrassenya ha de tenir una longitud mínima de 4 caràcters.");
+		$('#error_signup').html("<span style='color:#cc0000'>Error:</span> " + _("La contrassenya ha de tenir una longitud mínima de 4 caràcters."));
 	}
 	else if (!validateEmail(email)) {
 		$("#formulari_signup").shake();
-		$('#error_signup').html("<span style='color:#cc0000'>Error:</span> El format del correu electrónic no és correcte.");
+		$('#error_signup').html("<span style='color:#cc0000'>Error:</span> " + _("El format del correu electrónic no és correcte."));
 	}
 	else if (!(password).match(password_rep)) {
 		$("#formulari_signup").shake();
-		$('#error_signup').html("<span style='color:#cc0000'>Error:</span> Les contrassenyes no coincideixen.");
+		$('#error_signup').html("<span style='color:#cc0000'>Error:</span> " + _("Les contrassenyes no coincideixen."));
 	} 
 	else {
-		$('#error_signup').html("Processant...");
+		$('#error_signup').html(_("Processant..."));
 		$.getJSON(
 		url_registre.concat(jsoncb), 
 		{
@@ -332,15 +333,15 @@ function registre(e) {
 			if (resposta.success == 1) {
 				// TODO: Instar l'usuari perquè s'autentiqui
 				//$("#panel_usuari_no_autentic").panel("close");
-				show_message("Per acabar el procés, prem el link del mail que t'hem enviat a " + email);
+				show_message(_("S'ha enviat un mail de verificació a ") + email + _(". Per completar el registre cal verificar el mail. Mentrestant, diverteix-te amb unes quantes preguntes aleatòries!"));
 			}
 			else if (resposta.success == 2) {
 				$("#formulari_signup").shake();
-				$('#error_signup').html("<span style='color:#cc0000'>Error:</span> Ja existeix un usuari amb aquest nick o email.");
+				$('#error_signup').html("<span style='color:#cc0000'>Error:</span> " + _("Ja existeix un usuari amb aquest nick o email."));
 			}
 			else {
 				$("#formulari_signup").shake();
-				$('#error_signup').html("<span style='color:#cc0000'>Error:</span> S'ha produït un error durant el procés de registre.");
+				$('#error_signup').html("<span style='color:#cc0000'>Error:</span> " + _("S'ha produït un error durant el procés de registre."));
 			}
 		});
 	}
@@ -348,7 +349,7 @@ function registre(e) {
 
 function aporta_pregunta(e) {
 	e.preventDefault()
-	$('#error_submit_question').html("Processant...");
+	$('#error_submit_question').html(_("Processant..."));
 	var id_usuari = window.localStorage.getItem("id_usuari");
 	var pwd = window.localStorage.getItem("pwd");
 	var pregunta = $('#formulari_pregunta #pregunta').val();
@@ -356,11 +357,11 @@ function aporta_pregunta(e) {
 	var r2 = $('#formulari_pregunta #r2').val();
 	if (pregunta == '' || r1 == '' || r2 == '') {
 		$("#formulari_pregunta").shake();
-		$('#error_submit_question').html("<span style='color:#cc0000'>Error:</span> Tots els camps s'han d'omplir.");
+		$('#error_submit_question').html("<span style='color:#cc0000'>Error:</span> " + _("Camps obligatoris buits."));
 	}
 	else if (r1 == r2) {
 		$("#formulari_pregunta").shake();
-		$('#error_submit_question').html("<span style='color:#cc0000'>Error:</span> Les respostes han de ser diferents, evidentment ;)");
+		$('#error_submit_question').html("<span style='color:#cc0000'>Error:</span> " + _("Les respostes han de ser diferents, evidentment") + " ;)"));
 	}
 	else {
 		$.getJSON( 
@@ -375,14 +376,18 @@ function aporta_pregunta(e) {
 			}, 
 			function(resposta) {
 				if (resposta.success == 1) {
-					show_message("La pregunta s'ha penjat correctament. Gràcies per aportar!");
-					$('#formulari_pregunta #pregunta').val('Què prefereixes?');
+					show_message(_("La pregunta s'ha penjat correctament. Gràcies per aportar!"));
+					$('#formulari_pregunta #pregunta').val(_("Què prefereixes?"));
 					$('#formulari_pregunta #r1').val('');
 					$('#formulari_pregunta #r2').val('');
 					$('#error_submit_question').html('');
 				} else {
 					$("#formulari_pregunta").shake();
-					$('#error_submit_question').html("<span style='color:#cc0000'>Error: </span>" + resposta.message);
+					/* Error messages
+					"No s'ha pogut afegir la pregunta."
+					"No s'ha trobat l'usuari de la sessió actual"
+					*/
+					$('#error_submit_question').html("<span style='color:#cc0000'>Error: </span>" + _(resposta.message));
 				}
 			}
 		);
@@ -502,7 +507,7 @@ function get_stats(e) {
 				var total = resposta.NResposta1 + resposta.NResposta2;
 				$(".boto-resposta").button("disable");
 				var data = [
-					['opció B', resposta.NResposta2 / total],['opció A', resposta.NResposta1 / total]
+					[_("opció") + ' B', resposta.NResposta2 / total],[_("opció") + ' A', resposta.NResposta1 / total]
 				  ];
 				var titol_genere = "";
 				if(genere == '0')titol_genere=_("dels homes ");
@@ -560,7 +565,7 @@ function share(expr){
 	var resposta1_actual = $("#resposta1").siblings("span").text();
 	var resposta2_actual = $("#resposta2").siblings("span").text();
 	var missatge = pregunta_actual + "\n" + resposta1_actual + "\n" + resposta2_actual + _("\nMés preguntes estúpides a l'app QuèPrefereixes?\n");
-	var url = "https://play.google.com/store/apps/details?id=com.articapps.queprefereixes";
+	var url = "https://play.google.com/store/apps/details?id=com.articapps." + _("queprefereixes");
 	var img = "http://queprefereixes.tk/favicon.png";
     switch (expr) { 
       case "Twitter": 

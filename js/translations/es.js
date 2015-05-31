@@ -1,6 +1,7 @@
 /* Castellà */
 var i18n = {
 	"cat" : "es",
+	"queprefereixes":"queprefieres",
 	"Encantats de tornar-te a veure, ":"Encantados de volver a verte, " ,
 	"Opció A" : "Opción A",
 	"Opció B" : "Opción B",
@@ -19,5 +20,19 @@ var i18n = {
 	"Respostes " : "Respuestas ",
 	"dels homes " : "de los hombres ",
 	"de les dones " : "de las mujeres ",
-	"de la generacio dels " : "de la generación "
+	"de la generacio dels " : "de la generación ",
+	"S'ha enviat un mail de verificació a ", "Se ha enviado un mail de verificación a ",
+	"Camps obligatoris buits.":"Campos obligatorios vacíos.",
+	"La contrassenya ha de tenir una longitud mínima de 4 caràcters.":"La contraseña debe tener una longitud mínima de 4 caracteres.",	
+	"El format del correu electrónic no és correcte.": "El formato del correo electrónico no es correcto.",
+	"Les contrassenyes no coincideixen.":"Las contraseñas no coinciden.",
+	"Processant...":"Procesando...",
+	". Per completar el registre cal verificar el mail. Mentrestant, diverteix-te amb unes quantes preguntes aleatòries!":". Para completar el registro, debes verificar el mail. Mientras, diviértete con unas cuantas preguntas aleatórias!",
+	"Ja existeix un usuari amb aquest nick o email.":"Ya existe un usuario con este nick o email.",
+	"S'ha produït un error durant el procés de registre.":"Se ha producido un error durante el proceso de registro.",
+	"Les respostes han de ser diferents, evidentment":"Las respuestas tienen que ser distintas, evidentemente",
+	"La pregunta s'ha penjat correctament. Gràcies per aportar!":"La pregunta se ha colgado correctamente. ¡Gracias por aportar!",
+	"No s'ha pogut afegir la pregunta.":"No se ha podido añadir la pregunta",
+	"No s'ha trobat l'usuari de la sessió actual":"No se ha encontrado el usuario de la sesión actual",
+	"opció":"opción"
 };
