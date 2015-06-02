@@ -19,7 +19,6 @@ var lang = _("cat");
 window.onload = onDeviceReady;
 
 function onDeviceReady() {
-	
 	$(function() {
 		FastClick.attach(document.body);
 	});
@@ -53,7 +52,7 @@ function onDeviceReady() {
 
 	mida_popup = (screen_w < screen_h) ?  screen_w: screen_h;
 	$("#popup_stats").css("height", (mida_popup*2/3) + 'px').css("width", (mida_popup*2/3) + 'px');
-	ad();	// Cridem la generació de publicitat. Això s'hauria de treure en una hipotètica versió per ordinador
+	//ad();	// Cridem la generació de publicitat. Això s'hauria de treure en una hipotètica versió per ordinador
 	if(window.localStorage.key(0)==null) {
 		// Usuari no autèntic
 		logout();
@@ -147,7 +146,7 @@ function carregaPreguntaRandom() {
 
 function mostra_pregunta() {
 	$.mobile.changePage( "#main", {allowSamePageTransition:"true", transition: "slide"})
-	
+	/*
 	// TODO: Descomentar al compilar
 	if(indexPregunta==5) {
 		indexPregunta=0;
@@ -162,7 +161,7 @@ function mostra_pregunta() {
 			isTesting: false
 		} );
 	}
-	indexPregunta++;
+	indexPregunta++;*/
 
 	$('#h_pregunta').text(pregunta);
 	$("#resposta1").siblings("span").remove();
@@ -361,7 +360,7 @@ function aporta_pregunta(e) {
 	}
 	else if (r1 == r2) {
 		$("#formulari_pregunta").shake();
-		$('#error_submit_question').html("<span style='color:#cc0000'>Error:</span> " + _("Les respostes han de ser diferents, evidentment") + " ;)"));
+		$('#error_submit_question').html("<span style='color:#cc0000'>Error:</span> " + _("Les respostes han de ser diferents, evidentment") + " ;)");
 	}
 	else {
 		$.getJSON( 
