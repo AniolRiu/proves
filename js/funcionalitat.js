@@ -541,8 +541,8 @@ function ad() {
 	// select the right Ad Id according to platform
     if( /(android)/i.test(navigator.userAgent) ) { // for android
         admobid = {
-            banner: 'ca-app-pub-5785179440070320/5793768897', // or DFP format "/6253334/dfp_example_ad"
-            interstitial: 'ca-app-pub-5785179440070320/7761526497'
+            banner: 'ca-app-pub-5785179440070320/5496156892', // or DFP format "/6253334/dfp_example_ad"
+            interstitial: 'ca-app-pub-5785179440070320/6972890093'
         };
     } else if(/(ipod|iphone|ipad)/i.test(navigator.userAgent)) { // for ios
         admobid = {

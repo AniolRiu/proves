@@ -3,10 +3,10 @@
 	xmlns="http://www.w3.org/ns/widgets" 
 	xmlns:gap="http://phonegap.com/ns/1.0"
 	id="com.articapps.queprefereixes" 
-	version="1.0.3"
-	versionCode="3" >
-<name>QP?</name>
-<description>L'aplicació de les preguntes sense sentit</description>
+	version="1.0.1"
+	versionCode="1" >
+<name>¿QP?</name>
+<description>La aplicación de las preguntas sin sentido</description>
 <author email="artic.vb@gmail.com">
 	Aniol Riu
 </author>
