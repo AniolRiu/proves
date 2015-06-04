@@ -42,7 +42,7 @@ function onDeviceReady() {
 	});
 	jQuery( window ).on( "swipeleft", function( event ) {
 		if(next_question_enabled){
-			mostra_pregunta();
+			mostra_pregunta(1);
 		}
 	} )
 	
@@ -111,7 +111,7 @@ function carregaPregunta() {
 				n_resposta2 = resposta.NResposta2;
 				if (primera_pregunta == 0) {
 					primera_pregunta = 1;
-					mostra_pregunta();
+					mostra_pregunta(0);
 				}
 			} else {
 				//TODO: Deal with
@@ -134,7 +134,7 @@ function carregaPreguntaRandom() {
 				resposta2 = resposta.Resposta2;
 				if(primera_pregunta == 0) {
 					primera_pregunta = 1;
-					mostra_pregunta();
+					mostra_pregunta(0);
 				}
 			} else {
 				//TODO: Deal with
@@ -144,8 +144,8 @@ function carregaPreguntaRandom() {
 	);
 }
 
-function mostra_pregunta() {
-	$.mobile.changePage( "#main", {allowSamePageTransition:"true", transition: "slide"})
+function mostra_pregunta(primera_pregunta) {
+	if(1==primera_pregunta)$.mobile.changePage( "#main", {allowSamePageTransition:"true", transition: "slide"})
 	
 	// TODO: Descomentar al compilar
 	if(indexPregunta==5) {
@@ -216,7 +216,7 @@ function aporta_resposta(resposta) {
 					n_resposta2 = resposta.NResposta2;
 					if (primera_pregunta == 0) {
 						primera_pregunta = 1;
-						mostra_pregunta();
+						mostra_pregunta(0);
 					}
 				} else {
 					//TODO: Deal with
@@ -226,7 +226,7 @@ function aporta_resposta(resposta) {
 		);
 	}
 	else {
-		mostra_pregunta();
+		mostra_pregunta(1);
 	}
 	return false;
 }
@@ -332,6 +332,7 @@ function registre(e) {
 			if (resposta.success == 1) {
 				// TODO: Instar l'usuari perquè s'autentiqui
 				//$("#panel_usuari_no_autentic").panel("close");
+				$('#error_signup').html("");
 				show_message(_("S'ha enviat un mail de verificació a ") + email + _(". Per completar el registre cal verificar el mail. Mentrestant, diverteix-te amb unes quantes preguntes aleatòries!"));
 			}
 			else if (resposta.success == 2) {
@@ -526,6 +527,11 @@ function show_message(text) {
 	$("div[data-role='popup']").popup("close");
 	$("#text_message").text(text);
 	$("#popup_message").popup("open");
+	$(document).on("pagecontainershow", function (e, ui) {
+	   setTimeout(function () {
+			$("#popup_message", ui.toPage).popup("open");
+		}, 0);
+	});
 	setTimeout(function() {
 		$("#popup_message").popup("close");
 	}, 4000);

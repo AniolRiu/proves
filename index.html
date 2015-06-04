@@ -131,18 +131,18 @@
 					<div class="ui-grid-a">
 						
 						<div class="ui-block-a">
-							<input type="text" id="signup_usuari" name="signup_usuari" placeholder="Nom d'usuari">
-							<input type="password" id="signup_password" name="signup_password" placeholder="Contrassenya">
-							<select name="genere" id="genere" data-icon="gender" >
+							<input type="text" id="signup_usuari" name="signup_usuari" placeholder="Nom d'usuari" tabindex=1>
+							<input type="password" id="signup_password" name="signup_password" placeholder="Contrassenya" tabindex=3>
+							<select name="genere" id="genere" data-icon="gender" tabindex=5>
 								<option value="NULL" selected disabled style="display:none"></option>
 								<option value="0"></option>
 								<option value="1"></option>
 							</select>
 						</div>
 						<div class="ui-block-b">
-							<input type="email" id="signup_email" name="signup_email" placeholder="Email">
-							<input type="password" id="signup_password_rep" name="signup_password_rep" placeholder="Repeteix la contrassenya">
-							<select name="generacio" id="generacio" data-icon="generation">
+							<input type="email" id="signup_email" name="signup_email" placeholder="Email" tabindex=2>
+							<input type="password" id="signup_password_rep" name="signup_password_rep" placeholder="Repeteix la contrassenya" tabindex=4>
+							<select name="generacio" id="generacio" data-icon="generation" tabindex=6>
 								<option value="NULL" selected disabled style="display:none"></option>
 								<option value="40"></option>
 								<option value="50">50's</option>
@@ -157,7 +157,7 @@
 					</div>
 
 					<div align="center">
-						<input type="submit" data-icon="check" data-iconpos="notext" id="boto_signup">
+						<input type="submit" data-icon="check" data-iconpos="notext" id="boto_signup" tabindex=7>
 					</div>
 					
 					<div id="error_signup"></div>
