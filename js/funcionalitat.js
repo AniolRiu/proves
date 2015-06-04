@@ -246,12 +246,12 @@ function autenticacio(e) {
 }
 
 function login() {
-	show_message(_("Encantats de tornar-te a veure, ") + window.localStorage.getItem("nick"));
 	$("#header_no_autentic").hide();
 	$("#header_autentic").show();
 	usuari_activat = true;
 	primera_pregunta = 0;
 	carregaPregunta();
+	show_message(_("Encantats de tornar-te a veure, ") + window.localStorage.getItem("nick"));
 }
 
 function logout() {
@@ -508,7 +508,8 @@ function get_stats(e) {
 
 function show_message(text) {
 	$("div[data-role='popup']").popup("close");
-	$("#text_message").text(text);
+	alert(text);
+	/*$("#text_message").text(text);
 	$("#popup_message").popup("open");
 	$(document).on("pagecontainershow", function (e, ui) {
 	   setTimeout(function () {
@@ -517,7 +518,7 @@ function show_message(text) {
 	});
 	setTimeout(function() {
 		$("#popup_message").popup("close");
-	}, 4000);
+	}, 4000);*/
 }
 
 function ad() {
