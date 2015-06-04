@@ -21,7 +21,7 @@ var i18n = {
 	"dels homes " : "de los hombres ",
 	"de les dones " : "de las mujeres ",
 	"de la generacio dels " : "de la generación ",
-	"S'ha enviat un mail de verificació a ", "Se ha enviado un mail de verificación a ",
+	"S'ha enviat un mail de verificació a ": "Se ha enviado un mail de verificación a ",
 	"Camps obligatoris buits.":"Campos obligatorios vacíos.",
 	"La contrassenya ha de tenir una longitud mínima de 4 caràcters.":"La contraseña debe tener una longitud mínima de 4 caracteres.",	
 	"El format del correu electrónic no és correcte.": "El formato del correo electrónico no es correcto.",
@@ -34,5 +34,5 @@ var i18n = {
 	"La pregunta s'ha penjat correctament. Gràcies per aportar!":"La pregunta se ha colgado correctamente. ¡Gracias por aportar!",
 	"No s'ha pogut afegir la pregunta.":"No se ha podido añadir la pregunta",
 	"No s'ha trobat l'usuari de la sessió actual":"No se ha encontrado el usuario de la sesión actual",
-	"opció":"opción"
+	"opció":"opción",
 };
