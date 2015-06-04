@@ -15,7 +15,6 @@ var screen_w, screen_h;
 var indexPregunta = 0; // Conta les preguntes per posar publicitat cada 5 preguntes
 var admobid = {};	// Guarda els paràmetres de la publicitat
 var lang = _("cat");
-
 window.onload = onDeviceReady;
 
 function onDeviceReady() {
@@ -115,7 +114,7 @@ function carregaPregunta() {
 				}
 			} else {
 				//TODO: Deal with
-				show_message(resposta.message);
+				show_message(_(resposta.message));
 			}
 		}
 	);
@@ -138,7 +137,7 @@ function carregaPreguntaRandom() {
 				}
 			} else {
 				//TODO: Deal with
-				show_message(resposta.message);
+				show_message(_(resposta.message));
 			}
 		}
 	);
@@ -207,21 +206,9 @@ function aporta_resposta(resposta) {
 				resposta: resposta
 			},
 			function(resposta) {
-				/*if (resposta.success == 1) {
-					id_pregunta_futura = resposta.Id_Pregunta;
-					pregunta = resposta.Pregunta;
-					resposta1 = resposta.Resposta1;
-					resposta2 = resposta.Resposta2;
-					n_resposta1 = resposta.NResposta1;
-					n_resposta2 = resposta.NResposta2;
-					if (primera_pregunta == 0) {
-						primera_pregunta = 1;
-						mostra_pregunta(0);
-					}
-				} else {
-					//TODO: Deal with
-					show_message(resposta.message);
-				}*/
+				if (resposta.success != 1) {
+					show_message(_(resposta.message));
+				}
 			}
 		);
 	}
@@ -251,7 +238,7 @@ function autenticacio(e) {
 				login();
 			} else {
 				$('#formulari_login').shake();
-				$('#error_login').html("<span style='color:#cc0000'>Error:</span> " + resposta.message);
+				$('#error_login').html("<span style='color:#cc0000'>Error:</span> " + _(resposta.message));
 			}
 		}
 	);
@@ -335,13 +322,9 @@ function registre(e) {
 				$('#error_signup').html("");
 				show_message(_("S'ha enviat un mail de verificació a ") + email + _(". Per completar el registre cal verificar el mail. Mentrestant, diverteix-te amb unes quantes preguntes aleatòries!"));
 			}
-			else if (resposta.success == 2) {
-				$("#formulari_signup").shake();
-				$('#error_signup').html("<span style='color:#cc0000'>Error:</span> " + _("Ja existeix un usuari amb aquest nick o email."));
-			}
 			else {
 				$("#formulari_signup").shake();
-				$('#error_signup').html("<span style='color:#cc0000'>Error:</span> " + _("S'ha produït un error durant el procés de registre."));
+				$('#error_signup').html("<span style='color:#cc0000'>Error:</span> " + _(resposta.message));
 			}
 		});
 	}
@@ -412,7 +395,7 @@ function mark_as_inappropriate(e) {
 		}, 
 		function(resposta) {
 			$('#error_mark_as_inappropriate').html("");
-			show_message(resposta.message);
+			show_message(_(resposta.message));
 		}
 	);
 	return false;
@@ -516,7 +499,7 @@ function get_stats(e) {
 				if(generacio != 'nul')titol_generacio=_("de la generacio dels ") + generacio + _("'s");
 				mostra_grafica($('#chart'),data,_('Respostes ') + titol_genere + titol_generacio);
 			} else {
-				show_message(resposta.message);
+				show_message(_(resposta.message));
 			}
 		}
 	);
@@ -596,4 +579,20 @@ function _(s) {
       return i18n[s];
    }
    return s;
+}
+
+function sortOnKeys(dict) {
+
+    var sorted = [];
+    for(var key in dict) {
+        sorted[sorted.length] = key;
+    }
+    sorted.sort();
+
+    var tempDict = {};
+    for(var i = 0; i < sorted.length; i++) {
+        tempDict[sorted[i]] = dict[sorted[i]];
+    }
+
+    return tempDict;
 }
