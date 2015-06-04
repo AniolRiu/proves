@@ -192,7 +192,7 @@ function aporta_resposta(resposta) {
 		var data = [
 			['opció B', n_resposta2 / total],['opció A', n_resposta1 / total]
 		];
-		mostra_grafica($('#chart'),data,'Respostes');
+		mostra_grafica($('#chart'),data,_('Respostes '));
 		
 		var id_usuari = window.localStorage.getItem("id_usuari");
 		var pwd = window.localStorage.getItem("pwd");
