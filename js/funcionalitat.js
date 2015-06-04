@@ -15,7 +15,7 @@ var screen_w, screen_h;
 var indexPregunta = 0; // Conta les preguntes per posar publicitat cada 5 preguntes
 var admobid = {};	// Guarda els paràmetres de la publicitat
 var lang = _("cat");
-var publi = false; // Desactivar quan es vulgui fer córrer a l'ordinador o per fer proves
+var publi = true; // Desactivar quan es vulgui fer córrer a l'ordinador o per fer proves
 window.onload = onDeviceReady;
 
 function onDeviceReady() {
