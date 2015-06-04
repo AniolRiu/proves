@@ -15,6 +15,7 @@ var screen_w, screen_h;
 var indexPregunta = 0; // Conta les preguntes per posar publicitat cada 5 preguntes
 var admobid = {};	// Guarda els paràmetres de la publicitat
 var lang = _("cat");
+var publi = false; // Desactivar quan es vulgui fer córrer a l'ordinador o per fer proves
 window.onload = onDeviceReady;
 
 function onDeviceReady() {
@@ -51,7 +52,7 @@ function onDeviceReady() {
 
 	mida_popup = (screen_w < screen_h) ?  screen_w: screen_h;
 	$("#popup_stats").css("height", (mida_popup*2/3) + 'px').css("width", (mida_popup*2/3) + 'px');
-	ad();	// Cridem la generació de publicitat. Això s'hauria de treure en una hipotètica versió per ordinador
+	if(publi)ad();	// Cridem la generació de publicitat. Això s'hauria de treure en una hipotètica versió per ordinador
 	if(window.localStorage.key(0)==null) {
 		// Usuari no autèntic
 		logout();
@@ -145,22 +146,22 @@ function carregaPreguntaRandom() {
 
 function mostra_pregunta(primera_pregunta) {
 	if(1==primera_pregunta)$.mobile.changePage( "#main", {allowSamePageTransition:"true", transition: "slide"})
-	
-	// TODO: Descomentar al compilar
-	if(indexPregunta==5) {
-		indexPregunta=0;
-		// show the interstitial later, e.g. at end of game level
-		if(AdMob) AdMob.showInterstitial();
+	if(publi) {
+		if(indexPregunta==5) {
+			indexPregunta=0;
+			// show the interstitial later, e.g. at end of game level
+			if(AdMob) AdMob.showInterstitial();
+		}
+		if(indexPregunta==1){
+			// preppare and load ad resource in background, e.g. at begining of game level
+			if(AdMob) AdMob.prepareInterstitial( {
+				adId:admobid.interstitial, 
+				autoShow:false,
+				isTesting: false
+			} );
+		}
+		indexPregunta++;
 	}
-	if(indexPregunta==1){
-		// preppare and load ad resource in background, e.g. at begining of game level
-		if(AdMob) AdMob.prepareInterstitial( {
-			adId:admobid.interstitial, 
-			autoShow:false,
-			isTesting: false
-		} );
-	}
-	indexPregunta++;
 
 	$('#h_pregunta').text(pregunta);
 	$("#resposta1").siblings("span").remove();
@@ -401,28 +402,7 @@ function mark_as_inappropriate(e) {
 	return false;
 }
 
-function mostra_grafica(element, data, title) {
-	/*jQuery.jqplot (element, [data], 
-		{
-			grid: {
-				borderColor: 'transparent',
-				shadow: false,
-				background: 'transparent'
-			},
-			seriesDefaults: {
-				// Make this a pie chart.
-				renderer: jQuery.jqplot.PieRenderer, 
-				rendererOptions: {
-					// Put data labels on the pie slices.
-					// By default, labels show the percentage of the slice.
-					showDataLabels: true,
-					seriesColors: [ "#1C86EE", "#FF8C00"]
-				}
-			}
-		}
-	);*/
-	//TODO: L'anterior és per mostrar la grafica amb jqPlot. Si no ho fax servir s'haurien de borrar els fitxers corresponents de la carpeta js i els links de les capsaleres
-	
+function mostra_grafica(element, data, title) {	
 	element.highcharts({
 		chart: {
 			type: 'pie',
@@ -487,6 +467,7 @@ function get_stats(e) {
 		}, 
 		function(resposta) {
 			if (resposta.success == 1) {
+				console.log(resposta);
 				var total = resposta.NResposta1 + resposta.NResposta2;
 				$(".boto-resposta").button("disable");
 				var data = [
@@ -509,36 +490,62 @@ function get_stats(e) {
 function show_message(text) {
 	$("div[data-role='popup']").popup("close");
 	alert(text);
-	/*$("#text_message").text(text);
-	$("#popup_message").popup("open");
-	$(document).on("pagecontainershow", function (e, ui) {
+	//$("#text_message").text(text);
+	//$("#popup_message").popup("open");
+	/*$(document).one("pagecontainershow", function (e, ui) {
 	   setTimeout(function () {
 			$("#popup_message", ui.toPage).popup("open");
 		}, 0);
-	});
-	setTimeout(function() {
+	});*/
+	/*setTimeout(function() {
 		$("#popup_message").popup("close");
 	}, 4000);*/
+	/*$(document).off("pagecontainershow", function (e, ui) {
+	   setTimeout(function () {
+			$("#popup_message", ui.toPage).popup("open");
+		}, 0);
+	});*/
 }
 
 function ad() {
 	// select the right Ad Id according to platform
-    if( /(android)/i.test(navigator.userAgent) ) { // for android
-        admobid = {
-            banner: 'ca-app-pub-5785179440070320/5496156892', // or DFP format "/6253334/dfp_example_ad"
-            interstitial: 'ca-app-pub-5785179440070320/6972890093'
-        };
-    } else if(/(ipod|iphone|ipad)/i.test(navigator.userAgent)) { // for ios
-        admobid = {
-            banner: 'ca-app-pub-xxx/zzz', // or DFP format "/6253334/dfp_example_ad"
-            interstitial: 'ca-app-pub-xxx/kkk'
-        };
-    } else { // for windows phone
-        admobid = {
-            banner: 'ca-app-pub-xxx/zzz', // or DFP format "/6253334/dfp_example_ad"
-            interstitial: 'ca-app-pub-xxx/kkk'
-        };
-    }
+	if(lang == 'cat') {
+		if( /(android)/i.test(navigator.userAgent) ) { // for android
+			admobid = {
+				banner: 'ca-app-pub-5785179440070320/7761526497', // or DFP format "/6253334/dfp_example_ad"
+				interstitial: 'ca-app-pub-5785179440070320/5793768897'
+			};
+		} else if(/(ipod|iphone|ipad)/i.test(navigator.userAgent)) { // for ios
+			admobid = {
+				banner: 'ca-app-pub-xxx/zzz', // or DFP format "/6253334/dfp_example_ad"
+				interstitial: 'ca-app-pub-xxx/kkk'
+			};
+		} else { // for windows phone
+			admobid = {
+				banner: 'ca-app-pub-xxx/zzz', // or DFP format "/6253334/dfp_example_ad"
+				interstitial: 'ca-app-pub-xxx/kkk'
+			};
+		}
+	}
+	else if (lang == 'es') {
+		if( /(android)/i.test(navigator.userAgent) ) { // for android
+			admobid = {
+				banner: 'ca-app-pub-5785179440070320/5496156892', // or DFP format "/6253334/dfp_example_ad"
+				interstitial: 'ca-app-pub-5785179440070320/6972890093'
+			};
+		} else if(/(ipod|iphone|ipad)/i.test(navigator.userAgent)) { // for ios
+			admobid = {
+				banner: 'ca-app-pub-xxx/zzz', // or DFP format "/6253334/dfp_example_ad"
+				interstitial: 'ca-app-pub-xxx/kkk'
+			};
+		} else { // for windows phone
+			admobid = {
+				banner: 'ca-app-pub-xxx/zzz', // or DFP format "/6253334/dfp_example_ad"
+				interstitial: 'ca-app-pub-xxx/kkk'
+			};
+		}
+	}
+    
 	
 	// it will display smart banner at top center, using the default options
 	if(AdMob) AdMob.createBanner( {
