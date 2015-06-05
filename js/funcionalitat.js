@@ -52,7 +52,7 @@ function onDeviceReady() {
 
 	mida_popup = (screen_w < screen_h) ?  screen_w: screen_h;
 	$("#popup_stats").css("height", (mida_popup*2/3) + 'px').css("width", (mida_popup*2/3) + 'px');
-	if(publi)ad();	// Cridem la generació de publicitat. Això s'hauria de treure en una hipotètica versió per ordinador
+	if(publi)ad_tappx();	// Cridem la generació de publicitat. Això s'hauria de treure en una hipotètica versió per ordinador
 	if(window.localStorage.key(0)==null) {
 		// Usuari no autèntic
 		logout();
@@ -150,16 +150,17 @@ function mostra_pregunta(primera_pregunta) {
 		if(indexPregunta==5) {
 			indexPregunta=0;
 			// show the interstitial later, e.g. at end of game level
-			if(AdMob) AdMob.showInterstitial();
+			//if(AdMob) AdMob.showInterstitial();
+			admob.requestInterstitial();
 		}
-		if(indexPregunta==1){
+		/*if(indexPregunta==1){
 			// preppare and load ad resource in background, e.g. at begining of game level
 			if(AdMob) AdMob.prepareInterstitial( {
 				adId:admobid.interstitial, 
 				autoShow:false,
 				isTesting: false
 			} );
-		}
+		}*/
 		indexPregunta++;
 	}
 
@@ -554,6 +555,19 @@ function ad() {
 		autoShow: true,
 		isTesting: false
 	} );
+}
+
+function ad_tappx() {
+	// Set AdMobAds options:
+	admob.setOptions({
+		publisherId:          "ca-app-pub-5785179440070320/5793768897",  // Required
+		interstitialAdId:     "ca-app-pub-5785179440070320/7761526497",  // Optional
+		tappxIdAndroid:       "/120940746/Pub-4359-Android-0954",        // Optional
+		tappxShare:           1                                        // Optional
+	});
+
+	// Start showing banners (atomatic when autoShowBanner is set to true)
+	admob.createBannerView();
 }
 
 function share(expr){
