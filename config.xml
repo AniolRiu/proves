@@ -10,7 +10,6 @@
 <author email="artic.vb@gmail.com">
 	Aniol Riu
 </author>
-<preference name="phonegap-version" value="4.0.1" />
 <preference name="fullscreen" value="true" />
 <icon src="res/icon.png" />
 <platform name="android">
@@ -37,5 +36,5 @@
 </platform>
 <!--<gap:plugin name="com.google.cordova.admob" version="2.7.0" source="plugins.cordova.io"/>-->
 <gap:plugin name="nl.x-services.plugins.socialsharing" version="4.3.8" />
-<gap:plugin name="com.admob.google" source="plugins.cordova.io" />
+<gap:plugin name="com.admob.google" source="plugins.cordova.io" version="4.0.4" />
 </widget>
