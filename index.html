@@ -46,8 +46,6 @@
     function onSuccess(acceleration) {
 		var acc_y = acceleration.y;
 		var tiltLR = Math.round(Math.asin(acc_y / 9.81) * rad2deg);
-		//tiltLR = 90 - tiltLR;
-		//var upside_down = (acceleration.y < 0);
 		if (acc_y < 0) {
 			// Baixada a l'esquerra
 			drawAngle(screen_w *0.5,screen_h * 0.8, 0.6 * screen_h, 180, -tiltLR, true, "#FF7F24");
