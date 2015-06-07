@@ -1,8 +1,16 @@
-#floor {
-	width: 100%;
+#gear {
+    transform-origin: 10% 10%; /* IE 10+, Firefox, etc. */
+    -webkit-transform-origin: 10% 10%; /* Chrome */
+    -ms-transform-origin: 10% 10%; /* IE 9 */
+    z-index:3;
+    height:8%;
+    top:53%;
+}
+
+#rock {
 	z-index:2;
-	height: auto;
-	bottom: 0px;
+	right: 30%;
+	height: 100%;
 }
 
 #sky {

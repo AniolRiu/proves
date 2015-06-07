@@ -2,16 +2,16 @@
 <widget 
 	xmlns="http://www.w3.org/ns/widgets" 
 	xmlns:gap="http://phonegap.com/ns/1.0"
-	id="com.articapps.cycleangle" 
-	version="1.0.3"
-	versionCode="3" >
-<name>CycleAngle</name>
-<description>This app shows the inclination of the road.</description>
+	id="com.articapps.climbangle" 
+	version="1.0.1"
+	versionCode="2" >
+<name>ClimbAngle</name>
+<description>This app shows the inclination of a climbing route.</description>
 <author email="artic.vb@gmail.com">
 	Aniol Riu
 </author>
 <preference name="fullscreen" value="true" />
-<preference name="orientation" value="landscape" />
+<preference name="orientation" value="portrait" />
 <icon src="res/icon.png" />
 <platform name="android">
 	<icon src="res/android/drawable-ldpi/ic_launcher.png" density="ldpi" />
