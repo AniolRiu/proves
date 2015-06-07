@@ -52,8 +52,8 @@
 
     // onSuccess: Get a snapshot of the current acceleration
     function onSuccess(acceleration) {
-		div_x.innerHTML = acceleration.x;
-		div_y.innerHTML = acceleration.y;
+		//div_x.innerHTML = acceleration.x;
+		//div_y.innerHTML = acceleration.y;
 		
 		
 		var tiltLR = Math.round(Math.asin(acceleration.y / 9.81) * rad2deg);
@@ -61,12 +61,12 @@
 		var upside_down = (acceleration.y < 0);
 		if (upside_down) {
 			// Baixada a l'esquerra
-			div_z.innerHTML = -tiltLR;
-			drawAngle(screen_w *0.5,screen_h * 0.8, 0.6 * screen_h, 180, tiltLR, true, "#FF7F24");
+
+			drawAngle(screen_w *0.5,screen_h * 0.8, 0.6 * screen_h, 180, -tiltLR, true, "#FF7F24");
 		}
 		else {
 			// Pujada a l'esquerra
-			div_z.innerHTML = tiltLR;
+
 			drawAngle(screen_w *0.5,screen_h * 0.8, 0.6 * screen_h, 0, tiltLR, false, "#FF7F24");
 		}
     }
