@@ -16,9 +16,9 @@
 	var ctx;
 	var screen_w, screen_h;
 	var left_side = true;
-	var div_x = document.getElementById("x");
-	var div_y = document.getElementById("y");
-	var div_z = document.getElementById("z");
+	var div_x;
+	var div_y;
+	var div_z;
     
     // Wait for device API libraries to load
     document.addEventListener("deviceready", onDeviceReady, false);
@@ -35,6 +35,11 @@
 		screen_h = window.innerHeight - AdHeight;
 		can.width = screen_w;
 		can.height = screen_h;
+		
+		div_x = document.getElementById("x");
+		div_y = document.getElementById("y");
+		div_z = document.getElementById("z");
+		
         startWatch();
     }
 
