@@ -16,9 +16,6 @@
 	var ctx;
 	var screen_w, screen_h;
 	var left_side = true;
-	var div_x;
-	var div_y;
-	var div_z;
     
     // Wait for device API libraries to load
     document.addEventListener("deviceready", onDeviceReady, false);
@@ -35,11 +32,6 @@
 		screen_h = window.innerHeight - AdHeight;
 		can.width = screen_w;
 		can.height = screen_h;
-		
-		div_x = document.getElementById("x");
-		div_y = document.getElementById("y");
-		div_z = document.getElementById("z");
-		
         startWatch();
     }
 
@@ -52,21 +44,16 @@
 
     // onSuccess: Get a snapshot of the current acceleration
     function onSuccess(acceleration) {
-		//div_x.innerHTML = acceleration.x;
-		//div_y.innerHTML = acceleration.y;
-		
-		
-		var tiltLR = Math.round(Math.asin(acceleration.y / 9.81) * rad2deg);
+		var acc_y = acceleration.y;
+		var tiltLR = Math.round(Math.asin(acc_y / 9.81) * rad2deg);
 		//tiltLR = 90 - tiltLR;
-		var upside_down = (acceleration.y < 0);
-		if (upside_down) {
+		//var upside_down = (acceleration.y < 0);
+		if (acc_y < 0) {
 			// Baixada a l'esquerra
-
 			drawAngle(screen_w *0.5,screen_h * 0.8, 0.6 * screen_h, 180, -tiltLR, true, "#FF7F24");
 		}
 		else {
 			// Pujada a l'esquerra
-
 			drawAngle(screen_w *0.5,screen_h * 0.8, 0.6 * screen_h, 0, tiltLR, false, "#FF7F24");
 		}
     }
@@ -157,15 +144,13 @@
     </script>
   </head>
   <body style="background-color:#C6E2FF">
-	<div id="x">X</div>
-	<div id="y">Y</div>
-	<div id="z">Z</div>
     <div style="	background:url(res/tap_screen.png) center center no-repeat;
 						background-size:auto 100%;
 						height: 50px " id="div_tap_screen">
 	</div>
 	<div id="escenari">
 		<img id="floor" src="res/left_cycle.png">
+		<!--<img id="sky" src="res/sky.png"/>-->
 		<canvas id="canvas"></canvas>
     </div>
   </body>
