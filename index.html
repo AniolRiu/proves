@@ -14,31 +14,27 @@
     var deg2rad = 1 / rad2deg;
     var can;
 	var ctx;
-	var screen_w, screen_h;
+	var screen_w, screen_h, ad_height_landscape, ad_height_portrait;
 	var left_side = true;
-	var pos_gear;
     
     // Wait for device API libraries to load
     document.addEventListener("deviceready", onDeviceReady, false);
 
     // device APIs are available
     function onDeviceReady() {
-		var AdHeight = (window.screen.availHeight > 720 ? 90 : 50 );
 		initAd();
 		can = document.getElementById("canvas");
-		window.onclick = swap;
-		
 		ctx = can.getContext("2d");
 		screen_w = window.innerWidth;
+		screen_h = window.innerHeight;
+		alert(screen_h);
+		var AdHeight = 32;
+		
+		
 		screen_h = window.innerHeight - AdHeight;
 		can.width = screen_w;
 		can.height = screen_h;
-		pos_gear = 30 + (14 * (screen_h / screen_w));
-		$("#gear").css({'right': pos_gear + '%'});
-		//$("#sky").css({'left': ((screen_h * 1.22 * 1166/730) - screen_w) / -2 + 'px'});
-		// Advertisement -----
 		
-		// ----------
         startWatch();
     }
 
@@ -51,103 +47,31 @@
 
     // onSuccess: Get a snapshot of the current acceleration
     function onSuccess(acceleration) {
-		var acc_x = acceleration.x;
-		var acc_y = acceleration.y;
-		var tiltLR = Math.round(Math.asin(acc_y / 9.81) * rad2deg);
-		tiltLR = 90 - tiltLR;
-		var upside_down = (acc_y < 0);
-		var left_inclination = (acc_x > 0);
-		var tiltLRgear = tiltLR;
-		//var tiltLRsky = tiltLR;
-		if (left_side){
-			if (left_inclination) {
-				// La paret és tumbada
-				tiltLRgear = 0;
-				if (upside_down) {
-					// La paret és una baixada
-					tiltLR = 180 - tiltLR;
-				}
-				drawAngle(screen_w *0.2,screen_h * 0.5, 0.6 * screen_w, 90, tiltLR, true, "#FF7F24");
-			}
-			else {
-				// La paret desploma
-				tiltLR = -tiltLR;
-				if (upside_down) {
-					// La paret és un sostre inclinat avall
-					tiltLR = 180 - tiltLR;
-					tiltLRgear = - 90;
-					//tiltLRsky = -tiltLR;
-				}
-				drawAngle(screen_w *0.2,screen_h * 0.5, 0.6 * screen_w, 270, tiltLR, false, "#FF7F24");
-			}
+		//div_x.innerHTML = acceleration.x;
+		//div_y.innerHTML = acceleration.y;
+		
+		
+		var tiltLR = Math.round(Math.asin(acceleration.y / 9.81) * rad2deg);
+		//tiltLR = 90 - tiltLR;
+		var upside_down = (acceleration.y < 0);
+		if (upside_down) {
+			// Baixada a l'esquerra
+			drawAngle(screen_w *0.5,screen_h * 0.8, 0.6 * screen_h, 180, -tiltLR, true, "#FF7F24");
 		}
-		else { //right_side
-			if (left_inclination) {
-				// La paret desploma
-				if (upside_down) {
-					// La paret és un sostre inclinat avall
-					tiltLR = 180 - tiltLR;
-					tiltLRgear = 90;
-					//tiltLRsky = tiltLR;
-				}
-				drawAngle(screen_w *0.8,screen_h * 0.5, 0.6 * screen_w, 270, tiltLR, true, "#FF7F24");
-			}
-			else {
-				// La paret és tumbada
-				tiltLR = -tiltLR;
-				tiltLRgear = 0;
-				if (upside_down) {
-					// La paret és una baixada
-					tiltLR = 180 - tiltLR;
-					//tiltLRsky = -tiltLR;
-				}
-				drawAngle(screen_w *0.8,screen_h * 0.5, 0.6 * screen_w, 90, tiltLR, false, "#FF7F24");
-			}
+		else {
+			// Pujada a l'esquerra
+			drawAngle(screen_w *0.5,screen_h * 0.8, 0.6 * screen_h, 0, tiltLR, false, "#FF7F24");
 		}
-		$("#gear")
-			.css({'-webkit-transform': 'rotate(' + tiltLRgear + 'deg)'})
-			.css({'-moz-transform': 'rotate(' + tiltLRgear + 'deg)'})
-			.css({'transform': 'rotate(' + tiltLRgear + 'deg)'});
-		/*$("#sky")
-			.css({'-webkit-transform': 'translate(' + 0 + 'px) rotate(' + tiltLRsky + 'deg)'})
-			.css({'-moz-transform': 'translate(' + 0 + 'px) rotate(' + tiltLRsky + 'deg)'})
-			.css({'transform': 'translate(' + 0 + 'px) rotate(' + tiltLRsky + 'deg)'});*/
     }
 
     // onError: Failed to get the acceleration
     function onError() {
         alert('Error!');
     }
-    
-    function swap() {
-		left_side = !left_side;
-		if (left_side) {
-			$("#gear")
-				.attr({'src': 'res/left_gear.png'})
-				.css({'right': pos_gear + '%'})
-				.css({'left':''})
-				.css({'transform-origin':'10% 10%'})
-				.css({'-webkit-transform-origin':'10% 10%'})
-				.css({'-ms-transform-origin':'10% 10%'});
-			$("#rock")
-				.attr({'src': 'res/left_climber.png'})
-				.css({'right':'30%'})
-				.css({'left':''});
-		}
-		else {
-			$("#gear")
-				.attr({'src': 'res/right_gear.png'})
-				.css({'left': pos_gear + '%'})
-				.css({'right':''})
-				.css({'transform-origin':'90% 10%'})
-				.css({'-webkit-transform-origin':'90% 10%'})
-				.css({'-ms-transform-origin':'90% 10%'});
-			$("#rock")
-				.attr({'src': 'res/right_climber.png'})
-				.css({'left':'30%'})
-				.css({'right':''});
-		}
-	}
+    	
+	$( window ).on( "orientationchange", function( event ) {
+		alert(event.orientation);
+	});
     
     function drawAngle(x, y, r, init_a, a, cw, color) {
 		ctx.clearRect( 0 , 0 , canvas.width, canvas.height );
@@ -185,24 +109,17 @@
 	
 	
 	// Advertisement ---------
-	
-	
-	
 	// select the right Ad Id according to platform
     var admobid = {};
     if( /(android)/i.test(navigator.userAgent) ) { // for android
         admobid = {
-            banner: 'ca-app-pub-5785179440070320/9662457296'
+            banner: 'ca-app-pub-5785179440070320/1415676897'
         };
     } else if(/(ipod|iphone|ipad)/i.test(navigator.userAgent)) { // for ios
         // crear a admob portal
     } else { // for windows phone
         // crear a admob portal
     }
-	
-	/*function createSelectedBanner() {
-		AdMob.createBanner( {adId:admobid.banner} );
-	}*/
 	
 	function initAd(){
 		if(AdMob) AdMob.createBanner( {
@@ -225,14 +142,7 @@
     </script>
   </head>
   <body style="background-color:#C6E2FF">
-    <div style="	background:url(res/tap_screen.png) center center no-repeat;
-						background-size:auto 100%;
-						height: 50px " id="div_tap_screen">
-	</div>
 	<div id="escenari">
-		<img id="rock" src="res/left_climber.png">
-		<!--<img id="sky" src="res/sky.png"/>-->
-		<img id="gear" src="res/left_gear.png">
 		<canvas id="canvas"></canvas>
     </div>
   </body>
