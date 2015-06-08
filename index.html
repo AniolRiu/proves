@@ -14,8 +14,9 @@
     var deg2rad = 1 / rad2deg;
     var can;
 	var ctx;
-	var screen_w, screen_h, ad_height_landscape, ad_height_portrait;
-	var left_side = true;
+	var screen_w, screen_h,;
+	var portrait = true;
+	var pos_x, pos_y, radius;
     
     // Wait for device API libraries to load
     document.addEventListener("deviceready", onDeviceReady, false);
@@ -25,19 +26,49 @@
 		initAd();
 		can = document.getElementById("canvas");
 		ctx = can.getContext("2d");
+		ad_height = 32;
 		screen_w = window.innerWidth;
 		screen_h = window.innerHeight;
+		/*
+		32 - phones in landscape
+50 - phones in portrait
+90 - tablets in either orientation
+More specifically, if the screen height of a device is between 400 and 720, an ad height of 50 is used in both orientations; for screen heights greater than 720, a 90 ad height is used.
+*/
+		
+		if (screen_w > screen_h) {
+			// landscape
+			portrait = false;
+			aux = screen_w;
+			screen_w = screen_h;
+			screen_h = aux;
+			adapt_landscape();
+		}
+		else {
+			// portrait
+			adapt_portrait();
+		}
+		// screen_h is the largest side of de device and screen_w is the shortest, no matter the orientation
+		radius = screen_w * 0.6;
 		alert(screen_h);
-		var AdHeight = 32;
-		
-		
-		screen_h = window.innerHeight - AdHeight;
-		can.width = screen_w;
-		can.height = screen_h;
 		
         startWatch();
     }
-
+	
+	function adapt_portrait () {
+		pos_x = screen_w * 0.5;
+		pos_y = screen_h * 0.8;
+		can.width = screen_w;
+		can.height = screen_h;
+	}
+	
+	adapt_landscape() {
+		pos_x = screen_h * 0.5;
+		pos_y = screen_w * 0.8;
+		can.width = screen_h;
+		can.height = screen_w;
+	}
+	
     // Start watching the acceleration
     function startWatch() {
         // Update acceleration every 0.3 seconds
@@ -47,21 +78,17 @@
 
     // onSuccess: Get a snapshot of the current acceleration
     function onSuccess(acceleration) {
-		//div_x.innerHTML = acceleration.x;
-		//div_y.innerHTML = acceleration.y;
-		
-		
-		var tiltLR = Math.round(Math.asin(acceleration.y / 9.81) * rad2deg);
-		//tiltLR = 90 - tiltLR;
-		var upside_down = (acceleration.y < 0);
-		if (upside_down) {
-			// Baixada a l'esquerra
-			drawAngle(screen_w *0.5,screen_h * 0.8, 0.6 * screen_h, 180, -tiltLR, true, "#FF7F24");
+		var acc;
+		if (portrait) {
+			acc = acceleration.x;
 		}
 		else {
-			// Pujada a l'esquerra
-			drawAngle(screen_w *0.5,screen_h * 0.8, 0.6 * screen_h, 0, tiltLR, false, "#FF7F24");
+			acc = acceleration.y;
 		}
+		var tiltLR = Math.round(Math.asin(acc / 9.81) * rad2deg);
+		var pendent_to_left = (acc < 0);
+		if(pendent_to_left) tiltLR = -tiltLR;
+		drawAngle(pos_x,pos_y, radius, 90, tiltLR, pendent_to_left, "#FF7F24");
     }
 
     // onError: Failed to get the acceleration
@@ -70,7 +97,14 @@
     }
     	
 	$( window ).on( "orientationchange", function( event ) {
-		alert(event.orientation);
+		if(event.orientation == "portrait") {
+			portrait = true;
+			adapt_portrait();
+		}
+		else {
+			portrait = false;
+			adapt_landscape();
+		}
 	});
     
     function drawAngle(x, y, r, init_a, a, cw, color) {
