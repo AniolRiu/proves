@@ -14,7 +14,7 @@
     var deg2rad = 1 / rad2deg;
     var can;
 	var ctx;
-	var screen_w, screen_h,;
+	var screen_w, screen_h;
 	var portrait = true;
 	var pos_x, pos_y, radius;
     
@@ -38,7 +38,6 @@ More specifically, if the screen height of a device is between 400 and 720, an a
 		
 		if (screen_w > screen_h) {
 			// landscape
-			portrait = false;
 			aux = screen_w;
 			screen_w = screen_h;
 			screen_h = aux;
@@ -56,13 +55,15 @@ More specifically, if the screen height of a device is between 400 and 720, an a
     }
 	
 	function adapt_portrait () {
+		portrait = true;
 		pos_x = screen_w * 0.5;
 		pos_y = screen_h * 0.8;
 		can.width = screen_w;
 		can.height = screen_h;
 	}
 	
-	adapt_landscape() {
+	function adapt_landscape() {
+		portrait = false;
 		pos_x = screen_h * 0.5;
 		pos_y = screen_w * 0.8;
 		can.width = screen_h;
@@ -78,13 +79,7 @@ More specifically, if the screen height of a device is between 400 and 720, an a
 
     // onSuccess: Get a snapshot of the current acceleration
     function onSuccess(acceleration) {
-		var acc;
-		if (portrait) {
-			acc = acceleration.x;
-		}
-		else {
-			acc = acceleration.y;
-		}
+		var acc = (portrait? acceleration.x : acceleration.y);
 		var tiltLR = Math.round(Math.asin(acc / 9.81) * rad2deg);
 		var pendent_to_left = (acc < 0);
 		if(pendent_to_left) tiltLR = -tiltLR;
@@ -98,11 +93,9 @@ More specifically, if the screen height of a device is between 400 and 720, an a
     	
 	$( window ).on( "orientationchange", function( event ) {
 		if(event.orientation == "portrait") {
-			portrait = true;
 			adapt_portrait();
 		}
 		else {
-			portrait = false;
 			adapt_landscape();
 		}
 	});
