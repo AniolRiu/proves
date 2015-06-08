@@ -21,7 +21,7 @@ img, canvas {
 }
 
 body { 
-    background-image: url('car.png');
+    background-image: url('images/car.png');
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-position: center;
