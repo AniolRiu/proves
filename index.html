@@ -81,7 +81,7 @@ More specifically, if the screen height of a device is between 400 and 720, an a
     function onSuccess(acceleration) {
 		var acc = (portrait? acceleration.x : acceleration.y);
 		var tiltLR = Math.round(Math.asin(acc / 9.81) * rad2deg);
-		var pendent_to_left = (acc < 0);
+		var pendent_to_left = (portrait && (acc > 0)) || (!portrail && (acc < 0));
 		if(pendent_to_left) tiltLR = -tiltLR;
 		drawAngle(pos_x,pos_y, radius, 90, tiltLR, pendent_to_left, "#FF7F24");
     }
@@ -92,6 +92,7 @@ More specifically, if the screen height of a device is between 400 and 720, an a
     }
     	
 	$( window ).on( "orientationchange", function( event ) {
+	console.log = event.orientation;
 		if(event.orientation == "portrait") {
 			adapt_portrait();
 		}
