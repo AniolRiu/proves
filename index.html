@@ -18,6 +18,7 @@
 	var portrait = true;
 	var pos_x, pos_y, radius;
 	var body;
+	window.addEventListener('orientationchange', doOnOrientationChange);
     
     // Wait for device API libraries to load
     document.addEventListener("deviceready", onDeviceReady, false);
@@ -28,27 +29,23 @@
 		can = document.getElementById("canvas");
 		ctx = can.getContext("2d");
 		body = $('body');
-		ad_height = 32;
-		screen_w = window.innerWidth;
-		screen_h = window.innerHeight;
-		/*
-		32 - phones in landscape
-50 - phones in portrait
-90 - tablets in either orientation
-More specifically, if the screen height of a device is between 400 and 720, an ad height of 50 is used in both orientations; for screen heights greater than 720, a 90 ad height is used.
-*/
 		
-		if (screen_w > screen_h) {
-			// landscape
-			aux = screen_w;
-			screen_w = screen_h;
-			screen_h = aux;
-			adapt_landscape();
-		}
-		else {
-			// portrait
+		switch(window.orientation) 
+		{  
+		  case -90:
+		  case 90:
+			screen_w = window.innerHeight;
+			screen_h = window.innerWidth;
+			break; 
+		  default:
+			screen_w = window.innerWidth;
+			screen_h = window.innerHeight;
 			adapt_portrait();
+			break; 
 		}
+		
+		ad_height = 32;
+		
 		// screen_h is the largest side of de device and screen_w is the shortest, no matter the orientation
 		radius = screen_w * 0.6;
 		
@@ -93,41 +90,20 @@ More specifically, if the screen height of a device is between 400 and 720, an a
     function onError() {
         alert('Error!');
     }
-    	
-			
-			
-			
+    		
 	//------
-function doOnOrientationChange()
-  {
-    switch(window.orientation) 
-    {  
-      case -90:
-      case 90:
-        alert('landscape');
-        break; 
-      default:
-        alert('portrait');
-        break; 
-    }
-  }
-
-  window.addEventListener('orientationchange', doOnOrientationChange);
-
-  // Initial execution if needed
-  doOnOrientationChange();
-//--------------------------------  
-	
-			
-	$( window ).on( "orientationchange", function() {
-		alert(window.innerWidth + " " + window.innerHeight);
-		if(window.innerWidth < window.innerHeight) {
-			adapt_portrait();
-		}
-		else {
+	function doOnOrientationChange() {
+		switch(window.orientation) 
+		{  
+		  case -90:
+		  case 90:
 			adapt_landscape();
+			break; 
+		  default:
+			adapt_portrait();
+			break; 
 		}
-	});
+	}
     
     function drawAngle(x, y, r, init_a, a, cw, color) {
 		ctx.clearRect( 0 , 0 , canvas.width, canvas.height );
