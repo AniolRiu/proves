@@ -56,7 +56,7 @@ More specifically, if the screen height of a device is between 400 and 720, an a
     }
 	
 	function adapt_portrait () {
-		body.css({"background-image":"url(\"images/car_portrait.png\")"});
+		body.css({"background-image":"url(images/car_portrait.png)"});
 		portrait = true;
 		pos_x = screen_w * 0.5;
 		pos_y = screen_h * 0.8;
@@ -65,7 +65,7 @@ More specifically, if the screen height of a device is between 400 and 720, an a
 	}
 	
 	function adapt_landscape() {
-		body.css({"background-image":"url(\"images/car_landscape.png\")"});
+		body.css({"background-image":"url(images/car_landscape.png)"});
 		portrait = false;
 		pos_x = screen_h * 0.5;
 		pos_y = screen_w * 0.8;
@@ -94,8 +94,7 @@ More specifically, if the screen height of a device is between 400 and 720, an a
         alert('Error!');
     }
     	
-	$( window ).on( "orientationchange", function( event , data ) {
-		
+	$( window ).on( "orientationchange", function() {
 		if(window.innerWidth < window.innerHeight) {
 			adapt_portrait();
 		}
