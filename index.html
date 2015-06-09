@@ -18,8 +18,9 @@
 	var portrait = true;
 	var pos_x, pos_y, radius;
 	var body;
+	var angle2color = 255/90;
 	window.addEventListener('orientationchange', doOnOrientationChange);
-    
+
     // Wait for device API libraries to load
     document.addEventListener("deviceready", onDeviceReady, false);
 
@@ -132,10 +133,13 @@
 		// Create gradient
 		var grd = ctx.createRadialGradient(x,y,r*0.6,x,y,r*1.2);
 		grd.addColorStop(0,"transparent");
-		grd.addColorStop(1, color);
+		// Set color, it depends on the angle
+		var red_component = a*angle2color;
+		var green_component = 255 - red_component;
+		red_component = red_component.toString(16);
+		green_component = green_component.toString(16);
+		grd.addColorStop(1, "#" + red_component + green_component + "00");
 		ctx.fillStyle = grd;
-
-
 		ctx.fill();
 	}
 	
