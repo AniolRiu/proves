@@ -20,8 +20,7 @@ img, canvas {
 	position: fixed;
 }
 
-body { 
-    background-image: url('images/car.png');
+body {
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-position: center;

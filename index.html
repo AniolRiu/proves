@@ -17,6 +17,7 @@
 	var screen_w, screen_h;
 	var portrait = true;
 	var pos_x, pos_y, radius;
+	var body;
     
     // Wait for device API libraries to load
     document.addEventListener("deviceready", onDeviceReady, false);
@@ -26,6 +27,7 @@
 		initAd();
 		can = document.getElementById("canvas");
 		ctx = can.getContext("2d");
+		body = $('body');
 		ad_height = 32;
 		screen_w = window.innerWidth;
 		screen_h = window.innerHeight;
@@ -54,6 +56,7 @@ More specifically, if the screen height of a device is between 400 and 720, an a
     }
 	
 	function adapt_portrait () {
+		body.css({"background-image":"url(\"images/car_portrait.png\")"});
 		portrait = true;
 		pos_x = screen_w * 0.5;
 		pos_y = screen_h * 0.8;
@@ -62,6 +65,7 @@ More specifically, if the screen height of a device is between 400 and 720, an a
 	}
 	
 	function adapt_landscape() {
+		body.css({"background-image":"url(\"images/car_landscape.png\")"});
 		portrait = false;
 		pos_x = screen_h * 0.5;
 		pos_y = screen_w * 0.8;
