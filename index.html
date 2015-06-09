@@ -91,9 +91,8 @@ More specifically, if the screen height of a device is between 400 and 720, an a
         alert('Error!');
     }
     	
-	$( window ).on( "orientationchange", function( event ) {
-	console.log = event.orientation;
-		if(event.orientation == "portrait") {
+	$( window ).on( "orientationchange", function( event , data ) {
+		if(data == "portrait") {
 			adapt_portrait();
 		}
 		else {
