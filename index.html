@@ -49,7 +49,6 @@ More specifically, if the screen height of a device is between 400 and 720, an a
 		}
 		// screen_h is the largest side of de device and screen_w is the shortest, no matter the orientation
 		radius = screen_w * 0.6;
-		alert(screen_h);
 		
         startWatch();
     }
@@ -92,7 +91,8 @@ More specifically, if the screen height of a device is between 400 and 720, an a
     }
     	
 	$( window ).on( "orientationchange", function( event , data ) {
-		if(data.orientation == "portrait") {
+		
+		if(window.innerWidth < window.innerHeight) {
 			adapt_portrait();
 		}
 		else {
