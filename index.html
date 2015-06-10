@@ -118,7 +118,7 @@
 		ctx.closePath();		
 
 		// Create gradient
-		var grd = ctx.createRadialGradient(x,y,r*0.8,x,y,r*1.2);
+		var grd = ctx.createRadialGradient(x,y,r * 0.6,x,y,r);
 		grd.addColorStop(0,"transparent");
 		grd.addColorStop(1, color);
 		ctx.fillStyle = grd;
@@ -126,8 +126,7 @@
 		
 		// Circle drawing
 		ctx.beginPath();
-		//ctx.moveTo(x,y);
-		ctx.arc(x,y,r*0.8,0, 2 * Math.PI, false);
+		ctx.arc(x,y,r*0.6,0, 2 * Math.PI, false);
 		ctx.fillStyle = '#90A8F0';
 		ctx.fill();
 		ctx.lineWidth = 5;
@@ -139,7 +138,10 @@
 		var mida_lletra=r*0.8;
 		ctx.fillStyle="black";
 		ctx.font= mida_lletra + "px Droid Sans";
-		ctx.fillText(a + String.fromCharCode(176),x - 0.4*r, y + 0.4*r);
+		var text = a + String.fromCharCode(176);
+		var text_w = ctx.measureText(txt).width;
+		var text_h = ctx.measureText(txt).height;
+		ctx.fillText(text,x - (text_w * 0.5), y + (text_h * 2));
 	}
 	
 	
