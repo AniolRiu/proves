@@ -139,8 +139,8 @@
 		ctx.fillStyle="black";
 		ctx.font= mida_lletra + "px Droid Sans";
 		var text = a + String.fromCharCode(176);
-		var text_w = ctx.measureText(txt).width;
-		var text_h = ctx.measureText(txt).height;
+		var text_w = ctx.measureText(text).width;
+		var text_h = ctx.measureText(text).height;
 		ctx.fillText(text,x - (text_w * 0.5), y + (text_h * 0.5));
 	}
 	
