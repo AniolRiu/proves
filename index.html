@@ -140,9 +140,7 @@
 		ctx.font= mida_lletra + "px Droid Sans";
 		var text = a + String.fromCharCode(176);
 		var text_w = ctx.measureText(text).width;
-		var text_h = ctx.measureText(text).height;
-		alert(text + text_w + text_h);
-		ctx.fillText(text,x - (text_w * 0.5), y + (text_h * 0.5));
+		ctx.fillText(text,x - (text_w * 0.5), y + r * 0.3);
 	}
 	
 	
