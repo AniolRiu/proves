@@ -18,7 +18,6 @@
 	var portrait = true;
 	var pos_x, pos_y, radius;
 	var body;
-	var angle2color = 255/90;
 	window.addEventListener('orientationchange', doOnOrientationChange);
 
     // Wait for device API libraries to load
@@ -126,21 +125,27 @@
 		ctx.fillText(a + String.fromCharCode(176),x + semi_x, y - semi_y);
 		// Angle drawing
 		ctx.beginPath();
-		ctx.moveTo(x,y);
+		//ctx.moveTo(x,y);
 		ctx.arc(x,y,r,(360-init_a)*deg2rad,(360-(init_a+a))*deg2rad, true);
-		ctx.closePath();
+		ctx.closePath();		
 
 		// Create gradient
-		var grd = ctx.createRadialGradient(x,y,r*0.6,x,y,r*1.2);
+		var grd = ctx.createRadialGradient(x,y,r*0.5,x,y,r*1.2);
 		grd.addColorStop(0,"transparent");
-		// Set color, it depends on the angle
-		var red_component = a*angle2color;
-		var green_component = 255 - red_component;
-		red_component = red_component.toString(16);
-		green_component = green_component.toString(16);
-		grd.addColorStop(1, "#" + red_component + green_component + "00");
+		grd.addColorStop(1, color);
 		ctx.fillStyle = grd;
 		ctx.fill();
+		
+		// Circle drawing
+		ctx.beginPath();
+		//ctx.moveTo(x,y);
+		ctx.arc(x,y,r*0.5,0, 2 * Math.PI, false);
+		ctx.fillStyle = '#90A8F0';
+		ctx.fill();
+		ctx.lineWidth = 5;
+		ctx.strokeStyle = '#0D3ED1';
+		ctx.stroke();
+		ctx.closePath();
 	}
 	
 	
