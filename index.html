@@ -47,7 +47,7 @@
 		ad_height = 32;
 		
 		// screen_h is the largest side of de device and screen_w is the shortest, no matter the orientation
-		radius = screen_w * 0.3;
+		radius = screen_w * 0.2;
 		
         startWatch();
     }
@@ -56,7 +56,7 @@
 		body.css({"background-image":"url(\"css/images/car_portrait.png\")"});
 		portrait = true;
 		pos_x = screen_w * 0.5;
-		pos_y = screen_h * 0.2;
+		pos_y = screen_h * 0.35;
 		can.width = screen_w;
 		can.height = screen_h;
 	}
@@ -65,7 +65,7 @@
 		body.css({"background-image":"url(\"css/images/car_landscape.png\")"});
 		portrait = false;
 		pos_x = screen_h * 0.5;
-		pos_y = screen_w * 0.2;
+		pos_y = screen_w * 0.35;
 		can.width = screen_h;
 		can.height = screen_w;
 	}
@@ -135,12 +135,12 @@
 		ctx.closePath();
 		
 		// Create text
-		var mida_lletra=r*0.8;
+		var mida_lletra=r*0.6;
 		ctx.fillStyle="black";
 		ctx.font= mida_lletra + "px Droid Sans";
 		var text = a + String.fromCharCode(176);
 		var text_w = ctx.measureText(text).width;
-		ctx.fillText(text,x - (text_w * 0.5), y + r * 0.3);
+		ctx.fillText(text,x - (text_w * 0.5), y + r * 0.2);
 	}
 	
 	
