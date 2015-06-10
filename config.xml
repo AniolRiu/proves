@@ -2,10 +2,10 @@
 <widget 
 	xmlns="http://www.w3.org/ns/widgets" 
 	xmlns:gap="http://phonegap.com/ns/1.0"
-	id="com.articapps.vehicleangle" 
+	id="com.articapps.roadAngle" 
 	version="1.0.0"
 	versionCode="1" >
-<name>VehicleAngle</name>
+<name>RoadAngle</name>
 <description>This app shows the inclination of the vehicle.</description>
 <author email="artic.vb@gmail.com">
 	Aniol Riu
