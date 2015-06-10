@@ -47,7 +47,7 @@
 		ad_height = 32;
 		
 		// screen_h is the largest side of de device and screen_w is the shortest, no matter the orientation
-		radius = screen_w * 0.6;
+		radius = screen_w * 0.3;
 		
         startWatch();
     }
@@ -110,27 +110,15 @@
 		if(cw) {
 			init_a = init_a - a;
 		}
-		// Create text
-		var mida_lletra=20;
-		var semi_a = init_a + a/2;
-		// The text coord makes reference to its bottom-left corner
-		// To make it understandable, we try to move that corner away from the colored area
-		// The closest is the middle angle to the 220º, the farther is the text 
-		var factor = (1 - Math.abs(225 - semi_a)/225) * 2 * mida_lletra; 
-		var semi_a_rad = semi_a*deg2rad;
-		var semi_x =(r+factor)*Math.cos(semi_a_rad);
-		var semi_y = (r+factor)*Math.sin(semi_a_rad);
-		ctx.fillStyle=color;
-		ctx.font= mida_lletra + "px Droid Sans";
-		ctx.fillText(a + String.fromCharCode(176),x + semi_x, y - semi_y);
+		
 		// Angle drawing
 		ctx.beginPath();
-		//ctx.moveTo(x,y);
+		ctx.moveTo(x,y);
 		ctx.arc(x,y,r,(360-init_a)*deg2rad,(360-(init_a+a))*deg2rad, true);
 		ctx.closePath();		
 
 		// Create gradient
-		var grd = ctx.createRadialGradient(x,y,r*0.5,x,y,r*1.2);
+		var grd = ctx.createRadialGradient(x,y,r*0.8,x,y,r*1.2);
 		grd.addColorStop(0,"transparent");
 		grd.addColorStop(1, color);
 		ctx.fillStyle = grd;
@@ -139,13 +127,19 @@
 		// Circle drawing
 		ctx.beginPath();
 		//ctx.moveTo(x,y);
-		ctx.arc(x,y,r*0.5,0, 2 * Math.PI, false);
+		ctx.arc(x,y,r*0.8,0, 2 * Math.PI, false);
 		ctx.fillStyle = '#90A8F0';
 		ctx.fill();
 		ctx.lineWidth = 5;
 		ctx.strokeStyle = '#0D3ED1';
 		ctx.stroke();
 		ctx.closePath();
+		
+		// Create text
+		var mida_lletra=r*0.8;
+		ctx.fillStyle="black";
+		ctx.font= mida_lletra + "px Droid Sans";
+		ctx.fillText(a + String.fromCharCode(176),x - 0.4*r, y + 0.4*r);
 	}
 	
 	
