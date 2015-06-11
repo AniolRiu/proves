@@ -1,185 +1,40 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Acceleration Example</title>
-    <link rel="stylesheet" type="text/css" href="css/estil.css">
-    <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
-    <script src='js/jquery-2.1.4.min.js' type='text/javascript'></script>
-    <link href='http://fonts.googleapis.com/css?family=Droid+Sans' rel='stylesheet' type='text/css'>
-    <script type="text/javascript" charset="utf-8">
-	
-    // The watch id references the current `watchAcceleration`
-    var watchID = null;
-    var rad2deg = 180 / Math.PI;
-    var deg2rad = 1 / rad2deg;
-    var can;
-	var ctx;
-	var screen_w, screen_h;
-	var portrait = true;
-	var pos_x, pos_y, radius;
-	var body;
-	window.addEventListener('orientationchange', doOnOrientationChange);
+<head>
+<meta charset="utf-8" />
+<meta name="format-detection" content="telephone=no" />
+<meta name="viewport"
+	content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width" />
+<title>Random Frame</title>
 
-    // Wait for device API libraries to load
-    document.addEventListener("deviceready", onDeviceReady, false);
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script type="text/javascript" src="js/funcionalitat.js"></script>
+<script type="text/javascript" src="cordova.js"></script>
+<link href='http://fonts.googleapis.com/css?family=Droid+Sans' rel='stylesheet' type='text/css'>
+<style>
+</style>
+</head>
+<body onresize="onResize()">
+	<img id="frame" style="	position: absolute;
+							left: 0px;
+							top: 0px;
+							z-index: -1;
+							width: 100%;
+							height: 100%">
+<div id="div_missatge" style="	max-width:250px; 
+								height:50px; 
+								border-radius:25px; 
+								background-color:#B9D3EE;
+								box-shadow: 6px 6px #888888;
+								display:table">
 
-    // device APIs are available
-    function onDeviceReady() {
-		initAd();
-		can = document.getElementById("canvas");
-		ctx = can.getContext("2d");
-		body = $('body');
-		
-		switch(window.orientation) 
-		{  
-		  case -90:
-		  case 90:
-			screen_w = window.innerHeight;
-			screen_h = window.innerWidth;
-			break; 
-		  default:
-			screen_w = window.innerWidth;
-			screen_h = window.innerHeight;
-			adapt_portrait();
-			break; 
-		}
-		
-		ad_height = 32;
-		
-		// screen_h is the largest side of de device and screen_w is the shortest, no matter the orientation
-		radius = screen_w * 0.2;
-		
-        startWatch();
-    }
-	
-	function adapt_portrait () {
-		//body.css({"background-image":"url(\"css/images/car_portrait.png\")"});
-		portrait = true;
-		pos_x = screen_w * 0.5;
-		pos_y = screen_h * 0.3;
-		can.width = screen_w;
-		can.height = screen_h;
-	}
-	
-	function adapt_landscape() {
-		//body.css({"background-image":"url(\"css/images/car_landscape.png\")"});
-		portrait = false;
-		pos_x = screen_h * 0.5;
-		pos_y = screen_w * 0.3;
-		can.width = screen_h;
-		can.height = screen_w;
-	}
-	
-    // Start watching the acceleration
-    function startWatch() {
-        // Update acceleration every 0.3 seconds
-        var options = { frequency: 40 };
-        watchID = navigator.accelerometer.watchAcceleration(onSuccess, onError, options);
-    }
+	<div id="div_fill" style="	vertical-align: middle; 
+								display:table-cell;
+								padding-right: 15px;
+								padding-left: 15px">
+		<p style="text-align:center; font-family: 'Droid Sans', sans-serif;" id="missatge">Refresh time: 15 secs</p>
+	</div>
 
-    // onSuccess: Get a snapshot of the current acceleration
-    function onSuccess(acceleration) {
-		var acc = (portrait? acceleration.x : acceleration.y);
-		var tiltLR = Math.round(Math.asin(acc / 9.81) * rad2deg);
-		var pendent_to_left = (portrait != (acc < 0));
-		if(pendent_to_left != portrait) tiltLR = -tiltLR;
-		drawAngle(pos_x,pos_y, radius, 90, tiltLR, pendent_to_left, "#FF7F24");
-    }
-
-    // onError: Failed to get the acceleration
-    function onError() {
-        alert('Error!');
-    }
-    		
-	//------
-	function doOnOrientationChange() {
-		switch(window.orientation) 
-		{  
-		  case -90:
-		  case 90:
-			adapt_landscape();
-			break; 
-		  default:
-			adapt_portrait();
-			break; 
-		}
-	}
-    
-    function drawAngle(x, y, r, init_a, a, cw, color) {
-		ctx.clearRect( 0 , 0 , canvas.width, canvas.height );
-		if(cw) {
-			init_a = init_a - a;
-		}
-		
-		// Angle drawing
-		ctx.beginPath();
-		ctx.moveTo(x,y);
-		ctx.arc(x,y,r,(360-init_a)*deg2rad,(360-(init_a+a))*deg2rad, true);
-		ctx.closePath();		
-
-		// Create gradient
-		var grd = ctx.createRadialGradient(x,y,r * 0.6,x,y,r);
-		grd.addColorStop(0,"transparent");
-		grd.addColorStop(1, color);
-		ctx.fillStyle = grd;
-		ctx.fill();
-		
-		// Circle drawing
-		ctx.beginPath();
-		ctx.arc(x,y,r*0.6,0, 2 * Math.PI, false);
-		ctx.fillStyle = '#90A8F0';
-		ctx.fill();
-		ctx.lineWidth = 5;
-		ctx.strokeStyle = '#0D3ED1';
-		ctx.stroke();
-		ctx.closePath();
-		
-		// Create text
-		var mida_lletra=r*0.6;
-		ctx.fillStyle="black";
-		ctx.font= mida_lletra + "px Droid Sans";
-		var text = a + String.fromCharCode(176);
-		var text_w = ctx.measureText(text).width;
-		ctx.fillText(text,x - (text_w * 0.5), y + r * 0.2);
-	}
-	
-	
-	// Advertisement ---------
-	// select the right Ad Id according to platform
-    var admobid = {};
-    if( /(android)/i.test(navigator.userAgent) ) { // for android
-        admobid = {
-            banner: 'ca-app-pub-5785179440070320/7061471690'
-        };
-    } else if(/(ipod|iphone|ipad)/i.test(navigator.userAgent)) { // for ios
-        // crear a admob portal
-    } else { // for windows phone
-        // crear a admob portal
-    }
-	
-	function initAd(){
-		if(AdMob) AdMob.createBanner( {
-			adId: admobid.banner, 
-			position: AdMob.AD_POSITION.BOTTOM_CENTER,
-			isTesting: false, // set to true, to receiving test ad for testing purpose 
-			autoShow: true } );
-			/*
-				bannerId: admobid.banner,
-				adSize: 'SMART_BANNER',
-				position: AdMob.AD_POSITION.BOTTOM_CENTER,
-				offsetTopBar: false, // avoid overlapped by status bar, for iOS7+
-				bgColor: 'black', // color name, or '#RRGGBB'
-				isTesting: false, // set to true, to receiving test ad for testing purpose
-				autoShow: true // auto show interstitial ad when loaded, set to false if prepare/show
-			*/
-	}
-		
-	
-    </script>
-  </head>
-  <body style="background-color:#C6E2FF">
-	<div id="escenari">
-		<canvas id="canvas"></canvas>
-    </div>
-  </body>
+</div>
+</body>
 </html>
