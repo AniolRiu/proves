@@ -8,8 +8,6 @@ var interval;
 var img = new Image();
 var new_image = new Image();
 var frame;
-var N_IMAGES_BEFORE_INETRSTITIAL = 20;
-var n_imgs = 0;
 
 $(document).ready(function() {
 	load_img(true);
@@ -124,14 +122,6 @@ function load_img(fast_show) {
 }
 
 function show_img() {
-	if(n_imgs == N_IMAGES_BEFORE_INETRSTITIAL) {
-		n_imgs = 0;
-		if(AdMob) AdMob.showInterstitial();
-	}
-	else if (n_imgs == 1) {
-		if(AdMob) AdMob.prepareInterstitial( {adId:admobid.interstitial, autoShow:false} );
-	}
-	n_imgs++;
 	frame.src = new_image.src;
 	load_img(false);
 }
