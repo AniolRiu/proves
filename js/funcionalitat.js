@@ -8,6 +8,8 @@ var interval;
 var img = new Image();
 var new_image = new Image();
 var frame;
+var N_IMAGES_BEFORE_INETRSTITIAL = 20;
+var n_imgs = 0;
 
 $(document).ready(function() {
 	load_img(true);
@@ -122,6 +124,14 @@ function load_img(fast_show) {
 }
 
 function show_img() {
+	if(n_imgs == N_IMAGES_BEFORE_INETRSTITIAL) {
+		n_imgs = 0;
+		if(AdMob) AdMob.showInterstitial();
+	}
+	else if (n_imgs == 1) {
+		if(AdMob) AdMob.prepareInterstitial( {adId:admobid.interstitial, autoShow:false} );
+	}
+	n_imgs++;
 	frame.src = new_image.src;
 	load_img(false);
 }
@@ -132,10 +142,12 @@ function createSelectedBanner() {
 		
 var ad_units = {
 	ios : {
-		banner: 'ca-app-pub-5785179440070320/2064822897'
+		banner: 'must_get',	//TODO: Compilar per iPhone
+		interstitial: 'must_get_too'
 	},
 	android : {
-		banner: 'ca-app-pub-5785179440070320/7600312495'
+		banner: 'ca-app-pub-5785179440070320/7600312495',
+		interstitial: 'ca-app-pub-5785179440070320/9506907293'
 	}
 };
 var admobid = ( /(android)/i.test(navigator.userAgent) ) ? ad_units.android : ad_units.ios;
