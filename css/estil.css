@@ -1,0 +1,40 @@
+#floor {
+	width: 100%;
+	z-index:2;
+	height: auto;
+	bottom: 0px;
+}
+
+#sky {
+	top: -11%;
+	z-index:1;
+	height: 122%;
+	width: auto;
+}
+
+#canvas {
+	z-index:10;
+}
+
+img, canvas {
+	position: fixed;
+}
+
+body {
+	background-image: url("images/car_landscape.png");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+	background-size: auto 100%;
+}
+
+div, body {
+	padding:0px;
+	margin:0px;
+}
+
+#escenari {
+	position: absolute;
+    top: 0;
+    left: 0;
+}
