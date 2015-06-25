@@ -10,13 +10,11 @@
 	
     // The watch id references the current `watchAcceleration`
     var watchID = null;
-    var rad2deg = 180 / Math.PI;
-    var deg2rad = 1 / rad2deg;
     var can;
 	var ctx;
 	var screen_w, screen_h;
 	var portrait = true;
-	var pos_x, pos_y, radius;
+	var pos_x, pos_y;
 	var body;
 	var div_acc;
 	var best_result = 0;
@@ -107,44 +105,6 @@
 		}
 	}
     
-    function drawAngle(x, y, r, init_a, a, cw, color) {
-		ctx.clearRect( 0 , 0 , canvas.width, canvas.height );
-		if(cw) {
-			init_a = init_a - a;
-		}
-		
-		// Angle drawing
-		ctx.beginPath();
-		ctx.moveTo(x,y);
-		ctx.arc(x,y,r,(360-init_a)*deg2rad,(360-(init_a+a))*deg2rad, true);
-		ctx.closePath();		
-
-		// Create gradient
-		var grd = ctx.createRadialGradient(x,y,r * 0.6,x,y,r);
-		grd.addColorStop(0,"transparent");
-		grd.addColorStop(1, color);
-		ctx.fillStyle = grd;
-		ctx.fill();
-		
-		// Circle drawing
-		ctx.beginPath();
-		ctx.arc(x,y,r*0.6,0, 2 * Math.PI, false);
-		ctx.fillStyle = '#90A8F0';
-		ctx.fill();
-		ctx.lineWidth = 5;
-		ctx.strokeStyle = '#0D3ED1';
-		ctx.stroke();
-		ctx.closePath();
-		
-		// Create text
-		var mida_lletra=r*0.6;
-		ctx.fillStyle="black";
-		ctx.font= mida_lletra + "px Droid Sans";
-		var text = a + String.fromCharCode(176);
-		var text_w = ctx.measureText(text).width;
-		ctx.fillText(text,x - (text_w * 0.5), y + r * 0.2);
-	}
-	
 	
 	// Advertisement ---------
 	// select the right Ad Id according to platform
@@ -181,7 +141,7 @@
   </head>
   <body style="background-color:#C6E2FF">
 	<div id="escenari">
-		<div id="acc"></div>
+		<div id="acc">edwe</div>
 		<canvas id="canvas"></canvas>
     </div>
   </body>
