@@ -82,7 +82,10 @@
     function onSuccess(acceleration) {
 		var acc = (portrait? acceleration.x : acceleration.y);
 		var result = Math.abs(acc);
-		if (result > best_result) best_result = result;
+		if (result > best_result) {
+			best_result = result;
+			playAudio();
+		}
 		div_acc.innerHTML = best_result
     }
 
@@ -135,12 +138,23 @@
 				autoShow: true // auto show interstitial ad when loaded, set to false if prepare/show
 			*/
 	}
-		
+
+	function playAudio() {
+		var my_media = new Media("http://html5multimedia.com/media/sayHello.mp3",
+				// success callback
+				 function () { console.log("playAudio():Audio Success"); },
+				// error callback
+				 function (err) { console.log("playAudio():Audio Error: " + err); }
+		);
+			   // Play audio
+		my_media.play();
+	}
 	
     </script>
   </head>
   <body style="background-color:#C6E2FF">
 	<div id="escenari">
+		<div id="audio"></div>
 		<div id="acc">edwe</div>
 		<canvas id="canvas"></canvas>
     </div>
