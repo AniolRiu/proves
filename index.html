@@ -140,13 +140,7 @@
 	}
 
 	function playAudio() {
-		var my_media = new Media("http://html5multimedia.com/media/sayHello.mp3",
-				// success callback
-				 function () { console.log("playAudio():Audio Success"); },
-				// error callback
-				 function (err) { console.log("playAudio():Audio Error: " + err); }
-		);
-			   // Play audio
+		var my_media = new Media("res/sounds/punch.mp3"		);
 		my_media.play();
 	}
 	
