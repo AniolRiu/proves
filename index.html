@@ -31,7 +31,7 @@
 		alert("yeye");
 		var deviceType = (navigator.userAgent.match(/iPad/i))  == "iPad" ? "iPad" : (navigator.userAgent.match(/iPhone/i))  == "iPhone" ? "iPhone" : (navigator.userAgent.match(/Android/i)) == "Android" ? "Android" : (navigator.userAgent.match(/BlackBerry/i)) == "BlackBerry" ? "BlackBerry" : "null";
 		alert(deviceType);
-		if ( device.platform == 'android' || device.platform == 'Android' ) {
+		if ( deviceType == 'android' || deviceType == 'Android' ) {
 			alert('Es un android');
 			pushNotification.register(
 				successHandler,
