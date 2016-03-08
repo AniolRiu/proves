@@ -29,6 +29,7 @@
 		//initAd();
 		// Registre de l'aplicació a GCM
 		if ( device.platform == 'android' || device.platform == 'Android' ) {
+			alert('Es un android');
 			pushNotification.register(
 				successHandler,
 				errorHandler, {
