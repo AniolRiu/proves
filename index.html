@@ -32,13 +32,13 @@
 		var deviceType = (navigator.userAgent.match(/iPad/i))  == "iPad" ? "iPad" : (navigator.userAgent.match(/iPhone/i))  == "iPhone" ? "iPhone" : (navigator.userAgent.match(/Android/i)) == "Android" ? "Android" : (navigator.userAgent.match(/BlackBerry/i)) == "BlackBerry" ? "BlackBerry" : "null";
 		alert(deviceType);
 		successHandler("adad");
-		if ( deviceType == 'android' || deviceType == 'Android' ) {
+		if ( deviceType == 'Android' ) {
 			alert('Es un android');
 			pushNotification.register(
 				successHandler,
 				errorHandler, 
 				{
-					"senderID":"967628965937",
+					"senderID":967628965937,
 					"ecb":"onNotificationGCM"
 				});
 		}
