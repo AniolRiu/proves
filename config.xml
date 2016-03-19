@@ -19,8 +19,6 @@
 	<icon src="res/android/drawable-xhdpi/ic_launcher.png" density="xhdpi" />
 </platform>
 
-<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-
 <platform name="ios">
 	<!-- iOS 7.0+ -->
 	<!-- iPhone / iPod Touch  -->
