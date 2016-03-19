@@ -36,5 +36,5 @@
 </platform>
 <gap:plugin name="org.apache.cordova.device-motion" version="0.2.10" />
 <gap:plugin name="org.apache.cordova.media" />
-<gap:plugin name="com.phonegap.plugins.pushplugin" spec="2.1.1" source="pgb" />
+<gap:plugin name="com.phonegap.plugins.pushplugin" spec="2.5.0" source="pgb" />
 </widget>

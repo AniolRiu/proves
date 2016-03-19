@@ -95,7 +95,7 @@
 	}
 	
 	function onNotificationGCM(e) {
-		$("#app-status-ul").append('<li>EVENT -> RECEIVED:' + e.event + '</li>');
+		alert("event received:" + e.event);
 
 		switch( e.event )
 		{
