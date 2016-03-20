@@ -22,23 +22,19 @@
 	var best_result = 0;
 	var pushNotification;
 	// Create SocketIO instance, connect
-
+	alert("yeye1");
     var socket = new io.Socket();
-
+	alert("yeye2");
     socket.connect('aniol.ddns.net:3000'); 
-
+	alert("yeye3");
     // Add a connect listener
     socket.on('connect',function() {
       alert('Client has connected to the server!');
     });
-	
+	alert("yeye4");
     // Wait for device API libraries to load
     document.addEventListener("deviceready", onDeviceReady, false);
 	
-	// Add a connect listener
-	socket.on('connect',function() {
-      alert('Client has connected to the server!');
-    });
     // device APIs are available
     function onDeviceReady() {
 		//initAd();
