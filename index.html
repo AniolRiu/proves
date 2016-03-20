@@ -93,12 +93,15 @@
 			if ( e.regid.length > 0 )
 			{
 				alert("regid:" + e.regid);
+				var formData = new FormData();
+				formData.append("userId",55);
+				formData.append("regId",e.regid);
 				$.ajax({
 					type: 'POST',
 					contentType: 'application/json',
 					url: "aniol.ddns.net",
 					dataType: "json",
-					data: {userId:55,regId:e.regid},
+					data: formData,
 					success: function(data) {
 						alert("success " + data);
 					},
