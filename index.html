@@ -21,7 +21,7 @@
 	var div_acc;
 	var best_result = 0;
 	var pushNotification;
-	var socket = io();
+	var socket = io("http://aniol.ddns.net:5397");
 	window.addEventListener('orientationchange', doOnOrientationChange);
 
     // Wait for device API libraries to load
@@ -92,6 +92,7 @@
 	function successHandler (result) {
 		alert('result = ' + result);
 	}
+	
 	// result contains any error description text returned from the plugin call
 	function errorHandler (error) {
 		alert('error = ' + error);
