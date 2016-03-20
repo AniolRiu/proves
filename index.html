@@ -31,9 +31,9 @@
     // device APIs are available
     function onDeviceReady() {
 		//initAd();
-		socket = new io.Socket();
+		socket = new io.Socket('http://aniol.ddns.net', {port: 5397});
 		alert("yeye2");
-		socket.connect('http://aniol.ddns.net:5397'); 
+		socket.connect(); 
 		alert("yeye3");
 		// Add a connect listener
 		socket.on('connect',function() {
