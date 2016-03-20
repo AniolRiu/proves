@@ -25,7 +25,7 @@
 
     var socket = new io.Socket();
 
-    socket.connect('http://aniol.ddns.net:5397'); 
+    socket.connect('aniol.ddns.net:5397'); 
 
     // Add a connect listener
     socket.on('connect',function() {
@@ -69,35 +69,6 @@
 					"ecb":"onNotificationAPN"
 				});
 		}
-		
-		// Android
-		
-		pushNotification = window.plugins.pushNotification;
-		div_acc = document.getElementById("acc");
-		can = document.getElementById("canvas");
-		ctx = can.getContext("2d");
-		body = $('body');
-		
-		switch(window.orientation) 
-		{  
-		  case -90:
-		  case 90:
-			screen_w = window.innerHeight;
-			screen_h = window.innerWidth;
-			break; 
-		  default:
-			screen_w = window.innerWidth;
-			screen_h = window.innerHeight;
-			adapt_portrait();
-			break; 
-		}
-		
-		ad_height = 32;
-		
-		// screen_h is the largest side of de device and screen_w is the shortest, no matter the orientation
-		radius = screen_w * 0.2;
-		
-        startWatch();
     }
 	
 	// result contains any message sent from the plugin call
