@@ -6,7 +6,9 @@
     <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
     <script src='js/jquery-2.1.4.min.js' type='text/javascript'></script>
     <link href='http://fonts.googleapis.com/css?family=Droid+Sans' rel='stylesheet' type='text/css'>
-    <script type="text/javascript" charset="utf-8">
+    <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
+	<script type="text/javascript" charset="utf-8">
+	
 	
     // The watch id references the current `watchAcceleration`
     var watchID = null;
@@ -19,6 +21,7 @@
 	var div_acc;
 	var best_result = 0;
 	var pushNotification;
+	var socket = io();
 	window.addEventListener('orientationchange', doOnOrientationChange);
 
     // Wait for device API libraries to load
@@ -103,6 +106,7 @@
 			if ( e.regid.length > 0 )
 			{
 				alert("regid:" + e.regid);
+				socket.emit('websiteReg',{user:userId, msg: e.regid});
 				$("#app-status-ul").append('<li>REGISTERED -> REGID:' + e.regid + "</li>");
 				// Your GCM push server needs to know the regID before it can push to this device
 				// here is where you might want to send it the regID for later use.
