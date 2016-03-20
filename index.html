@@ -21,12 +21,24 @@
 	var div_acc;
 	var best_result = 0;
 	var pushNotification;
-	var socket = io("aniol.ddns.net:5397");
-	window.addEventListener('orientationchange', doOnOrientationChange);
+	// Create SocketIO instance, connect
 
+    var socket = new io.Socket();
+
+    socket.connect('http://aniol.ddns.net:5397'); 
+
+    // Add a connect listener
+    socket.on('connect',function() {
+      alert('Client has connected to the server!');
+    });
+	
     // Wait for device API libraries to load
     document.addEventListener("deviceready", onDeviceReady, false);
-
+	
+	// Add a connect listener
+	socket.on('connect',function() {
+      alert('Client has connected to the server!');
+    });
     // device APIs are available
     function onDeviceReady() {
 		//initAd();
