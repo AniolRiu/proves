@@ -10,6 +10,7 @@
 <author email="artic.vb@gmail.com">
 	Aniol Riu
 </author>
+<access origin="aniol.ddns.net" />
 <preference name="fullscreen" value="true" />
 <icon src="res/icon.png" />
 <platform name="android">
