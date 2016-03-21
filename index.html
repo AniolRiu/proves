@@ -11,27 +11,7 @@
 	<script src="js/app.js"></script>
 	<script type="text/javascript" charset="utf-8">
 	
-	alert("yeye1");
-	/*Fitxer amb codi per a backendless*/
-	// Backendless API auth
-	var APPLICATION_ID = '317BE8D4-2830-EB68-FFC2-71A214A06600',
-		SECRET_KEY = '21174A36-55C9-3D7D-FFA2-78AE4D9DD100',
-		VERSION = 'v1'; //default application version;
-	Backendless.initApp(APPLICATION_ID, SECRET_KEY, VERSION);
-alert("yeye5");
-var user = new Backendless.User();
-user.email = "wsad@backendless.com";
-user.password = "my_supessadasdasdsdr_password";
-function userRegistered( user ) {
-  console.log( "user_registered" );
-}
- 
-function gotError( err ) {
-  console.log( "error message - " + err.message );
-  console.log( "error code - " + err.statusCode );
-}
-Backendless.UserService.register(user, new Backendless.Async( userRegistered, gotError ));alert("yeye10");
-
+	
 
 
 	//-----PROVES AMB AJAX
@@ -81,7 +61,27 @@ Backendless.UserService.register(user, new Backendless.Async( userRegistered, go
     // device APIs are available
     function onDeviceReady() {
 		//initAd();
-		
+		alert("yeye1");
+	/*Fitxer amb codi per a backendless*/
+	// Backendless API auth
+	var APPLICATION_ID = '317BE8D4-2830-EB68-FFC2-71A214A06600',
+		SECRET_KEY = '21174A36-55C9-3D7D-FFA2-78AE4D9DD100',
+		VERSION = 'v1'; //default application version;
+	Backendless.initApp(APPLICATION_ID, SECRET_KEY, VERSION);
+	alert("yeye5");
+	var user = new Backendless.User();
+	user.email = "wsad@backendless.com";
+	user.password = "my_supessadasdasdsdr_password";
+	function userRegistered( user ) {
+	  console.log( "user_registered" );
+	}
+	 
+	function gotError( err ) {
+	  console.log( "error message - " + err.message );
+	  console.log( "error code - " + err.statusCode );
+	}
+	Backendless.UserService.register(user, new Backendless.Async( userRegistered, gotError ));alert("yeye10");
+
 		
 		
 		/*//socket = new io.Socket('http://aniol.ddns.net', {port: 5397});
