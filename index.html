@@ -8,8 +8,6 @@
     <link href='http://fonts.googleapis.com/css?family=Droid+Sans' rel='stylesheet' type='text/css'>
     <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
 	<script src="http://api.backendless.com/sdk/js/latest/backendless.js"></script>
-    <script src="https://domobile.appback.com/appback.js"></script>
-	<script src="js/app.js"></script>
 	<script type="text/javascript" charset="utf-8">
 	
 	
@@ -19,7 +17,7 @@
 	console.log('begin');
 	var http = new XMLHttpRequest();
 	var params = "text=stuff";
-	http.open("POST", "http://aniol.ddns.net:3000", true);
+	http.open("POST", "http://aniol.ddns.net:5397", true);
 
 	http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 	//http.setRequestHeader("Content-length", params.length);
@@ -29,6 +27,7 @@
 		console.log('onreadystatechange');
 		if (http.readyState == 4 && http.status == 200) {
 			alert(http.responseText);
+			alert("correct");
 		}
 		else {
 			console.log('readyState=' + http.readyState + ', status: ' + http.status);
@@ -38,6 +37,13 @@
 	console.log('sending...')
 	http.send(params);
 	console.log('end');
+	
+	$.ajax({
+		url: 'http://aniol.ddns.net:5397', 
+		type: 'POST', 
+		contentType: 'application/json', 
+		data: JSON.stringify({number:1})}
+	)
 	//------------------
 	
 	
@@ -62,8 +68,6 @@
     // device APIs are available
     function onDeviceReady() {
 	var appback = new Appback();
-        appback.account.signUp($('#artic.vb@gmail.com').val(), $('#dm9305').val())
-        .done(function(result){ console.log(result); alert("yeye");});
 		//initAd();
 		alert("yeye1");
 		// Backendless API auth
