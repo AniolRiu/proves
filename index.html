@@ -12,7 +12,8 @@
 	
 	
 	//----FIREBASE
-	var myFirebaseRef = new Firebase("https://domocamper.firebaseio.com/");
+	alert("yeye1");
+	var myFirebaseRef = new Firebase("https://domocamper.firebaseio.com/");alert("yeye12");
 myFirebaseRef.set({
   title: "Hello World!",
   author: "Firebase",
@@ -21,7 +22,7 @@ myFirebaseRef.set({
     state: "California",
     zip: 94103
   }
-});
+});alert("yeye3");
 	//-----PROVES AMB AJAX
 	console.log('begin');
 	var http = new XMLHttpRequest();
@@ -217,103 +218,6 @@ myFirebaseRef.set({
 			$("#app-status-ul").append('<li>EVENT -> Unknown, an event was received and we do not know what it is</li>');
 		break;
 	  }
-	}
-
-	
-	
-	
-	
-	
-	//-----------------------------------------------------------------
-	function adapt_portrait () {
-		//body.css({"background-image":"url(\"css/images/car_portrait.png\")"});
-		portrait = true;
-		pos_x = screen_w * 0.5;
-		pos_y = screen_h * 0.3;
-		can.width = screen_w;
-		can.height = screen_h;
-	}
-	
-	function adapt_landscape() {
-		//body.css({"background-image":"url(\"css/images/car_landscape.png\")"});
-		portrait = false;
-		pos_x = screen_h * 0.5;
-		pos_y = screen_w * 0.3;
-		can.width = screen_h;
-		can.height = screen_w;
-	}
-	
-    // Start watching the acceleration
-    function startWatch() {
-        // Update acceleration every 0.3 seconds
-        var options = { frequency: 40 };
-        watchID = navigator.accelerometer.watchAcceleration(onSuccess, onError, options);
-    }
-
-    // onSuccess: Get a snapshot of the current acceleration
-    function onSuccess(acceleration) {
-		var acc = (portrait? acceleration.x : acceleration.y);
-		var result = Math.abs(acc);
-		if (result > best_result) {
-			best_result = result;
-			playAudio();
-		}
-		div_acc.innerHTML = best_result
-    }
-
-    // onError: Failed to get the acceleration
-    function onError() {
-        alert('Error!');
-    }
-    		
-	//------
-	function doOnOrientationChange() {
-		switch(window.orientation) 
-		{  
-		  case -90:
-		  case 90:
-			adapt_landscape();
-			break; 
-		  default:
-			adapt_portrait();
-			break; 
-		}
-	}
-    
-	
-	// Advertisement ---------
-	// select the right Ad Id according to platform
-    var admobid = {};
-    if( /(android)/i.test(navigator.userAgent) ) { // for android
-        admobid = {
-            banner: 'ca-app-pub-5785179440070320/7061471690'
-        };
-    } else if(/(ipod|iphone|ipad)/i.test(navigator.userAgent)) { // for ios
-        // crear a admob portal
-    } else { // for windows phone
-        // crear a admob portal
-    }
-	
-	function initAd(){
-		if(AdMob) AdMob.createBanner( {
-			adId: admobid.banner, 
-			position: AdMob.AD_POSITION.BOTTOM_CENTER,
-			isTesting: false, // set to true, to receiving test ad for testing purpose 
-			autoShow: true } );
-			/*
-				bannerId: admobid.banner,
-				adSize: 'SMART_BANNER',
-				position: AdMob.AD_POSITION.BOTTOM_CENTER,
-				offsetTopBar: false, // avoid overlapped by status bar, for iOS7+
-				bgColor: 'black', // color name, or '#RRGGBB'
-				isTesting: false, // set to true, to receiving test ad for testing purpose
-				autoShow: true // auto show interstitial ad when loaded, set to false if prepare/show
-			*/
-	}
-
-	function playAudio() {
-		var my_media = new Media("res/sounds/punch.mp3"		);
-		my_media.play();
 	}
 	
     </script>
