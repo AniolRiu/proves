@@ -10,6 +10,6 @@
 	<author email="artic.vb@gmail.com">
 		Aniol Riu
 	</author>
-	<access uri="*" subdomains="true" />
+	<access origin="*" />
 	<gap:plugin name="com.phonegap.plugins.pushplugin" spec="2.5.0" source="pgb" />
 </widget>
