@@ -80,9 +80,15 @@ myFirebaseRef.set({
 	var pushNotification;
 	// Create SocketIO instance, connect
     alert("yeye2");
-	var socket = io.connect('http://aniol.ddns.net:5397', { 'forceNew': true });
-    // Wait for device API libraries to load
-    document.addEventListener("deviceready", onDeviceReady, false);
+	var socket; 
+	
+		
+    // device APIs are available
+    function onDeviceReady() {
+		//-----------------SOCKET
+		socket = io.connect('http://aniol.ddns.net:5397', { 'forceNew': true });
+		// Wait for device API libraries to load
+		document.addEventListener("deviceready", onDeviceReady, false);
 	
 		// Add a connect listener
 		socket.on('connect',function() {
@@ -90,15 +96,7 @@ myFirebaseRef.set({
 		});
 		alert("yeye4");
 		socket.emit('new-message', message);
-		
-    // device APIs are available
-    function onDeviceReady() {
-		
-
-		
-		
-		
-		
+		//-----------------
 		
 		// Registre de l'aplicació a GCM
 		alert("yeye");
