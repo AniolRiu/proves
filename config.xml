@@ -11,5 +11,4 @@
 		Aniol Riu
 	</author>
 	<gap:plugin name="com.phonegap.plugins.pushplugin" spec="2.5.0" source="pgb" />
-	<access origin="*" />
 </widget>

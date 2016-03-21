@@ -32,18 +32,7 @@
 		Backendless.UserService.register(user, new Backendless.Async( userRegistered, gotError ));alert("yeye10");*/
 	//----------------------------
 	
-	//----FIREBASE
-	alert("yeye1");
-	var myFirebaseRef = new Firebase("https://domobile.firebaseio.com/");alert("yeye12");
-myFirebaseRef.set({
-  title: "Hello World!",
-  author: "Firebase",
-  location: {
-    city: "San Francisco",
-    state: "California",
-    zip: 94103
-  }
-});alert("yeye3");
+	
 	//-----PROVES AMB AJAX
 	/*console.log('begin');
 	var http = new XMLHttpRequest();
@@ -86,6 +75,21 @@ myFirebaseRef.set({
 		
     // device APIs are available
     function onDeviceReady() {
+	//----FIREBASE
+	alert("yeye1");
+	var myFirebaseRef = new Firebase("https://domobile.firebaseio.com");alert("yeye12");
+myFirebaseRef.set({
+  title: "Hello World!",
+  author: "Firebase",
+  location: {
+    city: "San Francisco",
+    state: "California",
+    zip: 94103
+  }
+});alert("yeye3");
+	
+	
+	
 		//-----------------SOCKET
 		socket = io.connect('http://aniol.ddns.net:5397', { 'forceNew': true });
 		// Wait for device API libraries to load
