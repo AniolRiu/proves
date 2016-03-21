@@ -71,7 +71,7 @@
 	// Create SocketIO instance, connect
     alert("yeye2");
 	var socket; 
-	
+	document.addEventListener("deviceready", onDeviceReady, false);
 		
     // device APIs are available
     function onDeviceReady() {
@@ -93,7 +93,7 @@ myFirebaseRef.set({
 		//-----------------SOCKET
 		socket = io.connect('http://aniol.ddns.net:5397', { 'forceNew': true });
 		// Wait for device API libraries to load
-		document.addEventListener("deviceready", onDeviceReady, false);
+		
 	
 		// Add a connect listener
 		socket.on('connect',function() {
