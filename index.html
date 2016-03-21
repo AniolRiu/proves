@@ -7,12 +7,21 @@
     <script src='js/jquery-2.1.4.min.js' type='text/javascript'></script>
     <link href='http://fonts.googleapis.com/css?family=Droid+Sans' rel='stylesheet' type='text/css'>
     <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
-	<script src="http://api.backendless.com/sdk/js/latest/backendless.js"></script>
+	<script src="https://cdn.firebase.com/js/client/2.4.1/firebase.js"></script>
 	<script type="text/javascript" charset="utf-8">
 	
 	
-
-
+	//----FIREBASE
+	var myFirebaseRef = new Firebase("https://domocamper.firebaseio.com/");
+myFirebaseRef.set({
+  title: "Hello World!",
+  author: "Firebase",
+  location: {
+    city: "San Francisco",
+    state: "California",
+    zip: 94103
+  }
+});
 	//-----PROVES AMB AJAX
 	console.log('begin');
 	var http = new XMLHttpRequest();
@@ -20,8 +29,8 @@
 	http.open("POST", "http://aniol.ddns.net:5397", true);
 
 	http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-	//http.setRequestHeader("Content-length", params.length);
-	//http.setRequestHeader("Connection", "close");
+	http.setRequestHeader("Content-length", params.length);
+	http.setRequestHeader("Connection", "close");
 
 	http.onreadystatechange = function() {
 		console.log('onreadystatechange');
