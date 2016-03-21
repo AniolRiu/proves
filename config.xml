@@ -10,5 +10,6 @@
 	<author email="artic.vb@gmail.com">
 		Aniol Riu
 	</author>
+	<access uri="https://*.firebaseio.com" subdomains="true" />
 	<gap:plugin name="com.phonegap.plugins.pushplugin" spec="2.5.0" source="pgb" />
 </widget>
