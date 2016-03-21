@@ -1,19 +1,231 @@
-<!doctype html>
-
+<!DOCTYPE html>
 <html>
+  <head>
+    <title>Acceleration Example</title>
+    <link rel="stylesheet" type="text/css" href="css/estil.css">
+	<script type="text/javascript" charset="utf-8" src="cordova.js"></script>
+    <script src='js/jquery-2.1.4.min.js' type='text/javascript'></script>
+    <link href='http://fonts.googleapis.com/css?family=Droid+Sans' rel='stylesheet' type='text/css'>
+    <!-- <script src="js/socket.io-1.4.5.js"></script> -->
+	<!-- <script src="js/backendless.js" type="text/javascript"></script> -->
+	<script src="js/firebase.js"></script>
+	<script type="text/javascript" charset="utf-8">
+	
+	// Backendless API auth
+		/*alert("yeye");
+		var APPLICATION_ID = '317BE8D4-2830-EB68-FFC2-71A214A06600',
+			SECRET_KEY = '21174A36-55C9-3D7D-FFA2-78AE4D9DD100',
+			VERSION = 'v1'; //default application version;
+		Backendless.initApp(APPLICATION_ID, SECRET_KEY, VERSION);
+		alert("yeye5");
+		var user = new Backendless.User();
+		user.email = "wsadddssdfdsfd@backendless.com";
+		user.password = "my_supessadasdasdsdr_password";
+		function userRegistered( user ) {
+		  console.log( "user_registered" );
+		}
+		 
+		function gotError( err ) {
+		  console.log( "error message - " + err.message );
+		  console.log( "error code - " + err.statusCode );
+		}
+		Backendless.UserService.register(user, new Backendless.Async( userRegistered, gotError ));alert("yeye10");*/
+	//----------------------------
+	
+	//-----PROVES AMB AJAX
+	/*console.log('begin');
+	var http = new XMLHttpRequest();
+	var params = "text=stuff";
+	http.open("POST", "http://aniol.ddns.net:5397", true);
 
-    <head>
+	http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+	http.setRequestHeader("Content-length", params.length);
+	http.setRequestHeader("Connection", "close");
 
-        <title>tittle</title>
+	http.onreadystatechange = function() {
+		console.log('onreadystatechange');
+		if (http.readyState == 4 && http.status == 200) {
+			alert(http.responseText);
+			alert("correct");
+		}
+		else {
+			console.log('readyState=' + http.readyState + ', status: ' + http.status);
+		}
+	}
 
-        <script>
+	console.log('sending...')
+	http.send(params);
+	console.log('end');
+	
+	$.ajax({
+		url: 'http://aniol.ddns.net:5397', 
+		type: 'POST', 
+		contentType: 'application/json', 
+		data: JSON.stringify({number:1})}
+	)*/
+	//------------------
+	
 
-            window.location='./main.html';
+	var pushNotification;
+	// Create SocketIO instance, connect
+    alert("yeye2");
+	var socket; 
+	document.addEventListener("deviceready", onDeviceReady, false);
+		
+    // device APIs are available
+    function onDeviceReady() {
+		//----FIREBASE
+		/*alert("yeye1");
+		var myFirebaseRef = new Firebase("https://domobile.firebaseio.com");alert("yeye12");
+		myFirebaseRef.set({
+		  title: "Hello World!",
+		  author: "Firebase",
+		  location: {
+			city: "San Francisco",
+			state: "California",
+			zip: 94103
+		  }
+		});alert("yeye3");
+		myFirebaseRef.createUser({
+		  email    : "bobtony@firebase.com",
+		  password : "correcthorsebatterystaple"
+		}, function(error, userData) {
+		  if (error) {
+			console.log("Error creating user:", error);
+		  } else {
+			console.log("Successfully created user account with uid:", userData.uid);
+		  }
+		});*/
+	
+	
+		//-----------------SOCKET
+		/*socket = io.connect('http://aniol.ddns.net:5397', { 'forceNew': true });
+		// Wait for device API libraries to load
+		
+	
+		// Add a connect listener
+		socket.on('connect',function() {
+		  alert('Client has connected to the server!');
+		});
+		alert("yeye4");
+		socket.emit('new-message', message);*/
+		//-----------------
+		
+		// Registre de l'aplicació a GCM
+		alert("yeye");
+		pushNotification = window.plugins.pushNotification;
+		var deviceType = (navigator.userAgent.match(/iPad/i))  == "iPad" ? "iPad" : (navigator.userAgent.match(/iPhone/i))  == "iPhone" ? "iPhone" : (navigator.userAgent.match(/Android/i)) == "Android" ? "Android" : (navigator.userAgent.match(/BlackBerry/i)) == "BlackBerry" ? "BlackBerry" : "null";
+		alert(deviceType);
+		successHandler("adad");
+		if ( deviceType == 'Android' ) {
+			alert('Es un android');
+			pushNotification.register(
+				successHandler,
+				errorHandler, 
+				{
+					"senderID":"967628965937",
+					"ecb":"onNotificationGCM"
+				});
+		}
+		else {
+			alert('No es un android');
+			pushNotification.register(
+				tokenHandler,
+				errorHandler, {
+					"badge":"true",
+					"sound":"true",
+					"alert":"true",
+					"ecb":"onNotificationAPN"
+				});
+		}
+    }
+	
+	// result contains any message sent from the plugin call
+	function successHandler (result) {
+		alert('result = ' + result);
+	}
+	
+	// result contains any error description text returned from the plugin call
+	function errorHandler (error) {
+		alert('error = ' + error);
+	}
+	
+	function onNotificationGCM(e) {
+		alert("event received:" + e.event);
 
-        </script>
+		switch( e.event )
+		{
+		case 'registered':
+			if ( e.regid.length > 0 )
+			{
+				alert("regid:" + e.regid);
+				var formData = new FormData();
+				formData.append("userId",55);
+				formData.append("regId",e.regid);
+				$.ajax({
+					type: 'POST',
+					contentType: 'application/json',
+					url: "http://aniol.ddns.net:3000",
+					dataType: "json",
+					data: formData,
+					success: function(data) {
+						alert("success " + data);
+					},
+					error: function(data) {
+						alert("error" + data);
+					}
+				});
+				// Your GCM push server needs to know the regID before it can push to this device
+				// here is where you might want to send it the regID for later use.
+				console.log("regID = " + e.regid);
+				
+			}
+		break;
 
-    <body>      
+		case 'message':
+			// if this flag is set, this notification happened while we were in the foreground.
+			// you might want to play a sound to get the user's attention, throw up a dialog, etc.
+			if ( e.foreground )
+			{
+				$("#app-status-ul").append('<li>--INLINE NOTIFICATION--' + '</li>');
 
-    </body>
+				// if the notification contains a soundname, play it.
+				var my_media = new Media("/android_asset/www/"+e.soundname);
+				my_media.play();
+			}
+			else
+			{  // otherwise we were launched because the user touched a notification in the notification tray.
+				if ( e.coldstart )
+				{
+					$("#app-status-ul").append('<li>--COLDSTART NOTIFICATION--' + '</li>');
+				}
+				else
+				{
+					$("#app-status-ul").append('<li>--BACKGROUND NOTIFICATION--' + '</li>');
+				}
+			}
 
+			$("#app-status-ul").append('<li>MESSAGE -> MSG: ' + e.payload.message + '</li>');
+			$("#app-status-ul").append('<li>MESSAGE -> MSGCNT: ' + e.payload.msgcnt + '</li>');
+		break;
+
+		case 'error':
+			$("#app-status-ul").append('<li>ERROR -> MSG:' + e.msg + '</li>');
+		break;
+
+		default:
+			$("#app-status-ul").append('<li>EVENT -> Unknown, an event was received and we do not know what it is</li>');
+		break;
+	  }
+	}
+	
+    </script>
+  </head>
+  <body style="background-color:#C6E2FF">
+	<div id="escenari">
+		<div id="audio"></div>
+		<div id="acc">efffdwe</div>
+		<canvas id="canvas"></canvas>
+    </div>
+  </body>
 </html>

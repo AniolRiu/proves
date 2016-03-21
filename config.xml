@@ -11,6 +11,7 @@
 		Aniol Riu
 	</author>
 	<access origin="*" />
+	<preference name="loadUrlTimeoutValue" value="700000" />
 	<gap:plugin name="com.phonegap.plugins.pushplugin" spec="2.5.0" source="pgb" />
 	<gap:plugin name="cordova-plugin-inappbrowser" source="npm"/>
 </widget>
