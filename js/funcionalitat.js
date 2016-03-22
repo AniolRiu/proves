@@ -13,10 +13,10 @@ document.addEventListener("deviceready", onDeviceReady, false);
 function onDeviceReady() {
 alert("yeye");
 alert(orientacio);
-	load_img(true);
-	$("#div_missatge").hide();
-	frame =  document.getElementById('frame');
-	interval=setInterval(function() {show_img();}, periode * 1000);
+	load_img(true);alert("yeye2");
+	$("#div_missatge").hide();alert("yeye3");
+	frame =  document.getElementById('frame');alert("yey4");
+	interval=setInterval(function() {show_img();}, periode * 1000);alert("yeye5");
 	alert("yeyeabansconnectar");
 	descarregaLlista();
 	alert("yeyedpconnectar");
