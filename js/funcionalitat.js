@@ -8,7 +8,7 @@ var interval;
 var img = new Image();
 var new_image = new Image();
 var frame;
-document.addEventListener("deviceready", onDeviceReady, false);
+window.onload = onDeviceReady;
 
 function onDeviceReady() {
 alert("yeye");
