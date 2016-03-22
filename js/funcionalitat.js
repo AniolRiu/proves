@@ -8,8 +8,9 @@ var interval;
 var img = new Image();
 var new_image = new Image();
 var frame;
+document.addEventListener("deviceready", onDeviceReady, false);
 
-$(document).ready(function() {
+function onDeviceReady() {
 alert("yeye");
 alert(orientacio);
 	load_img(true);
@@ -36,7 +37,7 @@ alert(orientacio);
 		load_img(true);
 		initApp();
 	}
-});
+}
 
 function desaccelera() {
 	/*
@@ -101,7 +102,7 @@ function getAdresa(num) {
 }
 
 function descarregaLlista() {
-alert("yyeyellista");
+	//---------JSONP
 	$.getJSON(
 		"http://viacamper.cat/randomframe/repo.php?jsoncallback=?",
 		{
@@ -115,7 +116,11 @@ alert("yyeyellista");
 			num_imatges_v=v.length;
 		}
 	);
+	//--------------
+	
+	//-----CORS
 	makeCorsRequest();
+	//----------
 }
 
 function load_img(fast_show) {
