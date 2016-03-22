@@ -34,5 +34,5 @@
 	<icon src="res/ios/icon-50.png" width="50" height="50" />
 	<icon src="res/ios/icon-50@2x.png" width="100" height="100" />
 </platform>
-<gap:plugin name="com.admob.google" source="plugins.cordova.io"/>
+<plugin name="com.admob.google" spec="4.0.8" source="pgb" />
 </widget>
