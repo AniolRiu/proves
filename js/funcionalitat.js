@@ -17,7 +17,9 @@ alert(orientacio);
 	$("#div_missatge").hide();
 	frame =  document.getElementById('frame');
 	interval=setInterval(function() {show_img();}, periode * 1000);
+	alert("yeyeabansconnectar");
 	descarregaLlista();
+	alert("yeyedpconnectar");
 	
 	
 	if(( /(ipad|iphone|ipod|android)/i.test(navigator.userAgent) )) {
