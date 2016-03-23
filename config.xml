@@ -39,5 +39,5 @@
 <access origin="http://viacamper.cat" />
 
 <plugin name="com.admob.google" spec="4.0.8" source="pgb" />
-<plugin name="cordova-plugin-whitelist" />
+<gap:plugin name="cordova-plugin-whitelist" source="npm" />
 </widget>
