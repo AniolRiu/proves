@@ -14,10 +14,6 @@ document.addEventListener("deviceready", onDeviceReady, false);
     onDeviceReady();
 });*/
 
-
-
-
-
 function login() {
 	alert("login");
 	if( Backendless.LocalCache.get("current-user") ) { 
