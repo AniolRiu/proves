@@ -10,6 +10,10 @@ var new_image = new Image();
 var frame;
 document.addEventListener("deviceready", onDeviceReady, false);
 
+/*$( document ).ready(function() {
+    onDeviceReady();
+});*/
+
 function onDeviceReady() {
 	descarregaLlista();
 	load_img(true);
