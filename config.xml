@@ -36,7 +36,7 @@
 </platform>
 
 <!-- Allow links to example.com -->
-<access origin="http://viacamper.cat" />
+<access origin="*" />
 
 <plugin name="com.admob.google" spec="4.0.8" source="pgb" />
 <gap:plugin name="cordova-plugin-whitelist" source="npm" />

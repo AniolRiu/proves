@@ -109,12 +109,15 @@ function descarregaLlista() {
 			num:"l"	//llista
 		}, 
 		function(resposta) {
-			alert("loco");
-			console.log("Resposta" + resposta);
+			var resposta = JSON.parse(xhr.responseText);
+			alert(resposta.success);
+			console.log(resposta);
 			h=resposta.horitzontals;
 			v=resposta.verticals;
 			num_imatges_h=h.length; 
 			num_imatges_v=v.length;
+			console.log(resposta);
+			alert('Response from CORS request to ' + url);
 		}
 	);
 	//--------------
