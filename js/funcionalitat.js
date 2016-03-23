@@ -71,8 +71,6 @@ function errorHandler (error) {
 
 // Android and Amazon Fire OS
 function onNotification(e) {
-    $("#app-status-ul").append('<li>EVENT -> RECEIVED:' + e.event + '</li>');
-
     switch( e.event )
     {
     case 'registered':
