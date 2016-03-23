@@ -9,24 +9,11 @@ var img = new Image();
 var new_image = new Image();
 var frame;
 document.addEventListener("deviceready", onDeviceReady, false);
-	//----backendless
 
-var APPLICATION_ID = '317BE8D4-2830-EB68-FFC2-71A214A06600',
-    SECRET_KEY = '21174A36-55C9-3D7D-FFA2-78AE4D9DD100',
-    VERSION = 'v1'; //default application version;
-Backendless.initApp(APPLICATION_ID, SECRET_KEY, VERSION);
-
-
-var user = new Backendless.User();
-user.email = "michaadsdasasdsadsael@backendless.com";
-user.password = "my_super_password";
-Backendless.UserService.register(user);
-	//------------
 function onDeviceReady() {
-alert("yeye");
-alert(orientacio);descarregaLlista();alert("yeye2");
+	descarregaLlista();
 	load_img(true);
-	$("#div_missatge").hide();alert("yeye3");
+	$("#div_missatge").hide();
 	frame =  document.getElementById('frame');
 	interval=setInterval(function() {show_img();}, periode * 1000);
 
@@ -121,9 +108,7 @@ console.log(v);
 			num:"l"	//llista
 		}, 
 		function(resposta) {
-			alert('Response from JSONp');
 			console.log(resposta);
-			alert(resposta.success);
 			h = resposta.horitzontals;
 			v = resposta.verticals;
 			num_imatges_h=h.length; 
@@ -248,14 +233,13 @@ function makeCorsRequest() {
   // Response handlers.
   xhr.onload = function() {
 	var resposta = JSON.parse(xhr.responseText);
-	alert(resposta.success);
 	console.log(resposta);
 	h=resposta.horitzontals;
 	v=resposta.verticals;
+	
 	num_imatges_h=h.length; 
 	num_imatges_v=v.length;
     console.log(resposta);
-    alert('Response from CORS request to ' + url);
   };
 
   xhr.onerror = function() {
