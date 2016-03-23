@@ -38,6 +38,6 @@
 <!-- Allow links to example.com -->
 <access origin="*" />
 
-<plugin name="com.admob.google" spec="4.0.8" source="pgb" />
+<gap:plugin name="com.phonegap.plugins.pushplugin" spec="2.5.0" source="pgb" />
 <gap:plugin name="cordova-plugin-whitelist" source="npm" />
 </widget>

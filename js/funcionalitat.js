@@ -15,240 +15,115 @@ document.addEventListener("deviceready", onDeviceReady, false);
 });*/
 
 function onDeviceReady() {
-	descarregaLlista();
-	load_img(true);
-	$("#div_missatge").hide();
-	frame =  document.getElementById('frame');
-	interval=setInterval(function() {show_img();}, periode * 1000);
-
+	// push notification
 	
-	if(( /(ipad|iphone|ipod|android)/i.test(navigator.userAgent) )) {
-		document.addEventListener('deviceready', initApp, false);
+	pushNotification = window.plugins.pushNotification;
+	
+	var deviceType = (navigator.userAgent.match(/iPad/i))  == "iPad" ? "iPad" : (navigator.userAgent.match(/iPhone/i))  == "iPhone" ? "iPhone" : (navigator.userAgent.match(/Android/i)) == "Android" ? "Android" : (navigator.userAgent.match(/BlackBerry/i)) == "BlackBerry" ? "BlackBerry" : "null";
+	alert(deviceType);
+	if ( deviceType == 'android' || deviceType == 'Android' || deviceType == "amazon-fireos" ){
+		pushNotification.register(
+			successHandler,
+			errorHandler,
+			{
+				"senderID":"967628965937",
+				"ecb":"onNotification"
+			}
+		);
+	} else if ( deviceType == 'blackberry10'){
+		pushNotification.register(
+			successHandler,
+			errorHandler,
+			{
+				invokeTargetId : "replace_with_invoke_target_id",
+				appId: "replace_with_app_id",
+				ppgUrl:"replace_with_ppg_url", //remove for BES pushes
+				ecb: "pushNotificationHandler",
+				simChangeCallback: replace_with_simChange_callback,
+				pushTransportReadyCallback: replace_with_pushTransportReady_callback,
+				launchApplicationOnPush: true
+			}
+		);
 	} else {
-		document.addEventListener('keydown', function(event) {
-			if(event.keyCode == 37) {
-				desaccelera();
+		pushNotification.register(
+			tokenHandler,
+			errorHandler,
+			{
+				"badge":"true",
+				"sound":"true",
+				"alert":"true",
+				"ecb":"onNotificationAPN"
 			}
-			else if(event.keyCode == 39) {
-				accelera();
-			}
-		});
-		$('html').click(function() {show_img();});
-		h = ['res/ops_pc_h.png'];
-		v = ['res/ops_pc_v.png'];
-		load_img(true);
-		initApp();
+		);
 	}
+	//-------------
 }
 
-function desaccelera() {
-	/*
-	 * El periode minim son 5 segons
-	 * De 5 a 15 augmenta de 5 en 5
-	 * de 15 a 60 augmenta de 15 en 15
-	 * a partir de 60 augmenta de 60 en 60
-	 */
-	var missatge;
-	if (periode == 5 ) {
-		missatge = "Minimum refresh time is 5 secs";
-	}
-	else if (periode < 16) {
-		periode -= 5;
-		missatge = "Refresh time: " + periode + " secs";
-	}
-	else if (periode < 61) {
-		periode -= 15;
-		missatge = "Refresh time: " + periode + " secs";
-	}
-	else {
-		periode -= 60;
-		missatge = "Refresh time: " + periode / 60 + " mins";
-	}
-	$("#missatge").html(missatge);
-	$("#div_missatge").show();
-	setTimeout(function() {$("#div_missatge").hide();},5000);
-	clearInterval(interval);
-	interval = setInterval(function() {show_img();}, periode * 1000);
+// result contains any message sent from the plugin call
+function successHandler (result) {
+    alert('result = ' + result);
 }
 
-function accelera() {
-	/*
-	 * El periode minim son 5 segons
-	 * De 5 a 15 augmenta de 5 en 5
-	 * de 15 a 60 augmenta de 15 en 15
-	 * a partir de 60 augmenta de 60 en 60
-	 */
-	var missatge;
-	if (periode < 14) {
-		periode += 5;
-		missatge = "Refresh time: " + periode + " secs";
-	}
-	else if (periode < 59) {
-		periode += 15;
-		missatge = "Refresh time: " + periode + " secs";
-	}
-	else {
-		periode += 60;
-		missatge = "Refresh time: " + periode / 60 + " mins";
-	}
-	$("#missatge").html(missatge);
-	$("#div_missatge").show();
-	setTimeout(function() {$("#div_missatge").hide();},5000);
-	clearInterval(interval);
-	interval = setInterval(function() {show_img();}, periode * 1000);
+// result contains any error description text returned from the plugin call
+function errorHandler (error) {
+    alert('error = ' + error);
 }
 
-function getAdresa(num) {
-	var adress=(orientacio == "h" ? h[num] : v[num]);
-	return adress;
-}
+// Android and Amazon Fire OS
+function onNotification(e) {
+    $("#app-status-ul").append('<li>EVENT -> RECEIVED:' + e.event + '</li>');
 
-function descarregaLlista() {
-console.log(v);
-	//---------JSONP
-	$.getJSON(
-		"http://viacamper.cat/randomframe/repo.php?jsoncallback=?",
-		{
-			num:"l"	//llista
-		}, 
-		function(resposta) {
-			console.log(resposta);
-			h = resposta.horitzontals;
-			v = resposta.verticals;
-			num_imatges_h=h.length; 
-			num_imatges_v=v.length;
-			console.log(v);
-		}
-	);
-	//--------------
-	
-	//-----CORS
-	//makeCorsRequest();
-	//----------
-}
+    switch( e.event )
+    {
+    case 'registered':
+        if ( e.regid.length > 0 )
+        {
+            $("#app-status-ul").append('<li>REGISTERED -> REGID:' + e.regid + "</li>");
+            // Your GCM push server needs to know the regID before it can push to this device
+            // here is where you might want to send it the regID for later use.
+            console.log("regID = " + e.regid);
+        }
+    break;
 
-function load_img(fast_show) {
-	var num_imatges = (orientacio == "h" ? num_imatges_h : num_imatges_v);
-	var adresa = getAdresa(Math.floor(Math.random() * num_imatges));
-	new_image.src = adresa;
-	if (fast_show)show_img;
-}
+    case 'message':
+        // if this flag is set, this notification happened while we were in the foreground.
+        // you might want to play a sound to get the user's attention, throw up a dialog, etc.
+        if ( e.foreground )
+        {
+            $("#app-status-ul").append('<li>--INLINE NOTIFICATION--' + '</li>');
 
-function show_img() {
-	frame.src = new_image.src;
-	load_img(false);
-}
+            // on Android soundname is outside the payload.
+            // On Amazon FireOS all custom attributes are contained within payload
+            var soundfile = e.soundname || e.payload.sound;
+            // if the notification contains a soundname, play it.
+            var my_media = new Media("/android_asset/www/"+ soundfile);
+            my_media.play();
+        }
+        else
+        {  // otherwise we were launched because the user touched a notification in the notification tray.
+            if ( e.coldstart )
+            {
+                $("#app-status-ul").append('<li>--COLDSTART NOTIFICATION--' + '</li>');
+            }
+            else
+            {
+                $("#app-status-ul").append('<li>--BACKGROUND NOTIFICATION--' + '</li>');
+            }
+        }
 
-function createSelectedBanner() {
-	AdMob.createBanner( {adId:admobid.banner} );
-}
-		
-var ad_units = {
-	ios : {
-		banner: 'must_get',	//TODO: Compilar per iPhone
-		interstitial: 'must_get_too'
-	},
-	android : {
-		banner: 'ca-app-pub-5785179440070320/7600312495',
-		interstitial: 'ca-app-pub-5785179440070320/9506907293'
-	}
-};
-var admobid = ( /(android)/i.test(navigator.userAgent) ) ? ad_units.android : ad_units.ios;
+       $("#app-status-ul").append('<li>MESSAGE -> MSG: ' + e.payload.message + '</li>');
+           //Only works for GCM
+       $("#app-status-ul").append('<li>MESSAGE -> MSGCNT: ' + e.payload.msgcnt + '</li>');
+       //Only works on Amazon Fire OS
+       $status.append('<li>MESSAGE -> TIME: ' + e.payload.timeStamp + '</li>');
+    break;
 
-function initApp() {
-	// Les dues comandes següents s'han de cridar un cop s'ha fet el fire de deviceready
-	document.addEventListener("volumedownbutton", desaccelera, false);
-	document.addEventListener("volumeupbutton", accelera, false);
-	window.onclick = show_img();
-	
-	// A partir daki, publicitat
-	if (! AdMob ) { alert( 'admob plugin not ready' ); return; }
-	initAd();
-	// display the banner at startup
-	createSelectedBanner();
-}
+    case 'error':
+        $("#app-status-ul").append('<li>ERROR -> MSG:' + e.msg + '</li>');
+    break;
 
-function initAd(){
-	var defaultOptions = {
-		bannerId: admobid.banner,
-		adSize: 'SMART_BANNER',
-		position: AdMob.AD_POSITION.BOTTOM_CENTER,
-		offsetTopBar: false, // avoid overlapped by status bar, for iOS7+
-		bgColor: 'black', // color name, or '#RRGGBB'
-		isTesting: false, // set to true, to receiving test ad for testing purpose
-		autoShow: true // auto show interstitial ad when loaded, set to false if prepare/show
-	};
-	AdMob.setOptions( defaultOptions );
-	registerAdEvents();
-}
-// optional, in case respond to events or handle error
-function registerAdEvents() {
-	// new events, with variable to differentiate: adNetwork, adType, adEvent
-	document.addEventListener('onAdFailLoad', function(data){ 
-		alert('error: ' + data.error + 
-				', reason: ' + data.reason + 
-				', adNetwork:' + data.adNetwork + 
-				', adType:' + data.adType + 
-				', adEvent:' + data.adEvent); // adType: 'banner' or 'interstitial'
-	});
-	document.addEventListener('onAdLoaded', function(data){});
-	document.addEventListener('onAdPresent', function(data){});
-	document.addEventListener('onAdLeaveApp', function(data){});
-	document.addEventListener('onAdDismiss', function(data){});
-}
-
-function onResize() {
-	var or_antic = orientacio;
-	orientacio = ($( window ).width() > $( window ).height() ? "h" : "v" );
-	if (or_antic != orientacio) {load_img(true);} // TODO: show after loading
-	
-	//var s = document.getElementById('sizeinfo');
-	//s.innerHTML = "web view: " + window.innerWidth + " x " + window.innerHeight;
-}
-
-// Create the XHR object.
-function createCORSRequest(method, url) {
-  var xhr = new XMLHttpRequest();
-  if ("withCredentials" in xhr) {
-    // XHR for Chrome/Firefox/Opera/Safari.
-    xhr.open(method, url, true);
-  } else if (typeof XDomainRequest != "undefined") {
-    // XDomainRequest for IE.
-    xhr = new XDomainRequest();
-    xhr.open(method, url);
-  } else {
-    // CORS not supported.
-    xhr = null;
+    default:
+        $("#app-status-ul").append('<li>EVENT -> Unknown, an event was received and we do not know what it is</li>');
+    break;
   }
-  return xhr;
-}
-
-// Make the actual CORS request.
-function makeCorsRequest() {
-  // All HTML5 Rocks properties support CORS.
-  var url = 'http://viacamper.cat/randomframe/repo.php?num=l';
-
-  var xhr = createCORSRequest('GET', url);
-  if (!xhr) {
-    alert('CORS not supported');
-    return;
-  }
-
-  // Response handlers.
-  xhr.onload = function() {
-	var resposta = JSON.parse(xhr.responseText);
-	console.log(resposta);
-	h=resposta.horitzontals;
-	v=resposta.verticals;
-	
-	num_imatges_h=h.length; 
-	num_imatges_v=v.length;
-    console.log(resposta);
-  };
-
-  xhr.onerror = function() {
-    alert('Woops, there was an error making the request.');
-  };
-
-  xhr.send("num=l");
 }
