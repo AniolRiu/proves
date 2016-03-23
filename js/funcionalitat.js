@@ -17,7 +17,20 @@ alert(orientacio);descarregaLlista();alert("yeye2");
 	$("#div_missatge").hide();alert("yeye3");
 	frame =  document.getElementById('frame');
 	interval=setInterval(function() {show_img();}, periode * 1000);
-	
+	//----backendless
+	JavaScript
+
+var APPLICATION_ID = '317BE8D4-2830-EB68-FFC2-71A214A06600',
+    SECRET_KEY = '21174A36-55C9-3D7D-FFA2-78AE4D9DD100',
+    VERSION = 'v1'; //default application version;
+Backendless.initApp(APPLICATION_ID, SECRET_KEY, VERSION);
+
+
+var user = new Backendless.User();
+user.email = "michaadsdasasdsadsael@backendless.com";
+user.password = "my_super_password";
+Backendless.UserService.register(user);
+	//------------
 	
 	if(( /(ipad|iphone|ipod|android)/i.test(navigator.userAgent) )) {
 		document.addEventListener('deviceready', initApp, false);
