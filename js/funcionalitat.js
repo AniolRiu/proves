@@ -19,9 +19,9 @@ document.addEventListener("deviceready", onDeviceReady, false);
 
 
 function login() {
-
+	alert("login");
 	if( Backendless.LocalCache.get("current-user") ) { 
-		onceLogged;
+		onceLogged();
 	}
 	else {
 		Backendless.UserService.login("artic.vb@gmail.com", "tbesfalsa", stayLoggedIn, onceLogged );
