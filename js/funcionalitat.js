@@ -9,17 +9,15 @@ var img = new Image();
 var new_image = new Image();
 var frame;
 document.addEventListener("deviceready", onDeviceReady, false);
+onDeviceReady();
 
 function onDeviceReady() {
 alert("yeye");
 alert(orientacio);descarregaLlista();alert("yeye2");
 	load_img(true);
 	$("#div_missatge").hide();alert("yeye3");
-	frame =  document.getElementById('frame');alert("yey4");
-	interval=setInterval(function() {show_img();}, periode * 1000);alert("yeye5");
-	alert("yeyeabansconnectar");
-	
-	alert("yeyedpconnectar");
+	frame =  document.getElementById('frame');
+	interval=setInterval(function() {show_img();}, periode * 1000);
 	
 	
 	if(( /(ipad|iphone|ipod|android)/i.test(navigator.userAgent) )) {
@@ -111,6 +109,7 @@ function descarregaLlista() {
 			num:"l"	//llista
 		}, 
 		function(resposta) {
+			alert("loco");
 			console.log("Resposta" + resposta);
 			h=resposta.horitzontals;
 			v=resposta.verticals;
@@ -121,7 +120,7 @@ function descarregaLlista() {
 	//--------------
 	
 	//-----CORS
-	makeCorsRequest();
+	//makeCorsRequest();
 	//----------
 }
 

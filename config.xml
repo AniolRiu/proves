@@ -34,5 +34,10 @@
 	<icon src="res/ios/icon-50.png" width="50" height="50" />
 	<icon src="res/ios/icon-50@2x.png" width="100" height="100" />
 </platform>
+
+<!-- Allow links to example.com -->
+<access origin="http://viacamper.cat" />
+
 <plugin name="com.admob.google" spec="4.0.8" source="pgb" />
+<plugin name="cordova-plugin-whitelist" />
 </widget>
