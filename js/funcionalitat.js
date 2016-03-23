@@ -9,7 +9,6 @@ var img = new Image();
 var new_image = new Image();
 var frame;
 document.addEventListener("deviceready", onDeviceReady, false);
-onDeviceReady();
 
 function onDeviceReady() {
 alert("yeye");
@@ -102,6 +101,7 @@ function getAdresa(num) {
 }
 
 function descarregaLlista() {
+console.log(v);
 	//---------JSONP
 	$.getJSON(
 		"http://viacamper.cat/randomframe/repo.php?jsoncallback=?",
@@ -109,15 +109,14 @@ function descarregaLlista() {
 			num:"l"	//llista
 		}, 
 		function(resposta) {
-			var resposta = JSON.parse(xhr.responseText);
-			alert(resposta.success);
+			alert('Response from JSONp');
 			console.log(resposta);
-			h=resposta.horitzontals;
-			v=resposta.verticals;
+			alert(resposta.success);
+			h = resposta.horitzontals;
+			v = resposta.verticals;
 			num_imatges_h=h.length; 
 			num_imatges_v=v.length;
-			console.log(resposta);
-			alert('Response from CORS request to ' + url);
+			console.log(v);
 		}
 	);
 	//--------------
