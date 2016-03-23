@@ -20,12 +20,17 @@ function login() {
 		onceLogged();
 	}
 	else {
-		Backendless.UserService.login("artic.vb@gmail.com", "tbesfalsa", stayLoggedIn, onceLogged );
+		alert("login in");
+		Backendless.UserService.login("artic.vb@gmail.com", "tbesfalsa", true, new Backendless.Async( onceLogged, gotErrorOnLogin ) );
 	}
 }
 
 function onceLogged() {
 	alert("logged!");
+}
+
+function gotErrorOnLogin() {
+	alert("error on login");
 }
 
 function onDeviceReady() {
