@@ -16,10 +16,7 @@ document.addEventListener("deviceready", onDeviceReady, false);
 
 
 
-var APPLICATION_ID = '317BE8D4-2830-EB68-FFC2-71A214A06600',
-    SECRET_KEY = '21174A36-55C9-3D7D-FFA2-78AE4D9DD100',
-    VERSION = 'v1'; //default application version;
-Backendless.initApp(APPLICATION_ID, SECRET_KEY, VERSION);
+
 
 function login() {
 
@@ -37,6 +34,11 @@ function onceLogged() {
 
 function onDeviceReady() {
 	// push notification
+	var APPLICATION_ID = '317BE8D4-2830-EB68-FFC2-71A214A06600',
+    SECRET_KEY = '21174A36-55C9-3D7D-FFA2-78AE4D9DD100',
+    VERSION = 'v1'; //default application version;
+	Backendless.initApp(APPLICATION_ID, SECRET_KEY, VERSION);
+	
 	login();
 	pushNotification = window.plugins.pushNotification;
 	
