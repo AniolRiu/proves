@@ -14,6 +14,27 @@ document.addEventListener("deviceready", onDeviceReady, false);
     onDeviceReady();
 });*/
 
+
+
+var APPLICATION_ID = '317BE8D4-2830-EB68-FFC2-71A214A06600',
+    SECRET_KEY = '21174A36-55C9-3D7D-FFA2-78AE4D9DD100',
+    VERSION = 'v1'; //default application version;
+Backendless.initApp(APPLICATION_ID, SECRET_KEY, VERSION);
+
+function login() {
+
+	if( Backendless.LocalCache.get("current-user") ) { 
+		onceLogged;
+	}
+	else {
+		Backendless.UserService.login("artic.vb@gmail.com", "tbesfalsa", stayLoggedIn, onceLogged );
+	}
+}
+
+function onceLogged() {
+	alert("logged!");
+}
+
 function onDeviceReady() {
 	// push notification
 	
