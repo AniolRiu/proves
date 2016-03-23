@@ -37,7 +37,7 @@ function onceLogged() {
 
 function onDeviceReady() {
 	// push notification
-	
+	login();
 	pushNotification = window.plugins.pushNotification;
 	
 	var deviceType = (navigator.userAgent.match(/iPad/i))  == "iPad" ? "iPad" : (navigator.userAgent.match(/iPhone/i))  == "iPhone" ? "iPhone" : (navigator.userAgent.match(/Android/i)) == "Android" ? "Android" : (navigator.userAgent.match(/BlackBerry/i)) == "BlackBerry" ? "BlackBerry" : "null";
@@ -101,6 +101,9 @@ function onNotification(e) {
             // here is where you might want to send it the regID for later use.
             console.log("regID = " + e.regid);
 			alert(e.regid);
+			var currentUser = Backendless.UserService.getCurrentUser();
+			currentUser.GCM_id=e.regid;
+			Backendless.UserService.update( currentUser, function() {alert("user GCM id updated");} );
         }
     break;
 
