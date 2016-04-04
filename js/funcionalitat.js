@@ -1,13 +1,68 @@
-var h = ['res/ops_h.png'];
-var v = ['res/ops_v.png'];
-var orientacio = (window.screen.availWidth > window.screen.availHeight ? "h" : "v" );
-var num_imatges_h=h.length;
-var num_imatges_v=v.length;
-var periode = 15;
-var interval;
-var img = new Image();
-var new_image = new Image();
-var frame;
+var userData;
+var userId = 55;
+//var socket = io();
+var socket = io('http://aniol.ddns.net:5397'); // Per si ens volem connectar a partir de ip:port
+
+var currentLoc;
+
+function auth() {
+	ref.authWithOAuthPopup("google", function(error, authData) {
+		if (error) {
+			console.log("Login Failed!", error);
+		} 
+		else {
+			console.log("Authenticated successfully with payload:", authData);
+			userData = authData;
+			$.mobile.changePage( "#user-page", { transition: "slideup", changeHash: false });
+		}
+	}, 
+	{
+	  scope: "email"
+	});
+}
+
+function findCamper() {
+	socket.emit('message',{user:userId, msg: 'position'});
+    return false;
+}
+
+function getTemperature() {
+	socket.emit('message',{user:userId, msg: 'temperature'});
+    return false;
+}
+
+socket.on('location', function(location){
+	var lat = parseFloat(location.split(",")[0]);
+	var lng = parseFloat(location.split(",")[1]);
+	currentLoc = new google.maps.LatLng(lat, lng);  // Default to Hollywood, CA when no geolocation support
+	$.mobile.changePage($('#map-page'), 'pop'); 
+});
+
+socket.on('temperature', function(temp){
+	alert("La temperatura a l'interior de la furgoneta és de " + temp + "ºC."); 
+});
+
+/*
+ * Google Maps documentation: http://code.google.com/apis/maps/documentation/javascript/basics.html
+ * Geolocation documentation: http://dev.w3.org/geo/api/spec-source.html
+ */
+$( document ).on( "pagecreate", "#map-page", function() {
+	setTimeout(function(){drawMap(currentLoc)}, 1000);
+    function drawMap(latlng) {
+        var myOptions = {
+            zoom: 10,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+        var map = new google.maps.Map(document.getElementById("map-canvas"), myOptions);
+        // Add an overlay to the map of current lat/lng
+        var marker = new google.maps.Marker({
+            position: latlng,
+            map: map
+        });
+    }
+});
+
 document.addEventListener("deviceready", onDeviceReady, false);
 
 /*$( document ).ready(function() {
