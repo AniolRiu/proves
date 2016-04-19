@@ -5,6 +5,21 @@ var socket = io('http://aniol.ddns.net:5397'); // Per si ens volem connectar a p
 
 var currentLoc;
 
+const GET_TEMPERATURE = "T";
+const GET_LOCATION = "L";
+const GET_FRESH_LEVEL = "F";
+const GET_GREY_LEVEL = "G";
+const GET_BATTERY_LEVEL = "B";
+
+const SET_MOV_ALARM = "AM";
+const SET_LOC_ALARM = "AL";
+const SET_TEMP_ALARM = "AT";
+const SET_BATTERY_ALARM = "AB";
+const SET_FRESH_ALARM = "AF";
+const SET_GREY_ALARM = "AW";
+const SET_GAS_LEVEL_ALARM = "AK";
+const SET_GAS_ALARM = "AG";
+
 function auth() {
 	ref.authWithOAuthPopup("google", function(error, authData) {
 		if (error) {
@@ -22,13 +37,19 @@ function auth() {
 }
 
 function findCamper() {
-	socket.emit('message',{user:userId, msg: 'position'});
+	socket.emit('message',{user:userId, msg: GET_LOCATION});
     return false;
 }
 
 function getTemperature() {
-	socket.emit('message',{user:userId, msg: 'temperature'});
-    return false;
+	socket.emit('message',{user:userId, msg: GET_TEMPERATURE});
+	return false;
+}
+
+function setAlarm(alarm, active) {
+	var act = (active? "1" : "0");
+	alert(msg);
+	socket.emit('message',{user:userId, msg: alarm + act});
 }
 
 socket.on('location', function(location){
@@ -39,7 +60,9 @@ socket.on('location', function(location){
 });
 
 socket.on('temperature', function(temp){
-	alert("La temperatura a l'interior de la furgoneta és de " + temp + "ºC."); 
+    var tem = parseFloat(temp.split(",")[0]);
+	var hum = parseFloat(temp.split(",")[1]);
+	alert("La temperatura a l'interior de la furgoneta és de " + tem + "ºC. La humitat és del " + hum + "%."); 
 });
 
 /*
@@ -61,6 +84,13 @@ $( document ).on( "pagecreate", "#map-page", function() {
             map: map
         });
     }
+});
+
+
+
+$( document ).on( 'change', '#flip_alarm_mov', function( e ) {
+	var active = $("#flip_alarm_mov").prop("checked") ? "1" : "0";
+	socket.emit('message',{user:userId, msg: 'AM' + active});
 });
 
 document.addEventListener("deviceready", onDeviceReady, false);
@@ -137,6 +167,8 @@ function onDeviceReady() {
 	}
 	//-------------
 }
+
+
 
 // result contains any message sent from the plugin call
 function successHandler (result) {
