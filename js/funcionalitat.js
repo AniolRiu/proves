@@ -1,5 +1,5 @@
 document.addEventListener("deviceready", onDeviceReady, false);
-
+window.onload = onDeviceReady;
 $( document ).ready(function() {
     onDeviceReady();
 });
