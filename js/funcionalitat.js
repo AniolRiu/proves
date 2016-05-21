@@ -1,8 +1,8 @@
 document.addEventListener("deviceready", onDeviceReady, false);
 
-/*$( document ).ready(function() {
+$( document ).ready(function() {
     onDeviceReady();
-});*/
+});
 
 function connectSuccess(){
 	alert("s");
