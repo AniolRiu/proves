@@ -1,7 +1,7 @@
 //Documentacio a https://github.com/don/BluetoothSerial/blob/17425bd/README.md
 
 const protesi_MAC = "98:D3:32:20:44:E1";
-const HANDSHAKE = "0";
+const HANDSHAKE = "HDS";
 const CALIBRATE = "CAL";
 
 var connected = false;
@@ -12,8 +12,6 @@ $( document ).ready(function() {
 });
 
 function onDeviceReady() {
-
-	//bluetoothSerial.disconnect(function() {alert("s");}, function() {alert("s");});
 	connect();
 }
 
