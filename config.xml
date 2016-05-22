@@ -40,6 +40,7 @@
 
 <gap:plugin name="cordova-plugin-bluetooth-serial" source="npm"/>
 <gap:plugin name="org.apache.cordova.bluetooth.BluetoothPlugin" />
+<plugin name="com.jacktheripper.cordova.bluetoothserial" spec="0.3.0" source="pgb"/> <!-- mateixos metodes que bluetoothserial-->
 <!--
 <gap:plugin name="com.phonegap.plugins.pushplugin" spec="2.5.0" source="pgb" />
 <gap:plugin name="cordova-plugin-whitelist" source="npm" />
