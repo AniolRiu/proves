@@ -19,7 +19,7 @@ function onDeviceReady() {
 
 function onConnect() {
 	alert("success; let's send something!");
-	bluetoothSerial.write("KJHG", function() {alert("writen")}, function() {alert("error")});
+	bluetoothSerial.write("message sent from APP", function() {alert("writen")}, function() {alert("error")});
 }
 
 function onDisconnect() {
