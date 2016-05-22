@@ -5,7 +5,7 @@ $( document ).ready(function() {
 });
 
 function connectSuccess(){
-	alert("s");
+	
 } 
 
 function connectFailure() {
@@ -14,5 +14,5 @@ function connectFailure() {
 
 function onDeviceReady() {
 	alert("ini");
-	bluetoothSerial.connect("PROTESI", connectSuccess, connectFailure);
+	bluetoothSerial.connectInsecure("PROTESI", function(connect) {alert("s");}, function() {alert("s");});
 }
