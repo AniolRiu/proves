@@ -1,5 +1,10 @@
-var protesi_MAC = "98:D3:32:20:44:E1";
-const HANDSHAKE = 0;
+//Documentacio a https://github.com/don/BluetoothSerial/blob/17425bd/README.md
+
+const protesi_MAC = "98:D3:32:20:44:E1";
+const HANDSHAKE = "0";
+const CALIBRATE = "CAL";
+
+var connected = false;
 //document.addEventListener("deviceready", onDeviceReady, false);
 window.onload = onDeviceReady;
 $( document ).ready(function() {
@@ -9,19 +14,40 @@ $( document ).ready(function() {
 function onDeviceReady() {
 
 	//bluetoothSerial.disconnect(function() {alert("s");}, function() {alert("s");});
-	bluetoothSerial.connect(protesi_MAC, onConnect, onDisconnect);
-	alert("ono");
+	connect();
+}
+
+function connect() {
+	bluetoothSerial.connect(protesi_MAC, onConnect, onConnectError);
 }
 
 function onConnect() {
-	alert("Protesi connectada");
-	bluetoothSerial.write(HANDSHAKE, function() {alert("writen")}, function() {alert("error")});
+	alert ("Pròtesi connectada");
+	send(HANDSHAKE);
 }
 
 function onDisconnect() {
-	alert("connection failed");
+	alert("Pròtesi desconnectada");
+}
+
+function disconnect() {
+	bluetoothSerial.disconnect(onConnect, onDisconnect);
 }
 
 function calibrate() {
-	bluetoothSerial.write("message sent from APP", function() {alert("writen")}, function() {alert("error")});
+	send(CALIBRATE);
 }
+
+function send(msg) {
+	bluetoothSerial.write(msg + ";", function() {}, function() {alert("Error al enviar el missatge " + msg)});
+}
+
+$( document ).on( 'change', '#flip_connection', function( e ) {
+	var connect = $("#flip_alarm_mov").prop("checked");
+	if(connect){ 
+		connect();
+	}
+	else {
+		disconnect();
+	}
+});
