@@ -6,7 +6,7 @@ $( document ).ready(function() {
 
 function onDeviceReady() {
 	alert("ini");
-	if(bluetoothSerial.isEnabled()){
+	if(bluetoothSerial.isEnabled){
 		alert("bt enabled");
 	}
 	else {
