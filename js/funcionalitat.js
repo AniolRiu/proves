@@ -13,12 +13,7 @@ function onDeviceReady() {
 		alert("bt not enabled");
 	}
 	//bluetoothSerial.disconnect(function() {alert("s");}, function() {alert("s");});
-	bluetoothSerial.connectInsecure(
-		"PROTESI", 
-		onConnect, 
-		onDisconnect	
-		}
-	);
+	bluetoothSerial.connectInsecure("PROTESI", onConnect, onDisconnect);
 	alert("ono");
 }
 
