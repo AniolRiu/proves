@@ -1,6 +1,6 @@
 var protesi_MAC = "98:D3:32:20:44:E1";
-const HANDSHAKE 0;
-document.addEventListener("deviceready", onDeviceReady, false);
+const HANDSHAKE = 0;
+//document.addEventListener("deviceready", onDeviceReady, false);
 window.onload = onDeviceReady;
 $( document ).ready(function() {
     onDeviceReady();
@@ -14,6 +14,7 @@ function onDeviceReady() {
 }
 
 function onConnect() {
+	alert("Protesi connectada");
 	bluetoothSerial.write(HANDSHAKE, function() {alert("writen")}, function() {alert("error")});
 }
 
