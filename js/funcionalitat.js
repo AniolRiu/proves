@@ -4,15 +4,24 @@ $( document ).ready(function() {
     onDeviceReady();
 });
 
-function connectSuccess(){
-	
-} 
-
-function connectFailure() {
-	alert("f");
-}
-
 function onDeviceReady() {
 	alert("ini");
-	bluetoothSerial.connectInsecure("PROTESI", function(connect) {alert("s");}, function() {alert("s");});
+	if(bluetoothSerial.isEnabled()){
+		alert("bt enabled");
+	}
+	else {
+		alert("bt not enabled");
+	}
+	bluetoothSerial.disconnect(function() {alert("s");}, function() {alert("s");});
+	bluetoothSerial.connectInsecure(
+		"PROTESI", 
+		function(connect) {
+			alert("s");
+			bluetoothSerial.write("KJHG", function() {alert("writen")}, function() {alert("error")});
+		}, 
+		function() {
+			alert("f");
+		}
+	);
+	alert("ono");
 }
