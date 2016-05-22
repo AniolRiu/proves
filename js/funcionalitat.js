@@ -16,7 +16,7 @@ function onDeviceReady() {
 }
 
 function connect() {
-	bluetoothSerial.connect(protesi_MAC, onConnect, onConnectError);
+	bluetoothSerial.connect(protesi_MAC, onConnect, onDisconnect);
 }
 
 function onConnect() {
