@@ -38,7 +38,6 @@
 <!-- Allow links to example.com -->
 <access origin="*" />
 
-<plugin name="org.bcsphere.bluetooth" spec="0.5.1" source="pgb" />
 <gap:plugin name="cordova-plugin-bluetooth-serial" source="npm"/>
 <!--
 <gap:plugin name="com.phonegap.plugins.pushplugin" spec="2.5.0" source="pgb" />
