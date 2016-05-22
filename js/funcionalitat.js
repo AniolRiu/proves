@@ -6,7 +6,7 @@ $( document ).ready(function() {
 
 function onDeviceReady() {
 	alert("ini");
-	if(bluetoothSerial.isEnabled){
+	if(bluetoothSerial.isEnabled()){
 		alert("bt enabled");
 	}
 	else {
@@ -15,13 +15,18 @@ function onDeviceReady() {
 	//bluetoothSerial.disconnect(function() {alert("s");}, function() {alert("s");});
 	bluetoothSerial.connectInsecure(
 		"PROTESI", 
-		function(connect) {
-			alert("success; let's send something!");
-			bluetoothSerial.write("KJHG", function() {alert("writen")}, function() {alert("error")});
-		}, 
-		function() {
-			alert("connection failed");
+		onConnect, 
+		onDisconnect	
 		}
 	);
 	alert("ono");
+}
+
+function onConnect() {
+	alert("success; let's send something!");
+	bluetoothSerial.write("KJHG", function() {alert("writen")}, function() {alert("error")});
+}
+
+function onDisconnect() {
+	alert("connection failed");
 }
