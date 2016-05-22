@@ -12,7 +12,7 @@ $( document ).ready(function() {
 });
 
 function onDeviceReady() {
-	connect();
+	onDisconnect();
 	setInterval(checkBTCom, 1000);
 }
 
@@ -21,12 +21,13 @@ function connect() {
 }
 
 function onConnect() {
-	alert ("Pròtesi connectada");
+	$("#p_connection_status").text("Pròtesi connectada.");
 	send(HANDSHAKE);
 }
 
 function onDisconnect() {
-	alert("Pròtesi desconnectada");
+	$("#p_connection_status").text("Pròtesi desconnectada. Connectant...");
+	connect();
 }
 
 function disconnect() {
@@ -40,16 +41,6 @@ function calibrate() {
 function send(msg) {
 	bluetoothSerial.write(msg + ";", function() {}, function() {alert("Error al enviar el missatge " + msg)});
 }
-
-$( document ).on( 'change', '#flip_connection', function( e ) {
-	var connect = $("#flip_alarm_mov").prop("checked");
-	if(connect){ 
-		connect();
-	}
-	else {
-		disconnect();
-	}
-});
 
 function checkBTCom() {
 	bluetoothSerial.available(
