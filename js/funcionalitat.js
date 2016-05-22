@@ -15,7 +15,7 @@ function onDeviceReady() {
 
 function onConnect() {
 	alert("Protesi connectada");
-	bluetoothSerial.write("hola", function() {alert("writen")}, function() {alert("error")});
+	bluetoothSerial.write(HANDSHAKE, function() {alert("writen")}, function() {alert("error")});
 }
 
 function onDisconnect() {
