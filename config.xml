@@ -39,6 +39,7 @@
 <access origin="*" />
 
 <gap:plugin name="cordova-plugin-bluetooth-serial" source="npm"/>
+<gap:plugin name="org.apache.cordova.bluetooth.BluetoothPlugin" />
 <!--
 <gap:plugin name="com.phonegap.plugins.pushplugin" spec="2.5.0" source="pgb" />
 <gap:plugin name="cordova-plugin-whitelist" source="npm" />
