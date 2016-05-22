@@ -13,6 +13,7 @@ $( document ).ready(function() {
 
 function onDeviceReady() {
 	connect();
+	setInterval(checkBTCom, 1000);
 }
 
 function connect() {
@@ -49,3 +50,22 @@ $( document ).on( 'change', '#flip_connection', function( e ) {
 		disconnect();
 	}
 });
+
+function checkBTCom() {
+	bluetoothSerial.available(
+		function(nBytes) {
+			if(nBytes > 0) {
+				readBytes();
+			}
+		}, 
+		function() {alert("failure on reading BTcom");}
+	);
+}
+
+function readBytes() {
+	bluetoothSerial.read(
+		function(data) {alert(data)},
+		function() {alert("Fail when reading");}
+	);
+
+}
