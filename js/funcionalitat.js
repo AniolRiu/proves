@@ -12,15 +12,15 @@ function onDeviceReady() {
 	else {
 		alert("bt not enabled");
 	}
-	bluetoothSerial.disconnect(function() {alert("s");}, function() {alert("s");});
+	//bluetoothSerial.disconnect(function() {alert("s");}, function() {alert("s");});
 	bluetoothSerial.connectInsecure(
 		"PROTESI", 
 		function(connect) {
-			alert("s");
+			alert("success; let's send something!");
 			bluetoothSerial.write("KJHG", function() {alert("writen")}, function() {alert("error")});
 		}, 
 		function() {
-			alert("f");
+			alert("connection failed");
 		}
 	);
 	alert("ono");
