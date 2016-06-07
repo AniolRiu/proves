@@ -22,12 +22,12 @@ function connect() {
 }
 
 function onConnect() {
-	$("#p_connection_status").text("Pròtesi connectada.");
+	inform("Pròtesi connectada.");
 	send(HANDSHAKE);
 }
 
 function onDisconnect() {
-	$("#p_connection_status").text("Pròtesi desconnectada. Connectant...");
+	inform("Pròtesi desconnectada. Connectant...");
 	connect();
 }
 
@@ -64,4 +64,8 @@ function readBytes() {
 		function() {alert("Fail when reading");}
 	);
 
+}
+
+function inform(msg) {
+	$("#p_connection_status").text(msg);
 }
