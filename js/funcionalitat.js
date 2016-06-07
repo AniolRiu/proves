@@ -44,7 +44,7 @@ function changeMove() {
 }
 
 function send(msg) {
-	bluetoothSerial.write(msg + ";", function() {}, function() {alert("Error al enviar el missatge " + msg)});
+	bluetoothSerial.write(msg + ";", function() {inform("Missatge enviat!");}, function() {inform("Error al enviar el missatge.")});
 }
 
 function checkBTCom() {
