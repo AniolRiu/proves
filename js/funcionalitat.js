@@ -3,6 +3,7 @@
 const protesi_MAC = "98:D3:32:20:44:E1";
 const HANDSHAKE = "HDS";
 const CALIBRATE = "CAL";
+const CHANGE_MOV = "MOV";
 
 var connected = false;
 //document.addEventListener("deviceready", onDeviceReady, false);
@@ -36,6 +37,10 @@ function disconnect() {
 
 function calibrate() {
 	send(CALIBRATE);
+}
+
+function changeMove() {
+	send(CHANGE_MOVE);
 }
 
 function send(msg) {
