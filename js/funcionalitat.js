@@ -5,6 +5,38 @@ const HANDSHAKE = "HDS";
 const CALIBRATE = "CAL";
 const CHANGE_MOV = "MOV";
 
+// Load the Visualization API and the corechart package.
+google.charts.load('current', {'packages':['corechart','bar']});
+
+// Set a callback to run when the Google Visualization API is loaded.
+google.charts.setOnLoadCallback(drawChart);
+
+// Callback that creates and populates a data table,
+// instantiates the pie chart, passes in the data and
+// draws it.
+function drawChart() {
+
+// Create the data table.
+var data = new google.visualization.DataTable();
+data.addColumn('string', 'Topping');
+data.addColumn('number', 'Slices');
+data.addRows([
+  ['', 666],
+  ['', 555],
+  ['', 444]
+]);
+
+// Set chart options
+var options = {'title':'Valors mesurats',
+			   'width':400,
+			   'height':300};
+
+// Instantiate and draw our chart, passing in some options.
+var chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
+chart.draw(data, options);
+}
+
+
 var connected = false;
 //document.addEventListener("deviceready", onDeviceReady, false);
 window.onload = onDeviceReady;
@@ -70,3 +102,11 @@ function readBytes() {
 function inform(msg) {
 	$("#p_connection_status").text(msg);
 }
+
+$(document).on('click', 'rect', function(e){
+    alert(8);
+	console.log(e);
+	alert(e.pageY);
+	// what you want to happen when mouseover and mouseout 
+    // occurs on elements that match '.dosomething'
+});
