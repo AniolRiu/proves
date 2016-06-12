@@ -44,7 +44,7 @@ function auth() {
 }
 
 function findCamper() {
-	socket.emit('message',{user:userId, msg: GET_DATA_LOCATION});
+	sendMessage(GET_DATA_LOCATION);
     return false;
 }
 
@@ -258,7 +258,8 @@ function refreshAlarms() {
 
 function refreshValues() {
 	//socket.emit('message',{user:userId, msg: GET_DATA_LOCATION + ";"});
-	socket.emit('message',{user:userId, msg: GET_DATA_TEMPERATURE + ";"});
+	//socket.emit('message',{user:userId, msg: GET_DATA_TEMPERATURE + ";"});
+	sendMessage(GET_DATA_TEMPERATURE);
 }
 
 function sendMessage(message) {
