@@ -20,8 +20,8 @@ function drawChart() {
 var data = google.visualization.arrayToDataTable([
 	['Element', 'Value', { role: 'annotation' }],
 	['', 666,'666'],
-	['', 555,'666'],
-	['', 444,'666']
+	['', 555,'555'],
+	['', 444,'444']
 ]);
 //var data = new google.visualization.DataTable();
 //data.addColumn('string', 'Topping');
