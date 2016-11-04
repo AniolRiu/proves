@@ -5,7 +5,6 @@ $( document ).ready(function() {
 });
 
 function onDeviceReady() {
-	alert(8);
 	var canvas = document.getElementById('blocEditCanvas');
     var context = canvas.getContext('2d');
 	var imageObj = new Image();
