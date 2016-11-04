@@ -1,65 +1,43 @@
 //document.addEventListener("deviceready", onDeviceReady, false);
-//window.onload = onDeviceReady;
+window.onload = onDeviceReady;
 $( document ).ready(function() {
     onDeviceReady();
 });
 
+
+var watermark;
+var canvasDom;
+var canvas;
+
+function init() {
+	document.addEventListener("deviceready", startUp, false);
+}
 function onDeviceReady() {
-	var canvas = document.getElementById('blocEditCanvas');
-    var context = canvas.getContext('2d');
-	var imageObj = new Image();
-
-	imageObj.onload = function() {
-	context.drawImage(imageObj, 0, 0);
-	};
-	imageObj.src = 'http://www.html5canvastutorials.com/demos/assets/darth-vader.jpg';
-	$("#capture").click(function() {camera();});
-}
-
-// Note: have not tested this - but I think it should work!
-
-function cameraWin(picture){
-    var theCanvas = document.getElementById('theCanvas');
-    var ctx = theCanvas.getContext('2d');
-
-    var theImage = new Image();
-
-    theImage.src = "data:image/jpeg;base64,"+picture;
-    ctx.drawImage(theImage, 0, 0);
-}
-
-
-function cameraFail(){
-    alert('camera dead');
-}
-
-function takePicture(){
-    navigator.camera.getPicture(cameraWin, cameraFail, {quality: 50, destinationType: Camera.DestinationType.DATA_URL});
-}
-
-
-
-var canvas = document.getElementById('myCanvas');
-var context = canvas.getContext('2d');
-
-function camera() {
-	alert(8);
-    function onSuccess(imageData) {
-        var image = new Image();
-        image.src = "data:image/jpeg;base64," + imageData;
-        image.onload = function () {
-            var height = 100;
-            var width = 100;
-            context.drawImage(image, width, height);
+    canvasDom = $("#myCanvas")[0];
+    canvas = canvasDom.getContext("2d");
+    //Create a watermark image object
+    watermark = new Image();
+    watermark.src = "http://www.html5canvastutorials.com/demos/assets/darth-vader.jpg";
+    watermark.onload = function(e) {
+        //you can only take pictures once this is loaded...
+        $("#takePictureButton").removeAttr("disabled");
+    }
+    
+	$("#takePictureButton").on("touchstart", function(e) {
+		navigator.camera.getPicture(camSuccess, camError, {quality: 75, targetWidth: 400, targetHeight: 400, destinationType: Camera.DestinationType.FILE_URI});
+	});	
+	function camError(e) {
+		console.log("Camera Error");
+		console.log(JSON.stringify(e));
+	}
+	function camSuccess(picuri) {
+		console.log("Camera Success");
+        var img = new Image();
+        img.src=picuri;
+        img.onload = function(e) {
+            canvas.drawImage(img, 0, 0);
+            canvas.drawImage(watermark, canvasDom.width-watermark.width, canvasDom.height - watermark.height);
         }
-    }
-
-    function onFail(message) {
-        console.log('Failed because: ' + message);
-    }
-
-    navigator.camera.getPicture(onSuccess, onFail, {
-        quality: 50,
-        destinationType: Camera.DestinationType.DATA_URL
-    });
+        
+	}
 }
