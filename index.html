@@ -2,7 +2,7 @@
 <html>
   <head>
     <title>Capture Photo</title>
-
+	<script src="https://code.jquery.com/jquery-3.1.1.min.js" </script>
     <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
     <script type="text/javascript" charset="utf-8">
 
@@ -38,6 +38,14 @@
       // The in-line CSS rules are used to resize the image
       //
       smallImage.src = "data:image/jpeg;base64," + imageData;
+	  
+		var theCanvas = document.getElementById('canvas');
+		var ctx = theCanvas.getContext('2d');
+
+		<!-- var theImage = new Image();
+
+		 -->theImage.src = "data:image/jpeg;base64,"+picture;
+		ctx.drawImage(smallImage, 0, 0);
     }
 
     // Called when a photo is successfully retrieved
@@ -100,5 +108,6 @@
     <button onclick="getPhoto(pictureSource.SAVEDPHOTOALBUM);">From Photo Album</button><br>
     <img style="display:none;width:60px;height:60px;" id="smallImage" src="" />
     <img style="display:none;" id="largeImage" src="" />
+	<canvas id="canvas" width="640" height="480"></canvas>
   </body>
 </html>
