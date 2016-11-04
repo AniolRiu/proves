@@ -14,6 +14,7 @@ function onDeviceReady() {
 	context.drawImage(imageObj, 0, 0);
 	};
 	imageObj.src = 'http://www.html5canvastutorials.com/demos/assets/darth-vader.jpg';
+	$("#capture").click(function() {camera();});
 }
 
 // Note: have not tested this - but I think it should work!
@@ -37,13 +38,13 @@ function takePicture(){
     navigator.camera.getPicture(cameraWin, cameraFail, {quality: 50, destinationType: Camera.DestinationType.DATA_URL});
 }
 
-var button = document.getElementById('capture');
-button.addEventListener('click', camera);
+
 
 var canvas = document.getElementById('myCanvas');
 var context = canvas.getContext('2d');
 
 function camera() {
+	alert(8);
     function onSuccess(imageData) {
         var image = new Image();
         image.src = "data:image/jpeg;base64," + imageData;
