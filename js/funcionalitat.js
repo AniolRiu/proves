@@ -1,43 +1,92 @@
-//document.addEventListener("deviceready", onDeviceReady, false);
-window.onload = onDeviceReady;
-$( document ).ready(function() {
-    onDeviceReady();
-});
+var pictureSource;   // picture source
+var destinationType; // sets the format of returned value
 
+// Wait for device API libraries to load
+//
+document.addEventListener("deviceready",onDeviceReady,false);
 
-var watermark;
-var canvasDom;
-var canvas;
-
-function init() {
-	document.addEventListener("deviceready", startUp, false);
-}
+// device APIs are available
+//
 function onDeviceReady() {
-    canvasDom = $("#myCanvas")[0];
-    canvas = canvasDom.getContext("2d");
-    //Create a watermark image object
-    watermark = new Image();
-    watermark.src = "http://www.html5canvastutorials.com/demos/assets/darth-vader.jpg";
-    watermark.onload = function(e) {
-        //you can only take pictures once this is loaded...
-        $("#takePictureButton").removeAttr("disabled");
-    }
-    
-	$("#takePictureButton").on("touchstart", function(e) {
-		navigator.camera.getPicture(camSuccess, camError, {quality: 75, targetWidth: 400, targetHeight: 400, destinationType: Camera.DestinationType.FILE_URI});
-	});	
-	function camError(e) {
-		console.log("Camera Error");
-		console.log(JSON.stringify(e));
-	}
-	function camSuccess(picuri) {
-		console.log("Camera Success");
-        var img = new Image();
-        img.src=picuri;
-        img.onload = function(e) {
-            canvas.drawImage(img, 0, 0);
-            canvas.drawImage(watermark, canvasDom.width-watermark.width, canvasDom.height - watermark.height);
-        }
-        
-	}
+	pictureSource=navigator.camera.PictureSourceType;
+	destinationType=navigator.camera.DestinationType;
+}
+
+// Called when a photo is successfully retrieved
+//
+function onPhotoDataSuccess(imageData) {
+  // Uncomment to view the base64-encoded image data
+  // console.log(imageData);
+
+  // Get image handle
+  //
+  var smallImage = document.getElementById('smallImage');
+
+  // Unhide image elements
+  //
+  smallImage.style.display = 'block';
+
+  // Show the captured photo
+  // The in-line CSS rules are used to resize the image
+  //
+  smallImage.src = "data:image/jpeg;base64," + imageData;
+  
+	var theCanvas = document.getElementById('canvas');
+	var ctx = theCanvas.getContext('2d');
+
+	// var theImage = new Image();
+
+	// theImage.src = "data:image/jpeg;base64,"+picture;
+	ctx.drawImage(smallImage, 0, 0);
+}
+
+// Called when a photo is successfully retrieved
+//
+function onPhotoURISuccess(imageURI) {
+  // Uncomment to view the image file URI
+  // console.log(imageURI);
+
+  // Get image handle
+  //
+  var largeImage = document.getElementById('largeImage');
+
+  // Unhide image elements
+  //
+  largeImage.style.display = 'block';
+
+  // Show the captured photo
+  // The in-line CSS rules are used to resize the image
+  //
+  largeImage.src = imageURI;
+}
+
+// A button will call this function
+//
+function capturePhoto() {
+  // Take picture using device camera and retrieve image as base64-encoded string
+  navigator.camera.getPicture(onPhotoDataSuccess, onFail, { quality: 50,
+	destinationType: destinationType.DATA_URL });
+}
+
+// A button will call this function
+//
+function capturePhotoEdit() {
+  // Take picture using device camera, allow edit, and retrieve image as base64-encoded string
+  navigator.camera.getPicture(onPhotoDataSuccess, onFail, { quality: 20, allowEdit: true,
+	destinationType: destinationType.DATA_URL });
+}
+
+// A button will call this function
+//
+function getPhoto(source) {
+  // Retrieve image file location from specified source
+  navigator.camera.getPicture(onPhotoURISuccess, onFail, { quality: 50,
+	destinationType: destinationType.FILE_URI,
+	sourceType: source });
+}
+
+// Called if something bad happens.
+//
+function onFail(message) {
+  alert('Failed because: ' + message);
 }
