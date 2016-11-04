@@ -1,123 +1,65 @@
-//Documentacio a https://github.com/don/BluetoothSerial/blob/17425bd/README.md
-
-const protesi_MAC = "98:D3:32:20:44:E1";
-const HANDSHAKE = "HDS";
-const CALIBRATE = "CAL";
-const CHANGE_MOV = "MOV";
-
-// Load the Visualization API and the corechart package.
-google.charts.load('current', {'packages':['corechart','bar']});
-
-// Set a callback to run when the Google Visualization API is loaded.
-google.charts.setOnLoadCallback(drawChart);
-
-// Callback that creates and populates a data table,
-// instantiates the pie chart, passes in the data and
-// draws it.
-function drawChart() {
-
-// Create the data table.
-var data = google.visualization.arrayToDataTable([
-	['Element', 'Value', { role: 'annotation' }],
-	['', 666,'666'],
-	['', 555,'555'],
-	['', 444,'444']
-]);
-//var data = new google.visualization.DataTable();
-//data.addColumn('string', 'Topping');
-//data.addColumn('number', 'Slices');
-/*data.arrayToDataTable([
-  ['Element', 'Value', { role: 'annotation' }],
-  ['', 666,'666'],
-  ['', 555,'666'],
-  ['', 444,'666']
-]);*/
-
-// Set chart options
-var options = {title:'Valors mesurats',
-			   width:400,
-			   height:300,
-			   is3D:true,
-			   legend:{position: 'none'}
-			   };
-
-// Instantiate and draw our chart, passing in some options.
-var chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
-
-google.visualization.events.addListener(chart, 'select', function() {
-	var selectedItem = chart.getSelection()[0];
-    if (selectedItem) {
-      var value = data.getValue(selectedItem.row, selectedItem.column);
-      alert('The user selected ' + value);
-    }
-});
-
-chart.draw(data, options);
-}
-
-
-var connected = false;
 //document.addEventListener("deviceready", onDeviceReady, false);
-window.onload = onDeviceReady;
+//window.onload = onDeviceReady;
 $( document ).ready(function() {
     onDeviceReady();
 });
 
 function onDeviceReady() {
-	onDisconnect();
-	setInterval(checkBTCom, 1000);
+	alert(8);
+	var canvas = document.getElementById('blocEditCanvas');
+    var context = canvas.getContext('2d');
+	var imageObj = new Image();
+
+	imageObj.onload = function() {
+	context.drawImage(imageObj, 0, 0);
+	};
+	imageObj.src = 'http://www.html5canvastutorials.com/demos/assets/darth-vader.jpg';
 }
 
-function connect() {
-	bluetoothSerial.connect(protesi_MAC, onConnect, onDisconnect);
+// Note: have not tested this - but I think it should work!
+
+function cameraWin(picture){
+    var theCanvas = document.getElementById('theCanvas');
+    var ctx = theCanvas.getContext('2d');
+
+    var theImage = new Image();
+
+    theImage.src = "data:image/jpeg;base64,"+picture;
+    ctx.drawImage(theImage, 0, 0);
 }
 
-function onConnect() {
-	inform("Pròtesi connectada.");
-	send(HANDSHAKE);
+
+function cameraFail(){
+    alert('camera dead');
 }
 
-function onDisconnect() {
-	inform("Pròtesi desconnectada. Connectant...");
-	connect();
+function takePicture(){
+    navigator.camera.getPicture(cameraWin, cameraFail, {quality: 50, destinationType: Camera.DestinationType.DATA_URL});
 }
 
-function disconnect() {
-	bluetoothSerial.disconnect(onConnect, onDisconnect);
-}
+var button = document.getElementById('capture');
+button.addEventListener('click', camera);
 
-function calibrate() {
-	send(CALIBRATE);
-}
+var canvas = document.getElementById('myCanvas');
+var context = canvas.getContext('2d');
 
-function changeMove() {
-	send(CHANGE_MOVE);
-}
+function camera() {
+    function onSuccess(imageData) {
+        var image = new Image();
+        image.src = "data:image/jpeg;base64," + imageData;
+        image.onload = function () {
+            var height = 100;
+            var width = 100;
+            context.drawImage(image, width, height);
+        }
+    }
 
-function send(msg) {
-	inform("Enviant missatge...");
-	bluetoothSerial.write(msg + ";", function() {inform("Missatge enviat!");}, function() {inform("Error al enviar el missatge.")});
-}
+    function onFail(message) {
+        console.log('Failed because: ' + message);
+    }
 
-function checkBTCom() {
-	bluetoothSerial.available(
-		function(nBytes) {
-			if(nBytes > 0) {
-				readBytes();
-			}
-		}, 
-		function() {alert("failure on reading BTcom");}
-	);
-}
-
-function readBytes() {
-	bluetoothSerial.read(
-		function(data) {alert(data)},
-		function() {alert("Fail when reading");}
-	);
-
-}
-
-function inform(msg) {
-	$("#p_connection_status").text(msg);
+    navigator.camera.getPicture(onSuccess, onFail, {
+        quality: 50,
+        destinationType: Camera.DestinationType.DATA_URL
+    });
 }

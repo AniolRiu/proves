@@ -3,10 +3,7 @@
 <head>
 <meta charset="utf-8">
 <title>Page Title</title>
-<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
 <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
-<script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
-<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script type="text/javascript" src="cordova.js"></script>
 <script src="js/funcionalitat.js"></script>
 
@@ -14,19 +11,14 @@
 <body>
 <div data-role="page" id="user-page">
 
-  <div data-role="header">
-    <h1>PROTESI Remot</h1>
-  </div>
+<canvas id="blocEditCanvas" width="578" height="400"></canvas>
+ <h1>Watermark Camera</h1>
 
-  <div data-role="main" class="ui-content">
-	<p id="p_connection_status"></p>
-	<button onclick="calibrate()">Calibrar</button>
-	<button onclick="changeMove()">Cambiar moviment</button>
-  </div>
-  
+<button id="capture">Capture Photo</button>
+<br>
+<p>Canvas:</p>
 
-  <div align="center" id="chart_div"></div>
-  
+    <canvas id="myCanvas">Your browser doesn't support me!</canvas>
 </div>
 
 </body>
