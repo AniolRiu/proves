@@ -1,15 +1,23 @@
 var pictureSource;   // picture source
 var destinationType; // sets the format of returned value
-
+var canvas;
+var ctx;
 // Wait for device API libraries to load
 //
 document.addEventListener("deviceready",onDeviceReady,false);
-
+$( document ).ready( onDeviceReady );
 // device APIs are available
 //
 function onDeviceReady() {
 	pictureSource=navigator.camera.PictureSourceType;
 	destinationType=navigator.camera.DestinationType;
+	theCanvas = document.getElementById('canvas');
+	ctx = theCanvas.getContext('2d');
+	var img = new Image();
+	img.src = 'http://www.html5canvastutorials.com/demos/assets/darth-vader.jpg';
+
+	// theImage.src = "data:image/jpeg;base64,"+picture;
+	ctx.drawImage(img, 0, 0);
 }
 
 // Called when a photo is successfully retrieved
@@ -31,10 +39,9 @@ function onPhotoDataSuccess(imageData) {
   //
   smallImage.src = "data:image/jpeg;base64," + imageData;
   
-	var theCanvas = document.getElementById('canvas');
-	var ctx = theCanvas.getContext('2d');
 
-	// var theImage = new Image();
+	var img = new Image();
+	img.src
 
 	// theImage.src = "data:image/jpeg;base64,"+picture;
 	ctx.drawImage(smallImage, 0, 0);

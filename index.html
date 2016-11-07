@@ -1,18 +1,27 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Capture Photo</title>
-	<script src="https://code.jquery.com/jquery-3.1.1.min.js" type="text/javascript"></script>
-    <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
-	<script src="js/funcionalitat.js"></script>
-  </head>
-  <body>
-    <button onclick="capturePhoto();">Capture Photo</button> <br>
-    <button onclick="capturePhotoEdit();">Capture Editable Photo</button> <br>
-    <button onclick="getPhoto(pictureSource.PHOTOLIBRARY);">From Photo Library</button><br>
-    <button onclick="getPhoto(pictureSource.SAVEDPHOTOALBUM);">From Photo Album</button><br>
-    <img style="display:none;width:60px;height:60px;" id="smallImage" src="" />
-    <img style="display:none;" id="largeImage" src="" />
-	<canvas id="canvas" width="640" height="480"></canvas>
-  </body>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+    <!--<base href="http://m.v-s-b.de/de/strecken-skizzen/vsb-tarifzonenplan/">-->
+
+    <title>Títol</title>
+    <script src="./index_files/jquery.1.10.1.min.js.baixa"></script>
+    <!--<script src="./index_files/mobileinit.js"></script>-->
+    <script src="./index_files/jquery.mobile-1.4.2.min.js.baixa"></script>
+    <!-- <script src="./index_files/can.js"></script> -->
+    <!-- <script src="//canjs.com/release/2.3.27/can.jquery.js"></script> -->
+    <script src="./index_files/hammer.js"></script>
+	<!-- <script src="https://cdn.jsdelivr.net/jquery.hammerjs/2.0.0/jquery.hammer.js"></script> -->
+    <link href="./index_files/style.css" rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="./index_files/funcionalitat.js"></script>
+
+</head>
+
+<body>
+	<div id="imgContainer" align="center" class="preventNavigationSwipe imageWindow">
+		<img class="preventNavigationSwipe" id="map" src="./index_files/VSB_Tarifzonenplan-750.png" style="user-select: none; touch-action: pan-y; -webkit-user-drag: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);">
+	</div>
+</body>
+
 </html>

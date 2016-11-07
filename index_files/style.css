@@ -1,0 +1,18 @@
+#imgContainer {
+    overflow: hidden;
+    position: relative;
+	background-color: blue;
+    height: 100%;
+    width: 100%;
+}
+
+#imageContainer img {
+    -ms-transform: scale(1) translate(0px, 0px);
+    -webkit-transform: scale(1) translate(0px, 0px);
+    transform: scale(1) translate(0px, 0px);
+    top: 0;
+    left: 0;
+    width: auto;
+    height: 100%;
+    position: relative
+}
