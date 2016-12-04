@@ -6,13 +6,29 @@
     width: 100%;
 }
 
-#imageContainer img {
+.hold {
+	position: absolute;
+	z-index:10;
+	left: 0px;
+	transform-origin:center center;
+}
+
+#map {
     -ms-transform: scale(1) translate(0px, 0px);
     -webkit-transform: scale(1) translate(0px, 0px);
     transform: scale(1) translate(0px, 0px);
-    top: 0;
-    left: 0;
-    width: auto;
-    height: 100%;
+	transform-origin:top left;
     position: relative
+	/* TODO: els següents estils estaven incrustats en l'element ja a l'exemple, mirar si es poden treure*/
+	user-select: none; 
+	touch-action: pan-y; 
+	-webkit-user-drag: none; /*Specifies that an entire element should be draggable instead of its contents.*/
+	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+.animated{
+	-webkit-transition: 0.4s ease-in-out;
+    -moz-transition: 0.4s ease-in-out;
+    -o-transition: 0.4s ease-in-out;
+    transition: 0.4s ease-in-out;
 }
