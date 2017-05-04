@@ -48,12 +48,13 @@ $('.login-form').submit(function() {
 	console.log(8);
 	var username = $('#username').val();
 	var pwd = $('#pwd').val();
+	alert('https://test2.aim-solo.com/ajax/APPLogin?username=scirera@aim-solo.com&password=123456');
 	$.ajax({
 		url: "https://test2.aim-solo.com/ajax/APPLogin?username=scirera@aim-solo.com&password=123456",
 		success: function(data) {
 			// Arriba la resposta
-			console.log(data);
 			alert(data);
+			console.log(data);
 			//console.log(data);
 			// table.ajax.reload(null, false);
 			// $('#icon_spin').hide();
