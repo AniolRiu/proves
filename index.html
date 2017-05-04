@@ -48,15 +48,12 @@ $('.login-form').submit(function() {
 	console.log(8);
 	var username = $('#username').val();
 	var pwd = $('#pwd').val();
-	alert('https://test2.aim-solo.com/ajax/APPLogin?username=scirera@aim-solo.com&password=123456');
 	$.ajax({
-		type: 'GET',
-		datatype: 'jsonp',
-		url: "https://test2.aim-solo.com/ajax/APPLogin?username=scirera@aim-solo.com&password=123456",
+		url: "https://comunitat.aim-solo.com/ajax/getToursByProfession?profession_id=12",
 		success: function(data) {
 			// Arriba la resposta
-			alert(data);
 			console.log(data);
+			alert(data);
 			//console.log(data);
 			// table.ajax.reload(null, false);
 			// $('#icon_spin').hide();
@@ -65,12 +62,7 @@ $('.login-form').submit(function() {
 			// $('#btn_sent_ok').show();
 			// $('#btn_send_cancel').hide();
 		}
-	}).done( function(msg){
-		var response = JSON.stringify(msg);
-		var parsedResponse = JSON.parse(response);
-		console.log(parsedResponse);
-		alert(parsedResponse);
-    });
+	});
 });
 </script>
 

@@ -37,7 +37,11 @@
 
 <!-- Allow links to example.com -->
 <access origin="*" />
-<gap:plugin name="cordova-plugin-whitelist" source="npm" />
+<meta http-equiv="Content-Security-Policy" 
+          content="default-src *; 
+                   style-src 'self' 'unsafe-inline' 'unsafe-eval'; 
+                   script-src 'self' 'unsafe-inline' 'unsafe-eval';">
+<!-- <gap:plugin name="cordova-plugin-whitelist" source="npm" /> -->
 <!-- <plugin name="com.megster.cordova.bluetoothserial" spec="0.3.3" source="pgb" /> -->
 <!-- <plugin name="org.apache.cordova.camera" spec="0.3.6" source="pgb" /> -->
 <!-- <plugin name="com.jacktheripper.cordova.bluetoothserial" spec="0.3.0" source="pgb"/> mateixos metodes que bluetoothserial-->
