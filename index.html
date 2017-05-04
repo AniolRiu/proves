@@ -50,6 +50,8 @@ $('.login-form').submit(function() {
 	var pwd = $('#pwd').val();
 	alert('https://test2.aim-solo.com/ajax/APPLogin?username=scirera@aim-solo.com&password=123456');
 	$.ajax({
+		type: 'GET',
+		datatype: 'jsonp',
 		url: "https://test2.aim-solo.com/ajax/APPLogin?username=scirera@aim-solo.com&password=123456",
 		success: function(data) {
 			// Arriba la resposta
@@ -63,7 +65,12 @@ $('.login-form').submit(function() {
 			// $('#btn_sent_ok').show();
 			// $('#btn_send_cancel').hide();
 		}
-	});
+	}).done( function(msg){
+		var response = JSON.stringify(msg);
+		var parsedResponse = JSON.parse(response);
+		console.log(parsedResponse);
+		alert(parsedResponse);
+    });
 });
 </script>
 
