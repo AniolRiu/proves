@@ -1,68 +1,153 @@
-<html lang="en">
+
+<!DOCTYPE html>
+<html>
+
 <head>
-  <meta charset="utf-8">
-
-  <title>The HTML5 Herald</title>
-  <meta name="description" content="The HTML5 Herald">
-  <meta name="author" content="SitePoint">
-
-  <link rel="stylesheet" href="css/login.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-
-  <!--[if lt IE 9]>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script>
-  <![endif]-->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Multi-page template</title>
+	<link rel="stylesheet" href="http://demos.jquerymobile.com/1.4.5/css/themes/default/jquery.mobile-1.4.5.min.css">
+	<script
+  src="https://code.jquery.com/jquery-1.12.4.js"
+  integrity="sha256-Qw82+bXyGq6MydymqBxNPYTaUXXq7c8v3CwiYwLLNXU="
+  crossorigin="anonymous"></script>
+	<script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
 </head>
 
 <body>
-  
-	<div class="login-page">
-		<div class="form">
-			<form class="register-form">
-			  <input type="text" placeholder="name"/>
-			  <input type="password" placeholder="password"/>
-			  <input type="text" placeholder="email address"/>
-			  <button>create</button>
-			  <p class="message">Already registered? <a href="#">Sign In</a></p>
-			</form>
-			<form class="login-form">
-			  <input id="username" type="text" placeholder="username"/>
-			  <input id="pwd" type="password" placeholder="password"/>
-			  <button>log in</button>
-			  <p class="message">Not registered? <a href="#">Create an account</a></p>
-			</form>
-		</div>
+
+<!-- LOGIN PAGE -->
+<div data-role="page" id="login-page">
+
+	<div data-role="header">
+		<h1>Login</h1>
 	</div>
+
+	<div data-role="main" class="ui-content">
+		<form class="login-form" method="get">
+			<input id="username" type="text" placeholder="username"/>
+			<input id="pwd" type="password" placeholder="password"/>
+			<button type="submit">Log in</button>
+		</form>
+	</div>
+
+	<!-- <div data-role="footer">
+		<h4>Aim Solo School Project</h4>
+	</div> -->
+
 </div>
+
+<!-- PROJECT PAGE -->
+<div data-role="page" id="projects-page">
+
+	<div data-role="header">
+		<h1>Selecciona un projecte</h1>
+	</div>
+
+	<div data-role="main" class="ui-content">
+		<ul data-role="listview" data-inset="true" id="project-list">
+		</ul>
+	</div>
+
+	<!-- <div data-role="footer">
+		<h4>Aim Solo School Project</h4>
+	</div> -->
+
+</div><!-- /page -->
+
+<!-- STUDENTS PAGE -->
+<div data-role="page" id="students-page">
+
+	<div data-role="header">
+		<h1>Estudiants</h1>
+	</div>
+
+	<div data-role="main" class="ui-content">
+		<ul data-role="listview" data-inset="true" id="student-list">
+		</ul>
+	</div>
+
+	<!-- <div data-role="footer">
+		<h4>Aim Solo School Project</h4>
+	</div> -->
+
+</div><!-- /page -->
+
 </body>
 </html>
 
-
-
 <script>
-$('.message a').click(function(){
-   $('form').animate({height: "toggle", opacity: "toggle"}, "slow");
-});
-
-$('.login-form').submit(function() {
-	console.log(8);
+var domini = 'https://test2.aim-solo.com/';
+var user_name;
+var user_id;
+var project_id;
+var project_name;
+$('.login-form').submit(function(e) {
+	e.preventDefault();
+    e.stopPropagation();
 	var username = $('#username').val();
 	var pwd = $('#pwd').val();
 	$.ajax({
-		url: "https://test2.aim-solo.com/ajax/APPLogin?username=" + username + "&password=" + pwd,
+		url: domini + "ajax/APPLogin?username=" + username + "&password=" + pwd,
 		success: function(data) {
 			// Arriba la resposta
+			data = JSON.parse(data);
 			console.log(data);
-			alert(data);
-			//console.log(data);
-			// table.ajax.reload(null, false);
-			// $('#icon_spin').hide();
-			// $('#p_send').text("<?php echo __("La teva autocandidatura s'ha enviat correctament.")?>");
-			// $('#btn_send').hide();
-			// $('#btn_sent_ok').show();
-			// $('#btn_send_cancel').hide();
+			if (data.success) {
+				user_name = data.name;
+				user_id = data.user_id;
+				$.mobile.navigate( "#projects-page" );
+			}
+			else { alert(data.msg); }
+		}
+	});
+});
+
+$( "#projects-page" ).on( "pageshow", function( e ) {
+	$(this).find('h1').text("Projectes de " + user_name);
+	$.ajax({
+		url: domini + "ajax/getProjectsByTutor?tutor_id=" + user_id,
+		success: function(data) {
+			// Arriba la resposta
+			data = JSON.parse(data);
+			console.log(data);
+			if (data.success) {
+				list = $("#project-list");
+				list.empty();
+				data.projects.forEach(function (project, index) {
+					var list_item = $('<li><a data-id="' + project.id + '">' + project.name + '</a></li>');
+					list.append(list_item).listview('refresh');
+				});
+			}
+			else { alert(data.msg); }
+		}
+	});
+});
+
+ $(document).on('click', "#project-list li a",function () {
+	project_id = $(this).data('id');
+	project_name = $(this).text();
+	$.mobile.navigate("#students-page");
+});
+
+$("#students-page").on( "pageshow", function( e ) {
+	$(this).find('h1').text("Estudiants de " + project_name);
+	$.ajax({
+		url: domini + "ajax/getUsersByProjectNTutor?tutor_id=" + user_id + "&project_id=" + project_id,
+		success: function(data) {
+			// Arriba la resposta
+			data = JSON.parse(data);
+			console.log(data);
+			if (data.success) {
+				list = $("#student-list");
+				list.empty();
+				data.projects.forEach(function (user, index) {
+					var list_item = $('<li><a data-id="' + user.id + '">' + user.name + ' ' + user.lastname + '</a></li>');
+					list.append(list_item).listview('refresh');
+				});
+			}
+			else { alert(data.msg); }
 		}
 	});
 });
 </script>
-
