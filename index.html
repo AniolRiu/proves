@@ -15,6 +15,49 @@
 </head>
 
 <body>
+<!-- STUDENTS PAGE -->
+<div data-role="page" id="comps-page">
+
+	<div data-role="header">
+		<h1>Competències</h1>
+	</div>
+
+	<div data-role="main" class="ui-content">
+		<form align="center">
+			<fieldset data-role="controlgroup" data-type="horizontal">
+				<input type="checkbox" name="checkbox-h-2a" id="checkbox-h-2a">
+				<label for="checkbox-h-2a">Excel·lència</label>
+				<input type="checkbox" name="checkbox-h-2b" id="checkbox-h-2b">
+				<label for="checkbox-h-2b">Professional</label>
+				<input type="checkbox" name="checkbox-h-2c" id="checkbox-h-2c">
+				<label for="checkbox-h-2c">Societat</label>
+			</fieldset>
+		</form>
+		<ul data-role="listview" data-filter="true" data-filter-placeholder="Buscar competència" data-autodividers="true" data-inset="true" id="comps-list">
+			<li><a href="#">Amable</a></li>
+			<li><a href="#">Adaptable</a></li>
+			<li><a href="#">Curiós</a></li>
+			<li><a href="#">Audaç</a></li>
+			<li><a href="#">Humil</a></li>
+			<li><a href="#">Legal</a></li>
+			<li><a href="#">Polit</a></li>
+			<li><a href="#">Veu</a></li>
+			<li><a href="#">Rigorós</a></li>
+			<li><a href="#">Ambiciós</a></li>
+			<li><a href="#">Realista</a></li>
+			<li><a href="#">Relmn</a></li>
+			<li><a href="#">Aauan</a></li>
+			<li><a href="#">Simpàtic</a></li>
+			<li><a href="#">Prudent</a></li>
+			<li><a href="#">Pretensiós</a></li>
+		</ul>
+	</div>
+
+	<!-- <div data-role="footer">
+		<h4>Aim Solo School Project</h4>
+	</div> -->
+
+</div><!-- /page -->
 
 <!-- LOGIN PAGE -->
 <div data-role="page" id="login-page">
@@ -73,6 +116,8 @@
 
 </div><!-- /page -->
 
+
+
 </body>
 </html>
 
@@ -94,6 +139,24 @@ $('.login-form').submit(function(e) {
 			data = JSON.parse(data);
 			console.log(data);
 			if (data.success) {
+				{ // Demanem la llista de competències				
+					$.ajax({
+						url: domini + "ajax/APPLogin?username=" + username + "&password=" + pwd,
+						success: function(data) {
+							// Arriba la resposta
+							// data = JSON.parse(data);
+							// console.log(data);
+							// if (data.success) {
+							// 	user_name = data.name;
+							// 	user_id = data.user_id;
+							// 	$.mobile.navigate( "#projects-page" );
+							// }
+							// else { alert(data.msg); }
+						}
+					});
+				}
+			
+			
 				user_name = data.name;
 				user_id = data.user_id;
 				$.mobile.navigate( "#projects-page" );
@@ -124,7 +187,7 @@ $( "#projects-page" ).on( "pageshow", function( e ) {
 	});
 });
 
- $(document).on('click', "#project-list li a",function () {
+$(document).on('click', "#project-list li a",function () {
 	project_id = $(this).data('id');
 	project_name = $(this).text();
 	$.mobile.navigate("#students-page");
@@ -149,5 +212,11 @@ $("#students-page").on( "pageshow", function( e ) {
 			else { alert(data.msg); }
 		}
 	});
+});
+
+$(document).on('click', "#student-list li a",function () {
+	student_id = $(this).data('id');
+	student_name = $(this).text();
+	$.mobile.navigate("#comps-page");
 });
 </script>
