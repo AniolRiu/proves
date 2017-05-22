@@ -105,16 +105,19 @@
 		<h4>Aim Solo School Project</h4>
 	</div> -->
 	
-	<!-- <a href="#comp_popup" data-rel="popup" class="ui-btn ui-corner-all ui-shadow ui-btn-inline" data-transition="pop">Basic Popup</a> -->
 	<div data-role="popup" id="comps-popup">
 		<p></p>
 		<form align="center">
 			<fieldset data-role="controlgroup" data-type="horizontal">
-				<button id="no-comp">No</button>
-				<button id="cancel-comp">Cancel·lar</button>
-				<button id="si-comp">Sí</button>
+				<button type="button" id="no-comp">No</button>
+				<button type="button" id="cancel-comp">Cancel·lar</button>
+				<button type="button" id="si-comp">Sí</button>
 			</fieldset>
 		</form>
+	</div>
+	
+	<div data-role="popup" id="success-popup">
+		<p>La competència s'ha actualitzat</p>
 	</div>
 
 </div><!-- /page -->
@@ -281,47 +284,11 @@ var comp_id;
 	});
 	
 	$(document).on('click', "#si-comp",function () {
-		url = "https://intra.aim-solo.com/schools/assets/php/ajax/ajax_change_competence.php?t=" + user_id + "&p=" + project_id + "&c=" + comp_id + "&v=1&id=" + student_id;
-		console.log(url);
-		$.ajax({
-			url: url,
-			success: function(data) {
-				// Arriba la resposta
-				data = JSON.parse(data);
-				console.log(data);
-				if (data.success) {
-					data = JSON.parse(data);
-					if(data.success) {
-						console.log("OK!");
-					}
-					else {
-						console.log(data.msg);
-					}
-				}
-				else { alert(data.msg); }
-			}
-		});
+		update_comp(1);
 	});
 	
 	$(document).on('click', "#no-comp",function () {
-		$.ajax({
-			url: "https://intra.aim-solo.com/schools/assets/php/ajax/ajax_change_competence.php?t=" + user_id + "&p=" + project_id + "&c=" + comp_id + "&v=0&id=" + student_id,
-			success: function(data) {
-				// Arriba la resposta
-				data = JSON.parse(data);
-				console.log(data);
-				if (data.success) {
-					data = JSON.parse(data);
-					if(data.success) {
-						console.log("OK!");
-					}
-					else {
-						console.log(data.msg);
-					}
-				}
-				else { alert(data.msg); }
-			}
-		});
+		update_comp(0);
 	});
 
 	/*$(document).on('swipeleft swiperight', "#comps-list li", function (e) {
@@ -355,6 +322,23 @@ function build_comp_list() {
 	});
 	comps_fem.forEach(function (comp, index) {
 		list_fem = list_fem + '<li><a data-id="' + comp.id + '">' + comp.name + '</a></li>';
+	});
+}
+
+function update_comp(v) {
+	url = "https://intra.aim-solo.com/schools/assets/php/ajax/ajax_change_competence.php?t=" + user_id + "&p=" + project_id + "&c=" + comp_id + "&v=" + v + "&id=" + student_id;
+	console.log(url);
+	$.ajax({
+		url: url,
+		success: function(data) {
+			// Arriba la resposta
+			data = JSON.parse(data);
+			console.log(data);
+			if (data.success) {
+				$("#success-popup").popup('open');
+			}
+			else { alert(data.msg); }
+		}
 	});
 }
 
