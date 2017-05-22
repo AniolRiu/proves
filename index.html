@@ -335,6 +335,7 @@ function update_comp(v) {
 			data = JSON.parse(data);
 			console.log(data);
 			if (data.success) {
+				$("#comps-popup").popup('close');
 				$("#success-popup").popup('open');
 			}
 			else { alert(data.msg); }
