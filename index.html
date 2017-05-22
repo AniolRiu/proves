@@ -4,7 +4,7 @@
 
 <head>
 	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1">
 	<title>Multi-page template</title>
 	<link rel="stylesheet" href="http://demos.jquerymobile.com/1.4.5/css/themes/default/jquery.mobile-1.4.5.min.css">
 	<script
@@ -12,6 +12,10 @@
   integrity="sha256-Qw82+bXyGq6MydymqBxNPYTaUXXq7c8v3CwiYwLLNXU="
   crossorigin="anonymous"></script>
 	<script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+	<!-- <script src="js/hammer.min.js"></script> -->
+	<!-- <script src="js/jquery.hammer.js"></script> -->
+	<!-- <script src="js/zingtouch-master/src/ZingTouch.js"></script> -->
+	<!-- <script src="js/funcionalitat.js"></script> -->
 </head>
 
 <body>
@@ -24,7 +28,7 @@
 	</div>
 
 	<div data-role="main" class="ui-content">
-		<form class="login-form" method="get">
+		<form id="login-form" method="get">
 			<input id="username" type="text" placeholder="username"/>
 			<input id="pwd" type="password" placeholder="password"/>
 			<button type="submit">Log in</button>
@@ -42,6 +46,7 @@
 
 	<div data-role="header">
 		<h1>Selecciona un projecte</h1>
+		<a href="#" type="button" class="logout_btn" data-icon="user"></a>
 	</div>
 
 	<div data-role="main" class="ui-content">
@@ -92,28 +97,25 @@
 			</fieldset>
 		</form>
 		<ul data-role="listview" data-filter="true" data-filter-placeholder="Buscar competència" data-autodividers="true" data-inset="true" id="comps-list">
-			<li><a href="#">Amable</a></li>
-			<li><a href="#">Adaptable</a></li>
-			<li><a href="#">Curiós</a></li>
-			<li><a href="#">Audaç</a></li>
-			<li><a href="#">Humil</a></li>
-			<li><a href="#">Legal</a></li>
-			<li><a href="#">Polit</a></li>
-			<li><a href="#">Veu</a></li>
-			<li><a href="#">Rigorós</a></li>
-			<li><a href="#">Ambiciós</a></li>
-			<li><a href="#">Realista</a></li>
-			<li><a href="#">Relmn</a></li>
-			<li><a href="#">Aauan</a></li>
-			<li><a href="#">Simpàtic</a></li>
-			<li><a href="#">Prudent</a></li>
-			<li><a href="#">Pretensiós</a></li>
+			
 		</ul>
 	</div>
 
 	<!-- <div data-role="footer">
 		<h4>Aim Solo School Project</h4>
 	</div> -->
+	
+	<!-- <a href="#comp_popup" data-rel="popup" class="ui-btn ui-corner-all ui-shadow ui-btn-inline" data-transition="pop">Basic Popup</a> -->
+	<div data-role="popup" id="comps-popup">
+		<p></p>
+		<form align="center">
+			<fieldset data-role="controlgroup" data-type="horizontal">
+				<button id="no-comp">No</button>
+				<button id="cancel-comp">Cancel·lar</button>
+				<button id="si-comp">Sí</button>
+			</fieldset>
+		</form>
+	</div>
 
 </div><!-- /page -->
 
@@ -121,147 +123,240 @@
 </html>
 
 <script>
-var domini = 'https://test2.aim-solo.com/';
+var domini = 'https://comunitat.aim-solo.com/';
 var user_name;
 var user_id;
 var project_id;
 var project_name;
+var student_id;
+var student_name;
 var comps_masc;
 var comps_fem;
+var list_masc;
+var list_fem;
+var comp_name;
+var comp_id;
 
-$( "#login-page" ).on( "pageshow", function( e ) {
-	{ // Carreguem variables de la memòria local
-		user_id = localStorage.getItem('user_id');
-		user_name = localStorage.getItem('user_name');
-		project_id = localStorage.getItem('project_id');
-		project_name = localStorage.getItem('project_name');
-		comps_masc = JSON.parse(localStorage.getItem('comps_masc'));
-		comps_fem = JSON.parse(localStorage.getItem('comps_fem'));
-	}
-	
-	if ((user_id != null) && (user_name != null)) {
-		console.log(user_id);
-		console.log(user_name);
-		$.mobile.navigate( "#projects-page" );
-	}
-});
-
-$('.login-form').submit(function(e) {
-	e.preventDefault();
-    e.stopPropagation();
-	var username = $('#username').val();
-	var pwd = $('#pwd').val();
-	$.ajax({
-		url: domini + "ajax/APPLogin?username=" + username + "&password=" + pwd,
-		success: function(data) {
-			// Arriba la resposta
-			data = JSON.parse(data);
-			console.log(data);
-			if (data.success) {
-				user_name = data.name;
-				user_id = data.user_id;
-				localStorage.setItem('user_id', user_id);
-				localStorage.setItem('user_name', user_name);
-				$.mobile.navigate( "#projects-page" );
-			}
-			else { alert(data.msg); }
+{ // Login page
+	$( "#login-page" ).on( "pageshow", function( e ) {
+		{ // Carreguem variables de la memòria local
+			user_id = localStorage.getItem('user_id');
+			user_name = localStorage.getItem('user_name');
+			project_id = localStorage.getItem('project_id');
+			project_name = localStorage.getItem('project_name');
+			comps_masc = JSON.parse(localStorage.getItem('comps_masc'));
+			comps_fem = JSON.parse(localStorage.getItem('comps_fem'));
+		}
+		
+		if ((user_id != null) && (user_name != null)) {
+			console.log(user_id);
+			console.log(user_name);
+			$.mobile.navigate( "#projects-page" );
 		}
 	});
-});
 
-$( "#projects-page" ).on( "pageshow", function( e ) {
-	$(this).find('h1').text("Projectes de " + user_name);
-	{ // Demanem la llista de competències
-		if ((comps_masc == null) || (comps_fem == null)) {
-			$.ajax({
-				// TODO: Enviar l'idioma en funció del particular
-				url: "https://intra.aim-solo.com/schools/assets/php/ajax/ajax_return_competences.php?lang=cat",
-				success: function(data) {
-					// Arriba la resposta
-					data = JSON.parse(data);
-					console.log('yeye1' + data['success']);
-					if (data.success) {
-						comps_masc = data['comps_masc'];
-						comps_fem = data['comps_fem'];
-						localStorage.setItem('comps_masc', JSON.stringify(comps_masc));
-						localStorage.setItem('comps_fem', JSON.stringify(comps_fem));
-					}
-					else { alert(data.msg + 'yeye'); }
+	$('#login-form').submit(function(e) {
+		e.preventDefault();
+		e.stopPropagation();
+		var username = $('#username').val();
+		var pwd = $('#pwd').val();
+		$.ajax({
+			url: domini + "ajax/APPLogin?username=" + username + "&password=" + pwd,
+			success: function(data) {
+				// Arriba la resposta
+				data = JSON.parse(data);
+				console.log(data);
+				if (data.success) {
+					user_name = data.name;
+					user_id = data.user_id;
+					localStorage.setItem('user_id', user_id);
+					localStorage.setItem('user_name', user_name);
+					$.mobile.navigate( "#projects-page" );
 				}
-			});
-		}
-	}
+				else { alert(data.msg); }
+			}
+		});
+	});
+	
+}
 
-	$.ajax({
-		url: domini + "ajax/getProjectsByTutor?tutor_id=" + user_id,
-		success: function(data) {
-			// Arriba la resposta
-			data = JSON.parse(data);
-			console.log(data);
-			if (data.success) {
-				list = $("#project-list");
-				list.empty();
-				data.projects.forEach(function (project, index) {
-					var list_item = $('<li><a data-id="' + project.id + '">' + project.name + '</a></li>');
-					list.append(list_item).listview('refresh');
+{ // Projects page
+	$( "#projects-page" ).on( "pageshow", function( e ) {
+		$(this).find('h1').text("Projectes de " + user_name);
+		{ // Demanem la llista de competències
+			if ((comps_masc == null) || (comps_fem == null)) {
+				$.ajax({
+					// TODO: Enviar l'idioma en funció del particular
+					url: "https://intra.aim-solo.com/schools/assets/php/ajax/ajax_return_competences.php?lang=cat",
+					success: function(data) {
+						// Arriba la resposta
+						data = JSON.parse(data);
+						console.log('yeye1' + data['success']);
+						if (data.success) {
+							comps_masc = data['comps_masc'];
+							comps_fem = data['comps_fem'];
+							localStorage.setItem('comps_masc', JSON.stringify(comps_masc));
+							localStorage.setItem('comps_fem', JSON.stringify(comps_fem));
+							build_comp_list();
+						}
+						else { alert(data.msg + 'yeye'); }
+					}
 				});
 			}
-			else { alert(data.msg); }
-		}
-	});
-});
-
-$(document).on('click', "#project-list li a",function () {
-	project_id = $(this).data('id');
-	project_name = $(this).text();
-	$.mobile.navigate("#students-page");
-});
-
-$("#students-page").on( "pageshow", function( e ) {
-	$(this).find('h1').text("Estudiants de " + project_name);
-	$.ajax({
-		url: domini + "ajax/getUsersByProjectNTutor?tutor_id=" + user_id + "&project_id=" + project_id,
-		success: function(data) {
-			// Arriba la resposta
-			data = JSON.parse(data);
-			console.log(data);
-			if (data.success) {
-				list = $("#student-list");
-				list.empty();
-				data.projects.forEach(function (user, index) {
-					var list_item = $('<li><a data-id="' + user.id + '">' + user.name + ' ' + user.lastname + '</a></li>');
-					list.append(list_item).listview('refresh');
-				});
+			else {
+				build_comp_list();
 			}
-			else { alert(data.msg); }
 		}
-	});
-});
 
-$(document).on('click', "#student-list li a",function () {
-	student_id = $(this).data('id');
-	student_name = $(this).text();
-	$.mobile.navigate("#comps-page");
-});
-
-$("#students-page").on( "pageshow", function( e ) {
-	$(this).find('h1').text("Estudiants de " + project_name);
-	$.ajax({
-		url: domini + "ajax/getUsersByProjectNTutor?tutor_id=" + user_id + "&project_id=" + project_id,
-		success: function(data) {
-			// Arriba la resposta
-			data = JSON.parse(data);
-			console.log(data);
-			if (data.success) {
-				list = $("#student-list");
-				list.empty();
-				data.projects.forEach(function (user, index) {
-					var list_item = $('<li><a data-id="' + user.id + '">' + user.name + ' ' + user.lastname + '</a></li>');
-					list.append(list_item).listview('refresh');
-				});
+		$.ajax({
+			url: domini + "ajax/getProjectsByTutor?tutor_id=" + user_id,
+			success: function(data) {
+				// Arriba la resposta
+				data = JSON.parse(data);
+				console.log(data);
+				if (data.success) {
+					list = $("#project-list");
+					list.empty();
+					data.projects.forEach(function (project, index) {
+						var list_item = $('<li><a data-id="' + project.id + '">' + project.name + '</a></li>');
+						list.append(list_item).listview('refresh');
+					});
+				}
+				else { alert(data.msg); }
 			}
-			else { alert(data.msg); }
-		}
+		});
 	});
-});
+
+	$(document).on('click', "#project-list li a",function () {
+		project_id = $(this).data('id');
+		project_name = $(this).text();
+		$.mobile.navigate("#students-page");
+	});
+}
+
+{ // Students page
+	$("#students-page").on( "pageshow", function( e ) {
+		$(this).find('h1').text("Estudiants de " + project_name);
+		$.ajax({
+			url: domini + "ajax/getUsersByProjectNTutor?tutor_id=" + user_id + "&project_id=" + project_id,
+			success: function(data) {
+				// Arriba la resposta
+				data = JSON.parse(data);
+				console.log(data);
+				if (data.success) {
+					list = $("#student-list");
+					list.empty();
+					data.users.forEach(function (user, index) {
+						var list_item = $('<li><a data-id="' + user.id + '">' + user.name + ' ' + user.lastname + '</a></li>');
+						list.append(list_item).listview('refresh');
+					});
+				}
+				else { alert(data.msg); }
+			}
+		});
+	});
+
+	$(document).on('click', "#student-list li a",function () {
+		student_id = $(this).data('id');
+		student_name = $(this).text();
+		$.mobile.navigate("#comps-page");
+	});
+}
+
+{ // Comps page
+	$("#comps-page").on( "pageshow", function( e ) {
+		$(this).find('h1').text("Competències de " + student_name);
+		
+		// TODO: Mirar gènere de l'estudiant
+		$("#comps-list").append(list_masc).listview('refresh');
+		
+	});
+
+	$(document).on('click', "#comps-list li a",function () {
+		comp_id = $(this).data('id');
+		comp_name = $(this).text();
+		console.log(comp_id + ' ' + comp_name);
+		$('#comps-popup').popup('open');
+		$('#comps-popup p').text(student_name + ' és ' + comp_name + "?");
+	});
+	
+	$(document).on('click', "#si-comp",function () {
+		url = "https://intra.aim-solo.com/schools/assets/php/ajax/ajax_change_competence.php?t=" + user_id + "&p=" + project_id + "&c=" + comp_id + "&v=1&id=" + student_id;
+		console.log(url);
+		$.ajax({
+			url: url,
+			success: function(data) {
+				// Arriba la resposta
+				data = JSON.parse(data);
+				console.log(data);
+				if (data.success) {
+					data = JSON.parse(data);
+					if(data.success) {
+						console.log("OK!");
+					}
+					else {
+						console.log(data.msg);
+					}
+				}
+				else { alert(data.msg); }
+			}
+		});
+	});
+	
+	$(document).on('click', "#no-comp",function () {
+		$.ajax({
+			url: "https://intra.aim-solo.com/schools/assets/php/ajax/ajax_change_competence.php?t=" + user_id + "&p=" + project_id + "&c=" + comp_id + "&v=0&id=" + student_id,
+			success: function(data) {
+				// Arriba la resposta
+				data = JSON.parse(data);
+				console.log(data);
+				if (data.success) {
+					data = JSON.parse(data);
+					if(data.success) {
+						console.log("OK!");
+					}
+					else {
+						console.log(data.msg);
+					}
+				}
+				else { alert(data.msg); }
+			}
+		});
+	});
+
+	/*$(document).on('swipeleft swiperight', "#comps-list li", function (e) {
+		e.stopPropagation();
+		// e.preventDefault();
+		comp_id = $(this).data('id');
+		comp_name = $(this).text();
+		console.log(e.type);
+		console.log(e);
+		if(e.type == "swipeleft") {
+			console.log(e.swipestart);
+		}
+		else if (e.type == "swiperight") {
+			console.log(e.swipestop.coords[0] - e.swipestart.coords[0]);
+		}
+		
+	});*/
+}
+
+function logout() {
+	localStorage.removeItem('user_id');
+	localStorage.removeItem('user_name');
+	$.mobile.navigate( "#login-page" );
+}
+
+function build_comp_list() {
+	list_masc = "";
+	list_fem = "";
+	comps_masc.forEach(function (comp, index) {
+		list_masc = list_masc + '<li><a data-id="' + comp.id + '">' + comp.name + '</a></li>';
+	});
+	comps_fem.forEach(function (comp, index) {
+		list_fem = list_fem + '<li><a data-id="' + comp.id + '">' + comp.name + '</a></li>';
+	});
+}
+
+$(document).on('click', ".logout_btn", logout);
 </script>
