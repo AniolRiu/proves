@@ -20,7 +20,7 @@
 	<!-- <script src="js/funcionalitat.js"></script> -->
 	
 	
-	<link rel="stylesheet" href="css/themes/aim-solo.min.css" />
+	<link rel="stylesheet" href="css/themes/aim-solo.min.css"/>
 <link rel="stylesheet" href="css/themes/jquery.mobile.icons.min.css" />
 <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile.structure-1.4.5.min.css" />
 <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
@@ -101,7 +101,6 @@
 			<form align="center">
 				<fieldset data-role="controlgroup" data-type="horizontal" id="filter-cg">
 					<input type="checkbox" data-id="dd" id="checkbox-"><label for="checkbox-">lklk</label>
-					
 				</fieldset>
 			</form>
 			<ul data-role="listview" data-filter="true" data-filter-placeholder="Buscar competència" data-autodividers="true" data-inset="true" id="comps-list">
@@ -136,6 +135,7 @@
 var domini = 'https://comunitat.aim-solo.com/';
 var user_name;
 var user_id;
+var entitat_id;
 var project_id;
 var project_name;
 var student_id;
@@ -146,7 +146,7 @@ var list_masc;
 var list_fem;
 var comp_name;
 var comp_id;
-var comps_groups = [{'id':1,'name':"Societat"}, {'id':2,'name':"Professional"}, {'id':3,'name':"Excel·lència"}];
+var comps_groups = null;// = [{'id':1,'name':"Societat"}, {'id':2,'name':"Professional"}, {'id':3,'name':"Excel·lència"}];
 var current_groups = [];
 
 { // Login page
@@ -154,14 +154,16 @@ var current_groups = [];
 		{ // Carreguem variables de la memòria local
 			user_id = localStorage.getItem('user_id');
 			user_name = localStorage.getItem('user_name');
+			entitat_id = localStorage.getItem('entitat_id');
 			project_id = localStorage.getItem('project_id');
 			project_name = localStorage.getItem('project_name');
 			comps_masc = JSON.parse(localStorage.getItem('comps_masc'));
 			comps_fem = JSON.parse(localStorage.getItem('comps_fem'));
+			comps_groups = JSON.parse(localStorage.getItem('comps_groups'));
 			console.log(comps_masc);
 		}
 		
-		if ((user_id != null) && (user_name != null)) {
+		if ((user_id != null) || (user_name != null)) {
 			console.log(user_id);
 			console.log(user_name);
 			$.mobile.navigate( "#projects-page" );
@@ -173,8 +175,10 @@ var current_groups = [];
 		e.stopPropagation();
 		var username = $('#username').val();
 		var pwd = $('#pwd').val();
+		url = domini + "ajax/APPLogin?username=" + username + "&password=" + pwd;
+		console.log(url);
 		$.ajax({
-			url: domini + "ajax/APPLogin?username=" + username + "&password=" + pwd,
+			url: url,
 			success: function(data) {
 				// Arriba la resposta
 				data = JSON.parse(data);
@@ -182,8 +186,10 @@ var current_groups = [];
 				if (data.success) {
 					user_name = data.name;
 					user_id = data.user_id;
+					entitat_id = data.entitat;
 					localStorage.setItem('user_id', user_id);
 					localStorage.setItem('user_name', user_name);
+					localStorage.setItem('entitat_id', entitat_id);
 					$.mobile.navigate( "#projects-page" );
 				}
 				else { alert(data.msg); }
@@ -194,27 +200,34 @@ var current_groups = [];
 }
 
 { // Projects page
-	build_comps_filter();
 	$( "#projects-page" ).on( "pageshow", function( e ) {
 		$(this).find('h1').text("Projectes de " + user_name);
 		{ // Demanem la llista de competències
-			if ((comps_masc == null) || (comps_fem == null)) {
+			if ((comps_masc == null) || (comps_fem == null) || (comps_groups == null)) {
 				$.ajax({
 					// TODO: Enviar l'idioma en funció del particular
-					url: "https://intra.aim-solo.com/schools/assets/php/ajax/ajax_return_competences.php?lang=cat",
+					url: "https://intra.aim-solo.com/schools/assets/php/ajax/ajax_return_competences.php?lang=cat&id=" + entitat_id,
 					success: function(data) {
 						// Arriba la resposta
 						data = JSON.parse(data);
-						console.log('yeye1' + data['success']);
+						console.log('competències');
+						console.log(data);
 						if (data.success) {
 							comps_masc = data['comps_masc'];
 							comps_fem = data['comps_fem'];
+							comps_groups = data.groups;
+							//comps_groups = data;
 							localStorage.setItem('comps_masc', JSON.stringify(comps_masc));
 							localStorage.setItem('comps_fem', JSON.stringify(comps_fem));
+							localStorage.setItem('comps_groups', JSON.stringify(comps_groups));
+							build_comps_filter();
 						}
 						else { alert(data.msg + 'yeye'); }
 					}
 				});
+			}
+			else {
+				build_comps_filter();
 			}
 		}
 
@@ -329,22 +342,22 @@ var current_groups = [];
 function logout() {
 	localStorage.removeItem('user_id');
 	localStorage.removeItem('user_name');
+	localStorage.clear();
 	$.mobile.navigate( "#login-page" );
 }
 
 function build_comp_list() {
 	list = "";
 	if (true/*student_sex*/) {
-		//console.log(comps_masc);
+		console.log(comps_masc);
 		comps_masc.forEach(function (comp, index) {
-			console.log(current_groups);
-			console.log(parseInt(comp.group));
-			console.log(1);
+
+			console.log(comp.name);
+			console.log(current_groups.indexOf(parseInt(comp.group)) > -1);
+			console.log(current_groups.length == 0);
 			
-			console.log(current_groups.indexOf(1) > -1);
-			// console.log(current_groups.length);
-			// console.log(comp);
 			if(current_groups.indexOf(parseInt(comp.group)) > -1 || current_groups.length == 0) {
+				console.log('yeeees');
 				list = list + '<li><a data-id="' + comp.id + '">' + comp.name + '</a></li>';
 			}
 		});
