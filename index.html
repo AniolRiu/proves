@@ -87,17 +87,12 @@
 
 	<div data-role="main" class="ui-content">
 		<form align="center">
-			<fieldset data-role="controlgroup" data-type="horizontal">
-				<input type="checkbox" name="checkbox-h-2a" id="checkbox-h-2a">
-				<label for="checkbox-h-2a">Excel·lència</label>
-				<input type="checkbox" name="checkbox-h-2b" id="checkbox-h-2b">
-				<label for="checkbox-h-2b">Professional</label>
-				<input type="checkbox" name="checkbox-h-2c" id="checkbox-h-2c">
-				<label for="checkbox-h-2c">Social</label>
+			<fieldset data-role="controlgroup" data-type="horizontal" id="filter-cg">
+				<input type="checkbox" data-id="dd" id="checkbox-"><label for="checkbox-">lklk</label>
+				
 			</fieldset>
 		</form>
 		<ul data-role="listview" data-filter="true" data-filter-placeholder="Buscar competència" data-autodividers="true" data-inset="true" id="comps-list">
-			
 		</ul>
 	</div>
 
@@ -139,6 +134,8 @@ var list_masc;
 var list_fem;
 var comp_name;
 var comp_id;
+var comps_groups = [{'id':1,'name':"Societat"}, {'id':2,'name':"Professional"}, {'id':3,'name':"Excel·lència"}];
+var current_groups = [];
 
 { // Login page
 	$( "#login-page" ).on( "pageshow", function( e ) {
@@ -149,6 +146,7 @@ var comp_id;
 			project_name = localStorage.getItem('project_name');
 			comps_masc = JSON.parse(localStorage.getItem('comps_masc'));
 			comps_fem = JSON.parse(localStorage.getItem('comps_fem'));
+			console.log(comps_masc);
 		}
 		
 		if ((user_id != null) && (user_name != null)) {
@@ -184,6 +182,7 @@ var comp_id;
 }
 
 { // Projects page
+	build_comps_filter();
 	$( "#projects-page" ).on( "pageshow", function( e ) {
 		$(this).find('h1').text("Projectes de " + user_name);
 		{ // Demanem la llista de competències
@@ -200,14 +199,10 @@ var comp_id;
 							comps_fem = data['comps_fem'];
 							localStorage.setItem('comps_masc', JSON.stringify(comps_masc));
 							localStorage.setItem('comps_fem', JSON.stringify(comps_fem));
-							build_comp_list();
 						}
 						else { alert(data.msg + 'yeye'); }
 					}
 				});
-			}
-			else {
-				build_comp_list();
 			}
 		}
 
@@ -271,14 +266,13 @@ var comp_id;
 		$(this).find('h1').text("Competències de " + student_name);
 		
 		// TODO: Mirar gènere de l'estudiant
-		$("#comps-list").append(list_masc).listview('refresh');
+		build_comp_list();
 		
 	});
 
 	$(document).on('click', "#comps-list li a",function () {
 		comp_id = $(this).data('id');
 		comp_name = $(this).text();
-		console.log(comp_id + ' ' + comp_name);
 		$('#comps-popup').popup('open');
 		$('#comps-popup p').text(student_name + ' és ' + comp_name + "?");
 	});
@@ -289,6 +283,18 @@ var comp_id;
 	
 	$(document).on('click', "#no-comp",function () {
 		update_comp(0);
+	});
+	
+	$(document).on('change', "#filter-cg input", function () {
+		id = $(this).data('id');
+		if(this.checked) {
+			current_groups.push(id);
+		}
+		else {
+			console.log('yeyeyey' + current_groups.indexOf(id));
+			current_groups.splice(current_groups.indexOf(id), 1);
+		}
+		build_comp_list();
 	});
 
 	/*$(document).on('swipeleft swiperight', "#comps-list li", function (e) {
@@ -315,14 +321,41 @@ function logout() {
 }
 
 function build_comp_list() {
-	list_masc = "";
-	list_fem = "";
-	comps_masc.forEach(function (comp, index) {
-		list_masc = list_masc + '<li><a data-id="' + comp.id + '">' + comp.name + '</a></li>';
+	list = "";
+	if (true/*student_sex*/) {
+		//console.log(comps_masc);
+		comps_masc.forEach(function (comp, index) {
+			console.log(current_groups);
+			console.log(parseInt(comp.group));
+			console.log(1);
+			
+			console.log(current_groups.indexOf(1) > -1);
+			// console.log(current_groups.length);
+			// console.log(comp);
+			if(current_groups.indexOf(parseInt(comp.group)) > -1 || current_groups.length == 0) {
+				list = list + '<li><a data-id="' + comp.id + '">' + comp.name + '</a></li>';
+			}
+		});
+		
+	}
+	else {
+		comps_fem.forEach(function (comp, index) {
+			if(current_groups.indexOf(comp.id) > 0 || current_groups.length == 0) {
+				list = list + '<li><a data-id="' + comp.id + '">' + comp.name + '</a></li>';
+			}
+		});
+	}
+	console.log(list);
+	$("#comps-list").html(list).listview('refresh');
+}
+
+function build_comps_filter() {
+	filter_buttons = "";
+	comps_groups.forEach(function (comp, index) {
+		filter_buttons = filter_buttons + '<input type="checkbox" data-id="' + comp.id + '" id="checkbox-' + comp.name + '"><label for="checkbox-' + comp.name + '">' + comp.name + '</label>';
 	});
-	comps_fem.forEach(function (comp, index) {
-		list_fem = list_fem + '<li><a data-id="' + comp.id + '">' + comp.name + '</a></li>';
-	});
+	$("#filter-cg").html(filter_buttons);
+	$("#comps-page").trigger('create');
 }
 
 function update_comp(v) {
