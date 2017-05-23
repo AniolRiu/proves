@@ -6,116 +6,128 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1">
 	<title>Multi-page template</title>
+	<!-- <link rel="stylesheet" href="css/themes/aim-solo.css" />
+	<link rel="stylesheet" href="css/themes/jquery.mobile.icons.min.css" />
 	<link rel="stylesheet" href="http://demos.jquerymobile.com/1.4.5/css/themes/default/jquery.mobile-1.4.5.min.css">
 	<script
   src="https://code.jquery.com/jquery-1.12.4.js"
   integrity="sha256-Qw82+bXyGq6MydymqBxNPYTaUXXq7c8v3CwiYwLLNXU="
   crossorigin="anonymous"></script>
-	<script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+	<script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script> -->
 	<!-- <script src="js/hammer.min.js"></script> -->
 	<!-- <script src="js/jquery.hammer.js"></script> -->
 	<!-- <script src="js/zingtouch-master/src/ZingTouch.js"></script> -->
 	<!-- <script src="js/funcionalitat.js"></script> -->
+	
+	
+	<link rel="stylesheet" href="css/themes/aim-solo.min.css" />
+<link rel="stylesheet" href="css/themes/jquery.mobile.icons.min.css" />
+<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile.structure-1.4.5.min.css" />
+<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+<script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+
+
+
 </head>
 
-<body>
+<body data-theme="a">
 
-<!-- LOGIN PAGE -->
-<div data-role="page" id="login-page">
+	<!-- LOGIN PAGE -->
+	<div data-role="page" id="login-page">
 
-	<div data-role="header">
-		<h1>Login</h1>
+		<div data-role="header">
+			<h1>Log in</h1>
+		</div>
+
+		<div data-role="main" class="ui-content">
+			<form id="login-form" method="get">
+				<input id="username" type="text" placeholder="username"/>
+				<input id="pwd" type="password" placeholder="password"/>
+				<button type="submit">Log in</button>
+			</form>
+		</div>
+
+		<!-- <div data-role="footer">
+			<h4>Aim Solo School Project</h4>
+		</div> -->
+
 	</div>
 
-	<div data-role="main" class="ui-content">
-		<form id="login-form" method="get">
-			<input id="username" type="text" placeholder="username"/>
-			<input id="pwd" type="password" placeholder="password"/>
-			<button type="submit">Log in</button>
-		</form>
-	</div>
+	<!-- PROJECT PAGE -->
+	<div data-role="page" id="projects-page">
 
-	<!-- <div data-role="footer">
-		<h4>Aim Solo School Project</h4>
-	</div> -->
+		<div data-role="header">
+			<h1>Selecciona un projecte</h1>
+			<a href="#" type="button" class="logout_btn" data-icon="user"></a>
+		</div>
 
-</div>
+		<div data-role="main" class="ui-content">
+			<ul data-role="listview" data-inset="true" id="project-list">
+			</ul>
+		</div>
 
-<!-- PROJECT PAGE -->
-<div data-role="page" id="projects-page">
+		<!-- <div data-role="footer">
+			<h4>Aim Solo School Project</h4>
+		</div> -->
 
-	<div data-role="header">
-		<h1>Selecciona un projecte</h1>
-		<a href="#" type="button" class="logout_btn" data-icon="user"></a>
-	</div>
+	</div><!-- /page -->
 
-	<div data-role="main" class="ui-content">
-		<ul data-role="listview" data-inset="true" id="project-list">
-		</ul>
-	</div>
+	<!-- STUDENTS PAGE -->
+	<div data-role="page" id="students-page">
 
-	<!-- <div data-role="footer">
-		<h4>Aim Solo School Project</h4>
-	</div> -->
+		<div data-role="header">
+			<h1>Estudiants</h1>
+		</div>
 
-</div><!-- /page -->
+		<div data-role="main" class="ui-content">
+			<ul data-role="listview" data-inset="true" id="student-list">
+			</ul>
+		</div>
 
-<!-- STUDENTS PAGE -->
-<div data-role="page" id="students-page">
+		<!-- <div data-role="footer">
+			<h4>Aim Solo School Project</h4>
+		</div> -->
 
-	<div data-role="header">
-		<h1>Estudiants</h1>
-	</div>
+	</div><!-- /page -->
 
-	<div data-role="main" class="ui-content">
-		<ul data-role="listview" data-inset="true" id="student-list">
-		</ul>
-	</div>
+	<!-- COMPS PAGE -->
+	<div data-role="page" id="comps-page">
 
-	<!-- <div data-role="footer">
-		<h4>Aim Solo School Project</h4>
-	</div> -->
+		<div data-role="header">
+			<h1>Competències</h1>
+		</div>
 
-</div><!-- /page -->
+		<div data-role="main" class="ui-content">
+			<form align="center">
+				<fieldset data-role="controlgroup" data-type="horizontal" id="filter-cg">
+					<input type="checkbox" data-id="dd" id="checkbox-"><label for="checkbox-">lklk</label>
+					
+				</fieldset>
+			</form>
+			<ul data-role="listview" data-filter="true" data-filter-placeholder="Buscar competència" data-autodividers="true" data-inset="true" id="comps-list">
+			</ul>
+		</div>
 
-<!-- COMPS PAGE -->
-<div data-role="page" id="comps-page">
+		<!-- <div data-role="footer">
+			<h4>Aim Solo School Project</h4>
+		</div> -->
+		
+		<div data-role="popup" id="comps-popup">
+			<p></p>
+			<form align="center">
+				<fieldset data-role="controlgroup" data-type="horizontal">
+					<button type="button" id="no-comp">No</button>
+					<button type="button" id="cancel-comp">Cancel·lar</button>
+					<button type="button" id="si-comp">Sí</button>
+				</fieldset>
+			</form>
+		</div>
+		
+		<div data-role="popup" id="success-popup">
+			<p>La competència s'ha actualitzat</p>
+		</div>
 
-	<div data-role="header">
-		<h1>Competències</h1>
-	</div>
-
-	<div data-role="main" class="ui-content">
-		<form align="center">
-			<fieldset data-role="controlgroup" data-type="horizontal" id="filter-cg">
-				<input type="checkbox" data-id="dd" id="checkbox-"><label for="checkbox-">lklk</label>
-				
-			</fieldset>
-		</form>
-		<ul data-role="listview" data-filter="true" data-filter-placeholder="Buscar competència" data-autodividers="true" data-inset="true" id="comps-list">
-		</ul>
-	</div>
-
-	<!-- <div data-role="footer">
-		<h4>Aim Solo School Project</h4>
-	</div> -->
-	
-	<div data-role="popup" id="comps-popup">
-		<p></p>
-		<form align="center">
-			<fieldset data-role="controlgroup" data-type="horizontal">
-				<button type="button" id="no-comp">No</button>
-				<button type="button" id="cancel-comp">Cancel·lar</button>
-				<button type="button" id="si-comp">Sí</button>
-			</fieldset>
-		</form>
-	</div>
-	
-	<div data-role="popup" id="success-popup">
-		<p>La competència s'ha actualitzat</p>
-	</div>
-
-</div><!-- /page -->
+	</div><!-- /page -->
 
 </body>
 </html>
