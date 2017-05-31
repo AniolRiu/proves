@@ -6,31 +6,16 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1">
 	<title>Multi-page template</title>
-	<!-- <link rel="stylesheet" href="css/themes/aim-solo.css" />
-	<link rel="stylesheet" href="css/themes/jquery.mobile.icons.min.css" />
-	<link rel="stylesheet" href="http://demos.jquerymobile.com/1.4.5/css/themes/default/jquery.mobile-1.4.5.min.css">
-	<script
-  src="https://code.jquery.com/jquery-1.12.4.js"
-  integrity="sha256-Qw82+bXyGq6MydymqBxNPYTaUXXq7c8v3CwiYwLLNXU="
-  crossorigin="anonymous"></script>
-	<script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script> -->
-	<!-- <script src="js/hammer.min.js"></script> -->
-	<!-- <script src="js/jquery.hammer.js"></script> -->
-	<!-- <script src="js/zingtouch-master/src/ZingTouch.js"></script> -->
-	<!-- <script src="js/funcionalitat.js"></script> -->
-	
 	
 	<link rel="stylesheet" href="css/themes/aim-solo.min.css"/>
-<link rel="stylesheet" href="css/themes/jquery.mobile.icons.min.css" />
-<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile.structure-1.4.5.min.css" />
-<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
-<script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
-
-
-
+	<link rel="stylesheet" href="css/themes/jquery.mobile.icons.min.css" />
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile.structure-1.4.5.min.css" />
+	<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+	<script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+	<!-- <script type="text/javascript" src="js/jquery.i18n.js"></script> -->
 </head>
 
-<body data-theme="a">
+<body>
 
 	<!-- LOGIN PAGE -->
 	<div data-role="page" id="login-page">
@@ -90,6 +75,22 @@
 
 	</div><!-- /page -->
 
+	<!-- SELECTOR PAGE -->
+	<div data-role="page" id="selector-page">
+
+		<div data-role="header">
+			<h1></h1>
+		</div>
+
+		<div data-role="main" class="ui-content">
+		<div id='example1'>Example 1</div>
+			<a href="#comps-page" data-role="button">Competències</a>
+			<a href="#comps_millora-page" data-role="button">Competències de millora</a>
+			<a href="#intels-page" data-role="button">Intel·ligències</a>
+		</div>
+
+	</div><!-- /page -->
+	
 	<!-- COMPS PAGE -->
 	<div data-role="page" id="comps-page">
 
@@ -127,6 +128,80 @@
 		</div>
 
 	</div><!-- /page -->
+	
+	<!-- COMPS_MILLORA PAGE -->
+	<div data-role="page" id="comps_millora-page">
+
+		<div data-role="header">
+			<h1>Competències</h1>
+		</div>
+
+		<div data-role="main" class="ui-content">
+			<ul data-role="listview" data-filter="true" data-filter-placeholder="Buscar competència" data-autodividers="true" data-inset="true" id="comps_millora-list">
+			</ul>
+		</div>
+
+		<!-- <div data-role="footer">
+			<h4>Aim Solo School Project</h4>
+		</div> -->
+		
+		<div data-role="popup" id="comps_millora-popup">
+			<p></p>
+			<form align="center">
+				<fieldset data-role="controlgroup" data-type="horizontal">
+					<button type="button" id="no-comp_millora">No</button>
+					<button type="button" id="cancel-comp_millora">Cancel·lar</button>
+					<button type="button" id="si-comp_millora">Sí</button>
+				</fieldset>
+			</form>
+		</div>
+		
+		<div data-role="popup" id="success_millora-popup">
+			<p>La competència s'ha actualitzat</p>
+		</div>
+
+	</div><!-- /page -->
+	
+	<!-- INTELS PAGE -->
+	<div data-role="page" id="intels-page">
+
+		<div data-role="header">
+			<h1>Intel·ligències</h1>
+		</div>
+
+		<div data-role="main" class="ui-content">
+			<label for="slider-corporal">Corporal: <span id="span-corporal"></span></label>
+			<input data-mini="true" class="intel-slider" type="range" data-levels="Mig|Mig alt|Alt|Molt alt|Superdotat" data-highlight="true" id="slider-corporal" min="0" max="4" value="0" >
+		
+			<label for="slider-corporal">Emocional: <span id="span-corporal"></span></label>
+			<input data-mini="true" class="intel-slider" type="range" data-levels="Mig|Mig alt|Alt|Molt alt|Superdotat" data-highlight="true" id="slider-corporal" min="0" max="4" value="0" >
+		
+			<label for="slider-corporal">Espacial: <span id="span-corporal"></span></label>
+			<input data-mini="true" class="intel-slider" type="range" data-levels="Mig|Mig alt|Alt|Molt alt|Superdotat" data-highlight="true" id="slider-corporal" min="0" max="4" value="0" >
+	
+			<label for="slider-corporal"><span id="span-corporal"></span></label>
+			<input data-mini="true" class="intel-slider" type="range" data-levels="Interpersonal contributiva: Molt alta|Interpersonal contributiva: Alta|Interpersonal contributiva: Mig alta|Interpersonal contributiva: Centrada|Interpersonal no contributiva: Centrada|Interpersonal no contributiva: Mig alta|Interpersonal no contributiva: Alta|Interpersonal no contributiva: Molt alta" data-highlight="true" id="slider-corporal" min="0" max="6" value="0" >
+		
+			<label for="slider-corporal">Intrapersonal: <span id="span-corporal"></span></label>
+			<input data-mini="true" class="intel-slider" type="range" data-levels="Mig|Mig alt|Alt|Molt alt|Superdotat" data-highlight="true" id="slider-corporal" min="0" max="3" value="0" >
+		
+			<label for="slider-corporal">Musical: <span id="span-corporal"></span></label>
+			<input data-mini="true" class="intel-slider" type="range" data-levels="Mig|Mig alt|Alt|Molt alt|Superdotat" data-highlight="true" id="slider-corporal" min="0" max="3" value="0" >
+		
+			<label for="slider-corporal">Numèrica: <span id="span-corporal"></span></label>
+			<input data-mini="true" class="intel-slider" type="range" data-levels="Mig|Mig alt|Alt|Molt alt|Superdotat" data-highlight="true" id="slider-corporal" min="0" max="4" value="0" >
+		
+			<label for="slider-corporal">Raonament lògic: <span id="span-corporal"></span></label>
+			<input data-mini="true" class="intel-slider" type="range" data-levels="Mig|Mig alt|Alt|Molt alt|Superdotat" data-highlight="true" id="slider-corporal" min="0" max="4" value="0" >
+		
+			<label for="slider-corporal">Verbal: <span id="span-corporal"></span></label>
+			<input data-mini="true" class="intel-slider" type="range" data-levels="Mig|Mig alt|Alt|Molt alt|Superdotat" data-highlight="true" id="slider-corporal" min="0" max="4" value="0" >
+
+			<label for="slider-corporal">Visual: <span id="span-corporal"></span></label>
+			<input data-mini="true" class="intel-slider" type="range" data-levels="Mig|Mig alt|Alt|Molt alt|Superdotat" data-highlight="true" id="slider-corporal" min="0" max="3" value="0" >
+		</div>
+
+	</div><!-- /page -->
 
 </body>
 </html>
@@ -140,10 +215,10 @@ var project_id;
 var project_name;
 var student_id;
 var student_name;
+var student_sex;
 var comps_masc;
 var comps_fem;
-var list_masc;
-var list_fem;
+var comps_millora;
 var comp_name;
 var comp_id;
 var comps_groups = null;// = [{'id':1,'name':"Societat"}, {'id':2,'name':"Professional"}, {'id':3,'name':"Excel·lència"}];
@@ -159,6 +234,7 @@ var current_groups = [];
 			project_name = localStorage.getItem('project_name');
 			comps_masc = JSON.parse(localStorage.getItem('comps_masc'));
 			comps_fem = JSON.parse(localStorage.getItem('comps_fem'));
+			comps_millora = JSON.parse(localStorage.getItem('comps_millora'));
 			comps_groups = JSON.parse(localStorage.getItem('comps_groups'));
 			console.log(comps_masc);
 		}
@@ -168,8 +244,14 @@ var current_groups = [];
 			console.log(user_name);
 			$.mobile.navigate( "#projects-page" );
 		}
+		
+		
+		
 	});
-
+		
+		
+		
+		
 	$('#login-form').submit(function(e) {
 		e.preventDefault();
 		e.stopPropagation();
@@ -203,7 +285,7 @@ var current_groups = [];
 	$( "#projects-page" ).on( "pageshow", function( e ) {
 		$(this).find('h1').text("Projectes de " + user_name);
 		{ // Demanem la llista de competències
-			if ((comps_masc == null) || (comps_fem == null) || (comps_groups == null)) {
+			if ((comps_masc == null) || (comps_fem == null) || (comps_groups == null) || (comps_millora == null)) {
 				$.ajax({
 					// TODO: Enviar l'idioma en funció del particular
 					url: "https://intra.aim-solo.com/schools/assets/php/ajax/ajax_return_competences.php?lang=cat&id=" + entitat_id,
@@ -213,16 +295,17 @@ var current_groups = [];
 						console.log('competències');
 						console.log(data);
 						if (data.success) {
-							comps_masc = data['comps_masc'];
-							comps_fem = data['comps_fem'];
+							comps_masc = data.comps_masc;
+							comps_fem = data.comps_fem;
 							comps_groups = data.groups;
+							comps_millora = data.comps_millora;
 							//comps_groups = data;
 							localStorage.setItem('comps_masc', JSON.stringify(comps_masc));
 							localStorage.setItem('comps_fem', JSON.stringify(comps_fem));
 							localStorage.setItem('comps_groups', JSON.stringify(comps_groups));
+							localStorage.setItem('comps_millora', JSON.stringify(comps_millora));
 							build_comps_filter();
 						}
-						else { alert(data.msg + 'yeye'); }
 					}
 				});
 			}
@@ -270,7 +353,7 @@ var current_groups = [];
 					list = $("#student-list");
 					list.empty();
 					data.users.forEach(function (user, index) {
-						var list_item = $('<li><a data-id="' + user.id + '">' + user.name + ' ' + user.lastname + '</a></li>');
+						var list_item = $('<li><a data-id="' + user.id + '" data-sex="' + user.sex + '">' + user.name + ' ' + user.lastname + '</a></li>');
 						list.append(list_item).listview('refresh');
 					});
 				}
@@ -281,16 +364,21 @@ var current_groups = [];
 
 	$(document).on('click', "#student-list li a",function () {
 		student_id = $(this).data('id');
+		student_sex = $(this).data('sex');
 		student_name = $(this).text();
-		$.mobile.navigate("#comps-page");
+		$.mobile.navigate("#selector-page");
+	});
+}
+
+{ // Selector page
+	$("#selector-page").on( "pageshow", function( e ) {
+		$(this).find('h1').text(student_name);
 	});
 }
 
 { // Comps page
 	$("#comps-page").on( "pageshow", function( e ) {
 		$(this).find('h1').text("Competències de " + student_name);
-		
-		// TODO: Mirar gènere de l'estudiant
 		build_comp_list();
 		
 	});
@@ -339,6 +427,54 @@ var current_groups = [];
 	});*/
 }
 
+{ // Comps_millora page
+	$("#comps_millora-page").on( "pageshow", function( e ) {
+		$(this).find('h1').text("Competències de " + student_name);
+		build_comp_millora_list();
+	});
+
+	$(document).on('click', "#comps_millora-list li a",function () {
+		comp_id = $(this).data('id');
+		comp_name = $(this).text();
+		$('#comps_millora-popup').popup('open');
+		$('#comps_millora-popup p').text(student_name + ' és ' + comp_name + "?");
+	});
+	
+	$(document).on('click', "#si-comp_millora",function () {
+		update_comp_millora(1);
+	});
+	
+	$(document).on('click', "#no-comp_millora",function () {
+		update_comp_millora(0);
+	});
+
+}
+
+{ // Intels page
+	// TODO: El nivell es carrega pq es fa un trigger al change, però el propi change actualitza el nivell del nanu.
+	// Per tant el primer change no l'hauria d'actualitzar. Potser es pot fer amb un .done després del primer trigger.
+	// Esborrar numero a l'esquerra dels sliders
+	// I Ajax
+	$("#intels-page").on( "pageshow", function( e ) {
+		$(this).find('h1').text("Intel·ligències de " + student_name);
+		$(".intel-slider").trigger('change');
+	});
+	
+	$(".intel-slider[type='number']").each(function(e) {
+		console.log($(this));
+		$(this).visibility('hidden');
+	});
+
+	$(document).on('change', ".intel-slider",function () {
+		level = $(this).val();
+		levels = $(this).data('levels');
+		levels = levels.split('|');
+		$(this).parent().prev().find('span').text(levels[level]);
+	});
+	
+	
+}
+
 function logout() {
 	localStorage.removeItem('user_id');
 	localStorage.removeItem('user_name');
@@ -348,30 +484,34 @@ function logout() {
 
 function build_comp_list() {
 	list = "";
-	if (true/*student_sex*/) {
-		console.log(comps_masc);
+	if (!student_sex) {
 		comps_masc.forEach(function (comp, index) {
-
-			console.log(comp.name);
-			console.log(current_groups.indexOf(parseInt(comp.group)) > -1);
-			console.log(current_groups.length == 0);
-			
 			if(current_groups.indexOf(parseInt(comp.group)) > -1 || current_groups.length == 0) {
-				console.log('yeeees');
 				list = list + '<li><a data-id="' + comp.id + '">' + comp.name + '</a></li>';
 			}
 		});
-		
 	}
 	else {
 		comps_fem.forEach(function (comp, index) {
-			if(current_groups.indexOf(comp.id) > 0 || current_groups.length == 0) {
+			if(current_groups.indexOf(parseInt(comp.group)) > -1 || current_groups.length == 0) {
 				list = list + '<li><a data-id="' + comp.id + '">' + comp.name + '</a></li>';
 			}
 		});
 	}
-	console.log(list);
+	
+	
 	$("#comps-list").html(list).listview('refresh');
+}
+
+function build_comp_millora_list() {
+	list_millora = "";
+	comps_millora.forEach(function (comp, index) {
+		if(current_groups.indexOf(comp.id) > 0 || current_groups.length == 0) {
+			list_millora = list_millora + '<li><a data-id="' + comp.id + '">' + comp.name + '</a></li>';
+		}
+	});
+
+	$("#comps_millora-list").html(list_millora).listview('refresh'); // No es pot inicialitzar abans de crear-lo
 }
 
 function build_comps_filter() {
@@ -395,6 +535,24 @@ function update_comp(v) {
 			if (data.success) {
 				$("#comps-popup").popup('close');
 				$("#success-popup").popup('open');
+			}
+			else { alert(data.msg); }
+		}
+	});
+}
+
+function update_comp_millora(v) {
+	url = "https://intra.aim-solo.com/schools/assets/php/ajax/ajax_change_competence_cm.php?t=" + user_id + "&p=" + project_id + "&c=" + comp_id + "&v=" + v + "&id=" + student_id;
+	console.log(url);
+	$.ajax({
+		url: url,
+		success: function(data) {
+			// Arriba la resposta
+			data = JSON.parse(data);
+			console.log(data);
+			if (data.success) {
+				$("#comps_millora-popup").popup('close');
+				$("#success_millora-popup").popup('open');
 			}
 			else { alert(data.msg); }
 		}
